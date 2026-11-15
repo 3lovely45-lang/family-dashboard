@@ -5721,6 +5721,8 @@
       date.type = 'date';
       date.className = 'dday-date';
       date.required = true;
+      // 오늘 날짜로 열어 두고, 달력에서 원하는 날로 바꾸면 돼요
+      date.value = dateKeyOf(kstDate());
       date.setAttribute('aria-label', '디데이 날짜');
       const title = document.createElement('input');
       title.type = 'text';

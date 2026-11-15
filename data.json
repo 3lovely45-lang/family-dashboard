@@ -1,0 +1,34 @@
+{
+  "tagline": "우리집의 포근한 하루",
+  "members": [
+    {
+      "id": "appa",
+      "name": "아빠",
+      "sub": "하늘 고양이와 함께",
+      "stars": 0,
+      "avatar": "appa"
+    },
+    {
+      "id": "eomma",
+      "name": "엄마",
+      "sub": "노랑 토끼와 함께",
+      "stars": 0,
+      "avatar": "eomma"
+    },
+    {
+      "id": "dohyun",
+      "name": "도현",
+      "sub": "꼬마 햄스터와 함께",
+      "stars": 0,
+      "avatar": "dohyun"
+    },
+    {
+      "id": "ihyun",
+      "name": "이현",
+      "sub": "딸기 아기곰과 함께",
+      "stars": 0,
+      "avatar": "ihyun"
+    }
+  ],
+  "logs": []
+}

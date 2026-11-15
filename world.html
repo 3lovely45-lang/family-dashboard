@@ -376,13 +376,20 @@ html[data-resolved="night"] .dex-stage{color:#FFE58A;background:#3A3008}
 .evo-coins.full .num{color:var(--good)}
 .evo-coins .full-flag{font-size:9px;font-weight:900;color:var(--good)}
 .evo-days{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;margin-top:5px}
-.evo-day{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;border:1.6px solid rgba(29,42,68,.24);border-radius:7px;background:var(--paper-2);padding:1px 0 2px;line-height:1.05;min-width:0}
+.evo-day{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;border:1.6px solid rgba(29,42,68,.24);border-radius:7px;background:var(--paper-2);padding:2px 0 3px;line-height:1.05;min-width:0}
 .evo-day .dw{font-size:8.5px;font-weight:900;color:var(--ink-faint);letter-spacing:-.3px}
 .evo-day .mk{font-size:9px;font-weight:900;color:var(--ink-faint);height:11px;line-height:11px}
 .evo-day.on{background:var(--accent-2);border-color:var(--coin-d);box-shadow:0 1.5px 0 var(--shadow)}
 .evo-day.on .dw{color:#6B4A00}
 .evo-day.on .mk{color:var(--pipe-d)}
-.evo-day.today{outline:2.4px solid var(--mario-red);outline-offset:1px}
+.evo-day.today{outline:2.4px solid #FFC93C;outline-offset:1px}
+html[data-resolved="night"] .evo-day{background:#1B2A44;border-color:rgba(190,220,250,.2)}
+html[data-resolved="night"] .evo-day .dw{color:#9FB3CE}
+html[data-resolved="night"] .evo-day .mk{color:#8AA0C4}
+html[data-resolved="night"] .evo-day.on{background:#4A3E0C;border-color:#B78F00}
+html[data-resolved="night"] .evo-day.on .dw{color:#FFE58A}
+html[data-resolved="night"] .evo-day.on .mk{color:#9BEF8A}
+html[data-resolved="night"] .evo-next{color:#A8BEDC}
 .evo-blocks{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;margin-top:5px}
 .evo-block{height:8px;border:1.4px solid rgba(29,42,68,.28);border-radius:3px;background:var(--paper-3)}
 .evo-block.on{background:var(--coin);border-color:var(--coin-d);box-shadow:inset 0 -2px 0 rgba(0,0,0,.14)}

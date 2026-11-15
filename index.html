@@ -3106,7 +3106,15 @@
       }
 
       .meal-section { grid-row: 7; grid-column: 1; }
-      .shop-section { grid-row: 7; grid-column: 2; }
+
+      .shop-section {
+        grid-row: 7;
+        grid-column: 2;
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
 
       /* 맨 아래: 가족 사진 + 가족에게 감사편지 */
       .photo-card {
@@ -3170,6 +3178,9 @@
         grid-column: 3;
         align-self: stretch;
         height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
 
       .schedule-section { grid-row: 4; grid-column: 1 / -1; }

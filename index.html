@@ -5347,7 +5347,13 @@
           body: JSON.stringify({
             tagline: state.tagline,
             members: state.members,
-            logs: state.logs,
+            // 편지 시각은 시트에서 날짜·시간 값으로 바뀌지 않도록 글자 그대로 보냅니다
+            logs: (state.logs || []).map(l => ({
+              id: l.id,
+              author: l.author,
+              text: l.text,
+              time: LETTER_TIME_PREFIX + letterTimeText(l)
+            })),
             todos: state.todos,
             screenTime: state.screenTime,
             events: state.events

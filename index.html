@@ -1046,9 +1046,9 @@
       <div id="todoMembers"></div>
     </section>
 
-    <section class="screen-section" id="screenSection" aria-label="오늘 전자기기 사용시간">
-      <h2 class="screen-title">📱 오늘 전자기기 사용시간</h2>
-      <p class="screen-subtitle">바를 움직여 오늘 쓴 시간을 기록해요 · 10분 단위</p>
+    <section class="screen-section" id="screenSection" aria-label="이번주 전자기기 사용시간">
+      <h2 class="screen-title">📱 이번주 전자기기 사용시간</h2>
+      <p class="screen-subtitle">바를 움직여 이번 주에 쓴 시간을 기록해요 · 10분 단위</p>
       <div id="screenTimeMembers"></div>
     </section>
 
@@ -1349,7 +1349,7 @@
         `[우리 가족 기록장 · ${formatKoreanDate()}]`,
         '☑️ 오늘 할 일',
         ...todoLines,
-        '📱 오늘 전자기기 사용시간',
+        '📱 이번주 전자기기 사용시간',
         ...screenLines
       ].join('\n');
       if (navigator.share && location.protocol.startsWith('http')) {

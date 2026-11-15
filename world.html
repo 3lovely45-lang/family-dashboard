@@ -654,16 +654,16 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
     <div class="hero-main">
       <div class="emblem">
         <div class="emblem-badge" aria-hidden="true">
-          <svg width="44" height="38" viewBox="0 0 44 38">
-            <rect x="6" y="4" width="26" height="12" rx="6" fill="#E52521" stroke="#7A1410" stroke-width="2.4"/>
-            <rect x="26" y="7" width="15" height="6" rx="3" fill="#E52521" stroke="#7A1410" stroke-width="2.4"/>
-            <rect x="4" y="16" width="30" height="4" rx="2" fill="#B81B17" stroke="#7A1410" stroke-width="1.6"/>
-            <rect x="1" y="24" width="9" height="9" rx="2" fill="#FFE9D6" stroke="#7A1410" stroke-width="2"/>
-            <rect x="2.5" y="28" width="6" height="5" fill="#1D2A44"/>
-            <rect x="11" y="27" width="12" height="7" rx="3" fill="#FBD000" stroke="#7A5A00" stroke-width="2"/>
-            <text x="17" y="33" font-family="monospace" font-size="7.5" font-weight="900" fill="#7A4A00" text-anchor="middle">?</text>
-            <rect x="26" y="25" width="17" height="9" rx="3" fill="#43B047" stroke="#2C7C30" stroke-width="2"/>
-            <rect x="28" y="27" width="5" height="3" rx="1.5" fill="#7FD672"/>
+          <svg width="44" height="38" viewBox="0 0 46 40">
+            <path d="M3 19a20 14 0 0 1 40 0Z" fill="#E52521" stroke="#8E120E" stroke-width="2.4"/>
+            <circle cx="14" cy="13" r="3.4" fill="#FFFDF5"/>
+            <circle cx="31" cy="13" r="3" fill="#FFFDF5"/>
+            <circle cx="22.5" cy="7.6" r="2.6" fill="#FFFDF5"/>
+            <path d="M11 19h24v8a12 12 0 0 1-24 0Z" fill="#FFF3D6" stroke="#8A5A00" stroke-width="2.2"/>
+            <rect x="16.6" y="21" width="3.6" height="5.4" rx="1.2" fill="#1D2A44"/>
+            <rect x="25.8" y="21" width="3.6" height="5.4" rx="1.2" fill="#1D2A44"/>
+            <rect x="33" y="24" width="12" height="12" rx="3" fill="#FBD000" stroke="#7A5A00" stroke-width="2"/>
+            <text x="39" y="33.6" font-size="8.6" font-weight="900" fill="#7A4A00" text-anchor="middle" font-family="monospace">?</text>
           </svg>
         </div>
         <div class="emblem-text">
@@ -1305,7 +1305,7 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
       if (mode === 'off') dot.classList.add('off');
     }
     if (txt) {
-      txt.textContent = mode === 'syncing' ? '저장 중' : (mode === 'off' ? '연결 안 됨' : '연결됨');
+      txt.textContent = mode === 'syncing' ? '동기화 중' : (mode === 'off' ? '연결 안 됨' : '연결됨');
     }
   }
 
@@ -2452,7 +2452,7 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
         '<div class="sticker-card' + (stickerUnlocked ? '' : ' sticker-locked') + '">' +
           '<div class="sticker-head">' + avatarBubble(kidId) +
             '<span class="sticker-name">' + esc(name) + '</span>' +
-            '<span class="sticker-progress">' + stars + ' / ' + STICKER_MAX + '개 · 🎟️ ' + active.length + '장</span></div>' +
+            '<span class="sticker-progress">' + stars + ' / ' + STICKER_MAX + '개 · 🎟️ ' + tickets.length + '장</span></div>' +
           '<div class="sticker-slots" role="group" aria-label="' + esc(name) + ' 칭찬 스티커">' + slots + '</div>' +
           '<div class="sticker-actions">' +
             '<button type="button" data-act="sticker-minus" data-kid="' + kidId + '">−1 스티커</button>' +
@@ -2465,7 +2465,9 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
               return '<div class="wish-row"><input type="text" value="' + esc(t.text || '') + '" data-wish-input="' + esc(t.id) + '" maxlength="40" placeholder="소원을 적어보세요 (예: 치킨 먹기)"' + (stickerUnlocked ? '' : ' readonly') + ' aria-label="소원 내용" />' +
                 '<button type="button" data-act="wish-use" data-id="' + esc(t.id) + '">사용</button>' +
                 '<button type="button" data-act="wish-del" data-id="' + esc(t.id) + '">✕</button></div>';
-            }).join('') : '<div class="wish-empty">아직 소원권이 없어요 · 스티커 5개를 모아 보세요</div>') +
+            }).join('') : '<div class="wish-empty">' + (tickets.length
+              ? '지금 쓸 수 있는 소원권은 없어요 · 사용한 소원권은 아래에서 볼 수 있어요'
+              : '아직 소원권이 없어요 · 스티커 5개를 모아 보세요') + '</div>') +
             (used.length ? '<button type="button" class="wish-used-toggle" data-act="wish-used" data-kid="' + kidId + '">사용한 소원권 ' + used.length + '장 ' + (open ? '접기' : '보기') + '</button>' +
               (open ? used.map(function (t) {
                 return '<div class="wish-row wish-done"><span style="flex:1;font-size:10.5px;font-weight:800;color:var(--ink-faint)">🎉 ' + esc(wishLabel(t)) + '</span>' +

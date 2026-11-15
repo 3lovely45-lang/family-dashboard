@@ -561,6 +561,39 @@
       box-shadow: var(--shadow-soft);
     }
 
+    .screen-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .screen-lock-btn {
+      flex-shrink: 0;
+      border: 1px solid #E1E8DE;
+      background: #FFFFFF;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #5A6B5E;
+      font-family: inherit;
+      white-space: nowrap;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .screen-lock-btn:active {
+      transform: scale(0.96);
+    }
+
+    .screen-lock-btn.on {
+      border-color: #BFE3B4;
+      background: #E8F8EE;
+      color: #2F7D5B;
+      box-shadow: 0 0 0 3px rgba(138, 216, 190, 0.16);
+    }
+
     .screen-title {
       margin: 0;
       font-family: 'Jua', 'Pretendard', sans-serif;
@@ -674,6 +707,15 @@
       color: #2F7D5B;
     }
 
+    .screen-step-btn:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    .screen-step-btn:disabled:active {
+      transform: none;
+    }
+
     .screen-range {
       -webkit-appearance: none;
       appearance: none;
@@ -723,6 +765,20 @@
       background: #FFFFFF;
       border: 3px solid var(--fill);
       box-shadow: 0 2px 6px rgba(90, 70, 40, 0.18);
+    }
+
+    /* 잠겨 있을 땐 바는 읽기 전용 그래프처럼 (색은 그대로, 손잡이만 숨김) */
+    .screen-range:disabled {
+      cursor: default;
+      opacity: 1;
+    }
+
+    .screen-row.locked .screen-range::-webkit-slider-thumb {
+      opacity: 0;
+    }
+
+    .screen-row.locked .screen-range::-moz-range-thumb {
+      opacity: 0;
     }
 
 
@@ -2473,8 +2529,13 @@
     </section>
 
     <section class="screen-section" id="screenSection" aria-label="이번주 전자기기 사용시간">
-      <h2 class="screen-title">📱 이번주 전자기기 사용시간</h2>
-      <p class="screen-subtitle">바를 움직여 이번 주에 쓴 시간을 기록해요 · 10분 단위</p>
+      <div class="screen-header">
+        <div>
+          <h2 class="screen-title">📱 이번주 전자기기 사용시간</h2>
+          <p class="screen-subtitle">평소엔 잠금 · 🔒 수정을 누르면 10분 단위로 조절해요</p>
+        </div>
+        <button class="screen-lock-btn" id="screenLockBtn" type="button" aria-pressed="false">🔒 수정</button>
+      </div>
       <div id="screenTimeMembers"></div>
     </section>
 
@@ -3917,6 +3978,33 @@
       return id === 'ihyun' ? '#8FC3F0' : '#8AD8BE';
     }
 
+    // 🔒 평소엔 잠금: '수정'을 누를 때만 버튼/바로 조절할 수 있어요 (동기화로 다시 그려도 잠금 상태 유지)
+    let screenEditUnlocked = false;
+
+    function syncScreenLockUi() {
+      const btn = document.getElementById('screenLockBtn');
+      if (btn) {
+        btn.textContent = screenEditUnlocked ? '🔓 완료' : '🔒 수정';
+        btn.classList.toggle('on', screenEditUnlocked);
+        btn.setAttribute('aria-pressed', screenEditUnlocked ? 'true' : 'false');
+        btn.setAttribute('aria-label', screenEditUnlocked ? '전자기기 사용시간 수정 완료(다시 잠그기)' : '전자기기 사용시간 수정하기(잠금 풀기)');
+      }
+      const wrap = document.getElementById('screenTimeMembers');
+      if (!wrap) return;
+      wrap.querySelectorAll('.screen-row').forEach(row => {
+        row.classList.toggle('locked', !screenEditUnlocked);
+        const range = row.querySelector('.screen-range');
+        if (range) {
+          range.disabled = !screenEditUnlocked;
+          range.tabIndex = screenEditUnlocked ? 0 : -1;
+          range.setAttribute('aria-disabled', screenEditUnlocked ? 'false' : 'true');
+        }
+        row.querySelectorAll('.screen-step-btn').forEach(stepBtn => {
+          stepBtn.disabled = !screenEditUnlocked;
+        });
+      });
+    }
+
     function renderScreenTime() {
       const wrap = document.getElementById('screenTimeMembers');
       if (!wrap) return;
@@ -3972,7 +4060,14 @@
         });
         wrap.appendChild(row);
       });
+      syncScreenLockUi();
     }
+
+    document.getElementById('screenLockBtn').addEventListener('click', () => {
+      screenEditUnlocked = !screenEditUnlocked;
+      syncScreenLockUi();
+      showToast(screenEditUnlocked ? '🔓 이제 버튼으로 조절할 수 있어요' : '🔒 사용시간을 잠갔어요');
+    });
 
     // Family Calendar
     const WEEKDAY_LABELS = ['일', '월', '화', '수', '목', '금', '토'];

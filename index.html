@@ -5355,7 +5355,7 @@
       });
 
       let playhead = '';
-      if (isRefDay) {
+      if (isRefDay && ref.min >= barStart && ref.min <= barEnd) {
         const at = Math.max(3, Math.min(96, pctOf(Math.max(barStart, Math.min(barEnd, ref.min)))));
         playhead = '<span class="sched-playhead" style="left:' + at.toFixed(3) + '%">' +
           '<span class="sched-now-tag">지금</span></span>';

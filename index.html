@@ -282,154 +282,6 @@
       text-decoration: none;
     }
 
-    /* Family Mint Container */
-    .family-board {
-      background: linear-gradient(180deg, var(--mint-top) 0%, var(--mint-bottom) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      border-radius: 28px;
-      padding: 13px;
-      box-shadow: 0 8px 24px rgba(120, 150, 100, 0.12);
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-    }
-
-    .member-card {
-      background: var(--card-bg);
-      border-radius: 22px;
-      padding: 12px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      box-shadow: var(--shadow-card);
-      border: 1px solid rgba(240, 240, 232, 0.9);
-      cursor: pointer;
-      transition: transform 0.12s ease;
-    }
-
-    .member-card:active {
-      transform: scale(0.985);
-    }
-
-    .member-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-      flex: 1;
-    }
-
-    .avatar-wrap {
-      width: 60px;
-      height: 60px;
-      border-radius: 18px;
-      background: #FFFFFF;
-      border: 1.5px solid #EFECE2;
-      overflow: hidden;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .avatar-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .member-info {
-      min-width: 0;
-    }
-
-    .member-name {
-      font-size: 19px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text-main);
-      line-height: 1.2;
-    }
-
-    .member-sub {
-      margin-top: 3px;
-      font-size: 12.5px;
-      color: var(--text-sub);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .member-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 5px;
-      flex-shrink: 0;
-    }
-
-    .star-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .star-count {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text-main);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      min-width: 44px;
-      justify-content: flex-end;
-    }
-
-    .star-pop {
-      animation: pop 0.28s ease;
-    }
-
-    @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.24); }
-      100% { transform: scale(1); }
-    }
-
-    .mini-step-btn {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: 1px solid #EAE2D0;
-      background: #FFFDF7;
-      color: #6B6258;
-      font-size: 15px;
-      font-weight: 700;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .mini-step-btn.plus {
-      background: #FFF3C4;
-      border-color: #F4DC8B;
-      color: #875D08;
-    }
-
-    .mini-step-btn:active {
-      transform: scale(0.9);
-    }
-
-    .piggy-label {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: #8A8177;
-    }
-
-
     /* Today's To-Do Section */
     .todo-section {
       margin-top: 16px;
@@ -912,31 +764,6 @@
       background: #FFFFFF;
     }
 
-    .star-action-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin: 10px 0 14px;
-    }
-
-    .star-action-btn {
-      border: 1px solid #EADFB9;
-      background: #FFF9DF;
-      border-radius: 14px;
-      padding: 10px 6px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #7D560A;
-      cursor: pointer;
-      font-family: inherit;
-    }
-
-    .star-action-btn.minus {
-      background: #F9F4EE;
-      border-color: #E7DFD5;
-      color: #6E655B;
-    }
-
     .save-btn {
       width: 100%;
       border: none;
@@ -1033,8 +860,6 @@
       </div>
     </section>
 
-    <section class="family-board" id="familyBoard" aria-label="가족 돼지저금통"></section>
-
     <section class="todo-section" id="todoSection" aria-label="오늘 할 일">
       <div class="todo-header">
         <div>
@@ -1053,34 +878,11 @@
       </div>
       <div class="who-chips" id="whoChips"></div>
       <form class="log-form" id="logForm">
-        <input class="log-input" id="logInput" type="text" maxlength="100" placeholder="오늘 있었던 일이나 별 받은 이유를 남겨요" />
+        <input class="log-input" id="logInput" type="text" maxlength="100" placeholder="오늘 있었던 일이나 가족에게 전할 말을 남겨요" />
         <button class="log-submit" type="submit">남기기</button>
       </form>
       <div class="log-list" id="logList"></div>
     </section>
-  </div>
-
-  <!-- Member Star Modal -->
-  <div class="modal-backdrop" id="memberModal">
-    <div class="modal-sheet">
-      <div class="modal-head">
-        <h3 class="modal-title" id="memberModalTitle">돼지저금통</h3>
-        <button class="close-btn" id="closeMemberModal" type="button">✕</button>
-      </div>
-      <div class="field-group">
-        <label class="field-label" for="starReasonInput">별 적립·사용 메모 (선택)</label>
-        <input class="field-input" id="starReasonInput" type="text" maxlength="40" placeholder="예: 스스로 숙제 완료! / 장난감 교환" />
-      </div>
-      <div class="star-action-grid">
-        <button class="star-action-btn" type="button" data-delta="1">+1 ⭐</button>
-        <button class="star-action-btn" type="button" data-delta="3">+3 ⭐</button>
-        <button class="star-action-btn" type="button" data-delta="5">+5 ⭐</button>
-        <button class="star-action-btn minus" type="button" data-delta="-1">-1 ⭐</button>
-        <button class="star-action-btn minus" type="button" data-delta="-5">-5 ⭐</button>
-        <button class="star-action-btn minus" type="button" data-delta="-10">-10 ⭐</button>
-      </div>
-      <p class="helper-text" id="memberModalInfo"></p>
-    </div>
   </div>
 
   <!-- Settings Modal -->
@@ -1154,7 +956,6 @@
 
     let state = loadState();
     let selectedAuthorId = state.members[2]?.id || 'dohyun';
-    let activeMemberId = null;
 
     function loadState() {
       try {
@@ -1211,77 +1012,9 @@
     function renderAll() {
       document.getElementById('dateLine').textContent = formatKoreanDate();
       document.getElementById('taglineText').textContent = state.tagline;
-      renderMembers();
       renderTodos();
       renderWhoChips();
       renderLogs();
-    }
-
-    function renderMembers() {
-      const board = document.getElementById('familyBoard');
-      board.innerHTML = '';
-      state.members.forEach(m => {
-        const card = document.createElement('div');
-        card.className = 'member-card';
-        card.innerHTML = `
-          <div class="member-left">
-            <div class="avatar-wrap">
-              <img src="${AVATARS[m.avatar] || AVATARS.dohyun}" alt="${escapeHtml(m.name)}" />
-            </div>
-            <div class="member-info">
-              <div class="member-name">${escapeHtml(m.name)}</div>
-              <div class="member-sub">${escapeHtml(m.sub)}</div>
-            </div>
-          </div>
-          <div class="member-right">
-            <div class="star-row">
-              <button class="mini-step-btn" type="button" aria-label="${escapeHtml(m.name)} 별 1 빼기">−</button>
-              <span class="star-count" id="star-${m.id}">⭐ ${m.stars}</span>
-              <button class="mini-step-btn plus" type="button" aria-label="${escapeHtml(m.name)} 별 1 더하기">+</button>
-            </div>
-            <div class="piggy-label">돼지저금통 🐷</div>
-          </div>
-        `;
-        const [minusBtn, plusBtn] = card.querySelectorAll('.mini-step-btn');
-        minusBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          adjustStar(m.id, -1, '');
-        });
-        plusBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          adjustStar(m.id, 1, '');
-        });
-        card.addEventListener('click', () => openMemberModal(m.id));
-        board.appendChild(card);
-      });
-    }
-
-    function adjustStar(memberId, delta, reason) {
-      const m = state.members.find(x => x.id === memberId);
-      if (!m) return;
-      const next = Math.max(0, (m.stars || 0) + delta);
-      const actualDelta = next - (m.stars || 0);
-      m.stars = next;
-      if (actualDelta !== 0) {
-        const sign = actualDelta > 0 ? `+${actualDelta}` : `${actualDelta}`;
-        const msg = reason ? `⭐ ${sign} (${reason})` : `⭐ ${sign} 돼지저금통 기록`;
-        state.logs.unshift({
-          id: Date.now() + Math.random(),
-          author: m.name,
-          text: msg,
-          time: formatNowTime()
-        });
-        if (state.logs.length > 40) state.logs = state.logs.slice(0, 40);
-      }
-      saveState();
-      renderAll();
-      const starEl = document.getElementById(`star-${m.id}`);
-      if (starEl) {
-        starEl.classList.remove('star-pop');
-        void starEl.offsetWidth;
-        starEl.classList.add('star-pop');
-      }
-      showToast(`${m.name} ⭐ ${m.stars}개`);
     }
 
     function renderWhoChips() {
@@ -1339,31 +1072,6 @@
         .replace(/"/g, '&quot;');
     }
 
-    // Member Modal
-    function openMemberModal(id) {
-      activeMemberId = id;
-      const m = state.members.find(x => x.id === id);
-      if (!m) return;
-      document.getElementById('memberModalTitle').textContent = `${m.name} 돼지저금통 (현재 ⭐ ${m.stars})`;
-      document.getElementById('starReasonInput').value = '';
-      document.getElementById('memberModalInfo').textContent = `${m.sub} · 버튼을 누르면 바로 별이 기록돼요.`;
-      document.getElementById('memberModal').classList.add('open');
-    }
-
-    document.getElementById('closeMemberModal').addEventListener('click', () => {
-      document.getElementById('memberModal').classList.remove('open');
-    });
-
-    document.querySelectorAll('#memberModal .star-action-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (!activeMemberId) return;
-        const delta = Number(btn.dataset.delta || 0);
-        const reason = document.getElementById('starReasonInput').value.trim();
-        adjustStar(activeMemberId, delta, reason);
-        document.getElementById('memberModal').classList.remove('open');
-      });
-    });
-
     // Settings Modal
     document.getElementById('settingsBtn').addEventListener('click', () => {
       document.getElementById('taglineInput').value = state.tagline;
@@ -1406,7 +1114,7 @@
       if (state.syncUrl) pullCloudSync();
     });
 
-    ['memberModal', 'settingsModal', 'todoModal'].forEach(id => {
+    ['settingsModal', 'todoModal'].forEach(id => {
       document.getElementById(id).addEventListener('click', (e) => {
         if (e.target.id === id) document.getElementById(id).classList.remove('open');
       });
@@ -1440,9 +1148,15 @@
 
     // Share Button
     document.getElementById('shareBtn').addEventListener('click', async () => {
+      const todoLines = orderedTodoMembers().map(m => {
+        const items = state.todos.filter(t => t.memberId === m.id);
+        const done = items.filter(t => t.done).length;
+        return `- ${m.name}: ${done}/${items.length} 완료`;
+      });
       const summary = [
         `[우리 가족 기록장 · ${formatKoreanDate()}]`,
-        ...state.members.map(m => `- ${m.name}: ⭐ ${m.stars}`)
+        '☑️ 오늘 할 일',
+        ...todoLines
       ].join('\n');
       if (navigator.share && location.protocol.startsWith('http')) {
         try {

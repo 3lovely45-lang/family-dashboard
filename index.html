@@ -2408,7 +2408,7 @@
           const res = await fetch(state.syncUrl);
           if (res.ok) {
             const data = await res.json();
-            if (Array.isArray(data.members)) state.members = data.members;
+            if (Array.isArray(data.members)) state.members = normalizeMemberSubs(data.members);
             if (Array.isArray(data.logs)) state.logs = data.logs;
             if (data.tagline) state.tagline = data.tagline;
             if (Array.isArray(data.todos)) state.todos = data.todos;

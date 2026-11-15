@@ -291,6 +291,7 @@ html[data-resolved="night"] .chip-btn.on{background:var(--coin);color:#10233C;bo
   font-weight:900;cursor:pointer;line-height:1;padding:0;box-shadow:0 2px 0 var(--shadow);
 }
 .cal-nav button:active{transform:translateY(1px);box-shadow:none}
+.cal-nav button.cal-today{width:auto;padding:0 11px;border-radius:999px;white-space:nowrap}
 .cal-month-label{font-size:11.5px;font-weight:900;min-width:78px;text-align:center}
 .cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px}
 .cal-dow{text-align:center;font-size:10px;font-weight:900;color:var(--ink-soft);padding:1px 0 2px}
@@ -580,6 +581,125 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
 .foot{margin-top:14px;text-align:center;font-size:9.5px;font-weight:700;color:var(--ink-faint);line-height:1.6}
 .foot a{text-decoration:none;border-bottom:1px dotted var(--ink-faint)}
 
+/* ---------------- 🎵 음악 · 유튜브 TOP 100 플레이어 ---------------- */
+.yt-grid{align-items:start}
+@media(min-width:980px){.view-grid.yt-grid{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}}
+.yt-slot{
+  position:relative;width:100%;height:322px;border:2.5px solid var(--line);border-radius:12px;
+  background:linear-gradient(160deg,#1B3A63,#0B1526 62%);overflow:hidden;
+}
+.yt-slot-empty{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:7px;padding:12px;text-align:center;font-size:11px;font-weight:800;color:#C3D9FF;line-height:1.6;
+}
+.yt-slot-empty b{font-size:12.5px;color:#FFE9A8}
+.yt-slot-empty .yt-slot-btn{
+  margin-top:3px;padding:6px 11px;border-radius:9px;border:2px solid var(--coin-d);
+  background:var(--coin);color:#4A3200;font-size:11px;font-weight:900;cursor:pointer;
+  box-shadow:0 3px 0 rgba(0,0,0,.3);
+}
+.yt-slot-empty .yt-slot-btn:active{transform:translateY(2px);box-shadow:none}
+.yt-note{margin:7px 1px 0;font-size:9.5px;font-weight:700;color:var(--ink-faint);letter-spacing:-.15px;line-height:1.5}
+.yt-chip{
+  margin-left:auto;font-size:10px;font-weight:900;padding:2px 8px;border-radius:999px;
+  border:1.5px solid var(--line);background:var(--paper-2);color:var(--ink-soft);white-space:nowrap;
+}
+.yt-chip.on{background:var(--good);border-color:#1E7C3A;color:#fff}
+html[data-resolved="night"] .yt-chip.on{background:#1E7C3A;border-color:#5FD08A;color:#EAFFF1}
+.yt-presets{display:flex;flex-direction:column;gap:6px}
+.yt-preset{
+  display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;width:100%;
+  padding:7px 9px;border:2px solid var(--line);border-radius:10px;background:var(--paper-2);
+  cursor:pointer;box-shadow:0 2px 0 var(--shadow);min-width:0;
+}
+.yt-preset:active{transform:translateY(1px);box-shadow:none}
+.yt-preset b{font-size:11.5px;font-weight:900;letter-spacing:-.25px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.yt-preset span{font-size:9.5px;font-weight:700;color:var(--ink-faint);letter-spacing:-.15px;line-height:1.35}
+.yt-preset.on{background:var(--accent-2);border-color:var(--coin-d)}
+.yt-preset.on span{color:var(--coin-d)}
+html[data-resolved="night"] .yt-preset.on{background:#42380E;border-color:var(--coin);color:#FFF3C4}
+html[data-resolved="night"] .yt-preset.on span{color:#E8CE72}
+.yt-link-row{display:flex;gap:5px;align-items:stretch}
+.yt-link-row input{
+  flex:1 1 auto;min-width:0;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:-.15px;
+  padding:6px 8px;border:2px solid var(--line);border-radius:9px;background:var(--paper-2);color:var(--ink);
+}
+.yt-link-row input::placeholder{color:var(--ink-faint);font-weight:700}
+.yt-link-row button{
+  flex:0 0 auto;padding:6px 10px;border:2px solid var(--line);border-radius:9px;background:var(--sky-blue);
+  color:#fff;font-size:11px;font-weight:900;cursor:pointer;box-shadow:0 2px 0 var(--shadow);white-space:nowrap;
+}
+.yt-link-row button:active{transform:translateY(1px);box-shadow:none}
+.yt-link-foot{display:flex;align-items:center;gap:6px;margin-top:6px;flex-wrap:wrap;font-size:9.5px;font-weight:800;color:var(--ink-faint)}
+.yt-link-foot span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.yt-link-foot button{
+  margin-left:auto;padding:3px 8px;border:1.5px dashed var(--ink-faint);border-radius:999px;
+  background:transparent;color:var(--ink-soft);font-size:9.5px;font-weight:900;cursor:pointer;white-space:nowrap;
+}
+.yt-link-foot button:active{transform:translateY(1px)}
+
+/* 상단 탭 재생 표시 */
+.tab.music-on::after{
+  content:'';display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:#2EA84F;box-shadow:0 0 0 1.5px rgba(255,255,255,.85);animation:pulse 1.4s infinite;
+}
+.tab[data-c="gold"].on.music-on::after{background:#7A5A00;box-shadow:0 0 0 1.5px rgba(255,255,255,.9)}
+
+/* 고정 플레이어 도크 (카드 모드 / 미니바 모드) */
+.yt-dock{
+  position:fixed;z-index:38;display:flex;flex-direction:column;margin:0;padding:6px;
+  border:2.5px solid var(--line);border-radius:13px;background:var(--paper);
+  box-shadow:0 6px 20px rgba(29,42,68,.3);overflow:hidden;
+}
+html[data-resolved="night"] .yt-dock{background:#152A4E;box-shadow:0 6px 20px rgba(0,0,0,.55)}
+.yt-dock[hidden]{display:none}
+.yt-dock-inner{display:flex;flex-direction:column;flex:1 1 auto;min-height:0;gap:5px}
+.yt-frame-wrap{position:relative;flex:1 1 auto;min-height:0;border-radius:9px;overflow:hidden;background:#0B1526}
+#ytPlayerHost{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.yt-frame-loading{
+  position:absolute;inset:0;display:grid;place-items:center;font-size:10.5px;font-weight:800;color:#9FBBE6;
+  background:linear-gradient(120deg,#132B4C,#0B1526);letter-spacing:-.2px;
+}
+.yt-frame-loading.gone{display:none}
+.yt-dock-ctrl{display:flex;align-items:center;gap:6px;flex:0 0 auto;min-width:0;padding:0 1px}
+.yt-now{
+  flex:1 1 auto;min-width:0;font-size:11px;font-weight:900;letter-spacing:-.25px;color:var(--ink);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.yt-now i{font-style:normal;font-size:9.5px;font-weight:900;color:var(--ink-faint);margin-left:5px}
+.yt-btns{display:flex;align-items:center;gap:4px;flex:0 0 auto}
+.yt-btns button{
+  width:28px;height:28px;display:grid;place-items:center;padding:0;border-radius:9px;
+  border:1.8px solid var(--line);background:var(--paper-2);color:var(--ink);
+  font-size:12px;font-weight:900;line-height:1;cursor:pointer;box-shadow:0 2px 0 var(--shadow);
+}
+.yt-btns button:active{transform:translateY(1px);box-shadow:none}
+.yt-btns button.wide{width:auto;padding:0 8px;font-size:10.5px;white-space:nowrap}
+.yt-btns button.on{background:var(--accent-2);border-color:var(--coin-d)}
+html[data-resolved="night"] .yt-btns button.on{background:#42380E;border-color:var(--coin);color:#FFF3C4}
+.yt-dock[data-mode="card"]{z-index:38}
+.yt-dock[data-mode="card"] .yt-dock-ctrl{padding:2px 2px 1px}
+.yt-dock[data-mode="bar"]{
+  z-index:62;left:50%;transform:translateX(-50%);top:auto;
+  bottom:calc(12px + env(safe-area-inset-bottom,0px));
+  width:calc(100% - 20px);max-width:540px;padding:6px 8px;
+  border-radius:14px;animation:ytBarIn .18s ease;
+}
+.yt-dock[data-mode="bar"] .yt-frame-wrap{
+  position:absolute;left:0;top:0;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none;flex:0 0 auto;
+}
+.yt-dock[data-mode="bar"] .yt-dock-inner{gap:0}
+@keyframes ytBarIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
+body.yt-bar-on .app{padding-bottom:78px}
+@media(max-width:760px){
+  .yt-slot{height:260px;border-radius:11px}
+  .yt-dock[data-mode="card"]{border-radius:12px;padding:5px}
+  .yt-btns button{width:27px;height:27px}
+  .yt-btns button.wide{padding:0 7px;font-size:10px}
+  .yt-now{font-size:10.5px}
+  .yt-dock[data-mode="bar"]{width:calc(100% - 14px);bottom:calc(9px + env(safe-area-inset-bottom,0px))}
+}
+
 /* ---------------- 반응형 ---------------- */
 @media(max-width:860px){
   .hero-main{grid-template-columns:auto minmax(0,1fr);row-gap:9px}
@@ -630,7 +750,7 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
       <button class="tab" type="button" data-c="green" data-act="tab" data-view="dohyun">👦 도현</button>
       <button class="tab" type="button" data-c="green" data-act="tab" data-view="ihyun">👧 이현</button>
       <button class="tab" type="button" data-c="gold" data-act="tab" data-view="sticker">⭐ 스티커</button>
-      <button class="tab" type="button" data-c="gold" data-act="music" id="musicBtn" aria-pressed="false">🎵 음악</button>
+      <button class="tab" type="button" data-c="gold" data-act="tab" data-view="music" id="musicBtn" aria-pressed="false">🎵 음악</button>
       <button class="tab" type="button" data-c="blue" data-act="tab" data-view="todo-dohyun">☑️ 도현 할 일</button>
       <button class="tab" type="button" data-c="blue" data-act="tab" data-view="todo-ihyun">☑️ 이현 할 일</button>
       <button class="tab" type="button" data-c="green" data-act="tab" data-view="shop">🛒 장보기</button>
@@ -721,7 +841,7 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
               <h2 class="card-title">📅 <span id="calTitle">가족 달력</span></h2>
               <div class="cal-nav">
                 <button type="button" data-act="cal-prev" aria-label="지난 달">◀</button>
-                <button type="button" data-act="cal-today" aria-label="이번 달">오늘</button>
+                <button type="button" class="cal-today" data-act="cal-today" aria-label="이번 달">오늘</button>
                 <button type="button" data-act="cal-next" aria-label="다음 달">▶</button>
               </div>
             </div>
@@ -947,6 +1067,62 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
       </div>
     </section>
 
+    <!-- ================= 🎵 음악 · 유튜브 TOP 100 ================= -->
+    <section class="view" id="view-music" aria-label="음악">
+      <div class="view-head">
+        <h2 class="view-title">🎵 음악 · 유튜브 차트 플레이어</h2>
+        <span class="view-sub">다른 탭으로 넘어가도 노래는 계속 흘러요</span>
+        <span class="yt-chip" id="ytStatusChip">플레이어 준비 중</span>
+      </div>
+      <div class="view-grid yt-grid two">
+        <article class="card">
+          <div class="card-head">
+            <h2 class="card-title">▶️ <span id="ytPresetTitle">유튜브 한국 인기곡 TOP 100</span></h2>
+            <span class="card-tools card-sub" id="ytTrackCount"></span>
+          </div>
+          <!-- 유튜브 플레이어(#ytPlayerDock)가 이 자리에 떠요 · 탭을 바꿔도 iframe은 살아 있어요 -->
+          <div class="yt-slot" id="ytSlot">
+            <div class="yt-slot-empty" id="ytSlotEmpty">
+              <b>▶️ 유튜브 한국 인기곡 TOP 100</b>
+              <span>아래 재생 버튼을 누르면 여기에 플레이어가 떠요</span>
+            </div>
+          </div>
+          <p class="yt-note">외부 재생이 제한된 곡은 자동으로 다음 곡으로 넘어가요 · 무료 유튜브 계정은 광고가 나올 수 있어요</p>
+        </article>
+        <div class="col">
+          <article class="card">
+            <div class="card-head"><h2 class="card-title">🎚️ 프리셋 채널</h2></div>
+            <div class="yt-presets" id="ytPresets">
+              <button class="yt-preset on" type="button" data-act="yt-preset" data-key="kr100">
+                <b>🔥 한국 인기곡 TOP 100</b><span>유튜브 뮤직 공식 · 매주 바뀌는 한국 인기곡</span>
+              </button>
+              <button class="yt-preset" type="button" data-act="yt-preset" data-key="kpop">
+                <b>🎶 최신 K-POP 히트곡</b><span>케이팝 인기 뮤직비디오 차트</span>
+              </button>
+              <button class="yt-preset" type="button" data-act="yt-preset" data-key="kids">
+                <b>🧸 가족·아이들 신나는 동요</b><span>핑크퐁 인기 율동동요 모음</span>
+              </button>
+              <button class="yt-preset" type="button" data-act="yt-preset" data-key="mario">
+                <b>🍄 8비트 마리오 배경음</b><span>인터넷 없이 바로 나는 마리오풍 멜로디</span>
+              </button>
+            </div>
+          </article>
+          <article class="card">
+            <div class="card-head"><h2 class="card-title">🔗 내 유튜브 링크 연결</h2></div>
+            <div class="yt-link-row">
+              <input type="text" id="ytLinkInput" inputmode="url" autocomplete="off" spellcheck="false"
+                placeholder="https://youtu.be/… 또는 …?list=…" aria-label="유튜브 영상 또는 재생목록 주소">
+              <button type="button" data-act="yt-link-save">연결</button>
+            </div>
+            <div class="yt-link-foot">
+              <span id="ytLinkState">기본 TOP 100을 듣고 있어요</span>
+              <button type="button" data-act="yt-link-reset">TOP 100으로 되돌리기</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= ☑️ 도현 할 일 ================= -->
     <section class="view" id="view-todo-dohyun" aria-label="도현 할 일">
       <div class="view-head">
@@ -1057,6 +1233,29 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
     </section>
 
   </main>
+
+  <!-- ================= 🔊 고정 유튜브 플레이어 도크 =================
+       #views 바깥에 한 번만 그려 두고, 탭을 바꿔도 iframe을 옮기지 않아요.
+       음악 탭에서는 큰 카드로, 다른 탭에서는 미니바로 도킹됩니다. -->
+  <div class="yt-dock" id="ytPlayerDock" hidden aria-label="유튜브 플레이어">
+    <div class="yt-dock-inner">
+      <div class="yt-frame-wrap">
+        <div id="ytPlayerHost"></div>
+        <div class="yt-frame-loading" id="ytFrameLoading">▶️ 유튜브 플레이어를 준비하는 중…</div>
+      </div>
+      <div class="yt-dock-ctrl">
+        <div class="yt-now" id="ytNowText">재생할 곡을 고르는 중…</div>
+        <div class="yt-btns">
+          <button type="button" data-act="yt-prev" aria-label="이전 곡" title="이전 곡">⏮</button>
+          <button type="button" data-act="yt-toggle" id="ytToggleBtn" aria-label="재생" title="재생 / 일시정지">▶</button>
+          <button type="button" data-act="yt-next" aria-label="다음 곡" title="다음 곡">⏭</button>
+          <button type="button" data-act="yt-shuffle" id="ytShuffleBtn" aria-label="셔플" aria-pressed="false" title="셔플">🔀</button>
+          <button type="button" class="wide" data-act="yt-home" aria-label="음악 탭으로">🎵 음악탭</button>
+          <button type="button" data-act="yt-close" aria-label="플레이어 닫기" title="닫기">✕</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer class="foot">
     우리 가족 마리오 월드 · <span id="footSync">Google 시트와 실시간 동기화</span><br>
@@ -1757,8 +1956,7 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
     music.timer = null;
     musicTick();
     music.timer = setInterval(musicTick, 210);
-    var btn = $('#musicBtn');
-    if (btn) { btn.classList.add('music-on'); btn.setAttribute('aria-pressed', 'true'); }
+    syncYtUI();
     return true;
   }
   function stopMusic() {
@@ -1766,12 +1964,423 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
     clearInterval(music.timer);
     music.timer = null;
     if (music.ctx && music.ctx.state === 'running') { try { music.ctx.suspend(); } catch (e) {} }
-    var btn = $('#musicBtn');
-    if (btn) { btn.classList.remove('music-on'); btn.setAttribute('aria-pressed', 'false'); }
+    syncYtUI();
   }
   function toggleMusic() {
     if (music.on) { stopMusic(); toast('🎵 음악을 껐어요'); return; }
     if (startMusic()) toast('🎵 마리오풍 8비트 음악을 켰어요');
+  }
+
+  /* ================================================================
+     🎵 유튜브 TOP 100 플레이어
+     - #ytPlayerDock 은 #views 바깥에 한 번만 있어요 (탭 전환에도 iframe 유지)
+     - 음악 탭 = 큰 카드 모드 / 다른 탭 = 하단 미니바 모드
+     ================================================================ */
+  var YT_LS_KEY = 'family_world_mario_yt';
+  var YT_API_SRC = 'https://www.youtube.com/iframe_api';
+  var YT_PRESETS = [
+    { key: 'kr100', card: '유튜브 한국 인기곡 TOP 100', list: 'PL4fGSI1pDJn6jXS_Tv_N9B8Z0HTRVJE0m' },
+    { key: 'kpop', card: 'K-POP 인기 뮤직비디오 TOP 100', list: 'PL4fGSI1pDJn5S09aId3dUGp40ygUqmPGc' },
+    { key: 'kids', card: '핑크퐁 인기 율동동요', list: 'PLhzBuObIigYN-P3oPTfclK9pHMgRHqsjc' },
+    { key: 'mario', card: '8비트 마리오 배경음', list: '' }
+  ];
+  var yt = {
+    api: 0,            // 0 시작 전 · 1 로딩 중 · 2 준비됨 · 3 실패
+    player: null, ready: false, active: false, playing: false,
+    preset: 'kr100', custom: null, shuffle: false, dismissed: false,
+    errRun: 0, waiting: null, title: '', index: -1, total: 0
+  };
+
+  function ytPresetByKey(key) {
+    for (var i = 0; i < YT_PRESETS.length; i++) {
+      if (YT_PRESETS[i].key === key) return YT_PRESETS[i];
+    }
+    return YT_PRESETS[0];
+  }
+  function ytIsMario() { return !yt.custom && yt.preset === 'mario'; }
+
+  function ytLoad() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(YT_LS_KEY) || 'null');
+      if (raw && typeof raw === 'object') {
+        if (raw.preset) yt.preset = ytPresetByKey(String(raw.preset)).key;
+        if (raw.custom && raw.custom.value) {
+          yt.custom = {
+            kind: raw.custom.kind === 'video' ? 'video' : 'list',
+            value: String(raw.custom.value),
+            raw: String(raw.custom.raw || raw.custom.value)
+          };
+        }
+        yt.shuffle = !!raw.shuffle;
+      }
+    } catch (e) { /* 저장된 값이 없으면 기본 TOP 100 */ }
+  }
+  function ytSave() {
+    try {
+      localStorage.setItem(YT_LS_KEY, JSON.stringify({ preset: yt.preset, custom: yt.custom, shuffle: yt.shuffle }));
+    } catch (e) { /* 저장 실패는 무시 */ }
+  }
+
+  /* 유튜브 주소에서 재생목록/영상 아이디를 찾아요 */
+  function parseYtLink(raw) {
+    var s = String(raw || '').trim();
+    if (!s) return null;
+    var list = (s.match(/[?&]list=([A-Za-z0-9_-]{10,})/) || [])[1] || '';
+    var vid = (s.match(/[?&]v=([A-Za-z0-9_-]{11})/) || [])[1] ||
+              (s.match(/youtu\.be\/([A-Za-z0-9_-]{11})/) || [])[1] ||
+              (s.match(/\/embed\/([A-Za-z0-9_-]{11})/) || [])[1] ||
+              (s.match(/\/live\/([A-Za-z0-9_-]{11})/) || [])[1] ||
+              (s.match(/\/shorts\/([A-Za-z0-9_-]{11})/) || [])[1] || '';
+    if (list) return { kind: 'list', value: list, raw: s };
+    if (vid) return { kind: 'video', value: vid, raw: s };
+    if (/^[A-Za-z0-9_-]{11}$/.test(s)) return { kind: 'video', value: s, raw: s };
+    if (/^[A-Za-z0-9_-]{18,}$/.test(s)) return { kind: 'list', value: s, raw: s };
+    return null;
+  }
+  function ytShortLink(c) {
+    var s = String((c && (c.raw || c.value)) || '');
+    return s.replace(/^https?:\/\//, '').replace(/^www\./, '').slice(0, 44);
+  }
+
+  function ytEnsurePlayer(cb) {
+    if (cb) yt.waiting = cb;
+    if (yt.ready && yt.player) {
+      var f = yt.waiting; yt.waiting = null; if (f) f();
+      return;
+    }
+    if (yt.api === 1) return;
+    if (yt.api === 3) { var g = yt.waiting; yt.waiting = null; if (g) g(); return; }
+    if (window.YT && window.YT.Player) { ytBuild(); return; }
+    yt.api = 1;
+    var prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () {
+      if (typeof prev === 'function') { try { prev(); } catch (e) {} }
+      ytBuild();
+    };
+    if (!document.getElementById('ytApiScript')) {
+      var s = document.createElement('script');
+      s.id = 'ytApiScript';
+      s.src = YT_API_SRC;
+      s.async = true;
+      s.onerror = function () { yt.api = 3; syncYtUI(); layoutDock(); };
+      document.head.appendChild(s);
+    }
+    setTimeout(function () {
+      if (!yt.ready && yt.api !== 3) { yt.api = 3; syncYtUI(); layoutDock(); }
+    }, 12000);
+  }
+
+  function ytBuild() {
+    if (yt.player || !window.YT || !window.YT.Player) return;
+    var host = $('#ytPlayerHost');
+    if (!host) return;
+    yt.api = 1;
+    var org = location.protocol === 'http:' || location.protocol === 'https:' ? location.origin : '';
+    var pv = {
+      autoplay: 0, controls: 1, fs: 1, rel: 0, modestbranding: 1, playsinline: 1,
+      iv_load_policy: 3, enablejsapi: 1, hl: 'ko'
+    };
+    if (org) pv.origin = org;
+    var opts = { width: '100%', height: '100%', playerVars: pv, events: {
+      onReady: onYtReady, onStateChange: onYtState, onError: onYtError
+    } };
+    if (yt.custom && yt.custom.kind === 'video') {
+      opts.videoId = yt.custom.value;
+    } else {
+      pv.listType = 'playlist';
+      pv.list = (yt.custom && yt.custom.value) || ytPresetByKey(yt.preset).list || YT_PRESETS[0].list;
+    }
+    try {
+      yt.player = new window.YT.Player('ytPlayerHost', opts);
+    } catch (e) {
+      yt.api = 3; yt.player = null; syncYtUI(); layoutDock();
+    }
+  }
+
+  function onYtReady() {
+    yt.api = 2; yt.ready = true;
+    try { yt.player.setVolume(80); } catch (e) {}
+    if (yt.shuffle) { try { yt.player.setShuffle(true); } catch (e) {} }
+    var f = yt.waiting; yt.waiting = null;
+    syncYtUI(); layoutDock();
+    if (f) f();
+  }
+
+  function onYtState(e) {
+    var s = e && e.data;
+    if (s === 1) {
+      yt.playing = true; yt.active = true; yt.errRun = 0; yt.dismissed = false;
+      if (yt.shuffle) { try { yt.player.setShuffle(true); } catch (er) {} }
+      setTimeout(function () { syncYtUI(); }, 250);
+    } else if (s === 2 || s === 0) {
+      yt.playing = false;
+    } else if (s === 3 || s === 5 || s === -1) {
+      /* 廣고·버퍼링 중에는 상태가 -1/3 으로 오기도 해서 재생 표시를 풀지 않아요 */
+      yt.active = true;
+    }
+    syncYtUI();
+    layoutDock();
+  }
+
+  /* 재생이 막힌 곡(101/150 등)은 최대 8곁까지 자동으로 넘어가요 */
+  function onYtError(e) {
+    var code = e && e.data;
+    yt.errRun += 1;
+    if (yt.errRun > 8) {
+      yt.errRun = 0;
+      toast('이 재생목록은 지금 재생할 수 없어요 · 다른 채널을 골라 주세요');
+      syncYtUI();
+      return;
+    }
+    setTimeout(function () {
+      if (!yt.player || !yt.player.nextVideo) { syncYtUI(); return; }
+      try { yt.player.nextVideo(); } catch (err) {}
+    }, 450);
+    syncYtUI();
+  }
+
+  function ytApply(auto) {
+    if (!yt.player || !yt.ready) return;
+    yt.errRun = 0;
+    var c = yt.custom;
+    if (c && c.kind === 'video') {
+      if (auto) { yt.active = true; yt.playing = true; yt.dismissed = false; yt.player.loadVideoById(c.value); }
+      else { try { yt.player.cueVideoById(c.value); } catch (e) {} }
+    } else {
+      var list = (c && c.value) || ytPresetByKey(yt.preset).list || YT_PRESETS[0].list;
+      var o = { list: list, listType: 'playlist', index: 0, startSeconds: 0 };
+      if (auto) {
+        yt.active = true; yt.playing = true; yt.dismissed = false;
+        try { yt.player.loadPlaylist(o); yt.player.playVideo(); } catch (e) {}
+      } else {
+        try { yt.player.cuePlaylist(o); } catch (e) {}
+      }
+    }
+    if (yt.shuffle) { try { yt.player.setShuffle(true); } catch (e) {} }
+    syncYtUI();
+    layoutDock();
+  }
+
+  function ytSetPreset(key) {
+    var p = ytPresetByKey(key);
+    var linkInput = $('#ytLinkInput');
+    if (linkInput) linkInput.value = '';
+    if (key === 'mario') {
+      yt.preset = 'mario'; yt.custom = null; yt.dismissed = false;
+      if (yt.player && yt.ready) { try { yt.player.pauseVideo(); } catch (e) {} }
+      yt.playing = false; ytSave();
+      if (!music.on) startMusic();
+      toast('🍄 8비트 마리오 배경음으로 바꿨어요');
+      syncYtUI(); layoutDock();
+      return;
+    }
+    stopMusic();
+    yt.preset = key; yt.custom = null; yt.dismissed = false; ytSave();
+    ytEnsurePlayer(function () { ytApply(true); });
+    toast(p.card + ' 채널로 바꿨어요');
+    syncYtUI(); layoutDock();
+  }
+
+  function ytToggle() {
+    if (ytIsMario()) { toggleMusic(); syncYtUI(); return; }
+    if (yt.api === 3 && !yt.player) {
+      yt.api = 0;
+      ytEnsurePlayer(function () { ytToggle(); });
+      toast('유튜브 플레이어를 다시 불러오는 중이에요');
+      return;
+    }
+    ytEnsurePlayer(function () {
+      var s = -1;
+      try { s = yt.player.getPlayerState(); } catch (e) {}
+      yt.dismissed = false;
+      if (s === 1 || yt.playing) {
+        /* 廣고 중에는 상태가 -1 로 와서 재생 의도(playing)를 함께 봐요 */
+        yt.playing = false;
+        try { yt.player.pauseVideo(); } catch (e) {}
+      } else if (s === 2 || s === 3 || s === 5) {
+        yt.active = true; yt.playing = true;
+        try { yt.player.playVideo(); } catch (e) {}
+      } else {
+        ytApply(true);
+      }
+      syncYtUI(); layoutDock();
+    });
+  }
+
+  function ytStep(dir) {
+    if (!yt.player || !yt.ready) { toast('플레이어를 준비하는 중이에요'); ytEnsurePlayer(null); return; }
+    var total = 0;
+    try { var pl = yt.player.getPlaylist(); total = pl ? pl.length : 0; } catch (e) {}
+    if (!total) { toast('한 곡짜리 링크예요 · 재생목록을 연결하면 넘길 수 있어요'); return; }
+    yt.errRun = 0;
+    try {
+      if (dir < 0) yt.player.previousVideo();
+      else yt.player.nextVideo();
+    } catch (e) {}
+    setTimeout(function () { syncYtUI(); }, 400);
+  }
+
+  function ytToggleShuffle() {
+    yt.shuffle = !yt.shuffle;
+    ytSave();
+    if (yt.player && yt.ready) { try { yt.player.setShuffle(yt.shuffle); } catch (e) {} }
+    toast(yt.shuffle ? '🔀 셔플로 들을게요' : '▶ 순서대로 들을게요');
+    syncYtUI();
+  }
+
+  function ytClose() {
+    yt.dismissed = true;
+    if (yt.player && yt.ready) { try { yt.player.pauseVideo(); } catch (e) {} }
+    yt.playing = false;
+    syncYtUI(); layoutDock();
+    toast('🔇 미니 플레이어를 닫았어요');
+  }
+
+  function ytSaveLink(raw) {
+    var c = parseYtLink(raw);
+    if (!c) { toast('유튜브 영상이나 재생목록 주소를 다시 확인해 주세요'); return false; }
+    yt.custom = c; yt.dismissed = false; ytSave();
+    var input = $('#ytLinkInput');
+    if (input) input.value = c.raw;
+    ytEnsurePlayer(function () { ytApply(true); });
+    toast('🔗 내 유튜브 링크를 연결했어요');
+    syncYtUI(); layoutDock();
+    return true;
+  }
+
+  function ytResetLink() {
+    yt.custom = null; yt.dismissed = false; ytSave();
+    var input = $('#ytLinkInput');
+    if (input) input.value = '';
+    if (ytIsMario()) { toast('🍄 8비트 음악을 끄고 TOP 100으로 돌아갈게요'); ytSetPreset('kr100'); return; }
+    ytEnsurePlayer(function () { ytApply(true); });
+    toast('🔥 한국 인기곡 TOP 100으로 되돌렸어요');
+    syncYtUI(); layoutDock();
+  }
+
+  /* ---------------- 도크 배치 ---------------- */
+  var dockRaf = 0;
+  function queueDockLayout() {
+    if (dockRaf) return;
+    dockRaf = requestAnimationFrame(function () { dockRaf = 0; layoutDock(); });
+  }
+
+  function sizeYtSlot() {
+    var slot = $('#ytSlot');
+    if (!slot || view !== 'music') return;
+    var w = slot.clientWidth || 0;
+    if (!w) return;
+    var vh = Math.round(w * 9 / 16);
+    var max = Math.min(430, Math.round(window.innerHeight * 0.56));
+    vh = Math.max(150, Math.min(vh, max));
+    slot.style.height = (vh + 56) + 'px';
+  }
+
+  function layoutDock() {
+    var dock = $('#ytPlayerDock'), slot = $('#ytSlot');
+    if (!dock || !slot) return;
+    var mario = ytIsMario();
+    var mode = 'none';
+    if (view === 'music' && !mario) mode = 'card';
+    else if (!mario && yt.active && !yt.dismissed) mode = 'bar';
+    document.body.classList.toggle('yt-bar-on', mode === 'bar');
+    if (mode === 'none') {
+      dock.hidden = true;
+      dock.removeAttribute('data-mode');
+      dock.style.left = ''; dock.style.top = ''; dock.style.width = ''; dock.style.height = '';
+      return;
+    }
+    dock.hidden = false;
+    dock.setAttribute('data-mode', mode);
+    if (mode === 'bar') {
+      dock.style.left = ''; dock.style.top = ''; dock.style.width = ''; dock.style.height = '';
+      return;
+    }
+    sizeYtSlot();
+    if (!yt.player) ytEnsurePlayer(null);
+    var r = slot.getBoundingClientRect();
+    var bar = $('.topbar');
+    var minTop = (bar ? bar.getBoundingClientRect().bottom : 0) + 6;
+    var top = Math.max(r.top, minTop);
+    var h = r.bottom - top;
+    if (h < 150) h = 150;
+    dock.style.left = Math.round(r.left) + 'px';
+    dock.style.top = Math.round(top) + 'px';
+    dock.style.width = Math.round(r.width) + 'px';
+    dock.style.height = Math.round(h) + 'px';
+  }
+
+  function syncYtUI() {
+    var mario = ytIsMario();
+    var playing = yt.playing && !mario;
+    var musicOn = playing || music.on;
+    var btn = $('#musicBtn');
+    if (btn) {
+      btn.classList.toggle('music-on', musicOn);
+      btn.setAttribute('aria-pressed', musicOn ? 'true' : 'false');
+    }
+    $$('#ytPresets .yt-preset').forEach(function (b) {
+      var k = b.getAttribute('data-key');
+      b.classList.toggle('on', !yt.custom && k === yt.preset);
+    });
+    var titleEl = $('#ytPresetTitle');
+    if (titleEl) titleEl.textContent = yt.custom ? '내가 연결한 유튜브' : ytPresetByKey(yt.preset).card;
+    ytReadNow();
+    var chip = $('#ytStatusChip');
+    if (chip) {
+      var label = '플레이어 준비 중', on = false;
+      if (mario) { label = music.on ? '8비트 재생 중' : '8비트 대기'; on = music.on; }
+      else if (yt.api === 3) { label = '유튜브 연결 실패'; }
+      else if (playing) { label = '유튜브 재생 중'; on = true; }
+      else if (yt.ready) { label = yt.active ? '일시정지' : '재생 준비 완료'; }
+      chip.textContent = label;
+      chip.classList.toggle('on', on);
+    }
+    var now = $('#ytNowText');
+    if (now) {
+      var t = yt.title;
+      if (!t) t = mario ? '8비트 마리오 배경음' : (yt.ready ? '재생 버튼을 눌러요' : '유튜브 준비 중…');
+      var extra = (!mario && yt.index >= 0 && yt.total > 0) ? '<i>' + (yt.index + 1) + ' / ' + yt.total + '</i>' : '';
+      now.innerHTML = esc(t) + extra;
+    }
+    var cnt = $('#ytTrackCount');
+    if (cnt) {
+      cnt.textContent = (!mario && yt.total > 0 && yt.index >= 0) ? (yt.index + 1) + ' / ' + yt.total + '곡' : '';
+    }
+    var tg = $('#ytToggleBtn');
+    if (tg) {
+      tg.textContent = playing ? '⏸' : '▶';
+      tg.setAttribute('aria-label', playing ? '일시정지' : '재생');
+    }
+    var sh = $('#ytShuffleBtn');
+    if (sh) {
+      sh.classList.toggle('on', yt.shuffle);
+      sh.setAttribute('aria-pressed', yt.shuffle ? 'true' : 'false');
+    }
+    var st = $('#ytLinkState');
+    if (st) st.textContent = yt.custom ? ('연결됨 · ' + ytShortLink(yt.custom)) : '기본 TOP 100을 듣고 있어요';
+    var empty = $('#ytSlotEmpty');
+    if (empty) {
+      if (mario) {
+        empty.innerHTML = '<b>🍄 8비트 마리오 배경음</b><span>' +
+          (music.on ? '지금 마리오풍 멜로디가 흐르고 있어요' : '인터넷 없이 바로 들을 수 있어요') +
+          '</span><button class="yt-slot-btn" type="button" data-act="yt-8bit">' +
+          (music.on ? '⏸ 8비트 음악 끄기' : '▶ 8비트 음악 켜기') + '</button>';
+      } else {
+        empty.innerHTML = '<b>▶️ ' + esc(yt.custom ? '내가 연결한 유튜브' : ytPresetByKey(yt.preset).card) + '</b><span>' +
+          (yt.api === 3 ? '유튜브를 불러오지 못했어요 · 🍄 8비트 음악을 들어보세요' : ' 플레이어가 준비되면 여기에 영상이 떠요') + '</span>';
+      }
+    }
+    var load = $('#ytFrameLoading');
+    if (load) load.classList.toggle('gone', !!(yt.player && yt.ready) || mario);
+  }
+
+  function ytReadNow() {
+    yt.title = ''; yt.index = -1; yt.total = 0;
+    if (!yt.player || !yt.ready) return;
+    try { var d = yt.player.getVideoData(); if (d && d.title) yt.title = String(d.title); } catch (e) {}
+    try { var i = yt.player.getPlaylistIndex(); if (typeof i === 'number' && i >= 0) yt.index = i; } catch (e) {}
+    try { var pl = yt.player.getPlaylist(); if (pl && pl.length) yt.total = pl.length; } catch (e) {}
   }
 
   /* ================================================================
@@ -2802,7 +3411,7 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
   /* ================================================================
      화면 전환
      ================================================================ */
-  var VIEWS = ['dashboard', 'dohyun', 'ihyun', 'sticker', 'todo-dohyun', 'todo-ihyun', 'shop', 'letters'];
+  var VIEWS = ['dashboard', 'dohyun', 'ihyun', 'sticker', 'music', 'todo-dohyun', 'todo-ihyun', 'shop', 'letters'];
   function setView(name) {
     if (VIEWS.indexOf(name) < 0) name = 'dashboard';
     view = name;
@@ -2818,6 +3427,9 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
       try { active.scrollIntoView({ block: 'nearest', inline: 'center' }); } catch (e) {}
     }
     renderAll();
+    syncYtUI();
+    layoutDock();
+    if (name === 'music') setTimeout(layoutDock, 220);
   }
 
   /* ================================================================
@@ -2939,7 +3551,20 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
     switch (act) {
       case 'tab': setView(el.getAttribute('data-view')); break;
       case 'theme': cycleTheme(); break;
-      case 'music': toggleMusic(); break;
+      case 'music': setView('music'); break;
+      case 'yt-preset': ytSetPreset(el.getAttribute('data-key')); break;
+      case 'yt-toggle': ytToggle(); break;
+      case 'yt-prev': ytStep(-1); break;
+      case 'yt-next': ytStep(1); break;
+      case 'yt-shuffle': ytToggleShuffle(); break;
+      case 'yt-close': ytClose(); break;
+      case 'yt-home': setView('music'); break;
+      case 'yt-8bit': toggleMusic(); syncYtUI(); break;
+      case 'yt-link-save':
+        var linkInput = $('#ytLinkInput');
+        ytSaveLink(linkInput ? linkInput.value : '');
+        break;
+      case 'yt-link-reset': ytResetLink(); break;
       case 'fullscreen': goFullscreen(); break;
       case 'cal-prev':
         calCursor = new Date(calCursor.getFullYear(), calCursor.getMonth() - 1, 1);
@@ -3104,6 +3729,7 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
      ================================================================ */
   function init() {
     loadLocal();
+    ytLoad();
     applyTheme();
     paintStars();
     renderWhoChips();
@@ -3123,6 +3749,21 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
     setInterval(loadWeather, 30 * 60 * 1000);
     setInterval(function () { loadMeal(false); }, 60 * 60 * 1000);
     setTimeout(function () { renderCalendar(); }, 400);
+
+    /* 🎵 유튜브 플레이어 · 도크 위치 추적 */
+    var ytInput = $('#ytLinkInput');
+    if (ytInput) {
+      if (yt.custom) ytInput.value = yt.custom.raw || yt.custom.value;
+      ytInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); ytSaveLink(ytInput.value); }
+      });
+    }
+    window.addEventListener('resize', queueDockLayout, { passive: true });
+    window.addEventListener('scroll', queueDockLayout, { passive: true });
+    window.addEventListener('orientationchange', queueDockLayout);
+    if (window.ResizeObserver) { try { new ResizeObserver(queueDockLayout).observe(document.body); } catch (e) {} }
+    syncYtUI();
+    layoutDock();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

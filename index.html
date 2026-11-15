@@ -3228,30 +3228,70 @@
       }
     }
 
-    /* ===== 🌤️ 날씨 카드 · 🏃 도현 지금 : 작게, 핵심만 ===== */
+    /* ===== 🌤️ 날씨 카드 · 🏃 도현 지금 : 크게, 핵심만 ===== */
     .weather-card {
-      padding: 11px 13px;
+      padding: 12px 14px;
       border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
     }
 
-    .weather-row-top { gap: 6px; flex-wrap: wrap; }
+    .weather-top {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+    }
 
-    .weather-main { gap: 5px; }
+    .weather-emoji {
+      font-size: 23px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
 
-    .weather-emoji { font-size: 17px; }
+    .weather-temp {
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size: 39px;
+      font-weight: 800;
+      line-height: 0.94;
+      letter-spacing: -0.03em;
+      color: #2F2A25;
+      font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
 
-    .weather-loc { font-size: 12.5px; }
+    .weather-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
 
-    .weather-temp { font-size: 15px; }
+    .weather-loc {
+      font-size: 12.5px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #3F3A34;
+      word-break: keep-all;
+    }
 
-    .weather-cond { font-size: 12px; }
-
-    .weather-minmax { font-size: 11px; white-space: nowrap; }
+    .weather-minmax {
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #847A6E;
+      white-space: nowrap;
+    }
 
     .weather-row-bottom {
-      margin-top: 7px;
+      display: flex;
+      align-items: center;
       justify-content: flex-start;
       gap: 5px;
+      flex-wrap: wrap;
+      margin-top: 0;
     }
 
     .badge {
@@ -3260,14 +3300,23 @@
     }
 
     .weather-meta {
-      margin-top: 6px;
+      margin-top: 0;
       font-size: 9.5px;
       line-height: 1.3;
     }
 
     .weather-credit { white-space: nowrap; }
 
-    /* 도현 지금: 핵심 상태 + 얇은 타임라인만 */
+    /* 도현 지금: 큰 상태 한 줄 + 짧은 정보 한 줄 (막대 없이) */
+    .schedule-section {
+      padding: 12px 14px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 7px;
+    }
+
     .sched-header { gap: 7px; }
 
     .sched-avatar {
@@ -3282,76 +3331,122 @@
 
     .sched-live-dot { width: 6px; height: 6px; }
 
-    .sched-clock-time { font-size: 15px; }
+    .sched-clock-time { font-size: 15px; line-height: 1.05; }
 
     .sched-clock-day { font-size: 9.5px; margin-top: 1px; }
 
-    .sched-days { margin-top: 7px; gap: 3px; }
-
-    .sched-day {
-      width: 26px;
-      padding: 4px 0;
-      font-size: 11px;
+    .sched-toggle {
+      flex-shrink: 0;
+      margin: 0 0 0 2px;
+      padding: 3px 8px;
+      border: 1px dashed #E3D4B8;
+      background: rgba(255, 253, 245, 0.9);
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1.3;
+      color: #8A7B63;
+      cursor: pointer;
+      white-space: nowrap;
     }
 
-    .sched-today-btn { padding: 4px 8px; font-size: 10px; }
-
     .sched-hero {
-      margin-top: 7px;
-      padding: 8px 10px;
+      margin-top: 0;
+      padding: 9px 12px;
       border-radius: 14px;
+    }
+
+    .sched-hero-top {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
     }
 
     .sched-cat { font-size: 10px; padding: 2px 7px; }
 
     .sched-hero-time { font-size: 10.5px; }
 
-    .sched-now { margin: 4px 0 0; font-size: 12.5px; line-height: 1.3; }
+    .sched-now {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #2C2823;
+      letter-spacing: -0.01em;
+      word-break: keep-all;
+    }
 
-    .sched-now b { font-size: 14px; }
+    .sched-now b {
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size: 23px;
+      font-weight: 400;
+      color: var(--cat-ink);
+      letter-spacing: -0.01em;
+    }
 
-    .sched-progress { height: 5px; margin: 6px 0 4px; }
-
-    .sched-hero-foot { font-size: 10px; gap: 2px 8px; }
-
-    .sched-barwrap { margin-top: 8px; }
-
-    .sched-bar-head { font-size: 9.5px; margin-bottom: 3px; }
-
-    .sched-track { height: 16px; border-radius: 8px; }
-
-    .sched-barpos { padding-top: 11px; }
-
-    .sched-playhead { top: 11px; }
-
-    .sched-playhead .sched-now-tag { top: -11px; font-size: 8px; padding: 0 5px; }
-
-    .sched-ticks { height: 11px; margin-top: 1px; }
-
-    .sched-tick { font-size: 8.5px; }
-
-    .sched-toggle {
-      display: block;
-      margin: 8px auto 0;
-      border: 1px dashed #E3D4B8;
-      background: rgba(255, 253, 245, 0.8);
-      border-radius: 999px;
-      padding: 3px 11px;
-      font-family: inherit;
+    .sched-hero-note {
+      margin-left: 5px;
+      font-family: 'Pretendard', sans-serif;
       font-size: 10.5px;
       font-weight: 700;
       color: #8A7B63;
-      cursor: pointer;
       white-space: nowrap;
+    }
+
+    .sched-hero-foot {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2px 8px;
+      margin-top: 5px;
+      font-size: 10.5px;
+      font-weight: 700;
+    }
+
+    .sched-left {
+      color: var(--cat-ink);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sched-next {
+      color: #857B6E;
+      font-weight: 600;
+      word-break: keep-all;
+    }
+
+    .sched-days { margin-top: 0; gap: 4px; flex-wrap: wrap; }
+
+    .sched-day {
+      width: 28px;
+      padding: 4px 0;
+      font-size: 11.5px;
+    }
+
+    .sched-today-btn { padding: 4px 8px; font-size: 10px; }
+
+    .sched-detail {
+      margin-top: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
     .sched-detail[hidden] { display: none; }
 
-    .sched-detail { margin-top: 8px; }
+    .sched-rows { display: grid; gap: 5px; margin-top: 0; }
 
-    .sched-rows { display: grid; gap: 5px; }
+    .sched-morning { margin-top: 0; margin-bottom: 0; }
 
-    .sched-morning { margin-top: 0; margin-bottom: 6px; }
+    @media (min-width: 760px) {
+      .weather-temp { font-size: 42px; }
+      .weather-emoji { font-size: 25px; }
+      .sched-now { font-size: 22px; }
+      .sched-now b { font-size: 26px; }
+      .sched-title { font-size: 15.5px; }
+    }
 
     /* ===== 폰(넓은 쪽): 날씨 + 도현 지금 나란히 ===== */
     @media (min-width: 430px) and (max-width: 759px) {
@@ -3419,9 +3514,6 @@
         grid-row: 2;
         grid-column: 1;
         align-self: stretch;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
       }
 
       .schedule-section {
@@ -3456,16 +3548,19 @@
         align-self: stretch;
       }
 
-      .shop-section {
+      /* 급식메뉴는 위로 (6번째 줄 오른쪽) */
+      .meal-section {
         grid-row: 6;
         grid-column: 2;
         align-self: stretch;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
       }
 
-      .meal-section { grid-row: 7; grid-column: 1; }
+      /* 장보기 메모는 아래로 (7번째 줄 왼쪽) */
+      .shop-section {
+        grid-row: 7;
+        grid-column: 1;
+        align-self: stretch;
+      }
 
       .photo-card {
         grid-row: 7;
@@ -3492,9 +3587,6 @@
         grid-row: 2;
         grid-column: 1;
         align-self: stretch;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
       }
 
       .schedule-section {
@@ -3514,18 +3606,15 @@
         grid-row: 3;
         grid-column: 1;
         align-self: stretch;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
       }
 
-      .shop-section {
+      /* 급식 메뉴는 위로: 3번째 줄 가운데 */
+      .meal-section {
         grid-row: 3;
         grid-column: 2;
         align-self: stretch;
         display: flex;
         flex-direction: column;
-        justify-content: center;
       }
 
       .todo-section { grid-row: 4; grid-column: 1 / -1; }
@@ -3541,7 +3630,14 @@
         gap: 16px;
       }
 
-      .meal-section { grid-row: 6; grid-column: 1; }
+      /* 장보기 메모는 맨 아래 줄로 */
+      .shop-section {
+        grid-row: 6;
+        grid-column: 1;
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+      }
 
       .photo-card {
         grid-row: 6;
@@ -3585,23 +3681,22 @@
       <div class="dday-form-host" id="ddayFormHost"></div>
     </header>
 
-    <section class="weather-card" aria-label="수원 망포동 날씨와 대기질">
-      <div class="weather-row-top">
-        <div class="weather-main">
-          <span class="weather-emoji" id="weatherEmoji">☀️</span>
-          <span class="weather-loc">수원 망포동</span>
-          <span class="weather-temp" id="weatherTemp">11°</span>
-          <span class="weather-cond" id="weatherCond">맑음</span>
+    <section class="weather-card" id="weatherCard" aria-label="수원 망포동 날씨와 대기질">
+      <div class="weather-top">
+        <span class="weather-emoji" id="weatherEmoji">☀️</span>
+        <span class="weather-temp" id="weatherTemp">11°</span>
+        <div class="weather-info">
+          <span class="weather-loc" id="weatherLoc">수원 망포동 · 맑음</span>
+          <span class="weather-minmax" id="weatherMinMax">최저 8° · 최고 17°</span>
         </div>
-        <span class="weather-minmax" id="weatherMinMax">최저 8° · 최고 17°</span>
       </div>
       <div class="weather-row-bottom">
-        <span class="badge badge-fair" id="pm10Badge">미세먼지 보통</span>
-        <span class="badge badge-bad" id="pm25Badge">초미세먼지 나쁨</span>
+        <span class="badge badge-fair" id="pm10Badge">미세 보통</span>
+        <span class="badge badge-bad" id="pm25Badge">초미세 나쁨</span>
         <span class="badge badge-mask" id="maskBadge">😷 마스크</span>
       </div>
       <div class="weather-meta">
-        <span id="weatherUpdated">망포동 기준</span>
+        <span id="weatherUpdated">망포동 날씨</span>
         <span class="weather-credit">
           <a href="https://developer.apple.com/weatherkit/data-source-attribution/" target="_blank" rel="noopener">&#xF8FF; Weather</a> ·
           <a href="https://www.airkorea.or.kr/" target="_blank" rel="noopener">AirKorea</a>
@@ -3609,23 +3704,22 @@
       </div>
     </section>
 
-    <section class="schedule-section" id="scheduleSection" aria-label="도현이 지금 상태바">
+    <section class="schedule-section" id="scheduleSection" aria-label="도현이 지금 상태">
       <div class="sched-header">
         <img class="sched-avatar" id="schedAvatar" alt="도현" />
         <div class="sched-head-text">
           <h2 class="sched-title">도현 지금 <span class="sched-live-dot" id="schedLiveDot" aria-hidden="true"></span></h2>
-          <p class="sched-sub" id="schedSub">2학기 시간표</p>
+          <p class="sched-sub" id="schedSub">지금 이 시간</p>
         </div>
         <div class="sched-clock">
           <span class="sched-clock-time" id="schedClock">--:--</span>
           <span class="sched-clock-day" id="schedClockDay">불러오는 중</span>
         </div>
+        <button class="sched-toggle" id="schedToggleBtn" type="button" aria-expanded="false" aria-controls="schedDetail">시간표 ▾</button>
       </div>
-      <div class="sched-days" id="schedDays" role="group" aria-label="요일 선택"></div>
       <div id="schedHero"></div>
-      <div id="schedBar"></div>
-      <button class="sched-toggle" id="schedToggleBtn" type="button" aria-expanded="false" aria-controls="schedDetail">전체 시간표 ▾</button>
       <div class="sched-detail" id="schedDetail" hidden>
+        <div class="sched-days" id="schedDays" role="group" aria-label="요일 선택"></div>
         <div class="sched-morning" id="schedMorning"></div>
         <div class="sched-rows" id="schedRows"></div>
       </div>
@@ -4252,14 +4346,17 @@
           const daily = w.daily || {};
           const [emoji, label] = wmoToKorean(cur.weather_code);
           document.getElementById('weatherEmoji').textContent = emoji;
-          document.getElementById('weatherCond').textContent = label;
+          const condEl = document.getElementById('weatherCond');
+          if (condEl) condEl.textContent = label;
+          const locEl = document.getElementById('weatherLoc');
+          if (locEl) locEl.textContent = '수원 망포동 · ' + label;
           if (typeof cur.temperature_2m === 'number') {
             document.getElementById('weatherTemp').textContent = `${Math.round(cur.temperature_2m)}°`;
           }
           if (daily.temperature_2m_min && daily.temperature_2m_max) {
             document.getElementById('weatherMinMax').textContent = `최저 ${Math.round(daily.temperature_2m_min[0])}° · 최고 ${Math.round(daily.temperature_2m_max[0])}°`;
           }
-          document.getElementById('weatherUpdated').textContent = `망포동 ${formatNowTime()} 기준`;
+          document.getElementById('weatherUpdated').textContent = `망포동 ${formatNowTime()}`;
         }
         if (aRes.ok) {
           const a = await aRes.json();
@@ -4268,14 +4365,14 @@
           if (typeof curA.pm10 === 'number') {
             const [g10, cls10] = pm10Grade(curA.pm10);
             const b10 = document.getElementById('pm10Badge');
-            b10.textContent = `미세먼지 ${g10}`;
+            b10.textContent = `미세 ${g10}`;
             b10.className = `badge ${cls10}`;
             if (g10 === '나쁨') needMask = true;
           }
           if (typeof curA.pm2_5 === 'number') {
             const [g25, cls25] = pm25Grade(curA.pm2_5);
             const b25 = document.getElementById('pm25Badge');
-            b25.textContent = `초미세먼지 ${g25}`;
+            b25.textContent = `초미세 ${g25}`;
             b25.className = `badge ${cls25}`;
             if (g25 === '나쁨') needMask = true;
           }
@@ -5981,6 +6078,31 @@
     ];
     const SCHED_PILL_ORDER = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
+    // 상태 문구도 한 눈에 익힐 수 있게 (원본 이름은 시간표에 그대로)
+    const SCHED_PRETTY = {
+      '학교': { text: '🏫 학교 수업 중', sub: '하교 전 · 열공 중' },
+      '국어 숙제': { text: '📝 국어 숙제 중' },
+      '수학 숙제': { text: '📝 수학 숙제 중' },
+      '리틀팡스 숙제': { text: '📝 리틀팡스 숙제 중' },
+      '수학 · 주산 · 한자 숙제': { text: '📝 수학·주산·한자 숙제' },
+      '수학 · 국어 · 리틀팡스 숙제': { text: '📝 수학·국어·리틀팡스 숙제' },
+      '리틀팡스 · 수학 · 국어 · 일기 · 한국사 숙제': { text: '📝 토요일 숙제 시간' },
+      '리틀팡스 · 수학 · 국어 · 독서록 · 한국사 숙제': { text: '📝 일요일 숙제 시간' },
+      '한자 숙제': { text: '📝 아침 한자 숙제' },
+      '주산 숙제': { text: '📝 아침 주산 숙제' },
+      '티볼': { text: '⚾ 아침 티볼 운동', short: '아침 티볼' },
+      '리틀팡스': { text: '🩷 리틀팡스 학원' },
+      '클라이밍': { text: '🧗 클라이밍 운동' },
+      '유니티 농구': { text: '🏀 유니티 농구' },
+      '박지성 축구': { text: '⚽ 박지성 축구' },
+      '배드민턴 방과후': { text: '🏸 배드민턴 방과후' },
+      '이동 · 준비': { text: '🚶 이동 · 쉬는 시간' },
+      '저녁 · 이동': { text: '🍽️ 저녁 · 쉬는 시간' },
+      '자유 · 취침 준비': { text: '🛋️ 자유 · 취침 준비' },
+      '취침': { text: '🌙 취침 시간', sub: '오늘 일정 끝 · 푹 자는 중' },
+      '푹 자는 시간': { text: '🌙 취침 시간', sub: '잘 자는 중' }
+    };
+
     const SCHED_CATS = {
       school: { badge: '🏫 학교', tag: '학교' },
       homework: { badge: '📝 숙제', tag: '📝 숙제' },
@@ -6145,140 +6267,79 @@
       }
     }
 
+    function schedPrettyOf(label) {
+      return SCHED_PRETTY[label] || { text: label };
+    }
+
+    // '다음: 내일 08:00 아침 티볼' 처럼 짧게
+    function schedNextName(label) {
+      const p = schedPrettyOf(label);
+      if (p.short) return p.short;
+      return String(p.text || label).replace(/^[^0-9A-Za-z가-힣]+/, '').replace(/ 중$/, '').trim();
+    }
+
+    function schedNextTextOf(slots, slot) {
+      const dayKey = schedDay || schedRefNow().day;
+      if (!slot) {
+        const first = slots[0];
+        return first ? '다음: ' + first.from + ' ' + schedNextName(first.label) : '';
+      }
+      for (let i = 0; i < slots.length; i += 1) {
+        if (slots[i].s >= slot.e) {
+          return '다음: ' + slots[i].from + ' ' + schedNextName(slots[i].label);
+        }
+      }
+      const idx = SCHED_PILL_ORDER.indexOf(dayKey);
+      const nextKey = SCHED_PILL_ORDER[(idx + 1) % SCHED_PILL_ORDER.length];
+      const nx = schedSlotsOf(nextKey)[0];
+      return nx ? '다음: 내일 ' + nx.from + ' ' + schedNextName(nx.label) : '';
+    }
+
     function renderSchedHero(slots, ref, isRefDay, dayInfo) {
       const wrap = document.getElementById('schedHero');
       if (!wrap) return;
       const slot = schedFindSlot(slots, ref.min);
       let cat = 'sleep';
-      let badge = SCHED_CATS.sleep.badge;
-      let timeText = '00:00 ~ 08:00';
-      let titleText = '';
-      let pct = 0;
+      let pretty = schedPrettyOf('취침');
       let leftText = '';
       let nextText = '';
 
       if (slot) {
         cat = SCHED_CATS[slot.cat] ? slot.cat : 'rest';
-        badge = SCHED_CATS[cat].badge;
-        timeText = slot.from + ' ~ ' + slot.to;
-        pct = Math.round(((ref.min - slot.s) / Math.max(1, slot.e - slot.s)) * 100);
-        pct = Math.max(0, Math.min(100, pct));
-        if (isRefDay) {
-          leftText = '⏱️ ' + schedLeftText(slot.e - ref.min) + ' 남음 · ' + pct + '%';
-        } else {
-          leftText = '⏱️ ' + slot.from + ' ~ ' + slot.to + ' · ' + pct + '%';
-        }
-        if (slot.phrase && isRefDay) {
-          titleText = '지금은 ' + slot.phrase;
-        } else if (slot.phrase) {
-          titleText = dayInfo.name + ' ' + schedClockText(ref.min) + '엔 <b>' + escapeHtml(slot.label) + '</b>';
-        } else if (isRefDay) {
-          titleText = '지금은 <b>' + escapeHtml(slot.label) + '</b> 시간이에요';
-        } else {
-          titleText = dayInfo.name + ' ' + schedClockText(ref.min) + '엔 <b>' + escapeHtml(slot.label) + '</b>';
-        }
+        pretty = schedPrettyOf(slot.label);
+        leftText = slot.from + ' ~ ' + slot.to;
+        if (isRefDay) leftText += ' · ' + schedLeftText(slot.e - ref.min) + ' 남음';
+        nextText = schedNextTextOf(slots, slot);
       } else {
-        const first = slots[0];
-        nextText = first ? '다음: ' + first.from + ' ' + escapeHtml(first.label) : '';
-        leftText = '⏱️ ' + schedClockText(ref.min) + ' · 잠자는 중';
-        titleText = isRefDay
-          ? '지금은 <b>푹 자는 시간</b>이에요'
-          : dayInfo.name + ' ' + schedClockText(ref.min) + '엔 <b>푹 자는 시간</b>';
-      }
-
-      if (slot && nextText === '') {
-        let next = null;
-        for (let i = 0; i < slots.length; i += 1) {
-          if (slots[i].s >= slot.e) { next = slots[i]; break; }
-        }
-        nextText = next ? '다음: ' + next.from + ' ' + escapeHtml(next.label) : '다음: 내일 아침 08:00';
+        leftText = isRefDay ? schedClockText(ref.min) + ' · 잠자는 중' : '00:00 ~ 08:00';
+        nextText = schedNextTextOf(slots, null);
       }
 
       wrap.innerHTML =
         '<div class="sched-hero" data-cat="' + cat + '">' +
-          '<div class="sched-hero-top">' +
-            '<span class="sched-cat">' + badge + '</span>' +
-            '<span class="sched-hero-time">' + timeText + '</span>' +
-          '</div>' +
-          '<p class="sched-now">' + titleText + '</p>' +
-          '<div class="sched-progress"><span style="width:' + pct + '%"></span></div>' +
+          '<p class="sched-now"><b>' + escapeHtml(pretty.text) + '</b>' +
+            (pretty.sub ? '<span class="sched-hero-note">' + escapeHtml(pretty.sub) + '</span>' : '') +
+          '</p>' +
           '<div class="sched-hero-foot">' +
-            '<span class="sched-left">' + leftText + '</span>' +
-            '<span class="sched-next">' + nextText + '</span>' +
+            '<span class="sched-left">' + escapeHtml(leftText) + '</span>' +
+            '<span class="sched-next">' + escapeHtml(nextText) + '</span>' +
           '</div>' +
         '</div>';
     }
 
-    function renderSchedBar(slots, ref, isRefDay) {
-      const wrap = document.getElementById('schedBar');
-      if (!wrap) return;
-      if (!slots.length) {
-        wrap.innerHTML = '';
-        return;
-      }
+    // 아침 일정 칩 (오후 타임라인 막대는 기본 화면에서 빼기)
+    function renderSchedMorning(slots) {
+      const host = document.getElementById('schedMorning');
+      if (!host) return;
       const barStart = 13 * 60;
-      const barEnd = Math.max(barStart + 120, slots[slots.length - 1].e);
-      const span = barEnd - barStart;
-      const pctOf = function (min) {
-        return Math.max(0, Math.min(100, ((min - barStart) / span) * 100));
-      };
-      const active = isRefDay ? schedFindSlot(slots, ref.min) : null;
-      const sleepSlot = slots.filter(function (sl) { return sl.cat === 'sleep'; })[0];
-
-      let segs = '';
-      slots.forEach(function (sl) {
-        if (sl.e <= barStart || sl.s >= barEnd) return;
-        const left = pctOf(Math.max(sl.s, barStart));
-        const right = pctOf(Math.min(sl.e, barEnd));
-        const cls = 'sched-seg' + (active && sl === active ? ' is-active' : '');
-        segs += '<span class="' + cls + '" data-cat="' + sl.cat + '" style="left:' +
-          left.toFixed(3) + '%;width:' + Math.max(0.4, right - left).toFixed(3) + '%"></span>';
-      });
-
-      let playhead = '';
-      if (isRefDay && ref.min >= barStart && ref.min <= barEnd) {
-        const at = Math.max(3, Math.min(96, pctOf(Math.max(barStart, Math.min(barEnd, ref.min)))));
-        playhead = '<span class="sched-playhead" style="left:' + at.toFixed(3) + '%">' +
-          '<span class="sched-now-tag">지금</span></span>';
-      }
-
-      const narrow = (window.innerWidth || 1024) < 760;
-      const hours = narrow ? [13, 17, 21] : [13, 15, 17, 19, 21, 23];
-      if (barEnd > 23 * 60) hours.push(24);
-      let ticks = '';
-      hours.forEach(function (h, i) {
-        let cls = 'sched-tick';
-        if (i === 0) cls += ' first';
-        if (i === hours.length - 1) cls += ' last';
-        if (h * 60 > barEnd) return;
-        ticks += '<span class="' + cls + '" style="left:' + pctOf(h * 60).toFixed(3) + '%">' + h + '시</span>';
-      });
-
       const morning = slots.filter(function (sl) { return sl.e <= barStart; });
-      let morningHtml = '';
-      if (morning.length) {
-        morningHtml = '<div class="sched-morning"><span class="sched-morning-label">🌅 아침</span>' +
+      host.innerHTML = morning.length
+        ? '<span class="sched-morning-label">🌅 아침</span>' +
           morning.map(function (sl) {
             return '<span class="sched-mchip" data-cat="' + sl.cat + '">' +
               '<span class="sched-dot"></span>' + sl.from + '~' + sl.to + ' ' + escapeHtml(sl.label) + '</span>';
-          }).join('') + '</div>';
-      }
-
-      const morningHost = document.getElementById('schedMorning');
-      if (morningHost) morningHost.innerHTML = morningHtml;
-
-      wrap.innerHTML =
-        '<div class="sched-barwrap">' +
-          '<div class="sched-bar-head">' +
-            '<span>오후 타임라인 <b>13:00~' + schedClockText(barEnd) + '</b></span>' +
-            '<span>' + (sleepSlot ? sleepSlot.from + ' 취침' : '') + '</span>' +
-          '</div>' +
-          '<div class="sched-barpos">' +
-            '<div class="sched-track">' + segs + '</div>' +
-            playhead +
-          '</div>' +
-          '<div class="sched-ticks">' + ticks + '</div>' +
-        '</div>';
+          }).join('')
+        : '';
     }
 
     function renderSchedRows(slots, ref, isRefDay) {
@@ -6324,7 +6385,7 @@
       if (clockEl) clockEl.textContent = schedClockText(ref.min);
 
       const dayEl = document.getElementById('schedClockDay');
-      if (dayEl) dayEl.textContent = ref.sim ? refInfo.name + ' · 미리보기' : refInfo.name;
+      if (dayEl) dayEl.textContent = ref.sim ? refInfo.label + ' · 미리보기' : refInfo.label;
 
       const dotEl = document.getElementById('schedLiveDot');
       if (dotEl) dotEl.classList.toggle('off', !isRefDay);
@@ -6338,7 +6399,7 @@
 
       renderSchedDays(ref, isRefDay);
       renderSchedHero(slots, ref, isRefDay, dayInfo);
-      renderSchedBar(slots, ref, isRefDay);
+      renderSchedMorning(slots);
       renderSchedRows(slots, ref, isRefDay);
       syncSchedDetail();
     }
@@ -6350,7 +6411,7 @@
       const btn = document.getElementById('schedToggleBtn');
       if (detail) detail.hidden = !schedDetailOpen;
       if (btn) {
-        btn.textContent = schedDetailOpen ? '접기 ▴' : '전체 시간표 ▾';
+        btn.textContent = schedDetailOpen ? '접기 ▴' : '시간표 ▾';
         btn.setAttribute('aria-expanded', schedDetailOpen ? 'true' : 'false');
       }
     }

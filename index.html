@@ -1670,8 +1670,9 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-      max-height: 220px;
+      max-height: 420px;
       overflow-y: auto;
+      padding-right: 2px;
     }
 
     .log-item {
@@ -1717,7 +1718,144 @@
       text-align: center;
       padding: 14px 8px;
       font-size: 13px;
+      line-height: 1.55;
       color: #9A9083;
+      word-break: keep-all;
+    }
+
+    /* 💌 가족에게 감사편지 */
+    .letter-sub {
+      margin: 5px 0 11px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #9A9083;
+      word-break: keep-all;
+    }
+
+    .letter-field {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .letter-field-label {
+      flex-shrink: 0;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #B24462;
+      background: #FDEEF2;
+      border: 1px solid #F6DCE3;
+      border-radius: 999px;
+      padding: 3px 9px;
+    }
+
+    .letter-field .who-chips { margin-bottom: 0; }
+
+    .letter-form {
+      align-items: stretch;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .letter-textarea {
+      min-height: 60px;
+      line-height: 1.5;
+      resize: vertical;
+      padding: 10px 12px;
+    }
+
+    .letter-filters {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 0 0 9px;
+    }
+
+    .letter-filter {
+      border: 1px solid #EFE6D4;
+      background: #FFFDF7;
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #7A7064;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .letter-filter.active {
+      background: #EAF3E8;
+      border-color: #C8DFC1;
+      color: #4A6B43;
+    }
+
+    .letter-card {
+      background: linear-gradient(160deg, #FFFDF4 0%, #FFF7EA 100%);
+      border: 1px solid #F1E5CE;
+      border-radius: 16px;
+      padding: 11px 13px 12px;
+      box-shadow: 0 2px 8px rgba(150, 120, 70, 0.06);
+      font-size: 13px;
+    }
+
+    .letter-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 7px;
+    }
+
+    .letter-route {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #A8465F;
+      background: #FDEAF0;
+      border: 1px solid #F6D3DE;
+      border-radius: 999px;
+      padding: 3px 9px;
+    }
+
+    .letter-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .letter-time {
+      font-size: 10.5px;
+      color: #A79C8E;
+      white-space: nowrap;
+    }
+
+    .letter-body {
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.58;
+      color: #4A443C;
+    }
+
+    .letter-del {
+      border: none;
+      background: none;
+      color: #C0B5A8;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 0 2px;
     }
 
     /* Modal */
@@ -3086,7 +3224,7 @@
           </button>
           <button class="pill-btn icon-circle" id="shareBtn" type="button" aria-label="공유하기">↗</button>
         </div>
-        <button class="pill-btn record-cta" id="focusRecordBtn" type="button">✨ 오늘도 함께 기록해요</button>
+        <button class="pill-btn record-cta" id="focusRecordBtn" type="button">💌 감사편지 쓰기</button>
       </div>
     </header>
 
@@ -3233,16 +3371,25 @@
       <p class="photo-caption">🎡 우리 가족의 소중한 순간</p>
     </section>
 
-    <section class="log-section" id="logSection" aria-label="오늘의 가족 기록">
+    <section class="log-section" id="logSection" aria-label="가족에게 감사편지">
       <div class="log-header">
-        <h2 class="log-title">✨ 오늘의 가족 한 줄</h2>
-        <span class="log-count" id="logCount">0개의 기록</span>
+        <h2 class="log-title">💌 가족에게 감사편지</h2>
+        <span class="log-count" id="logCount">0통의 편지</span>
       </div>
-      <div class="who-chips" id="whoChips"></div>
-      <form class="log-form" id="logForm">
-        <input class="log-input" id="logInput" type="text" maxlength="100" placeholder="오늘 있었던 일이나 가족에게 전할 말을 남겨요" />
-        <button class="log-submit" type="submit">남기기</button>
+      <p class="letter-sub">고마운 마음을 편지로 남겨 보세요 · 쌓일수록 우리 가족의 보물이 돼요</p>
+      <div class="letter-field">
+        <span class="letter-field-label">보내는 사람</span>
+        <div class="who-chips" id="fromChips"></div>
+      </div>
+      <div class="letter-field">
+        <span class="letter-field-label">받는 사람</span>
+        <div class="who-chips" id="toChips"></div>
+      </div>
+      <form class="log-form letter-form" id="logForm">
+        <textarea class="log-input letter-textarea" id="logInput" rows="2" maxlength="500" placeholder="고마웠던 일이나 따뜻한 마음을 편지로 남겨 보세요 💌"></textarea>
+        <button class="log-submit" type="submit">편지 남기기</button>
       </form>
+      <div class="letter-filters" id="letterFilters"></div>
       <div class="log-list" id="logList"></div>
     </section>
 
@@ -3371,7 +3518,11 @@
     let lastLocalMutationAt = 0;
 
     let state = loadState();
-    let selectedAuthorId = state.members[2]?.id || 'dohyun';
+    // 💌 감사편지: 보내는 사람·받는 사람 선택값
+    const LETTER_TO_ALL = '우리 가족';
+    let letterFromName = state.members[2]?.name || '도현';
+    let letterToName = LETTER_TO_ALL;
+    let letterFilter = '전체';
 
     function loadState() {
       try {
@@ -3429,6 +3580,17 @@
       return `${hh}:${mm}`;
     }
 
+    // 감사편지는 날짜를 넘겨 쌓이므로 MM/DD HH:MM 으로 남깁니다 (Asia/Seoul)
+    function formatNowDateTime() {
+      const now = new Date();
+      const kst = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+      const mo = String(kst.getMonth() + 1).padStart(2, '0');
+      const dd = String(kst.getDate()).padStart(2, '0');
+      const hh = String(kst.getHours()).padStart(2, '0');
+      const mi = String(kst.getMinutes()).padStart(2, '0');
+      return `${mo}/${dd} ${hh}:${mi}`;
+    }
+
     function renderAll() {
       document.getElementById('syncDot').classList.toggle('off', !state.syncUrl);
       document.getElementById('dateLine').textContent = formatKoreanDate();
@@ -3438,54 +3600,123 @@
       renderScreenTime();
       renderShopping();
       renderCalendar();
-      renderWhoChips();
-      renderLogs();
+      renderLetterChips();
+      renderLetters();
     }
 
-    function renderWhoChips() {
-      const wrap = document.getElementById('whoChips');
-      wrap.innerHTML = '';
-      state.members.forEach(m => {
+    function letterMemberNames() {
+      const names = (state.members || []).map(m => m && m.name).filter(Boolean);
+      return names.length ? names : ['아빠', '엄마', '도현', '이현'];
+    }
+
+    function renderLetterChips() {
+      const names = letterMemberNames();
+      document.getElementById('fromChips').innerHTML = '';
+      document.getElementById('toChips').innerHTML = '';
+      const makeChip = (wrapId, label, active, onPick) => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'who-chip' + (selectedAuthorId === m.id ? ' active' : '');
-        btn.textContent = m.name;
-        btn.addEventListener('click', () => {
-          selectedAuthorId = m.id;
-          renderWhoChips();
+        btn.className = 'who-chip' + (active ? ' active' : '');
+        btn.textContent = label;
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        btn.addEventListener('click', onPick);
+        document.getElementById(wrapId).appendChild(btn);
+      };
+      names.forEach(name => {
+        makeChip('fromChips', name, letterFromName === name, () => {
+          letterFromName = name;
+          renderLetterChips();
         });
-        wrap.appendChild(btn);
+      });
+      [LETTER_TO_ALL, ...names].forEach(name => {
+        makeChip('toChips', name, letterToName === name, () => {
+          letterToName = name;
+          renderLetterChips();
+        });
       });
     }
 
-    function renderLogs() {
+    // '아빠 → 우리 가족' 형태의 author 문자열을 보내는·받는 사람으로 나눕니다.
+    function parseLetterRoute(author) {
+      const raw = String(author || '').trim();
+      const parts = raw.split('→');
+      if (parts.length === 2) {
+        return {
+          from: parts[0].trim(),
+          to: parts[1].replace(/에게$/, '').trim(),
+          hasRoute: true
+        };
+      }
+      return { from: raw, to: '', hasRoute: false };
+    }
+
+    function letterRouteLabel(author) {
+      const r = parseLetterRoute(author);
+      if (!r.hasRoute) return r.from || '우리 가족';
+      const to = r.to === LETTER_TO_ALL ? LETTER_TO_ALL : r.to;
+      return `${r.from} → ${to}에게`;
+    }
+
+    function renderLetters() {
       const list = document.getElementById('logList');
       const count = document.getElementById('logCount');
-      count.textContent = `${state.logs.length}개의 기록`;
+      const filters = document.getElementById('letterFilters');
+      count.textContent = `${state.logs.length}통의 편지`;
+
+      // 받는 사람 기준 필터
+      const filterNames = [LETTER_TO_ALL, ...letterMemberNames()];
+      if (!filterNames.includes(letterFilter)) letterFilter = '전체';
+      filters.innerHTML = '';
+      ['전체', ...filterNames].forEach(name => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'letter-filter' + (letterFilter === name ? ' active' : '');
+        btn.textContent = name;
+        btn.setAttribute('aria-pressed', letterFilter === name ? 'true' : 'false');
+        btn.addEventListener('click', () => {
+          letterFilter = name;
+          renderLetters();
+        });
+        filters.appendChild(btn);
+      });
+
       if (!state.logs.length) {
-        list.innerHTML = '<div class="empty-log">오늘의 첫 기록을 남겨 보세요 🌱</div>';
+        list.innerHTML = '<div class="empty-log">아직 쌓인 편지가 없어요. 첫 번째 감사편지를 남겨 보세요 💌</div>';
         return;
       }
+
+      const visible = state.logs.filter(item => {
+        if (letterFilter === '전체') return true;
+        const r = parseLetterRoute(item.author);
+        return r.hasRoute ? r.to === letterFilter : r.from === letterFilter;
+      });
+
+      if (!visible.length) {
+        list.innerHTML = `<div class="empty-log">${escapeHtml(letterFilter)}에게 온 편지가 아직 없어요 💌</div>`;
+        return;
+      }
+
       list.innerHTML = '';
-      state.logs.forEach((item, idx) => {
-        const row = document.createElement('div');
-        row.className = 'log-item';
-        row.innerHTML = `
-          <div class="log-item-main">
-            <span class="log-author">${escapeHtml(item.author)}</span>
-            <span>${escapeHtml(item.text)}</span>
+      visible.forEach(item => {
+        const card = document.createElement('article');
+        card.className = 'letter-card';
+        card.innerHTML = `
+          <div class="letter-card-head">
+            <span class="letter-route">${escapeHtml(letterRouteLabel(item.author))}</span>
+            <span class="letter-meta">
+              <span class="letter-time">${escapeHtml(item.time || '')}</span>
+              <button class="letter-del" type="button" aria-label="편지 삭제">✕</button>
+            </span>
           </div>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <span class="log-time">${escapeHtml(item.time || '')}</span>
-            <button class="log-del" type="button" aria-label="삭제">✕</button>
-          </div>
+          <div class="letter-body">${escapeHtml(item.text)}</div>
         `;
-        row.querySelector('.log-del').addEventListener('click', () => {
-          state.logs.splice(idx, 1);
+        card.querySelector('.letter-del').addEventListener('click', () => {
+          const idx = state.logs.findIndex(l => String(l.id) === String(item.id));
+          if (idx > -1) state.logs.splice(idx, 1);
           saveState();
-          renderLogs();
+          renderLetters();
         });
-        list.appendChild(row);
+        list.appendChild(card);
       });
     }
 
@@ -3557,18 +3788,19 @@
       const inp = document.getElementById('logInput');
       const text = inp.value.trim();
       if (!text) return;
-      const author = state.members.find(m => m.id === selectedAuthorId)?.name || '가족';
+      const author = `${letterFromName} → ${letterToName}`;
       state.logs.unshift({
         id: Date.now(),
         author,
         text,
-        time: formatNowTime()
+        time: formatNowDateTime()
       });
-      if (state.logs.length > 40) state.logs = state.logs.slice(0, 40);
+      // Code.gs 의 MAX_LOGS(200)와 같은 상한으로, 편지가 계속 누적됩니다
+      if (state.logs.length > 200) state.logs = state.logs.slice(0, 200);
       inp.value = '';
       saveState();
-      renderLogs();
-      showToast('오늘의 기록에 남겼어요');
+      renderLetters();
+      showToast('감사편지가 따뜻하게 쌓였어요 💌');
     });
 
     // Share Button

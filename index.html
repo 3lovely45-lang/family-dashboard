@@ -1971,6 +1971,66 @@
       padding: 0 2px;
     }
 
+    .sticker-lock-btn {
+      flex-shrink: 0;
+      border: 1px solid #EFE6D3;
+      background: #FFFFFF;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #7A6E5E;
+      font-family: inherit;
+      white-space: nowrap;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .sticker-lock-btn:active {
+      transform: scale(0.96);
+    }
+
+    .sticker-lock-btn.on {
+      border-color: #F3CE8E;
+      background: #FFF6E1;
+      color: #A97A2A;
+      box-shadow: 0 0 0 3px rgba(240, 196, 110, 0.18);
+    }
+
+    /* 잠겨 있을 땐 별·소원권은 그대로 빛나고, 바꾸는 버튼만 손을 받지 않아요 */
+    #stickerSection.locked .sticker-slot,
+    #stickerSection.locked .sticker-btn,
+    #stickerSection.locked .sticker-claim,
+    #stickerSection.locked .wish-use,
+    #stickerSection.locked .wish-del,
+    #stickerSection.locked .wish-used-toggle,
+    #stickerSection.locked .wish-restore {
+      pointer-events: none;
+      cursor: default;
+    }
+
+    #stickerSection.locked .sticker-btn,
+    #stickerSection.locked .wish-use,
+    #stickerSection.locked .wish-del,
+    #stickerSection.locked .wish-used-toggle,
+    #stickerSection.locked .wish-restore {
+      opacity: 0.45;
+    }
+
+    #stickerSection.locked .sticker-claim {
+      opacity: 0.55;
+      animation: none;
+      box-shadow: none;
+    }
+
+    #stickerSection.locked .sticker-slot:active {
+      transform: none;
+    }
+
+    #stickerSection.locked .wish-input {
+      pointer-events: none;
+    }
+
     .sticker-title {
       margin: 0;
       font-family: 'Jua', 'Pretendard', sans-serif;
@@ -2525,6 +2585,7 @@
           <h2 class="sticker-title">🏆 칭찬 스티커 · 주말 소원권</h2>
           <p class="sticker-subtitle">칭찬 스티커 5개를 모으면 주말 소원권 한 장이 생겨요</p>
         </div>
+        <button class="sticker-lock-btn" id="stickerLockBtn" type="button" aria-pressed="false">🔒 수정</button>
       </div>
       <div class="sticker-grid" id="stickerGrid"></div>
     </section>
@@ -3622,6 +3683,36 @@
       showToast('소원권을 지웠어요');
     }
 
+    // 🔒 평소엔 잠금: '수정'을 누를 때만 스티커·소원권을 바꿀 수 있어요 (동기화로 다시 그려도 잠금 상태 유지)
+    let stickerEditUnlocked = false;
+
+    function syncStickerLockUi() {
+      const section = document.getElementById('stickerSection');
+      const btn = document.getElementById('stickerLockBtn');
+      if (btn) {
+        btn.textContent = stickerEditUnlocked ? '🔓 완료' : '🔒 수정';
+        btn.classList.toggle('on', stickerEditUnlocked);
+        btn.setAttribute('aria-pressed', stickerEditUnlocked ? 'true' : 'false');
+        btn.setAttribute('aria-label', stickerEditUnlocked ? '칭찬 스티커 수정 완료(다시 잠그기)' : '칭찬 스티커·주말 소원권 수정하기(잠금 풀기)');
+      }
+      if (!section) return;
+      section.classList.toggle('locked', !stickerEditUnlocked);
+      section.querySelectorAll('.sticker-slot, .sticker-btn, .sticker-claim, .wish-use, .wish-del, .wish-used-toggle, .wish-restore').forEach(el => {
+        el.disabled = !stickerEditUnlocked;
+      });
+      section.querySelectorAll('.wish-input').forEach(input => {
+        input.readOnly = !stickerEditUnlocked;
+        input.tabIndex = stickerEditUnlocked ? 0 : -1;
+        input.setAttribute('aria-disabled', stickerEditUnlocked ? 'false' : 'true');
+      });
+    }
+
+    document.getElementById('stickerLockBtn').addEventListener('click', () => {
+      stickerEditUnlocked = !stickerEditUnlocked;
+      syncStickerLockUi();
+      showToast(stickerEditUnlocked ? '🔓 이제 스티커와 소원권을 바꿀 수 있어요' : '🔒 칭찬 스티커를 잠갔어요');
+    });
+
     function renderStickers() {
       const grid = document.getElementById('stickerGrid');
       if (!grid) return;
@@ -3796,6 +3887,7 @@
 
         grid.appendChild(card);
       });
+      syncStickerLockUi();
     }
 
     // Today's To-Do

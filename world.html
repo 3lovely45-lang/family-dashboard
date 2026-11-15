@@ -3626,10 +3626,19 @@ html[data-skin="craft"] .craft-only{display:initial}
     var next = cfg.stages[Math.min(cnt + 1, 6)];
     if (cnt >= 6) return '🎉 월~토 올클리어! ' + (skin === 'craft' ? '🖤 네더라이트 마스터 완성!' : '👑 골드 마리오 완성!');
     if (dow === 0) return cnt > 0 ? '🎉 이번 주 완주 기록! 월요일에 새 시즌이 시작돼요' : '이번 주 기록은 아직 없어요 · 월요일에 새 시즌 시작!';
-    if (evoHas(kidId, today)) return '오늘 완료! 내일 다 하면 ' + next.emoji + ' ' + next.name + '로 진화!';
+    if (evoHas(kidId, today)) return '오늘 완료! 내일 다 하면 ' + next.emoji + ' ' + roParticle(next.name);
     if (coin.total === 0) return '할 일을 추가하면 ' + cfg.unitIcon + ' ' + cfg.unitShort + '을 모을 수 있어요';
     if (coin.stale && coin.done > 0) return '새로 시작을 누르고 오늘 ' + cfg.unitShort + '을 모아요';
-    return '오늘 ' + cfg.unitShort + ' ' + coin.done + '/' + coin.total + ' · 다 모으면 ' + next.emoji + ' ' + next.name + '로 진화!';
+    return '오늘 ' + cfg.unitShort + ' ' + coin.done + '/' + coin.total + ' · 다 모으면 ' + next.emoji + ' ' + roParticle(next.name);
+  }
+  /* 받침에 맞는 조사 (버섯 → 으로, 플라워 → 로) */
+  function roParticle(word) {
+    var s = String(word || '').trim();
+    if (!s) return word + '로 진화!';
+    var code = s.charCodeAt(s.length - 1);
+    if (code < 0xAC00 || code > 0xD7A3) return s + '로 진화!';
+    var jong = (code - 0xAC00) % 28;
+    return s + (jong === 0 ? '로 진화!' : '으로 진화!');
   }
   function renderDexes() {
     var cfg = skinCfg();
@@ -4124,7 +4133,7 @@ html[data-skin="craft"] .craft-only{display:initial}
     if (evo.type === 'up') {
       evoChime('up');
       return cfg.unitIcon + ' 오늘 ' + cfg.unitShort + ' ' + info.done + '/' + info.total + ' 모두 모아 레벨업! ' +
-        st.emoji + ' Lv.' + st.lv + ' ' + st.name + '으로 진화!';
+        st.emoji + ' Lv.' + st.lv + ' ' + roParticle(st.name);
     }
     evoChime('down');
     return '↩️ 오늘 ' + cfg.unitShort + ' ' + info.done + '/' + info.total + ' · 오늘 진화가 잠시 보류됐어요';

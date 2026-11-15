@@ -726,6 +726,518 @@
     }
 
 
+    /* School Meal Section */
+    .meal-section {
+      margin-top: 16px;
+      background: rgba(255, 253, 245, 0.96);
+      border: 1px solid #F1E9D6;
+      border-radius: 26px;
+      padding: 15px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .meal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .meal-title {
+      margin: 0;
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size: 20px;
+      line-height: 1.2;
+      color: #3F3A34;
+      letter-spacing: -0.01em;
+    }
+
+    .meal-subtitle {
+      margin: 5px 0 0;
+      font-size: 12.5px;
+      color: #8A8074;
+      word-break: keep-all;
+    }
+
+    .meal-status-pill {
+      flex-shrink: 0;
+      border: 1px solid #F6E2BE;
+      background: #FFF3DF;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #B07B2C;
+      white-space: nowrap;
+    }
+
+    .meal-week-nav {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 11px;
+    }
+
+    .meal-week-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #6B6258;
+    }
+
+    .meal-nav-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 9px;
+      border: 1px solid #EFE6D3;
+      background: #FFFFFF;
+      color: #6B6258;
+      font-size: 10px;
+      padding: 0;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .meal-nav-btn:active {
+      transform: scale(0.93);
+    }
+
+    .meal-week-btn {
+      margin-left: auto;
+      border: 1px solid #EFE6D3;
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #3F3A34;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .meal-week-btn:active {
+      transform: scale(0.96);
+    }
+
+    .meal-week-btn[disabled] {
+      opacity: 0.42;
+    }
+
+    .meal-days {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin: 9px 0 10px;
+    }
+
+    .meal-day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      border: 1px solid #EFE6D3;
+      background: #FFFFFF;
+      border-radius: 15px;
+      padding: 7px 2px 6px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .meal-day:active {
+      transform: scale(0.96);
+    }
+
+    .meal-day-name {
+      position: relative;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #6B6258;
+    }
+
+    .meal-day-date {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #A99C8B;
+    }
+
+    .meal-day.today .meal-day-name::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      right: -6px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #DF7C94;
+    }
+
+    .meal-day.active {
+      background: #EAF7E6;
+      border-color: #BFE3B4;
+      box-shadow: 0 2px 8px rgba(120, 180, 110, 0.16);
+    }
+
+    .meal-day.active .meal-day-name {
+      color: #3E7A34;
+    }
+
+    .meal-day.active .meal-day-date {
+      color: #5D9153;
+    }
+
+    .meal-panel {
+      border: 1.5px solid #E3EFE6;
+      background: #F8FDFA;
+      border-radius: 22px;
+      padding: 13px;
+    }
+
+    .meal-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .meal-panel-date {
+      font-size: 13px;
+      font-weight: 800;
+      color: #2F2A25;
+    }
+
+    .meal-cal {
+      flex-shrink: 0;
+      border: 1px solid #F6E2BE;
+      background: #FFF3DF;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #B07B2C;
+    }
+
+    .meal-dish-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .meal-dish {
+      display: inline-flex;
+      flex-direction: column;
+      background: #FFFFFF;
+      border: 1px solid #EADFCB;
+      border-radius: 13px;
+      padding: 6px 10px;
+      font-size: 12.8px;
+      font-weight: 700;
+      color: #3F3A34;
+      line-height: 1.25;
+    }
+
+    .meal-dish-allergy {
+      margin-top: 2px;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #B08A4A;
+    }
+
+    .meal-tools {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .meal-allergy-btn {
+      border: 1px dashed #E3D5BA;
+      background: #FFFDF6;
+      border-radius: 11px;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #8A7A5A;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .meal-allergy-btn.on {
+      border-style: solid;
+      border-color: #E7C98B;
+      background: #FFF6E4;
+      color: #A97A2A;
+    }
+
+    .meal-meta {
+      font-size: 10.5px;
+      color: #A99C8B;
+    }
+
+    .meal-empty {
+      padding: 12px 4px;
+      text-align: center;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #8A8074;
+    }
+
+    .meal-empty small {
+      display: block;
+      margin-top: 2px;
+      font-size: 11px;
+      color: #B3A897;
+    }
+
+    .meal-retry {
+      margin-top: 8px;
+      border: 1px solid #EFE6D3;
+      background: #FFFFFF;
+      border-radius: 11px;
+      padding: 6px 12px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #3F3A34;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .meal-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 14px 4px;
+      font-size: 12.5px;
+      color: #8A8074;
+    }
+
+    .meal-spinner {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 2px solid #DCEBD8;
+      border-top-color: #7FBF74;
+      animation: mealSpin 0.8s linear infinite;
+    }
+
+    @keyframes mealSpin {
+      to { transform: rotate(360deg); }
+    }
+
+
+    /* Shopping Memo Section */
+    .shop-section {
+      margin-top: 16px;
+      background: rgba(255, 253, 245, 0.96);
+      border: 1px solid #F1E9D6;
+      border-radius: 26px;
+      padding: 15px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .shop-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .shop-title {
+      margin: 0;
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size: 20px;
+      line-height: 1.2;
+      color: #3F3A34;
+      letter-spacing: -0.01em;
+    }
+
+    .shop-subtitle {
+      margin: 5px 0 0;
+      font-size: 12.5px;
+      color: #8A8074;
+      word-break: keep-all;
+    }
+
+    .shop-count-pill {
+      flex-shrink: 0;
+      border: 1px solid #CDE7D2;
+      background: #EAF7E6;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #3E7A34;
+      white-space: nowrap;
+    }
+
+    .shop-count-pill.done {
+      border-color: #E3D5BA;
+      background: #FFF6E4;
+      color: #A97A2A;
+    }
+
+    .shop-form {
+      display: flex;
+      gap: 6px;
+      margin: 11px 0 8px;
+    }
+
+    .shop-input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #EFE6D3;
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text-main);
+    }
+
+    .shop-input:focus {
+      outline: none;
+      border-color: #BFE3B4;
+      box-shadow: 0 0 0 3px rgba(138, 216, 190, 0.18);
+    }
+
+    .shop-add-btn {
+      border: none;
+      background: #8AD8BE;
+      border-radius: 14px;
+      padding: 9px 14px;
+      font-size: 13px;
+      font-weight: 800;
+      color: #1F4C3D;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .shop-add-btn:active {
+      transform: scale(0.96);
+    }
+
+    .shop-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 11px;
+    }
+
+    .shop-chip {
+      border: 1px solid #EFE6D3;
+      background: #FFFFFF;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #6B6258;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .shop-chip:active {
+      transform: scale(0.95);
+    }
+
+    .shop-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .shop-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid #EFE6D3;
+      background: #FFFFFF;
+      border-radius: 15px;
+      padding: 9px 11px;
+    }
+
+    .shop-row.done {
+      background: #FBFAF5;
+      border-color: #F1E9D6;
+    }
+
+    .shop-check {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1.5px solid #D9E3D6;
+      background: #FFFFFF;
+      color: transparent;
+      font-size: 12px;
+      font-weight: 900;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .shop-row.done .shop-check {
+      background: #8AD8BE;
+      border-color: #8AD8BE;
+      color: #FFFFFF;
+    }
+
+    .shop-text {
+      flex: 1;
+      min-width: 0;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #2F2A25;
+      word-break: break-word;
+      cursor: pointer;
+    }
+
+    .shop-row.done .shop-text {
+      color: #A99C8B;
+      text-decoration: line-through;
+    }
+
+    .shop-del {
+      border: none;
+      background: transparent;
+      color: #C9BFB0;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 4px 2px;
+    }
+
+    .shop-del:active {
+      color: #DF7C94;
+    }
+
+    .shop-clear {
+      margin-top: 9px;
+      width: 100%;
+      border: 1px dashed #E3D5BA;
+      background: #FFFDF6;
+      border-radius: 13px;
+      padding: 8px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #8A7A5A;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .shop-empty {
+      padding: 14px 6px;
+      text-align: center;
+      font-size: 12.5px;
+      color: #8A8074;
+    }
+
+
     /* Family Calendar Section */
     .cal-section {
       margin-top: 16px;
@@ -1460,6 +1972,41 @@
       <div id="screenTimeMembers"></div>
     </section>
 
+    <section class="meal-section" id="mealSection" aria-label="글빛초 급식 메뉴">
+      <div class="meal-header">
+        <div>
+          <h2 class="meal-title">🍱 글빛초 급식 메뉴</h2>
+          <p class="meal-subtitle">도현 · 이현 오늘의 점심 식단</p>
+        </div>
+        <span class="meal-status-pill" id="mealStatusPill">오늘</span>
+      </div>
+      <div class="meal-week-nav">
+        <button class="meal-nav-btn" id="mealPrevWeek" type="button" aria-label="지난주 급식">◀</button>
+        <span class="meal-week-label" id="mealWeekLabel"></span>
+        <button class="meal-nav-btn" id="mealNextWeek" type="button" aria-label="다음주 급식">▶</button>
+        <button class="meal-week-btn" id="mealThisWeek" type="button">이번주</button>
+      </div>
+      <div class="meal-days" id="mealDays" role="tablist" aria-label="요일 선택"></div>
+      <div class="meal-panel" id="mealPanel"></div>
+    </section>
+
+    <section class="shop-section" id="shoppingSection" aria-label="우리집 장보기 메모판">
+      <div class="shop-header">
+        <div>
+          <h2 class="shop-title">🛒 우리집 장보기 메모판</h2>
+          <p class="shop-subtitle">떨어진 거 있으면 바로 적어요</p>
+        </div>
+        <span class="shop-count-pill" id="shopCountPill">살 것 0개</span>
+      </div>
+      <form class="shop-form" id="shopForm">
+        <input class="shop-input" id="shopInput" type="text" maxlength="40" placeholder="예: 우유, 계란, 휴지..." autocomplete="off" />
+        <button class="shop-add-btn" type="submit">추가</button>
+      </form>
+      <div class="shop-chips" id="shopChips"></div>
+      <div class="shop-list" id="shopList"></div>
+      <button class="shop-clear" id="shopClearBtn" type="button" hidden>산 것 비우기</button>
+    </section>
+
     <section class="cal-section" id="calendarSection" aria-label="가족 달력">
       <div class="cal-header">
         <h2 class="cal-title">📅 가족 달력</h2>
@@ -1677,6 +2224,7 @@
       document.getElementById('taglineText').textContent = state.tagline;
       renderTodos();
       renderScreenTime();
+      renderShopping();
       renderCalendar();
       renderWhoChips();
       renderLogs();
@@ -1915,6 +2463,492 @@
       } catch {
         // Keep initial snapshot on offline
       }
+    }
+
+
+    // 🍱 글빛초 급식 메뉴 (나이스 NEIS 급식 식단정보 · 인증키 없이 바로 조회)
+    const NEIS_MEAL_URL = 'https://open.neis.go.kr/hub/mealServiceDietInfo';
+    const NEIS_ATPT_CODE = 'J10';
+    const NEIS_SCHOOL_CODE = '7541453';
+    const MEAL_CACHE_KEY = 'geulbit_meal_cache_v1';
+    const MEAL_CACHE_TTL = 6 * 60 * 60 * 1000;
+    const MEAL_WEEKDAY_NAMES = ['월', '화', '수', '목', '금'];
+    const MEAL_DOW_NAMES = ['일', '월', '화', '수', '목', '금', '토'];
+
+    const mealState = {
+      weekOffset: 0,
+      selectedYmd: null,
+      showAllergy: false,
+      loading: true,
+      error: false,
+      stale: false,
+      days: {},
+      updatedAt: 0,
+      requestId: 0
+    };
+
+    function mealKstNow() {
+      return new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+    }
+
+    function mealPad2(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    function mealYmd(date) {
+      return String(date.getFullYear()) + mealPad2(date.getMonth() + 1) + mealPad2(date.getDate());
+    }
+
+    function mealShortDate(date) {
+      return (date.getMonth() + 1) + '/' + date.getDate();
+    }
+
+    function mealDayLabel(date) {
+      return mealShortDate(date) + '(' + MEAL_DOW_NAMES[date.getDay()] + ')';
+    }
+
+    function mealClockLabel(ts) {
+      const d = new Date(ts);
+      return mealPad2(d.getHours()) + ':' + mealPad2(d.getMinutes());
+    }
+
+    function mealIsSameDay(a, b) {
+      return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+    }
+
+    // 이번 학교 주간(월~금)의 월요일. 토·일에는 다가오는 주 월요일을 돌려줘요.
+    function mealWeekStart(weekOffset) {
+      const now = mealKstNow();
+      const base = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const dow = base.getDay();
+      let delta = 1 - dow;
+      if (dow === 0) delta = 1;
+      else if (dow === 6) delta = 2;
+      base.setDate(base.getDate() + delta + (Number(weekOffset) || 0) * 7);
+      return base;
+    }
+
+    function mealWeekDays(weekOffset) {
+      const start = mealWeekStart(weekOffset);
+      const days = [];
+      for (let i = 0; i < 5; i++) {
+        const d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
+        days.push({ name: MEAL_WEEKDAY_NAMES[i], date: d, ymd: mealYmd(d) });
+      }
+      return days;
+    }
+
+    // "찰흑미밥* <br/>조랭이떡국 (1.5.6.16)" → [{name:'찰흑미밥', allergy:''}, {name:'조랭이떡국', allergy:'1.5.6.16'}]
+    function mealCleanDishes(raw) {
+      const out = [];
+      String(raw || '').split(/<br\s*\/?>/i).forEach(part => {
+        let text = part.replace(/\s+/g, ' ').trim();
+        if (!text) return;
+        let allergy = '';
+        const m = text.match(/^(.*?)\s*\(([0-9.]+)\)$/);
+        if (m) {
+          text = m[1];
+          allergy = m[2];
+        }
+        text = text.replace(/[\s*\-\u2013]+$/g, '').trim();
+        if (!text) return;
+        out.push({ name: text, allergy: allergy });
+      });
+      return out;
+    }
+
+    function mealParseRows(json) {
+      const out = {};
+      let rows = null;
+      try {
+        rows = json.mealServiceDietInfo[1].row;
+      } catch (e) {
+        rows = null;
+      }
+      if (!Array.isArray(rows)) return out;
+      rows.forEach(r => {
+        if (!r || !r.MLSV_YMD) return;
+        if (r.MMEAL_SC_CODE && r.MMEAL_SC_CODE !== '2') return;
+        const dishes = mealCleanDishes(r.DDISH_NM);
+        if (!dishes.length) return;
+        const calMatch = String(r.CAL_INFO || '').match(/[0-9]+(\.[0-9]+)?/);
+        out[r.MLSV_YMD] = {
+          dishes: dishes,
+          cal: calMatch ? Math.round(parseFloat(calMatch[0])) + ' kcal' : '',
+          kind: r.MMEAL_SC_NM || '중식'
+        };
+      });
+      return out;
+    }
+
+    function mealReadCache() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(MEAL_CACHE_KEY) || '{}');
+        return parsed && typeof parsed === 'object' ? parsed : {};
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function mealWriteCache(store) {
+      try {
+        localStorage.setItem(MEAL_CACHE_KEY, JSON.stringify(store));
+      } catch (e) {
+        // 저장 공간이 부족해도 화면은 그대로 동작해요
+      }
+    }
+
+    function mealPruneCache(store) {
+      const keys = Object.keys(store);
+      const cutoff = Date.now() - 21 * 24 * 60 * 60 * 1000;
+      keys.forEach(k => {
+        const entry = store[k];
+        if (!entry || !entry.fetchedAt || entry.fetchedAt < cutoff) delete store[k];
+      });
+      const left = Object.keys(store).sort((a, b) => (store[b].fetchedAt || 0) - (store[a].fetchedAt || 0));
+      left.slice(6).forEach(k => delete store[k]);
+    }
+
+    async function mealLoadWeek(weekOffset) {
+      const week = mealWeekDays(weekOffset);
+      const from = week[0].ymd;
+      const to = week[4].ymd;
+      const reqId = ++mealState.requestId;
+      const cached = mealReadCache()[from];
+      const cacheFresh = cached && cached.days && (Date.now() - (cached.fetchedAt || 0) < MEAL_CACHE_TTL);
+      if (cacheFresh) {
+        mealState.days = cached.days;
+        mealState.updatedAt = cached.fetchedAt || 0;
+        mealState.loading = false;
+        mealState.error = false;
+        mealState.stale = false;
+        renderMeal();
+        return;
+      }
+      try {
+        const url = NEIS_MEAL_URL
+          + '?Type=json&pIndex=1&pSize=30'
+          + '&ATPT_OFCDC_SC_CODE=' + NEIS_ATPT_CODE
+          + '&SD_SCHUL_CODE=' + NEIS_SCHOOL_CODE
+          + '&MLSV_FROM_YMD=' + from
+          + '&MLSV_TO_YMD=' + to;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('neis ' + res.status);
+        const json = await res.json();
+        const days = mealParseRows(json);
+        const store = mealReadCache();
+        store[from] = { fetchedAt: Date.now(), days: days };
+        mealPruneCache(store);
+        mealWriteCache(store);
+        if (reqId !== mealState.requestId) return;
+        mealState.days = days;
+        mealState.updatedAt = store[from].fetchedAt;
+        mealState.loading = false;
+        mealState.error = false;
+        mealState.stale = false;
+      } catch (err) {
+        if (reqId !== mealState.requestId) return;
+        const fallback = mealReadCache()[from];
+        mealState.days = fallback && fallback.days ? fallback.days : {};
+        mealState.updatedAt = fallback && fallback.fetchedAt ? fallback.fetchedAt : 0;
+        mealState.loading = false;
+        mealState.error = !(fallback && fallback.days);
+        mealState.stale = !!(fallback && fallback.days);
+      }
+      renderMeal();
+    }
+
+    function mealGoWeek(offset) {
+      mealState.weekOffset = offset;
+      mealState.selectedYmd = null;
+      mealState.days = {};
+      mealState.updatedAt = 0;
+      mealState.loading = true;
+      mealState.error = false;
+      mealState.stale = false;
+      renderMeal();
+      mealLoadWeek(offset);
+    }
+
+    function renderMeal() {
+      const daysWrap = document.getElementById('mealDays');
+      const panel = document.getElementById('mealPanel');
+      const weekLabel = document.getElementById('mealWeekLabel');
+      const pill = document.getElementById('mealStatusPill');
+      const thisBtn = document.getElementById('mealThisWeek');
+      if (!daysWrap || !panel) return;
+
+      const week = mealWeekDays(mealState.weekOffset);
+      const today = mealKstNow();
+      const todayItem = week.filter(d => mealIsSameDay(d.date, today))[0] || null;
+      const selectedExists = week.filter(d => d.ymd === mealState.selectedYmd)[0];
+      if (!mealState.selectedYmd || !selectedExists) {
+        mealState.selectedYmd = todayItem ? todayItem.ymd : week[0].ymd;
+      }
+
+      if (weekLabel) {
+        const first = week[0].date;
+        const last = week[4].date;
+        const sameMonth = first.getMonth() === last.getMonth();
+        weekLabel.textContent = (first.getMonth() + 1) + '월 ' + first.getDate() + '일 ~ '
+          + (sameMonth ? '' : (last.getMonth() + 1) + '월 ') + last.getDate() + '일';
+      }
+
+      if (thisBtn) thisBtn.disabled = mealState.weekOffset === 0;
+
+      if (pill) {
+        let pillText;
+        if (mealState.weekOffset === 0) {
+          pillText = todayItem ? '오늘 ' + mealDayLabel(todayItem.date) : '다음 급식 ' + mealDayLabel(week[0].date);
+        } else if (mealState.weekOffset === -1) {
+          pillText = '지난주';
+        } else if (mealState.weekOffset === 1) {
+          pillText = '다음주';
+        } else {
+          pillText = (mealState.weekOffset > 0 ? '+' : '') + mealState.weekOffset + '주';
+        }
+        pill.textContent = pillText;
+      }
+
+      daysWrap.innerHTML = '';
+      week.forEach(item => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'meal-day'
+          + (item.ymd === mealState.selectedYmd ? ' active' : '')
+          + (todayItem && item.ymd === todayItem.ymd ? ' today' : '');
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-selected', item.ymd === mealState.selectedYmd ? 'true' : 'false');
+        const nameEl = document.createElement('span');
+        nameEl.className = 'meal-day-name';
+        nameEl.textContent = item.name;
+        const dateEl = document.createElement('span');
+        dateEl.className = 'meal-day-date';
+        dateEl.textContent = mealShortDate(item.date);
+        btn.appendChild(nameEl);
+        btn.appendChild(dateEl);
+        btn.addEventListener('click', () => {
+          mealState.selectedYmd = item.ymd;
+          renderMeal();
+        });
+        daysWrap.appendChild(btn);
+      });
+
+      const selected = week.filter(d => d.ymd === mealState.selectedYmd)[0] || week[0];
+      const entry = mealState.days[selected.ymd];
+
+      if (mealState.loading) {
+        panel.innerHTML = '<div class="meal-loading"><span class="meal-spinner"></span>급식 정보를 불러오는 중…</div>';
+        return;
+      }
+
+      if (mealState.error) {
+        panel.innerHTML = '<div class="meal-empty">급식 정보를 불러오지 못했어요.<small>잠시 뒤 다시 시도해 주세요</small>'
+          + '<button class="meal-retry" type="button" id="mealRetryBtn">다시 시도</button></div>';
+        const retryBtn = document.getElementById('mealRetryBtn');
+        if (retryBtn) {
+          retryBtn.addEventListener('click', () => {
+            mealState.loading = true;
+            mealState.error = false;
+            renderMeal();
+            mealLoadWeek(mealState.weekOffset);
+          });
+        }
+        return;
+      }
+
+      if (!entry || !entry.dishes || !entry.dishes.length) {
+        panel.innerHTML = '<div class="meal-empty">' + mealDayLabel(selected.date) + ' · 이 날은 급식이 없어요'
+          + '<small>휴업일이나 방학일 수 있어요</small></div>';
+        return;
+      }
+
+      const calorie = entry.cal ? '<span class="meal-cal">🔥 ' + escapeHtml(entry.cal) + '</span>' : '';
+      const dishHtml = entry.dishes.map(d => {
+        const allergy = (mealState.showAllergy && d.allergy)
+          ? '<span class="meal-dish-allergy">알레르기 ' + escapeHtml(d.allergy) + '</span>'
+          : '';
+        return '<span class="meal-dish">' + escapeHtml(d.name) + allergy + '</span>';
+      }).join('');
+      const metaText = mealState.stale
+        ? '저장된 식단 · ' + (mealState.updatedAt ? mealClockLabel(mealState.updatedAt) + ' 기준' : '오프라인')
+        : '나이스(NEIS) · ' + (mealState.updatedAt ? mealClockLabel(mealState.updatedAt) + ' 조회' : '경기도교육청');
+
+      panel.innerHTML = '<div class="meal-panel-head"><span class="meal-panel-date">'
+        + mealDayLabel(selected.date) + ' ' + escapeHtml(entry.kind || '중식') + '</span>' + calorie + '</div>'
+        + '<div class="meal-dish-list">' + dishHtml + '</div>'
+        + '<div class="meal-tools">'
+        + '<button class="meal-allergy-btn' + (mealState.showAllergy ? ' on' : '') + '" type="button" id="mealAllergyBtn">'
+        + (mealState.showAllergy ? '알레르기 번호 숨기기' : '알레르기 번호 보기') + '</button>'
+        + '<span class="meal-meta">' + escapeHtml(metaText) + '</span>'
+        + '</div>';
+
+      const allergyBtn = document.getElementById('mealAllergyBtn');
+      if (allergyBtn) {
+        allergyBtn.addEventListener('click', () => {
+          mealState.showAllergy = !mealState.showAllergy;
+          renderMeal();
+        });
+      }
+    }
+
+    function initMeal() {
+      const prevBtn = document.getElementById('mealPrevWeek');
+      const nextBtn = document.getElementById('mealNextWeek');
+      const thisBtn = document.getElementById('mealThisWeek');
+      if (!prevBtn || !nextBtn || !thisBtn) return;
+      prevBtn.addEventListener('click', () => mealGoWeek(mealState.weekOffset - 1));
+      nextBtn.addEventListener('click', () => mealGoWeek(mealState.weekOffset + 1));
+      thisBtn.addEventListener('click', () => {
+        if (mealState.weekOffset !== 0) mealGoWeek(0);
+      });
+      renderMeal();
+      mealLoadWeek(mealState.weekOffset);
+    }
+
+    // 🛒 우리집 장보기 메모판 (state.todos 안에 memberId 'shopping'으로 저장 → 4대 폰 실시간 동기화)
+    const SHOP_MEMBER_ID = 'shopping';
+    const SHOP_QUICK_ITEMS = ['생수', '우유', '계란', '휴지', '과일', '간식'];
+
+    function shopItems() {
+      if (!Array.isArray(state.todos)) state.todos = [];
+      return state.todos.filter(t => t && t.memberId === SHOP_MEMBER_ID);
+    }
+
+    function renderShopQuickChips() {
+      const wrap = document.getElementById('shopChips');
+      if (!wrap) return;
+      wrap.innerHTML = '';
+      SHOP_QUICK_ITEMS.forEach(name => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'shop-chip';
+        btn.textContent = '+ ' + name;
+        btn.addEventListener('click', () => addShopItem(name));
+        wrap.appendChild(btn);
+      });
+    }
+
+    function renderShopping() {
+      const list = document.getElementById('shopList');
+      const pill = document.getElementById('shopCountPill');
+      const clearBtn = document.getElementById('shopClearBtn');
+      if (!list) return;
+      const items = shopItems();
+      const pending = items.filter(t => !t.done);
+      const bought = items.filter(t => t.done);
+      if (pill) {
+        pill.textContent = pending.length
+          ? '살 것 ' + pending.length + '개'
+          : (items.length ? '다 샀어요!' : '살 것 0개');
+        pill.classList.toggle('done', pending.length === 0 && items.length > 0);
+      }
+      if (clearBtn) clearBtn.hidden = bought.length === 0;
+      list.innerHTML = '';
+      if (!items.length) {
+        const empty = document.createElement('div');
+        empty.className = 'shop-empty';
+        empty.textContent = '지금은 살 게 없어요! 필요한 걸 적어 보세요 🛍️';
+        list.appendChild(empty);
+        return;
+      }
+      pending.concat(bought).forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'shop-row' + (item.done ? ' done' : '');
+        const check = document.createElement('button');
+        check.type = 'button';
+        check.className = 'shop-check';
+        check.textContent = '✓';
+        check.setAttribute('aria-label', item.done ? '구매 취소' : '구매 완료');
+        const textEl = document.createElement('span');
+        textEl.className = 'shop-text';
+        textEl.textContent = item.text;
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'shop-del';
+        del.textContent = '✕';
+        del.setAttribute('aria-label', '삭제');
+        check.addEventListener('click', () => toggleShopItem(item.id));
+        textEl.addEventListener('click', () => toggleShopItem(item.id));
+        del.addEventListener('click', () => deleteShopItem(item.id));
+        row.appendChild(check);
+        row.appendChild(textEl);
+        row.appendChild(del);
+        list.appendChild(row);
+      });
+    }
+
+    function addShopItem(rawText) {
+      const input = document.getElementById('shopInput');
+      const text = String(rawText == null ? '' : rawText).replace(/\s+/g, ' ').trim();
+      if (!text) {
+        showToast('살 것을 먼저 적어 주세요');
+        if (input) input.focus();
+        return;
+      }
+      if (shopItems().some(t => !t.done && String(t.text).replace(/\s+/g, ' ').trim() === text)) {
+        showToast('이미 목록에 있어요 · ' + text);
+        if (input) {
+          input.value = '';
+          input.focus();
+        }
+        return;
+      }
+      if (!Array.isArray(state.todos)) state.todos = [];
+      state.todos.push({
+        id: 'shop-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+        memberId: SHOP_MEMBER_ID,
+        text: text,
+        done: false
+      });
+      saveState();
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      renderShopping();
+      showToast('🛒 ' + text + ' 담았어요');
+    }
+
+    function toggleShopItem(id) {
+      const item = shopItems().filter(t => t.id === id)[0];
+      if (!item) return;
+      item.done = !item.done;
+      saveState();
+      renderShopping();
+      showToast(item.done ? '샀어요 ✓ ' + item.text : '다시 살 것에 넣었어요');
+    }
+
+    function deleteShopItem(id) {
+      const idx = state.todos.findIndex(t => t && t.id === id && t.memberId === SHOP_MEMBER_ID);
+      if (idx < 0) return;
+      state.todos.splice(idx, 1);
+      saveState();
+      renderShopping();
+      showToast('장보기 목록에서 지웠어요');
+    }
+
+    function clearBoughtShopItems() {
+      const bought = shopItems().filter(t => t.done);
+      if (!bought.length) return;
+      state.todos = state.todos.filter(t => !(t && t.memberId === SHOP_MEMBER_ID && t.done));
+      saveState();
+      renderShopping();
+      showToast('산 것 ' + bought.length + '개를 정리했어요');
+    }
+
+    function initShopping() {
+      const form = document.getElementById('shopForm');
+      const clearBtn = document.getElementById('shopClearBtn');
+      if (!form) return;
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const input = document.getElementById('shopInput');
+        addShopItem(input ? input.value : '');
+      });
+      if (clearBtn) clearBtn.addEventListener('click', clearBoughtShopItems);
+      renderShopQuickChips();
+      renderShopping();
     }
 
     // Today's To-Do
@@ -2497,6 +3531,8 @@
     });
 
     renderAll();
+    initMeal();
+    initShopping();
     refreshWeather();
     pullCloudSync();
     setInterval(() => {

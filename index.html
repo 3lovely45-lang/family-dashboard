@@ -5361,7 +5361,8 @@
           '<span class="sched-now-tag">지금</span></span>';
       }
 
-      const hours = [13, 15, 17, 19, 21, 23];
+      const narrow = (window.innerWidth || 1024) < 760;
+      const hours = narrow ? [13, 17, 21] : [13, 15, 17, 19, 21, 23];
       if (barEnd > 23 * 60) hours.push(24);
       let ticks = '';
       hours.forEach(function (h, i) {

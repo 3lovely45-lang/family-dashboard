@@ -545,6 +545,181 @@
       color: #B24462;
     }
 
+
+    /* Screen Time Section */
+    .screen-section {
+      margin-top: 16px;
+      background: rgba(255, 253, 245, 0.96);
+      border: 1px solid #F1E9D6;
+      border-radius: 26px;
+      padding: 15px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .screen-title {
+      margin: 0;
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size: 20px;
+      line-height: 1.2;
+      color: #3F3A34;
+      letter-spacing: -0.01em;
+    }
+
+    .screen-subtitle {
+      margin: 5px 0 12px;
+      font-size: 12.5px;
+      color: #8A8074;
+      word-break: keep-all;
+    }
+
+    .screen-row {
+      border: 1.5px solid #E3EFE6;
+      background: #F8FDFA;
+      border-radius: 22px;
+      padding: 13px;
+      margin-bottom: 11px;
+    }
+
+    .screen-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .screen-row[data-member="dohyun"] {
+      border-color: #D8EFE4;
+      background: #F6FDF9;
+    }
+
+    .screen-row[data-member="ihyun"] {
+      border-color: #D9E8F8;
+      background: #F6FAFF;
+    }
+
+    .screen-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .screen-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 6px rgba(120, 100, 60, 0.1);
+      flex-shrink: 0;
+    }
+
+    .screen-name-box {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .screen-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #2F2A25;
+      line-height: 1.2;
+    }
+
+    .screen-value {
+      margin-top: 2px;
+      font-size: 13px;
+      color: #33302B;
+      white-space: nowrap;
+    }
+
+    .screen-value strong {
+      font-size: 16px;
+      font-weight: 800;
+      color: #2F2A25;
+    }
+
+    .screen-limit {
+      font-size: 12px;
+      color: #9A9083;
+    }
+
+    .screen-step {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .screen-step-btn {
+      border: 1px solid #E1E8DE;
+      background: #FFFFFF;
+      border-radius: 11px;
+      padding: 7px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #4E5A50;
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1.1;
+    }
+
+    .screen-step-btn:active {
+      transform: scale(0.93);
+    }
+
+    .screen-step-btn.plus {
+      border-color: #CFE9DC;
+      color: #2F7D5B;
+    }
+
+    .screen-range {
+      -webkit-appearance: none;
+      appearance: none;
+      display: block;
+      width: 100%;
+      height: 24px;
+      margin: 12px 0 0;
+      background: transparent;
+      cursor: pointer;
+      --pct: 0%;
+      --fill: #8AD8BE;
+    }
+
+    .screen-range::-webkit-slider-runnable-track {
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--fill) 0%, var(--fill) var(--pct), #EDE9E0 var(--pct), #EDE9E0 100%);
+    }
+
+    .screen-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      margin-top: -5px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid var(--fill);
+      box-shadow: 0 2px 6px rgba(90, 70, 40, 0.18);
+    }
+
+    .screen-range::-moz-range-track {
+      height: 12px;
+      border-radius: 999px;
+      background: #EDE9E0;
+    }
+
+    .screen-range::-moz-range-progress {
+      height: 12px;
+      border-radius: 999px;
+      background: var(--fill);
+    }
+
+    .screen-range::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid var(--fill);
+      box-shadow: 0 2px 6px rgba(90, 70, 40, 0.18);
+    }
+
     /* Today's Log Section */
     .log-section {
       margin-top: 16px;
@@ -871,6 +1046,12 @@
       <div id="todoMembers"></div>
     </section>
 
+    <section class="screen-section" id="screenSection" aria-label="오늘 전자기기 사용시간">
+      <h2 class="screen-title">📱 오늘 전자기기 사용시간</h2>
+      <p class="screen-subtitle">바를 움직여 오늘 쓴 시간을 기록해요 · 10분 단위</p>
+      <div id="screenTimeMembers"></div>
+    </section>
+
     <section class="log-section" id="logSection" aria-label="오늘의 가족 기록">
       <div class="log-header">
         <h2 class="log-title">✨ 오늘의 가족 한 줄</h2>
@@ -948,10 +1129,13 @@
         { id: 't-i1', memberId: 'ihyun', text: '알림장 물병정리', done: false },
         { id: 't-i2', memberId: 'ihyun', text: '오늘 할일 공부하기', done: false },
         { id: 't-i3', memberId: 'ihyun', text: '씻고 양치하기', done: false }
-      ]
+      ],
+      screenTime: { dohyun: 0, ihyun: 0 }
     };
 
     const TODO_MEMBER_ORDER = ['dohyun', 'ihyun', 'eomma', 'appa'];
+    const SCREEN_TIME_IDS = ['dohyun', 'ihyun'];
+    const SCREEN_TIME_LIMITS = { dohyun: 420, ihyun: 270 };
     let lastLocalMutationAt = 0;
 
     let state = loadState();
@@ -970,6 +1154,7 @@
         };
         // 기존에 저장된 상태에도 '오늘 할 일' 기본 항목이 바로 보이도록 보정
         next.todos = Array.isArray(parsed.todos) ? parsed.todos : structuredClone(DEFAULT_STATE.todos);
+        next.screenTime = normalizeScreenTime(parsed.screenTime);
         return next;
       } catch {
         return structuredClone(DEFAULT_STATE);
@@ -1013,6 +1198,7 @@
       document.getElementById('dateLine').textContent = formatKoreanDate();
       document.getElementById('taglineText').textContent = state.tagline;
       renderTodos();
+      renderScreenTime();
       renderWhoChips();
       renderLogs();
     }
@@ -1153,10 +1339,18 @@
         const done = items.filter(t => t.done).length;
         return `- ${m.name}: ${done}/${items.length} 완료`;
       });
+      const screenLines = SCREEN_TIME_IDS.map(id => {
+        const m = state.members.find(x => x.id === id);
+        if (!m) return null;
+        const used = clampScreenTime(state.screenTime[id], SCREEN_TIME_LIMITS[id]);
+        return `- ${m.name}: ${formatMinutes(used)} / ${formatMinutes(SCREEN_TIME_LIMITS[id])}`;
+      }).filter(Boolean);
       const summary = [
         `[우리 가족 기록장 · ${formatKoreanDate()}]`,
         '☑️ 오늘 할 일',
-        ...todoLines
+        ...todoLines,
+        '📱 오늘 전자기기 사용시간',
+        ...screenLines
       ].join('\n');
       if (navigator.share && location.protocol.startsWith('http')) {
         try {
@@ -1394,6 +1588,94 @@
       }
     });
 
+    // Screen Time
+    function clampScreenTime(v, max) {
+      const n = Number(v);
+      if (!isFinite(n)) return 0;
+      const stepped = Math.round(n / 10) * 10;
+      return Math.min(max, Math.max(0, stepped));
+    }
+
+    function normalizeScreenTime(raw) {
+      const src = raw && typeof raw === 'object' ? raw : {};
+      const out = {};
+      SCREEN_TIME_IDS.forEach(id => {
+        out[id] = clampScreenTime(src[id], SCREEN_TIME_LIMITS[id]);
+      });
+      return out;
+    }
+
+    function formatMinutes(min) {
+      const m = Math.max(0, Math.round(Number(min) || 0));
+      const h = Math.floor(m / 60);
+      const rest = m % 60;
+      if (!h) return `${rest}분`;
+      return rest ? `${h}시간 ${rest}분` : `${h}시간`;
+    }
+
+    function screenFillColor(id, ratio) {
+      if (ratio >= 0.999) return '#F0796A';
+      if (ratio >= 0.8) return '#F0B44C';
+      return id === 'ihyun' ? '#8FC3F0' : '#8AD8BE';
+    }
+
+    function renderScreenTime() {
+      const wrap = document.getElementById('screenTimeMembers');
+      if (!wrap) return;
+      state.screenTime = normalizeScreenTime(state.screenTime);
+      wrap.innerHTML = '';
+      SCREEN_TIME_IDS.forEach(id => {
+        const m = state.members.find(x => x.id === id);
+        if (!m) return;
+        const max = SCREEN_TIME_LIMITS[id];
+        const val = clampScreenTime(state.screenTime[id], max);
+        const row = document.createElement('div');
+        row.className = 'screen-row';
+        row.dataset.member = id;
+        row.innerHTML = `
+          <div class="screen-head">
+            <img class="screen-avatar" src="${AVATARS[m.avatar] || AVATARS.dohyun}" alt="${escapeHtml(m.name)}" />
+            <div class="screen-name-box">
+              <div class="screen-name">${escapeHtml(m.name)}</div>
+              <div class="screen-value"><strong>${formatMinutes(val)}</strong><span class="screen-limit"> / ${formatMinutes(max)}</span></div>
+            </div>
+            <div class="screen-step">
+              <button class="screen-step-btn minus" type="button" aria-label="${escapeHtml(m.name)} 10분 줄이기">−10분</button>
+              <button class="screen-step-btn plus" type="button" aria-label="${escapeHtml(m.name)} 10분 늘리기">+10분</button>
+            </div>
+          </div>
+          <input class="screen-range" type="range" min="0" max="${max}" step="10" value="${val}" aria-label="${escapeHtml(m.name)} 전자기기 사용시간" />
+        `;
+        const range = row.querySelector('.screen-range');
+        const valueEl = row.querySelector('.screen-value strong');
+        const paint = (v) => {
+          const ratio = max ? v / max : 0;
+          range.style.setProperty('--pct', `${Math.round(ratio * 100)}%`);
+          range.style.setProperty('--fill', screenFillColor(id, ratio));
+          valueEl.textContent = formatMinutes(v);
+        };
+        paint(val);
+        range.addEventListener('input', () => paint(Number(range.value)));
+        range.addEventListener('change', () => {
+          const next = clampScreenTime(range.value, max);
+          state.screenTime[id] = next;
+          paint(next);
+          saveState();
+        });
+        row.querySelectorAll('.screen-step-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const delta = btn.classList.contains('plus') ? 10 : -10;
+            const next = clampScreenTime(Number(range.value) + delta, max);
+            range.value = next;
+            state.screenTime[id] = next;
+            paint(next);
+            saveState();
+          });
+        });
+        wrap.appendChild(row);
+      });
+    }
+
     // Optional Cloud Sync (for multi-phone real-time sharing via Google Apps Script or JSON endpoint)
     async function pullCloudSync() {
       const dot = document.getElementById('syncDot');
@@ -1409,6 +1691,7 @@
             if (Array.isArray(data.logs)) state.logs = data.logs;
             if (data.tagline) state.tagline = data.tagline;
             if (Array.isArray(data.todos)) state.todos = data.todos;
+            if (data.screenTime && typeof data.screenTime === 'object') state.screenTime = normalizeScreenTime(data.screenTime);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
             renderAll();
           }
@@ -1426,6 +1709,7 @@
               if (Array.isArray(data.logs)) state.logs = data.logs;
               if (data.tagline) state.tagline = data.tagline;
               if (Array.isArray(data.todos)) state.todos = data.todos;
+              if (data.screenTime && typeof data.screenTime === 'object') state.screenTime = normalizeScreenTime(data.screenTime);
               renderAll();
             }
           }
@@ -1445,7 +1729,8 @@
             tagline: state.tagline,
             members: state.members,
             logs: state.logs,
-            todos: state.todos
+            todos: state.todos,
+            screenTime: state.screenTime
           })
         });
       } catch {}

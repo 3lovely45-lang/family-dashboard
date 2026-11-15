@@ -68,5 +68,9 @@
       "text": "씻고 양치하기",
       "done": false
     }
-  ]
+  ],
+  "screenTime": {
+    "dohyun": 0,
+    "ihyun": 0
+  }
 }

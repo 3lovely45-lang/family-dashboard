@@ -3351,7 +3351,7 @@
         align-self: stretch;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
       }
 
       .schedule-section {
@@ -3400,7 +3400,7 @@
         align-self: stretch;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
       }
 
       .schedule-section {
@@ -3460,9 +3460,9 @@
     @media (min-width: 1080px) {
       .app-shell {
         max-width: 1340px;
-        padding: 24px 24px 48px;
+        padding: 20px 24px 44px;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
+        gap: 16px;
       }
 
       .header { grid-row: 1; grid-column: 1 / -1; }
@@ -3473,7 +3473,7 @@
         align-self: stretch;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
       }
 
       .schedule-section {
@@ -4607,7 +4607,7 @@
 
     // 🛒 우리집 장보기 메모판 (state.todos 안에 memberId 'shopping'으로 저장 → 4대 폰 실시간 동기화)
     const SHOP_MEMBER_ID = 'shopping';
-    const SHOP_QUICK_ITEMS = ['생수', '우유', '계란', '휴지', '과일', '간식'];
+    const SHOP_QUICK_ITEMS = ['우유', '계란', '휴지', '과일', '간식'];
 
     function shopItems() {
       if (!Array.isArray(state.todos)) state.todos = [];

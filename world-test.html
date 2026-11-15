@@ -682,7 +682,7 @@ html[data-resolved="night"] .yt-btns button.on{background:#42380E;border-color:v
 .yt-dock[data-mode="bar"]{
   z-index:62;left:50%;transform:translateX(-50%);top:auto;
   bottom:calc(12px + env(safe-area-inset-bottom,0px));
-  width:min(540px,calc(100vw - 16px));padding:6px 8px;
+  width:calc(100% - 20px);max-width:540px;padding:6px 8px;
   border-radius:14px;animation:ytBarIn .18s ease;
 }
 .yt-dock[data-mode="bar"] .yt-frame-wrap{
@@ -697,7 +697,7 @@ body.yt-bar-on .app{padding-bottom:78px}
   .yt-btns button{width:27px;height:27px}
   .yt-btns button.wide{padding:0 7px;font-size:10px}
   .yt-now{font-size:10.5px}
-  .yt-dock[data-mode="bar"]{width:calc(100vw - 12px);bottom:calc(9px + env(safe-area-inset-bottom,0px))}
+  .yt-dock[data-mode="bar"]{width:calc(100% - 14px);bottom:calc(9px + env(safe-area-inset-bottom,0px))}
 }
 
 /* ---------------- 반응형 ---------------- */
@@ -2043,10 +2043,13 @@ body.yt-bar-on .app{padding-bottom:78px}
   }
 
   function ytEnsurePlayer(cb) {
-    yt.waiting = cb || null;
-    if (yt.ready && yt.player) { var f = yt.waiting; yt.waiting = null; if (f) f(); return; }
+    if (cb) yt.waiting = cb;
+    if (yt.ready && yt.player) {
+      var f = yt.waiting; yt.waiting = null; if (f) f();
+      return;
+    }
     if (yt.api === 1) return;
-    if (yt.api === 3) { if (cb) cb(); return; }
+    if (yt.api === 3) { var g = yt.waiting; yt.waiting = null; if (g) g(); return; }
     if (window.YT && window.YT.Player) { ytBuild(); return; }
     yt.api = 1;
     var prev = window.onYouTubeIframeAPIReady;
@@ -2160,6 +2163,8 @@ body.yt-bar-on .app{padding-bottom:78px}
 
   function ytSetPreset(key) {
     var p = ytPresetByKey(key);
+    var linkInput = $('#ytLinkInput');
+    if (linkInput) linkInput.value = '';
     if (key === 'mario') {
       yt.preset = 'mario'; yt.custom = null; yt.dismissed = false;
       if (yt.player && yt.ready) { try { yt.player.pauseVideo(); } catch (e) {} }

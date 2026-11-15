@@ -771,6 +771,7 @@
     .screen-range:disabled {
       cursor: default;
       opacity: 1;
+      pointer-events: none;
     }
 
     .screen-row.locked .screen-range::-webkit-slider-thumb {
@@ -2160,8 +2161,8 @@
     }
 
     @keyframes stickerClaimPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.025); }
+      0%, 100% { box-shadow: 0 4px 12px rgba(228, 176, 40, 0.35); }
+      50% { box-shadow: 0 7px 22px rgba(228, 176, 40, 0.62); }
     }
 
     .sticker-hint {

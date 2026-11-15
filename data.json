@@ -72,5 +72,7 @@
   "screenTime": {
     "dohyun": 0,
     "ihyun": 0
-  }
+  },
+  "events": [],
+  "calendarEvents": []
 }

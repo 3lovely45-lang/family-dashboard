@@ -4,28 +4,28 @@
     {
       "id": "appa",
       "name": "아빠",
-      "sub": "하늘 고양이와 함께",
+      "sub": "우리집 든든한 아빠",
       "stars": 0,
       "avatar": "appa"
     },
     {
       "id": "eomma",
       "name": "엄마",
-      "sub": "노랑 토끼와 함께",
+      "sub": "멋쟁이 우리집 엄마",
       "stars": 0,
       "avatar": "eomma"
     },
     {
       "id": "dohyun",
       "name": "도현",
-      "sub": "꼬마 햄스터와 함께",
+      "sub": "씩씩한 도현",
       "stars": 0,
       "avatar": "dohyun"
     },
     {
       "id": "ihyun",
       "name": "이현",
-      "sub": "딸기 아기곰과 함께",
+      "sub": "미소 천사 이현",
       "stars": 0,
       "avatar": "ihyun"
     }

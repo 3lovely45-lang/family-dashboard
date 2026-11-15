@@ -2390,6 +2390,520 @@
       flex-shrink: 0;
     }
 
+    /* ===== 🏃 도현이 지금 상태 · 오후 스케줄 실시간 바 ===== */
+    .schedule-section {
+      margin-top: 16px;
+      background: rgba(255, 253, 245, 0.96);
+      border: 1px solid #F1E9D6;
+      border-radius: 26px;
+      padding: 15px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .sched-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sched-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 2px 8px rgba(120, 100, 60, 0.16);
+      background: #FFFDF6;
+      flex-shrink: 0;
+    }
+
+    .sched-head-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sched-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size: 20px;
+      line-height: 1.2;
+      color: #3F3A34;
+      letter-spacing: -0.01em;
+    }
+
+    .sched-live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #F0648A;
+      animation: schedPulse 2.2s ease-out infinite;
+    }
+
+    .sched-live-dot.off {
+      background: #CFC7B9;
+      animation: none;
+    }
+
+    @keyframes schedPulse {
+      0% { box-shadow: 0 0 0 0 rgba(240, 100, 138, 0.45); }
+      70% { box-shadow: 0 0 0 7px rgba(240, 100, 138, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(240, 100, 138, 0); }
+    }
+
+    .sched-sub {
+      margin: 3px 0 0;
+      font-size: 11.5px;
+      line-height: 1.4;
+      color: #8A8074;
+      word-break: keep-all;
+    }
+
+    .sched-clock {
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    .sched-clock-time {
+      display: block;
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size: 20px;
+      line-height: 1.05;
+      color: #3F3A34;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sched-clock-day {
+      display: block;
+      margin-top: 2px;
+      font-size: 10.5px;
+      color: #9E9488;
+    }
+
+    .sched-days {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 12px;
+    }
+
+    .sched-day {
+      width: 34px;
+      padding: 6px 0;
+      border: 1px solid #EFE6D3;
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: #7A7166;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .sched-day.is-today {
+      border-color: #F3C3D1;
+      color: #C3506F;
+    }
+
+    .sched-day.on {
+      background: #3F3A34;
+      border-color: #3F3A34;
+      color: #FFFFFF;
+    }
+
+    .sched-today-btn {
+      margin-left: auto;
+      padding: 6px 11px;
+      border: 1px solid #F3C3D1;
+      border-radius: 999px;
+      background: #FFF3F6;
+      color: #C3506F;
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 800;
+      line-height: 1.2;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* 카테고리 색 (시간표 색을 그대로 옮겨 왔어요) */
+    .schedule-section [data-cat="school"] {
+      --cat: #E3CD6A; --cat-fill: #DCC452; --cat-soft: #FBF0C4; --cat-ink: #7A6412;
+      --cat-bd: #EBDCA0; --cat-hero: #FDF8E2; --cat-hero-bd: #EFE0A9;
+    }
+
+    .schedule-section [data-cat="homework"] {
+      --cat: #FFFFFF; --cat-fill: #B4C3D6; --cat-soft: #FFFFFF; --cat-ink: #475569;
+      --cat-bd: #CBD5E1; --cat-hero: #FFFFFF; --cat-hero-bd: #CBD5E1;
+    }
+
+    .schedule-section [data-cat="academy"] {
+      --cat: #EFA3C9; --cat-fill: #E98BB8; --cat-soft: #FBE0EC; --cat-ink: #A6336A;
+      --cat-bd: #F3C6DA; --cat-hero: #FDF1F7; --cat-hero-bd: #F1BCD5;
+    }
+
+    .schedule-section [data-cat="climb"] {
+      --cat: #CFC5F2; --cat-fill: #B7A9E9; --cat-soft: #E8E2FC; --cat-ink: #4B3F8F;
+      --cat-bd: #D8CFF4; --cat-hero: #F6F3FE; --cat-hero-bd: #DAD2F4;
+    }
+
+    .schedule-section [data-cat="ball"] {
+      --cat: #C6E878; --cat-fill: #AFD955; --cat-soft: #EAF8CE; --cat-ink: #476113;
+      --cat-bd: #CCE79B; --cat-hero: #F7FCEC; --cat-hero-bd: #D3EAA7;
+    }
+
+    .schedule-section [data-cat="morning"] {
+      --cat: #98A4F8; --cat-fill: #7E8DF2; --cat-soft: #DFE4FF; --cat-ink: #3A45A8;
+      --cat-bd: #C6CEF8; --cat-hero: #F1F3FF; --cat-hero-bd: #CBD3F9;
+    }
+
+    .schedule-section [data-cat="rest"] {
+      --cat: #F5E3C1; --cat-fill: #E8CE9A; --cat-soft: #FBEFD7; --cat-ink: #8A6A2A;
+      --cat-bd: #EEDCBB; --cat-hero: #FFFAF0; --cat-hero-bd: #F1E1C4;
+    }
+
+    .schedule-section [data-cat="sleep"] {
+      --cat: #C9C5E6; --cat-fill: #B2ADD8; --cat-soft: #E9E6F6; --cat-ink: #4C4770;
+      --cat-bd: #D6D3E8; --cat-hero: #F5F4FC; --cat-hero-bd: #D9D6EC;
+    }
+
+    .sched-hero {
+      --cat: #E9E2D2;
+      --cat-fill: #CFC5B2;
+      --cat-soft: #F4EEE0;
+      --cat-ink: #6B6258;
+      --cat-bd: #E7DFCE;
+      --cat-hero: #FFFDF7;
+      --cat-hero-bd: #F0E7D4;
+      margin-top: 12px;
+      padding: 13px 14px;
+      border: 1.5px solid var(--cat-hero-bd);
+      border-radius: 20px;
+      background: var(--cat-hero);
+    }
+
+    .sched-hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .sched-cat {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px 9px;
+      border: 1px solid var(--cat-bd);
+      border-radius: 999px;
+      background: var(--cat-soft);
+      color: var(--cat-ink);
+      font-size: 11.5px;
+      font-weight: 800;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .sched-hero-time {
+      font-size: 12px;
+      font-weight: 800;
+      color: #6B6258;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .sched-now {
+      margin: 9px 0 0;
+      font-size: 16.5px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #332E29;
+      word-break: keep-all;
+    }
+
+    .sched-now b {
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--cat-ink);
+      letter-spacing: -0.01em;
+    }
+
+    .sched-progress {
+      height: 7px;
+      margin: 10px 0 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: inset 0 0 0 1px rgba(80, 70, 50, 0.07);
+      overflow: hidden;
+    }
+
+    .sched-progress > span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: var(--cat-fill);
+      transition: width 0.4s ease;
+    }
+
+    .sched-hero-foot {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+
+    .sched-left {
+      color: var(--cat-ink);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sched-next {
+      color: #857B6E;
+      font-weight: 600;
+      word-break: keep-all;
+    }
+
+    .sched-barwrap {
+      margin-top: 14px;
+    }
+
+    .sched-bar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #8A8074;
+    }
+
+    .sched-bar-head b {
+      color: #5C544B;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sched-barpos {
+      position: relative;
+      padding-top: 15px;
+    }
+
+    .sched-track {
+      position: relative;
+      height: 34px;
+      border: 1px solid #EDE4D3;
+      border-radius: 12px;
+      background: #F6F1E6;
+      overflow: hidden;
+    }
+
+    .sched-seg {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      background: var(--cat);
+    }
+
+    .sched-seg[data-cat="homework"] {
+      background: #FFFFFF;
+      box-shadow: inset 0 0 0 1px #C3CEDD;
+    }
+
+    .sched-seg.is-active {
+      z-index: 2;
+      box-shadow: inset 0 0 0 2px rgba(63, 58, 52, 0.5);
+    }
+
+    .sched-seg.is-active[data-cat="homework"] {
+      box-shadow: inset 0 0 0 1px #C3CEDD, inset 0 0 0 3px rgba(63, 58, 52, 0.45);
+    }
+
+    .sched-playhead {
+      position: absolute;
+      top: 15px;
+      bottom: 0;
+      z-index: 3;
+      width: 0;
+    }
+
+    .sched-playhead::before {
+      content: '';
+      position: absolute;
+      left: -1.5px;
+      top: -2px;
+      bottom: -2px;
+      width: 3px;
+      border-radius: 2px;
+      background: #E0426F;
+      box-shadow: 0 0 8px rgba(224, 66, 111, 0.55);
+    }
+
+    .sched-playhead .sched-now-tag {
+      position: absolute;
+      left: 0;
+      top: -15px;
+      transform: translateX(-50%);
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: #E0426F;
+      color: #FFFFFF;
+      font-size: 9.5px;
+      font-weight: 800;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      box-shadow: 0 2px 6px rgba(224, 66, 111, 0.35);
+    }
+
+    .sched-ticks {
+      position: relative;
+      height: 14px;
+      margin-top: 4px;
+    }
+
+    .sched-tick {
+      position: absolute;
+      top: 0;
+      transform: translateX(-50%);
+      font-size: 10px;
+      font-weight: 600;
+      color: #A79C8E;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .sched-tick.first { transform: none; }
+    .sched-tick.last { transform: translateX(-100%); }
+
+    .sched-morning {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 11px;
+    }
+
+    .sched-morning-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #9E9488;
+    }
+
+    .sched-mchip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 9px;
+      border: 1px solid var(--cat-bd);
+      border-radius: 999px;
+      background: var(--cat-soft);
+      color: var(--cat-ink);
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.3;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sched-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .sched-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border: 1px solid #F1EBDD;
+      border-radius: 13px;
+      background: #FFFFFF;
+    }
+
+    .sched-row[data-cat="homework"] {
+      border-color: #D7E0EB;
+      background: #FCFDFF;
+    }
+
+    .sched-row.is-past { opacity: 0.55; }
+
+    .sched-row.is-active {
+      border-color: #E0426F;
+      background: #FFF7FA;
+      box-shadow: 0 3px 10px rgba(224, 66, 111, 0.1);
+      opacity: 1;
+    }
+
+    .sched-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 3px;
+      background: var(--cat-fill);
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+      flex-shrink: 0;
+    }
+
+    .sched-row-time {
+      flex-shrink: 0;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #5C544B;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sched-row-name {
+      flex: 1;
+      min-width: 0;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #332E29;
+      word-break: keep-all;
+    }
+
+    .sched-row-tag {
+      flex-shrink: 0;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--cat-soft);
+      color: var(--cat-ink);
+      border: 1px solid var(--cat-bd);
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    .sched-row-now {
+      flex-shrink: 0;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #E0426F;
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    @media (min-width: 760px) {
+      .sched-now { font-size: 17.5px; }
+      .sched-track { height: 38px; }
+      .sched-rows {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+      }
+    }
+
     /* ===== 태블릿·데스크톱: 카드를 2~3칸으로 나란히 보기 (모바일 화면은 그대로) ===== */
     @media (min-width: 760px) {
       .app-shell {
@@ -2427,7 +2941,9 @@
         margin: 0;
       }
 
-      .todo-section { grid-row: 3; grid-column: 1 / -1; }
+      .schedule-section { grid-row: 3; grid-column: 1 / -1; }
+
+      .todo-section { grid-row: 4; grid-column: 1 / -1; }
 
       #todoMembers {
         display: grid;
@@ -2438,19 +2954,19 @@
 
       .todo-member-card { margin-bottom: 0; }
 
-      .sticker-section { grid-row: 4; grid-column: 1 / -1; }
+      .sticker-section { grid-row: 5; grid-column: 1 / -1; }
 
       .sticker-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 14px;
       }
 
-      .screen-section { grid-row: 5; grid-column: 1; }
-      .meal-section { grid-row: 5; grid-column: 2; }
-      .shop-section { grid-row: 6; grid-column: 1; }
-      .cal-section { grid-row: 6; grid-column: 2; }
+      .screen-section { grid-row: 6; grid-column: 1; }
+      .meal-section { grid-row: 6; grid-column: 2; }
+      .shop-section { grid-row: 7; grid-column: 1; }
+      .cal-section { grid-row: 7; grid-column: 2; }
 
-      .log-section { grid-row: 7; grid-column: 1 / -1; }
+      .log-section { grid-row: 8; grid-column: 1 / -1; }
     }
 
     @media (min-width: 1080px) {
@@ -2487,24 +3003,26 @@
         justify-content: center;
       }
 
-      .todo-section { grid-row: 3; grid-column: 1 / -1; }
+      .schedule-section { grid-row: 3; grid-column: 1 / -1; }
+
+      .todo-section { grid-row: 4; grid-column: 1 / -1; }
 
       #todoMembers {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
-      .sticker-section { grid-row: 4; grid-column: 1 / -1; }
+      .sticker-section { grid-row: 5; grid-column: 1 / -1; }
 
       .sticker-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
       }
 
-      .meal-section { grid-row: 5; grid-column: 1; }
-      .shop-section { grid-row: 5; grid-column: 2; }
-      .cal-section { grid-row: 5; grid-column: 3; }
+      .meal-section { grid-row: 6; grid-column: 1; }
+      .shop-section { grid-row: 6; grid-column: 2; }
+      .cal-section { grid-row: 6; grid-column: 3; }
 
-      .log-section { grid-row: 6; grid-column: 1 / -1; }
+      .log-section { grid-row: 7; grid-column: 1 / -1; }
     }
 
   </style>
@@ -2566,6 +3084,24 @@
         <span class="photo-zoom">🔍 크게 보기</span>
       </div>
       <p class="photo-caption">🎡 우리 가족의 소중한 순간</p>
+    </section>
+
+    <section class="schedule-section" id="scheduleSection" aria-label="도현이 지금 상태바">
+      <div class="sched-header">
+        <img class="sched-avatar" id="schedAvatar" alt="도현" />
+        <div class="sched-head-text">
+          <h2 class="sched-title">🏃 도현이 지금 상태 <span class="sched-live-dot" id="schedLiveDot" aria-hidden="true"></span></h2>
+          <p class="sched-sub" id="schedSub">2학기 시간표로 지금 무엇을 하는지 보여드려요</p>
+        </div>
+        <div class="sched-clock">
+          <span class="sched-clock-time" id="schedClock">--:--</span>
+          <span class="sched-clock-day" id="schedClockDay">불러오는 중</span>
+        </div>
+      </div>
+      <div class="sched-days" id="schedDays" role="group" aria-label="요일 선택"></div>
+      <div id="schedHero"></div>
+      <div id="schedBar"></div>
+      <div class="sched-rows" id="schedRows"></div>
     </section>
 
     <section class="todo-section" id="todoSection" aria-label="오늘 할 일">
@@ -4550,6 +5086,417 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && photoLightboxEl.classList.contains('open')) closePhotoLightbox();
     });
+
+    // ===== 🏃 도현이 지금 상태 (2학기 시간표 · 오후 스케줄 실시간 바) =====
+    // 시간표 사진 그대로: 흰색 칸 = 숙제(homework), 색 칸 = 학교·학원·운동
+    const SCHED_DAYS = [
+      { key: 'sun', label: '일', name: '일요일' },
+      { key: 'mon', label: '월', name: '월요일' },
+      { key: 'tue', label: '화', name: '화요일' },
+      { key: 'wed', label: '수', name: '수요일' },
+      { key: 'thu', label: '목', name: '목요일' },
+      { key: 'fri', label: '금', name: '금요일' },
+      { key: 'sat', label: '토', name: '토요일' }
+    ];
+    const SCHED_PILL_ORDER = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+    const SCHED_CATS = {
+      school: { badge: '🏫 학교', tag: '학교' },
+      homework: { badge: '📝 숙제', tag: '📝 숙제' },
+      academy: { badge: '🩷 리틀팍스', tag: '학원' },
+      climb: { badge: '🟣 클라이밍·농구', tag: '운동' },
+      ball: { badge: '⚽ 축구·배드민턴', tag: '운동' },
+      morning: { badge: '⚾ 아침 활동', tag: '아침' },
+      sleep: { badge: '🌙 취침', tag: '취침' },
+      rest: { badge: '☁️ 휴식', tag: '휴식' }
+    };
+
+    const SCHEDULE = {
+      mon: [
+        { from: '08:00', to: '09:00', cat: 'morning', label: '티볼' },
+        { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
+        { from: '14:30', to: '15:30', cat: 'homework', label: '국어 숙제' },
+        { from: '15:30', to: '16:30', cat: 'climb', label: '클라이밍' },
+        { from: '16:30', to: '18:50', cat: 'homework', label: '수학 숙제' },
+        { from: '18:50', to: '21:00', cat: 'climb', label: '유니티 농구' },
+        { from: '21:00', to: '22:30', cat: 'rest', label: '자유 · 취침 준비', phrase: '쉬면서 취침 준비하는 시간이에요' },
+        { from: '22:30', to: '24:00', cat: 'sleep', label: '취침', note: '10시 30분 취침' }
+      ],
+      tue: [
+        { from: '08:00', to: '09:00', cat: 'homework', label: '한자 숙제' },
+        { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
+        { from: '14:30', to: '14:40', cat: 'rest', label: '이동 · 준비', phrase: '이동하고 준비하는 시간이에요' },
+        { from: '14:40', to: '17:20', cat: 'academy', label: '리틀팍스' },
+        { from: '17:20', to: '18:00', cat: 'rest', label: '저녁 · 이동', phrase: '저녁 먹고 이동하는 시간이에요' },
+        { from: '18:00', to: '19:30', cat: 'ball', label: '박지성 축구' },
+        { from: '19:30', to: '21:30', cat: 'homework', label: '리틀팍스 숙제' },
+        { from: '21:30', to: '24:00', cat: 'sleep', label: '취침', note: '9시 30분 취침' }
+      ],
+      wed: [
+        { from: '08:00', to: '09:00', cat: 'morning', label: '티볼' },
+        { from: '09:00', to: '13:30', cat: 'school', label: '학교' },
+        { from: '13:30', to: '16:00', cat: 'homework', label: '리틀팍스 숙제' },
+        { from: '16:00', to: '17:00', cat: 'climb', label: '클라이밍' },
+        { from: '17:00', to: '22:00', cat: 'homework', label: '리틀팍스 숙제' },
+        { from: '22:00', to: '24:00', cat: 'sleep', label: '취침', note: '10시 취침' }
+      ],
+      thu: [
+        { from: '08:00', to: '09:00', cat: 'homework', label: '주산 숙제' },
+        { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
+        { from: '14:30', to: '14:40', cat: 'rest', label: '이동 · 준비', phrase: '이동하고 준비하는 시간이에요' },
+        { from: '14:40', to: '17:20', cat: 'academy', label: '리틀팍스' },
+        { from: '17:20', to: '22:00', cat: 'homework', label: '수학 · 주산 · 한자 숙제' },
+        { from: '22:00', to: '24:00', cat: 'sleep', label: '취침', note: '10시 취침' }
+      ],
+      fri: [
+        { from: '08:00', to: '09:00', cat: 'morning', label: '티볼' },
+        { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
+        { from: '14:30', to: '15:40', cat: 'ball', label: '배드민턴 방과후' },
+        { from: '15:40', to: '22:30', cat: 'homework', label: '수학 · 국어 · 리틀팍스 숙제' },
+        { from: '22:30', to: '24:00', cat: 'sleep', label: '취침', note: '10시 30분 취침' }
+      ],
+      sat: [
+        { from: '09:00', to: '22:30', cat: 'homework', label: '리틀팍스 · 수학 · 국어 · 일기 · 한국사 숙제' },
+        { from: '22:30', to: '24:00', cat: 'sleep', label: '취침', note: '10시 30분 취침' }
+      ],
+      sun: [
+        { from: '09:00', to: '22:00', cat: 'rest', label: '주말 자유 시간', phrase: '주말 자유 시간이에요' },
+        { from: '22:00', to: '24:00', cat: 'sleep', label: '취침', note: '10시 취침' }
+      ]
+    };
+
+    let schedDay = null;   // 지금 보고 있는 요일 (없으면 오늘)
+    let schedSim = null;   // 테스트용 시각 { day, min } — 저장 데이터에는 손대지 않아요
+
+    function schedMinutes(text) {
+      const parts = String(text || '0:0').split(':');
+      return (Number(parts[0]) || 0) * 60 + (Number(parts[1]) || 0);
+    }
+
+    function schedClockText(min) {
+      const h = Math.floor(min / 60);
+      const m = min % 60;
+      return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+    }
+
+    function schedDayKeyOf(text) {
+      const key = String(text || '').trim().toLowerCase();
+      const map = {
+        '일': 'sun', '월': 'mon', '화': 'tue', '수': 'wed', '목': 'thu', '금': 'fri', '토': 'sat',
+        sun: 'sun', mon: 'mon', tue: 'tue', wed: 'wed', thu: 'thu', fri: 'fri', sat: 'sat'
+      };
+      return map[key] || null;
+    }
+
+    function schedNow() {
+      const kst = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+      return { day: SCHED_DAYS[kst.getDay()].key, min: kst.getHours() * 60 + kst.getMinutes() };
+    }
+
+    function schedRefNow() {
+      if (schedSim) return { day: schedSim.day, min: schedSim.min, sim: true };
+      const now = schedNow();
+      return { day: now.day, min: now.min, sim: false };
+    }
+
+    function schedSlotsOf(dayKey) {
+      const list = SCHEDULE[dayKey] || [];
+      return list.map(function (slot) {
+        return {
+          cat: slot.cat,
+          label: slot.label,
+          phrase: slot.phrase || '',
+          note: slot.note || '',
+          from: slot.from,
+          to: slot.to,
+          s: schedMinutes(slot.from),
+          e: schedMinutes(slot.to)
+        };
+      });
+    }
+
+    function schedFindSlot(slots, min) {
+      for (let i = 0; i < slots.length; i += 1) {
+        if (min >= slots[i].s && min < slots[i].e) return slots[i];
+      }
+      return null;
+    }
+
+    function schedLeftText(minutes) {
+      const left = Math.max(0, minutes);
+      const h = Math.floor(left / 60);
+      const m = left % 60;
+      if (h && m) return h + '시간 ' + m + '분';
+      if (h) return h + '시간';
+      return m + '분';
+    }
+
+    function renderSchedDays(ref, isRefDay) {
+      const wrap = document.getElementById('schedDays');
+      if (!wrap) return;
+      const todayKey = schedNow().day;
+      wrap.innerHTML = '';
+      SCHED_PILL_ORDER.forEach(function (key) {
+        const info = SCHED_DAYS.filter(function (d) { return d.key === key; })[0];
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sched-day' + (key === schedDay ? ' on' : '') + (key === todayKey ? ' is-today' : '');
+        btn.textContent = info.label;
+        btn.setAttribute('aria-pressed', key === schedDay ? 'true' : 'false');
+        btn.setAttribute('aria-label', info.name + ' 시간표 보기');
+        btn.addEventListener('click', function () {
+          schedDay = key;
+          renderSchedule();
+        });
+        wrap.appendChild(btn);
+      });
+      if (!isRefDay) {
+        const back = document.createElement('button');
+        back.type = 'button';
+        back.className = 'sched-today-btn';
+        back.textContent = '오늘로';
+        back.setAttribute('aria-label', '오늘 시간표로 돌아가기');
+        back.addEventListener('click', function () {
+          schedDay = ref.day;
+          renderSchedule();
+        });
+        wrap.appendChild(back);
+      }
+    }
+
+    function renderSchedHero(slots, ref, isRefDay, dayInfo) {
+      const wrap = document.getElementById('schedHero');
+      if (!wrap) return;
+      const slot = schedFindSlot(slots, ref.min);
+      let cat = 'sleep';
+      let badge = SCHED_CATS.sleep.badge;
+      let timeText = '00:00 ~ 08:00';
+      let titleText = '';
+      let pct = 0;
+      let leftText = '';
+      let nextText = '';
+
+      if (slot) {
+        cat = SCHED_CATS[slot.cat] ? slot.cat : 'rest';
+        badge = SCHED_CATS[cat].badge;
+        timeText = slot.from + ' ~ ' + slot.to;
+        pct = Math.round(((ref.min - slot.s) / Math.max(1, slot.e - slot.s)) * 100);
+        pct = Math.max(0, Math.min(100, pct));
+        if (isRefDay) {
+          leftText = '⏱️ ' + schedLeftText(slot.e - ref.min) + ' 남음 · ' + pct + '%';
+        } else {
+          leftText = '⏱️ ' + slot.from + ' ~ ' + slot.to + ' · ' + pct + '%';
+        }
+        if (slot.phrase && isRefDay) {
+          titleText = '지금은 ' + slot.phrase;
+        } else if (slot.phrase) {
+          titleText = dayInfo.name + ' ' + schedClockText(ref.min) + '엔 <b>' + escapeHtml(slot.label) + '</b>';
+        } else if (isRefDay) {
+          titleText = '지금은 <b>' + escapeHtml(slot.label) + '</b> 시간이에요';
+        } else {
+          titleText = dayInfo.name + ' ' + schedClockText(ref.min) + '엔 <b>' + escapeHtml(slot.label) + '</b>';
+        }
+      } else {
+        const first = slots[0];
+        nextText = first ? '다음: ' + first.from + ' ' + escapeHtml(first.label) : '';
+        leftText = '⏱️ ' + schedClockText(ref.min) + ' · 잠자는 중';
+        titleText = isRefDay
+          ? '지금은 <b>푹 자는 시간</b>이에요'
+          : dayInfo.name + ' ' + schedClockText(ref.min) + '엔 <b>푹 자는 시간</b>';
+      }
+
+      if (slot && nextText === '') {
+        let next = null;
+        for (let i = 0; i < slots.length; i += 1) {
+          if (slots[i].s >= slot.e) { next = slots[i]; break; }
+        }
+        nextText = next ? '다음: ' + next.from + ' ' + escapeHtml(next.label) : '다음: 내일 아침 08:00';
+      }
+
+      wrap.innerHTML =
+        '<div class="sched-hero" data-cat="' + cat + '">' +
+          '<div class="sched-hero-top">' +
+            '<span class="sched-cat">' + badge + '</span>' +
+            '<span class="sched-hero-time">' + timeText + '</span>' +
+          '</div>' +
+          '<p class="sched-now">' + titleText + '</p>' +
+          '<div class="sched-progress"><span style="width:' + pct + '%"></span></div>' +
+          '<div class="sched-hero-foot">' +
+            '<span class="sched-left">' + leftText + '</span>' +
+            '<span class="sched-next">' + nextText + '</span>' +
+          '</div>' +
+        '</div>';
+    }
+
+    function renderSchedBar(slots, ref, isRefDay) {
+      const wrap = document.getElementById('schedBar');
+      if (!wrap) return;
+      if (!slots.length) {
+        wrap.innerHTML = '';
+        return;
+      }
+      const barStart = 13 * 60;
+      const barEnd = Math.max(barStart + 120, slots[slots.length - 1].e);
+      const span = barEnd - barStart;
+      const pctOf = function (min) {
+        return Math.max(0, Math.min(100, ((min - barStart) / span) * 100));
+      };
+      const active = isRefDay ? schedFindSlot(slots, ref.min) : null;
+      const sleepSlot = slots.filter(function (sl) { return sl.cat === 'sleep'; })[0];
+
+      let segs = '';
+      slots.forEach(function (sl) {
+        if (sl.e <= barStart || sl.s >= barEnd) return;
+        const left = pctOf(Math.max(sl.s, barStart));
+        const right = pctOf(Math.min(sl.e, barEnd));
+        const cls = 'sched-seg' + (active && sl === active ? ' is-active' : '');
+        segs += '<span class="' + cls + '" data-cat="' + sl.cat + '" style="left:' +
+          left.toFixed(3) + '%;width:' + Math.max(0.4, right - left).toFixed(3) + '%"></span>';
+      });
+
+      let playhead = '';
+      if (isRefDay) {
+        const at = Math.max(3, Math.min(96, pctOf(Math.max(barStart, Math.min(barEnd, ref.min)))));
+        playhead = '<span class="sched-playhead" style="left:' + at.toFixed(3) + '%">' +
+          '<span class="sched-now-tag">지금</span></span>';
+      }
+
+      const hours = [13, 15, 17, 19, 21, 23];
+      if (barEnd > 23 * 60) hours.push(24);
+      let ticks = '';
+      hours.forEach(function (h, i) {
+        let cls = 'sched-tick';
+        if (i === 0) cls += ' first';
+        if (i === hours.length - 1) cls += ' last';
+        if (h * 60 > barEnd) return;
+        ticks += '<span class="' + cls + '" style="left:' + pctOf(h * 60).toFixed(3) + '%">' + h + '시</span>';
+      });
+
+      const morning = slots.filter(function (sl) { return sl.e <= barStart; });
+      let morningHtml = '';
+      if (morning.length) {
+        morningHtml = '<div class="sched-morning"><span class="sched-morning-label">🌅 아침</span>' +
+          morning.map(function (sl) {
+            return '<span class="sched-mchip" data-cat="' + sl.cat + '">' +
+              '<span class="sched-dot"></span>' + sl.from + '~' + sl.to + ' ' + escapeHtml(sl.label) + '</span>';
+          }).join('') + '</div>';
+      }
+
+      wrap.innerHTML = morningHtml +
+        '<div class="sched-barwrap">' +
+          '<div class="sched-bar-head">' +
+            '<span>오후 타임라인 <b>13:00~' + schedClockText(barEnd) + '</b></span>' +
+            '<span>' + (sleepSlot ? sleepSlot.from + ' 취침' : '') + '</span>' +
+          '</div>' +
+          '<div class="sched-barpos">' +
+            '<div class="sched-track">' + segs + '</div>' +
+            playhead +
+          '</div>' +
+          '<div class="sched-ticks">' + ticks + '</div>' +
+        '</div>';
+    }
+
+    function renderSchedRows(slots, ref, isRefDay) {
+      const wrap = document.getElementById('schedRows');
+      if (!wrap) return;
+      const barStart = 13 * 60;
+      const rows = slots.filter(function (sl) { return sl.e > barStart; });
+      if (!rows.length) {
+        wrap.innerHTML = '';
+        return;
+      }
+      const active = isRefDay ? schedFindSlot(slots, ref.min) : null;
+      wrap.innerHTML = rows.map(function (sl) {
+        const cat = SCHED_CATS[sl.cat] || SCHED_CATS.rest;
+        const isActive = active && sl === active;
+        let cls = 'sched-row';
+        if (isActive) cls += ' is-active';
+        else if (isRefDay && sl.e <= ref.min) cls += ' is-past';
+        const tail = isActive
+          ? '<span class="sched-row-now">지금</span>'
+          : '<span class="sched-row-tag">' + cat.tag + '</span>';
+        return '<div class="' + cls + '" data-cat="' + sl.cat + '">' +
+          '<span class="sched-dot"></span>' +
+          '<span class="sched-row-time">' + sl.from + '~' + sl.to + '</span>' +
+          '<span class="sched-row-name">' + escapeHtml(sl.label) + '</span>' +
+          tail +
+        '</div>';
+      }).join('');
+    }
+
+    function renderSchedule() {
+      if (!schedDay || !SCHEDULE[schedDay]) schedDay = schedRefNow().day;
+      const ref = schedRefNow();
+      const dayInfo = SCHED_DAYS.filter(function (d) { return d.key === schedDay; })[0] || SCHED_DAYS[0];
+      const refInfo = SCHED_DAYS.filter(function (d) { return d.key === ref.day; })[0] || SCHED_DAYS[0];
+      const slots = schedSlotsOf(schedDay);
+      const isRefDay = schedDay === ref.day;
+
+      const avatarEl = document.getElementById('schedAvatar');
+      if (avatarEl && !avatarEl.getAttribute('src')) avatarEl.src = (AVATARS && AVATARS.dohyun) || '';
+
+      const clockEl = document.getElementById('schedClock');
+      if (clockEl) clockEl.textContent = schedClockText(ref.min);
+
+      const dayEl = document.getElementById('schedClockDay');
+      if (dayEl) dayEl.textContent = ref.sim ? refInfo.name + ' · 미리보기' : refInfo.name;
+
+      const dotEl = document.getElementById('schedLiveDot');
+      if (dotEl) dotEl.classList.toggle('off', !isRefDay);
+
+      const subEl = document.getElementById('schedSub');
+      if (subEl) {
+        subEl.textContent = isRefDay
+          ? (ref.sim ? '2학기 시간표 · 미리보기 시각으로 보는 중이에요' : '2학기 시간표로 지금 무엇을 하는지 보여드려요')
+          : dayInfo.name + ' ' + schedClockText(ref.min) + ' 기준 시간표예요';
+      }
+
+      renderSchedDays(ref, isRefDay);
+      renderSchedHero(slots, ref, isRefDay, dayInfo);
+      renderSchedBar(slots, ref, isRefDay);
+      renderSchedRows(slots, ref, isRefDay);
+    }
+
+    function schedParseSim(text) {
+      const m = String(text || '').trim().match(/^([월화수목금토일]|sun|mon|tue|wed|thu|fri|sat)?[\s\-_:]*(\d{1,2}):(\d{2})$/i);
+      if (!m) return null;
+      const key = m[1] ? schedDayKeyOf(m[1]) : schedNow().day;
+      if (!key || !SCHEDULE[key]) return null;
+      const h = Math.max(0, Math.min(23, Number(m[2])));
+      const mi = Math.max(0, Math.min(59, Number(m[3])));
+      return { day: key, min: h * 60 + mi };
+    }
+
+    // 검증용 도우미: schedSetSim('tue', '16:00') / schedClearSim()
+    window.schedSetSim = function (dayText, timeText) {
+      const text = dayText && timeText ? dayText + '-' + timeText : String(dayText || '');
+      const sim = schedParseSim(text);
+      if (!sim) return false;
+      schedSim = sim;
+      schedDay = sim.day;
+      renderSchedule();
+      return true;
+    };
+    window.schedClearSim = function () {
+      schedSim = null;
+      schedDay = schedNow().day;
+      renderSchedule();
+    };
+
+    (function initSchedule() {
+      const simParam = new URLSearchParams(window.location.search).get('simTime');
+      if (simParam) {
+        const parsed = schedParseSim(simParam);
+        if (parsed) {
+          schedSim = parsed;
+          schedDay = parsed.day;
+        }
+      }
+      renderSchedule();
+      setInterval(function () {
+        if (!schedSim) renderSchedule();
+      }, 30000);
+    })();
 
     renderAll();
     initMeal();

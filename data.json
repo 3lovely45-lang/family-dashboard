@@ -30,5 +30,43 @@
       "avatar": "ihyun"
     }
   ],
-  "logs": []
+  "logs": [],
+  "todos": [
+    {
+      "id": "t-d1",
+      "memberId": "dohyun",
+      "text": "알림장 물병정리",
+      "done": false
+    },
+    {
+      "id": "t-d2",
+      "memberId": "dohyun",
+      "text": "오늘 할일 공부하기",
+      "done": false
+    },
+    {
+      "id": "t-d3",
+      "memberId": "dohyun",
+      "text": "씻고 양치하기",
+      "done": false
+    },
+    {
+      "id": "t-i1",
+      "memberId": "ihyun",
+      "text": "알림장 물병정리",
+      "done": false
+    },
+    {
+      "id": "t-i2",
+      "memberId": "ihyun",
+      "text": "오늘 할일 공부하기",
+      "done": false
+    },
+    {
+      "id": "t-i3",
+      "memberId": "ihyun",
+      "text": "씻고 양치하기",
+      "done": false
+    }
+  ]
 }

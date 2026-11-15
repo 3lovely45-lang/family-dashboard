@@ -3230,12 +3230,12 @@
 
     /* ===== 🌤️ 날씨 카드 · 🏃 도현 지금 : 크게, 핵심만 ===== */
     .weather-card {
-      padding: 12px 14px;
+      padding: 14px 15px;
       border-radius: 18px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 8px;
+      gap: 9px;
     }
 
     .weather-top {
@@ -3309,7 +3309,7 @@
 
     /* 도현 지금: 큰 상태 한 줄 + 짧은 정보 한 줄 (막대 없이) */
     .schedule-section {
-      padding: 12px 14px;
+      padding: 13px 15px;
       border-radius: 20px;
       display: flex;
       flex-direction: column;
@@ -3325,7 +3325,7 @@
       border-width: 1.5px;
     }
 
-    .sched-title { font-size: 14.5px; gap: 4px; }
+    .sched-title { font-size: 14.5px; gap: 4px; white-space: nowrap; }
 
     .sched-sub { display: none; }
 
@@ -3456,6 +3456,26 @@
         gap: 12px;
         align-items: start;
       }
+
+      /* 좁은 두 칸에서도 크게 읽히도록: 기온은 크게, 설명은 한 줄씩 */
+      .weather-card { padding: 12px 12px; gap: 6px; }
+      .weather-emoji { font-size: 20px; }
+      .weather-temp { font-size: 32px; }
+      .weather-loc { font-size: 11px; }
+      .weather-minmax { font-size: 10px; }
+      .badge { padding: 2px 6px; font-size: 9.5px; }
+      .weather-meta { font-size: 8.5px; gap: 4px; }
+
+      .schedule-section { padding: 12px; gap: 6px; }
+      .sched-title { font-size: 13px; }
+      .sched-clock-time { font-size: 13px; }
+      .sched-clock-day { font-size: 9px; }
+      .sched-toggle { padding: 2px 6px; font-size: 9px; }
+      .sched-now { font-size: 17px; }
+      .sched-now b { font-size: 19px; }
+      .sched-hero { padding: 8px 10px; }
+      .sched-hero-note { display: block; margin-left: 0; font-size: 9px; }
+      .sched-hero-foot { font-size: 9.5px; margin-top: 4px; }
 
       .app-shell > * { margin-top: 0; margin-bottom: 0; }
 
@@ -6311,7 +6331,8 @@
         if (isRefDay) leftText += ' · ' + schedLeftText(slot.e - ref.min) + ' 남음';
         nextText = schedNextTextOf(slots, slot);
       } else {
-        leftText = isRefDay ? schedClockText(ref.min) + ' · 잠자는 중' : '00:00 ~ 08:00';
+        leftText = '00:00 ~ 08:00';
+        if (isRefDay) leftText += ' · ' + schedLeftText(8 * 60 - ref.min) + ' 남음';
         nextText = schedNextTextOf(slots, null);
       }
 

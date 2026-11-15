@@ -1895,6 +1895,384 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* 🏆 칭찬 스티커 · 주말 소원권 (도현·이현) */
+    .sticker-section {
+      margin-top: 16px;
+      background: rgba(255, 253, 245, 0.96);
+      border: 1px solid #F1E9D6;
+      border-radius: 26px;
+      padding: 15px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .sticker-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 0 2px;
+    }
+
+    .sticker-title {
+      margin: 0;
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size: 22px;
+      line-height: 1.2;
+      color: #3F3A34;
+      letter-spacing: -0.01em;
+    }
+
+    .sticker-subtitle {
+      margin: 5px 0 0;
+      font-size: 12.5px;
+      color: #8A8074;
+      word-break: keep-all;
+    }
+
+    .sticker-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .sticker-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-radius: 22px;
+      padding: 13px;
+      border: 1.5px solid #EFE2B8;
+      background: #FFFDF4;
+    }
+
+    .sticker-card[data-member="ihyun"] {
+      border-color: #F3D6E0;
+      background: #FFF8FA;
+    }
+
+    .sticker-card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 2px 10px;
+      border-bottom: 1.5px dashed rgba(190, 180, 160, 0.45);
+    }
+
+    .sticker-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #FFFFFF;
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 6px rgba(120, 100, 60, 0.1);
+    }
+
+    .sticker-head-main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sticker-name-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .sticker-name {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: #2F2A25;
+      line-height: 1.2;
+    }
+
+    .sticker-progress {
+      border: 1px solid #F0DDAE;
+      background: #FFF4DC;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #A97A2A;
+      white-space: nowrap;
+    }
+
+    .sticker-wish-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      margin-top: 5px;
+      border: 1px solid #E2D2F5;
+      background: #F4EBFF;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #7A4E9B;
+      white-space: nowrap;
+    }
+
+    .sticker-wish-badge.empty {
+      border-color: #E7DECB;
+      background: #F8F4EC;
+      color: #A2957F;
+    }
+
+    .sticker-slots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sticker-slot {
+      flex: 1;
+      min-width: 0;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      border: 2px dashed #E2D7BF;
+      background: #FFFDF7;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-size: 20px;
+      line-height: 1;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .sticker-slot.filled {
+      border: 2px solid #F3C03F;
+      background: linear-gradient(180deg, #FFF1BE 0%, #FFD977 100%);
+      box-shadow: inset 0 0 0 2px #FFFBEC, 0 2px 7px rgba(196, 152, 36, 0.2);
+    }
+
+    .sticker-slot:active {
+      transform: scale(0.92);
+    }
+
+    .sticker-actions {
+      display: flex;
+      gap: 7px;
+    }
+
+    .sticker-btn {
+      flex: 1;
+      border: 1px solid #EFE6D3;
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 10px 8px;
+      font-size: 13px;
+      font-weight: 800;
+      color: #3F3A34;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .sticker-btn:active {
+      transform: scale(0.96);
+    }
+
+    .sticker-btn.primary {
+      border: none;
+      background: #8AD8BE;
+      color: #1F4C3D;
+    }
+
+    .sticker-claim {
+      width: 100%;
+      border: none;
+      border-radius: 16px;
+      padding: 12px 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 900;
+      color: #7A4A00;
+      background: linear-gradient(180deg, #FFE79B 0%, #FFC94D 100%);
+      box-shadow: 0 4px 12px rgba(228, 176, 40, 0.35);
+      cursor: pointer;
+      animation: stickerClaimPulse 1.9s ease-in-out infinite;
+    }
+
+    .sticker-claim:active {
+      transform: scale(0.97);
+    }
+
+    @keyframes stickerClaimPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.025); }
+    }
+
+    .sticker-hint {
+      border: 1.5px dashed #EDE4D2;
+      border-radius: 14px;
+      background: #FFFDF8;
+      padding: 9px 10px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #9E8A6A;
+      text-align: center;
+      word-break: keep-all;
+    }
+
+    .sticker-wish-tray {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding-top: 10px;
+      border-top: 1.5px dashed rgba(190, 180, 160, 0.45);
+    }
+
+    .sticker-wish-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      color: #5B5047;
+      padding: 0 2px;
+    }
+
+    .sticker-wish-count {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #8A8074;
+    }
+
+    .wish-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid #EFE6D3;
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 7px 9px;
+    }
+
+    .wish-emoji {
+      font-size: 16px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .wish-input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      background: transparent;
+      padding: 5px 0;
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .wish-input::placeholder {
+      color: #B7AB9B;
+    }
+
+    .wish-input:focus {
+      outline: none;
+    }
+
+    .wish-use {
+      border: none;
+      border-radius: 11px;
+      background: #8AD8BE;
+      color: #1F4C3D;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .wish-use:active {
+      transform: scale(0.95);
+    }
+
+    .wish-del {
+      border: none;
+      background: transparent;
+      color: #B4A99B;
+      padding: 2px 3px;
+      font-size: 13px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .wish-empty {
+      border: 1.5px dashed #EDE4D2;
+      border-radius: 14px;
+      background: #FFFDF8;
+      padding: 11px 8px;
+      font-size: 12.5px;
+      color: #A79C8E;
+      text-align: center;
+      word-break: keep-all;
+    }
+
+    .wish-used-toggle {
+      align-self: flex-start;
+      border: none;
+      background: transparent;
+      padding: 2px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      color: #9E9285;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .wish-used-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .wish-used-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px dashed #E7DECB;
+      background: #FBFAF5;
+      border-radius: 12px;
+      padding: 6px 9px;
+      font-size: 12px;
+      color: #9A9082;
+    }
+
+    .wish-used-text {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-decoration: line-through;
+    }
+
+    .wish-restore {
+      border: none;
+      background: transparent;
+      color: #6E8A62;
+      padding: 2px 3px;
+      font-size: 11.5px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
     /* ===== 태블릿·데스크톱: 카드를 2~3칸으로 나란히 보기 (모바일 화면은 그대로) ===== */
     @media (min-width: 760px) {
       .app-shell {
@@ -1943,12 +2321,19 @@
 
       .todo-member-card { margin-bottom: 0; }
 
-      .screen-section { grid-row: 4; grid-column: 1; }
-      .meal-section { grid-row: 4; grid-column: 2; }
-      .shop-section { grid-row: 5; grid-column: 1; }
-      .cal-section { grid-row: 5; grid-column: 2; }
+      .sticker-section { grid-row: 4; grid-column: 1 / -1; }
 
-      .log-section { grid-row: 6; grid-column: 1 / -1; }
+      .sticker-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .screen-section { grid-row: 5; grid-column: 1; }
+      .meal-section { grid-row: 5; grid-column: 2; }
+      .shop-section { grid-row: 6; grid-column: 1; }
+      .cal-section { grid-row: 6; grid-column: 2; }
+
+      .log-section { grid-row: 7; grid-column: 1 / -1; }
     }
 
     @media (min-width: 1080px) {
@@ -1991,11 +2376,18 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
-      .meal-section { grid-row: 4; grid-column: 1; }
-      .shop-section { grid-row: 4; grid-column: 2; }
-      .cal-section { grid-row: 4; grid-column: 3; }
+      .sticker-section { grid-row: 4; grid-column: 1 / -1; }
 
-      .log-section { grid-row: 5; grid-column: 1 / -1; }
+      .sticker-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .meal-section { grid-row: 5; grid-column: 1; }
+      .shop-section { grid-row: 5; grid-column: 2; }
+      .cal-section { grid-row: 5; grid-column: 3; }
+
+      .log-section { grid-row: 6; grid-column: 1 / -1; }
     }
 
   </style>
@@ -2068,6 +2460,16 @@
         <button class="todo-add-btn" id="todoAddTopBtn" type="button">+ 할 일 추가</button>
       </div>
       <div id="todoMembers"></div>
+    </section>
+
+    <section class="sticker-section" id="stickerSection" aria-label="도현 · 이현 칭찬 스티커와 주말 소원권">
+      <div class="sticker-header">
+        <div>
+          <h2 class="sticker-title">🏆 칭찬 스티커 · 주말 소원권</h2>
+          <p class="sticker-subtitle">칭찬 스티커 5개를 모으면 주말 소원권 한 장이 생겨요</p>
+        </div>
+      </div>
+      <div class="sticker-grid" id="stickerGrid"></div>
     </section>
 
     <section class="screen-section" id="screenSection" aria-label="이번주 전자기기 사용시간">
@@ -2253,9 +2655,14 @@
     };
     function normalizeMemberSubs(members) {
       if (!Array.isArray(members)) return members;
-      return members.map(m => (m && LEGACY_MEMBER_SUBS[m.sub])
-        ? { ...m, sub: LEGACY_MEMBER_SUBS[m.sub] }
-        : m);
+      return members.map(m => {
+        if (!m || typeof m !== 'object') return m;
+        const next = LEGACY_MEMBER_SUBS[m.sub] ? { ...m, sub: LEGACY_MEMBER_SUBS[m.sub] } : { ...m };
+        // 칭찬 스티커 개수는 항상 0~5 사이 정수로 맞춰 둡니다
+        const stars = Number(next.stars);
+        next.stars = !isFinite(stars) || stars < 0 ? 0 : Math.min(5, Math.floor(stars));
+        return next;
+      });
     }
 
     const TODO_MEMBER_ORDER = ['dohyun', 'ihyun', 'eomma', 'appa'];
@@ -2327,6 +2734,7 @@
       document.getElementById('dateLine').textContent = formatKoreanDate();
       document.getElementById('taglineText').textContent = state.tagline;
       renderTodos();
+      renderStickers();
       renderScreenTime();
       renderShopping();
       renderCalendar();
@@ -3055,6 +3463,279 @@
       renderShopping();
     }
 
+    // 🏆 칭찬 스티커 · 주말 소원권 (도현·이현)
+    //  · 칭찬 스티커 개수 -> state.members[].stars (0~5) : 시트 '가족별점' 탭과 동기화
+    //  · 주말 소원권 -> state.todos 안에 memberId 'wish_dohyun' / 'wish_ihyun' : 시트 '가족할일' 탭과 동기화
+    //    (오늘 할 일 · 장보기 목록과 섞이지 않도록 memberId 로 꼭 나눠 둡니다)
+    const STICKER_MAX = 5;
+    const STICKER_KIDS = ['dohyun', 'ihyun'];
+    const WISH_PREFIX = 'wish_';
+    const WISH_FALLBACK_TEXT = '주말 소원권';
+    const WISH_PLACEHOLDER = '소원을 적어보세요 (예: 치킨 먹기)';
+    const wishUsedOpen = { dohyun: false, ihyun: false };
+
+    function wishMemberId(kidId) {
+      return WISH_PREFIX + kidId;
+    }
+
+    function wishTickets(kidId) {
+      if (!Array.isArray(state.todos)) state.todos = [];
+      const memberId = wishMemberId(kidId);
+      return state.todos.filter(t => t && t.memberId === memberId);
+    }
+
+    function stickerCount(kidId) {
+      const m = state.members.find(x => x && x.id === kidId);
+      const n = Number(m && m.stars);
+      if (!isFinite(n)) return 0;
+      return Math.max(0, Math.min(STICKER_MAX, Math.floor(n)));
+    }
+
+    function wishLabel(ticket) {
+      const text = ticket && typeof ticket.text === 'string' ? ticket.text.trim() : '';
+      return text || WISH_FALLBACK_TEXT;
+    }
+
+    function addWishTicket(kidId) {
+      if (!Array.isArray(state.todos)) state.todos = [];
+      const ticket = {
+        id: 'wish-' + kidId + '-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+        memberId: wishMemberId(kidId),
+        text: '',
+        done: false
+      };
+      state.todos.push(ticket);
+      return ticket;
+    }
+
+    function setStickerCount(kidId, next) {
+      const m = state.members.find(x => x && x.id === kidId);
+      if (!m) return 0;
+      const count = Math.max(0, Math.min(STICKER_MAX, Math.floor(Number(next) || 0)));
+      m.stars = count;
+      saveState();
+      renderStickers();
+      return count;
+    }
+
+    function claimWishTicket(kidId) {
+      const m = state.members.find(x => x && x.id === kidId);
+      if (!m) return;
+      if (stickerCount(kidId) < STICKER_MAX) {
+        showToast('칭찬 스티커 5개를 모으면 소원권을 받을 수 있어요');
+        return;
+      }
+      m.stars = 0;
+      addWishTicket(kidId);
+      saveState();
+      renderStickers();
+      showToast('🎉 ' + m.name + ' 주말 소원권 1장 받았어요!');
+    }
+
+    // 소원 내용 저장 (엔터·포커스아웃에서 불립니다). 다시 그리지 않아 입력 중인 커서를 지키고, 저장 여부만 돌려줍니다.
+    function updateWishText(id, rawText) {
+      const ticket = state.todos.find(x => x && x.id === id);
+      if (!ticket) return false;
+      const text = String(rawText == null ? '' : rawText).replace(/\s+/g, ' ').trim().slice(0, 40);
+      if ((ticket.text || '') === text) return false;
+      ticket.text = text;
+      saveState();
+      return true;
+    }
+
+    function setWishDone(id, done) {
+      const ticket = state.todos.find(x => x && x.id === id);
+      if (!ticket) return;
+      ticket.done = !!done;
+      saveState();
+      renderStickers();
+    }
+
+    function deleteWishTicket(id) {
+      const idx = state.todos.findIndex(x => x && x.id === id && String(x.memberId || '').indexOf(WISH_PREFIX) === 0);
+      if (idx < 0) return;
+      state.todos.splice(idx, 1);
+      saveState();
+      renderStickers();
+      showToast('소원권을 지웠어요');
+    }
+
+    function renderStickers() {
+      const grid = document.getElementById('stickerGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      STICKER_KIDS.forEach(kidId => {
+        const m = state.members.find(x => x && x.id === kidId);
+        if (!m) return;
+        const stars = stickerCount(kidId);
+        const tickets = wishTickets(kidId);
+        const activeTickets = tickets.filter(t => !t.done);
+        const usedTickets = tickets.filter(t => t.done);
+        const safeName = escapeHtml(m.name);
+
+        const card = document.createElement('article');
+        card.className = 'sticker-card';
+        card.dataset.member = kidId;
+        card.innerHTML =
+          '<div class="sticker-card-head">' +
+            '<img class="sticker-avatar" src="' + (AVATARS[m.avatar] || AVATARS.dohyun) + '" alt="' + safeName + '" />' +
+            '<div class="sticker-head-main">' +
+              '<div class="sticker-name-row">' +
+                '<span class="sticker-name">' + safeName + '</span>' +
+                '<span class="sticker-progress">' + stars + ' / ' + STICKER_MAX + '개</span>' +
+              '</div>' +
+              '<span class="sticker-wish-badge' + (activeTickets.length ? '' : ' empty') + '">🎟️ 소원권 ' + activeTickets.length + '장</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="sticker-slots" role="group" aria-label="' + safeName + ' 칭찬 스티커"></div>' +
+          '<div class="sticker-actions">' +
+            '<button class="sticker-btn" type="button" data-act="minus" aria-label="스티커 한 개 떼기">−1 스티커</button>' +
+            '<button class="sticker-btn primary" type="button" data-act="plus" aria-label="스티커 한 개 붙이기">+1 스티커</button>' +
+          '</div>' +
+          '<div class="sticker-claim-slot"></div>' +
+          '<div class="sticker-wish-tray">' +
+            '<div class="sticker-wish-head"><span>🎟️ 주말 소원권</span><span class="sticker-wish-count">' + tickets.length + '장</span></div>' +
+            '<div class="wish-active-list"></div>' +
+            '<div class="wish-used-zone"></div>' +
+          '</div>';
+
+        // 스티커 5칸 (누르면 그 칸까지 채우거나, 마지막 별을 다시 누르면 떼요)
+        const slots = card.querySelector('.sticker-slots');
+        for (let i = 0; i < STICKER_MAX; i++) {
+          const filled = i < stars;
+          const slot = document.createElement('button');
+          slot.type = 'button';
+          slot.className = 'sticker-slot' + (filled ? ' filled' : '');
+          slot.textContent = filled ? '⭐' : '';
+          slot.setAttribute('aria-label', safeName + ' 스티커 ' + (i + 1) + '번째 칸 ' + (filled ? '(붙음)' : '(비어 있음)'));
+          slot.addEventListener('click', () => {
+            setStickerCount(kidId, i + 1 === stars ? stars - 1 : i + 1);
+          });
+          slots.appendChild(slot);
+        }
+
+        card.querySelector('[data-act="minus"]').addEventListener('click', () => {
+          const now = stickerCount(kidId);
+          if (now <= 0) {
+            showToast('아직 붙인 스티커가 없어요');
+            return;
+          }
+          setStickerCount(kidId, now - 1);
+          showToast('스티커를 한 개 뗐어요');
+        });
+
+        card.querySelector('[data-act="plus"]').addEventListener('click', () => {
+          const now = stickerCount(kidId);
+          if (now >= STICKER_MAX) {
+            showToast('스티커 5개를 다 모았어요! 아래에서 소원권을 받아 보세요');
+            return;
+          }
+          const after = setStickerCount(kidId, now + 1);
+          if (after >= STICKER_MAX) showToast('⭐ 스티커 5개 완성! 소원권을 받을 수 있어요');
+          else showToast('⭐ 칭찬 스티커를 붙였어요 (' + after + '/' + STICKER_MAX + ')');
+        });
+
+        const claimSlot = card.querySelector('.sticker-claim-slot');
+        if (stars >= STICKER_MAX) {
+          const claim = document.createElement('button');
+          claim.type = 'button';
+          claim.className = 'sticker-claim';
+          claim.textContent = '🎁 5개 완성! 주말 소원권 받기';
+          claim.addEventListener('click', () => claimWishTicket(kidId));
+          claimSlot.appendChild(claim);
+        } else {
+          const hint = document.createElement('div');
+          hint.className = 'sticker-hint';
+          hint.textContent = '스티커 ' + (STICKER_MAX - stars) + '개 더 모으면 주말 소원권이 생겨요 ✨';
+          claimSlot.appendChild(hint);
+        }
+
+        // 쓸 수 있는 소원권
+        const activeList = card.querySelector('.wish-active-list');
+        if (!activeTickets.length) {
+          const empty = document.createElement('div');
+          empty.className = 'wish-empty';
+          empty.textContent = '스티커 5개를 모으면 여기에 소원권이 생겨요 ✨';
+          activeList.appendChild(empty);
+        }
+        activeTickets.forEach(ticket => {
+          const row = document.createElement('div');
+          row.className = 'wish-row';
+          row.innerHTML =
+            '<span class="wish-emoji" aria-hidden="true">🎟️</span>' +
+            '<input class="wish-input" type="text" maxlength="40" placeholder="' + WISH_PLACEHOLDER + '" value="' + escapeHtml(ticket.text || '') + '" aria-label="' + safeName + ' 주말 소원" />' +
+            '<button class="wish-use" type="button">사용하기</button>' +
+            '<button class="wish-del" type="button" aria-label="소원권 삭제">✕</button>';
+          const input = row.querySelector('.wish-input');
+          const commit = () => {
+            if (updateWishText(ticket.id, input.value)) showToast('소원을 저장했어요 ✏️');
+          };
+          input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              commit();
+              input.blur();
+            }
+          });
+          input.addEventListener('blur', commit);
+          row.querySelector('.wish-use').addEventListener('click', () => {
+            updateWishText(ticket.id, input.value);
+            setWishDone(ticket.id, true);
+            showToast('🎟️ ' + wishLabel(ticket) + ' 사용 완료!');
+          });
+          row.querySelector('.wish-del').addEventListener('click', () => deleteWishTicket(ticket.id));
+          activeList.appendChild(row);
+        });
+
+        // 사용한 소원권 (접어 두기)
+        const usedZone = card.querySelector('.wish-used-zone');
+        if (usedTickets.length) {
+          const toggle = document.createElement('button');
+          toggle.type = 'button';
+          toggle.className = 'wish-used-toggle';
+          toggle.textContent = (wishUsedOpen[kidId] ? '▾ ' : '▸ ') + '사용한 소원권 ' + usedTickets.length + '장';
+          toggle.setAttribute('aria-expanded', wishUsedOpen[kidId] ? 'true' : 'false');
+          toggle.addEventListener('click', () => {
+            wishUsedOpen[kidId] = !wishUsedOpen[kidId];
+            renderStickers();
+          });
+          usedZone.appendChild(toggle);
+          if (wishUsedOpen[kidId]) {
+            const list = document.createElement('div');
+            list.className = 'wish-used-list';
+            usedTickets.forEach(ticket => {
+              const row = document.createElement('div');
+              row.className = 'wish-used-row';
+              const textEl = document.createElement('span');
+              textEl.className = 'wish-used-text';
+              textEl.textContent = wishLabel(ticket);
+              const restore = document.createElement('button');
+              restore.type = 'button';
+              restore.className = 'wish-restore';
+              restore.textContent = '되돌리기';
+              restore.addEventListener('click', () => {
+                setWishDone(ticket.id, false);
+                showToast('소원권을 다시 쓸 수 있게 되돌렸어요');
+              });
+              const del = document.createElement('button');
+              del.type = 'button';
+              del.className = 'wish-del';
+              del.textContent = '✕';
+              del.setAttribute('aria-label', '소원권 삭제');
+              del.addEventListener('click', () => deleteWishTicket(ticket.id));
+              row.appendChild(textEl);
+              row.appendChild(restore);
+              row.appendChild(del);
+              list.appendChild(row);
+            });
+            usedZone.appendChild(list);
+          }
+        }
+
+        grid.appendChild(card);
+      });
+    }
+
     // Today's To-Do
     function orderedTodoMembers() {
       const ordered = TODO_MEMBER_ORDER
@@ -3536,6 +4217,45 @@
     });
 
     // Optional Cloud Sync (for multi-phone real-time sharing via Google Apps Script or JSON endpoint)
+    let lastRemoteSignature = '';
+    let pendingRemoteRender = false;
+
+    // 다른 폰에서 들어온 내용이 실제로 바뀐 건지 비교하기 위한 지문
+    function syncSignature() {
+      const members = (state.members || []).map(m => [m.id, m.name, m.sub, m.stars, m.avatar]);
+      const todos = (state.todos || []).map(t => [t.id, t.memberId, t.text, t.done]);
+      const logs = (state.logs || []).map(l => [l.id, l.author, l.text, l.time]);
+      const events = (state.events || []).map(e => [e.id, e.date, e.title, e.time]);
+      return JSON.stringify({ tagline: state.tagline, members: members, todos: todos, logs: logs, events: events, screenTime: state.screenTime || {} });
+    }
+
+    // 글자를 입력 중인지 확인 (소원·장보기를 적는 중에 동기화가 덮어쓰지 않도록)
+    function isTextEntryFocused() {
+      const el = document.activeElement;
+      if (!el || !el.tagName) return false;
+      if (el.tagName === 'TEXTAREA') return true;
+      if (el.tagName !== 'INPUT') return false;
+      const type = String(el.type || 'text').toLowerCase();
+      return ['text', 'search', 'url', 'tel', 'email', 'number', 'password'].indexOf(type) >= 0;
+    }
+
+    function renderAfterRemoteSync() {
+      if (isTextEntryFocused()) {
+        pendingRemoteRender = true;
+        return;
+      }
+      renderAll();
+    }
+
+    document.addEventListener('focusout', () => {
+      if (!pendingRemoteRender) return;
+      setTimeout(() => {
+        if (isTextEntryFocused()) return;
+        pendingRemoteRender = false;
+        renderAll();
+      }, 400);
+    });
+
     async function pullCloudSync() {
       const dot = document.getElementById('syncDot');
       // 방금 누른 체크가 업로드 중에 덮어써지지 않도록 6초간 쉬어요
@@ -3554,7 +4274,12 @@
             if (Array.isArray(data.calendarEvents)) state.calendarEvents = data.calendarEvents;
             if (Array.isArray(data.events)) state.events = data.events;
             localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-            renderAll();
+            // 내용이 실제로 바뀌었을 때만 다시 그리고, 입력 중에는 잠시 미뤄요
+            const signature = syncSignature();
+            if (signature !== lastRemoteSignature) {
+              lastRemoteSignature = signature;
+              renderAfterRemoteSync();
+            }
           }
         } catch {}
         dot.classList.remove('syncing');

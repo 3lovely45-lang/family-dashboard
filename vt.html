@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>viewport check</title>
+<style>
+html,body{margin:0;background:#111}
+.row{display:flex;gap:14px;padding:14px 10px 10px;align-items:flex-start}
+.frame{position:relative;outline:1px solid #555;margin-top:12px}
+.frame>span{position:absolute;left:0;top:-13px;font:10px/13px monospace;color:#9f9;background:#111;padding:0 5px;z-index:5}
+iframe{display:block;border:0;background:#fff}
+</style>
+</head>
+<body>
+<div class="row" id="row"></div>
+<script>
+var q = new URLSearchParams(location.search);
+var view = q.get('view') || 'dashboard';
+var only = q.get('only');
+var list = [['desk', 1280, 800], ['mob', 460, 900]];
+if (only === 'desk') list = [['desk', 1280, 800]];
+if (only === 'mob') list = [['mob', 460, 900]];
+list.forEach(function (it) {
+  var d = document.createElement('div');
+  d.className = 'frame';
+  var s = document.createElement('span');
+  s.textContent = it[0] + ' ' + it[1] + '\u00d7' + it[2];
+  var f = document.createElement('iframe');
+  f.id = it[0];
+  f.width = it[1];
+  f.height = it[2];
+  f.src = './world.html?vt=' + it[0] + '#' + view;
+  d.appendChild(s);
+  d.appendChild(f);
+  document.getElementById('row').appendChild(d);
+});
+</script>
+</body>
+</html>

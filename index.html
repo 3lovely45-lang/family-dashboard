@@ -4359,22 +4359,26 @@
       if (state.syncUrl) {
         dot.classList.add('syncing');
         try {
+          const startedAt = Date.now();
           const res = await fetch(state.syncUrl);
           if (res.ok) {
             const data = await res.json();
-            if (Array.isArray(data.members)) state.members = normalizeMemberSubs(data.members);
-            if (Array.isArray(data.logs)) state.logs = data.logs;
-            if (data.tagline) state.tagline = data.tagline;
-            if (Array.isArray(data.todos)) state.todos = data.todos;
-            if (data.screenTime && typeof data.screenTime === 'object') state.screenTime = normalizeScreenTime(data.screenTime);
-            if (Array.isArray(data.calendarEvents)) state.calendarEvents = data.calendarEvents;
-            if (Array.isArray(data.events)) state.events = data.events;
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-            // 내용이 실제로 바뀌었을 때만 다시 그리고, 입력 중에는 잠시 미뤄요
-            const signature = syncSignature();
-            if (signature !== lastRemoteSignature) {
-              lastRemoteSignature = signature;
-              renderAfterRemoteSync();
+            // 받아 오는 사이에 이 폰에서 값을 고쳤으면, 방금 받은 옛 내용으로 덮어쓰지 않아요
+            if (lastLocalMutationAt <= startedAt) {
+              if (Array.isArray(data.members)) state.members = normalizeMemberSubs(data.members);
+              if (Array.isArray(data.logs)) state.logs = data.logs;
+              if (data.tagline) state.tagline = data.tagline;
+              if (Array.isArray(data.todos)) state.todos = data.todos;
+              if (data.screenTime && typeof data.screenTime === 'object') state.screenTime = normalizeScreenTime(data.screenTime);
+              if (Array.isArray(data.calendarEvents)) state.calendarEvents = data.calendarEvents;
+              if (Array.isArray(data.events)) state.events = data.events;
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+              // 내용이 실제로 바뀌었을 때만 다시 그리고, 입력 중에는 잠시 미루어요
+              const signature = syncSignature();
+              if (signature !== lastRemoteSignature) {
+                lastRemoteSignature = signature;
+                renderAfterRemoteSync();
+              }
             }
           }
         } catch {}

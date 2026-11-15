@@ -2111,7 +2111,8 @@ body.yt-bar-on .app{padding-bottom:78px}
       setTimeout(function () { syncYtUI(); }, 250);
     } else if (s === 2 || s === 0) {
       yt.playing = false;
-    } else if (s === 5) {
+    } else if (s === 3 || s === 5 || s === -1) {
+      /* 廣고·버퍼링 중에는 상태가 -1/3 으로 오기도 해서 재생 표시를 풀지 않아요 */
       yt.active = true;
     }
     syncYtUI();
@@ -2140,13 +2141,13 @@ body.yt-bar-on .app{padding-bottom:78px}
     yt.errRun = 0;
     var c = yt.custom;
     if (c && c.kind === 'video') {
-      if (auto) { yt.active = true; yt.dismissed = false; yt.player.loadVideoById(c.value); }
+      if (auto) { yt.active = true; yt.playing = true; yt.dismissed = false; yt.player.loadVideoById(c.value); }
       else { try { yt.player.cueVideoById(c.value); } catch (e) {} }
     } else {
       var list = (c && c.value) || ytPresetByKey(yt.preset).list || YT_PRESETS[0].list;
       var o = { list: list, listType: 'playlist', index: 0, startSeconds: 0 };
       if (auto) {
-        yt.active = true; yt.dismissed = false;
+        yt.active = true; yt.playing = true; yt.dismissed = false;
         try { yt.player.loadPlaylist(o); yt.player.playVideo(); } catch (e) {}
       } else {
         try { yt.player.cuePlaylist(o); } catch (e) {}
@@ -2187,9 +2188,16 @@ body.yt-bar-on .app{padding-bottom:78px}
       var s = -1;
       try { s = yt.player.getPlayerState(); } catch (e) {}
       yt.dismissed = false;
-      if (s === 1) { try { yt.player.pauseVideo(); } catch (e) {} }
-      else if (s === 2 || s === 3 || s === 5) { yt.active = true; try { yt.player.playVideo(); } catch (e) {} }
-      else { ytApply(true); }
+      if (s === 1 || yt.playing) {
+        /* 廣고 중에는 상태가 -1 로 와서 재생 의도(playing)를 함께 봐요 */
+        yt.playing = false;
+        try { yt.player.pauseVideo(); } catch (e) {}
+      } else if (s === 2 || s === 3 || s === 5) {
+        yt.active = true; yt.playing = true;
+        try { yt.player.playVideo(); } catch (e) {}
+      } else {
+        ytApply(true);
+      }
       syncYtUI(); layoutDock();
     });
   }
@@ -3748,6 +3756,7 @@ body.yt-bar-on .app{padding-bottom:78px}
     window.addEventListener('resize', queueDockLayout, { passive: true });
     window.addEventListener('scroll', queueDockLayout, { passive: true });
     window.addEventListener('orientationchange', queueDockLayout);
+    if (window.ResizeObserver) { try { new ResizeObserver(queueDockLayout).observe(document.body); } catch (e) {} }
     syncYtUI();
     layoutDock();
   }

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><title>viewport test frame</title>
+<style>html,body{margin:0;padding:0;background:#101010}iframe{border:0;display:block;margin:0 auto;background:#fff}</style>
+</head><body>
+<iframe id="f" src="world-test.html"></iframe>
+<script>
+var q = new URLSearchParams(location.search);
+var w = parseInt(q.get('w') || '1280', 10), h = parseInt(q.get('h') || '800', 10);
+var f = document.getElementById('f');
+if (q.get('src')) f.src = q.get('src');
+f.style.width = w + 'px'; f.style.height = h + 'px'; f.width = w; f.height = h;
+document.title = w + 'x' + h;
+</script>
+</body></html>

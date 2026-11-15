@@ -30,7 +30,7 @@ list.forEach(function (it) {
   f.id = it[0];
   f.width = it[1];
   f.height = it[2];
-  f.src = './world.html?vt=' + it[0] + '#' + view;
+  f.src = './world.html?vt=' + it[0] + '&cb=' + (new Date().toISOString().slice(11, 19)) + '#' + view;
   d.appendChild(s);
   d.appendChild(f);
   document.getElementById('row').appendChild(d);

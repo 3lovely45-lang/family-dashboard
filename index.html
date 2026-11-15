@@ -54,6 +54,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 16px;
     }
@@ -169,6 +170,170 @@
       font-size: 12.5px;
       padding: 7px 13px;
       color: #4A433B;
+    }
+
+    /* ⏳ 디데이 카운트다운 (헤더 맨 아래 한 줄) */
+    .dday-strip {
+      order: 10;
+      flex: 1 0 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(210, 180, 150, 0.35);
+    }
+
+    .dday-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      max-width: 100%;
+      min-width: 0;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.2;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid #F0E4CC;
+      background: #FFFDF5;
+      color: #6B6258;
+    }
+
+    .dday-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .dday-count {
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      flex-shrink: 0;
+    }
+
+    .dday-pill.dday-soon {
+      background: #FFEDF1;
+      border-color: #F6C9D4;
+      color: #B24462;
+    }
+
+    .dday-pill.dday-later {
+      background: #FFF7E6;
+      border-color: #F1E2C2;
+      color: #8A6F3F;
+    }
+
+    .dday-pill.dday-custom {
+      background: #F1F6EE;
+      border-color: #D6E7CF;
+      color: #4A6B43;
+    }
+
+    .dday-pill.dday-custom.dday-soon {
+      background: #FFEDF1;
+      border-color: #F6C9D4;
+      color: #B24462;
+    }
+
+    .dday-x {
+      border: none;
+      background: none;
+      padding: 0 0 0 2px;
+      margin-left: 1px;
+      color: inherit;
+      opacity: 0.65;
+      font-size: 11px;
+      line-height: 1;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .dday-more,
+    .dday-add {
+      border: 1px dashed #E3D4B8;
+      background: rgba(255, 253, 245, 0.7);
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #8A7B63;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .dday-more:active,
+    .dday-add:active {
+      transform: scale(0.97);
+    }
+
+    .dday-form-host {
+      flex: 1 0 100%;
+      display: block;
+    }
+
+    .dday-form-host:empty {
+      display: none;
+    }
+
+    .dday-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      margin-top: 2px;
+    }
+
+    .dday-form input {
+      border: 1px solid #E7DFCE;
+      background: #FFFDF9;
+      border-radius: 10px;
+      padding: 6px 9px;
+      font-size: 12px;
+      font-family: inherit;
+      color: var(--text-main);
+      min-width: 0;
+    }
+
+    .dday-form .dday-date { width: 140px; }
+    .dday-form .dday-title-input { flex: 1 1 150px; }
+
+    .dday-form button {
+      border: none;
+      border-radius: 10px;
+      padding: 7px 11px;
+      font-size: 12px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      background: #EFD8B4;
+      color: #6B5330;
+    }
+
+    .dday-form .dday-cancel {
+      background: #F2EDE3;
+      color: #8A7F70;
+    }
+
+    /* 폰에서는 한 줄로만 보이고 옆으로 넘겨요 (헤더가 두꺼워지지 않게) */
+    @media (max-width: 759px) {
+      .dday-strip {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 1px;
+      }
+
+      .dday-strip::-webkit-scrollbar { display: none; }
+
+      .dday-pill,
+      .dday-more,
+      .dday-add { flex: 0 0 auto; }
+
+      .dday-pill .dday-label { max-width: 148px; }
     }
 
     /* Weather Card */
@@ -3042,8 +3207,177 @@
       }
     }
 
-    /* ===== 태블릿·데스크톱: 카드를 2~3칸으로 나란히 보기 (모바일 화면은 그대로) ===== */
+    /* ===== 🌤️ 날씨 카드 · 🏃 도현 지금 : 작게, 핵심만 ===== */
+    .weather-card {
+      padding: 11px 13px;
+      border-radius: 18px;
+    }
+
+    .weather-row-top { gap: 6px; flex-wrap: wrap; }
+
+    .weather-main { gap: 5px; }
+
+    .weather-emoji { font-size: 17px; }
+
+    .weather-loc { font-size: 12.5px; }
+
+    .weather-temp { font-size: 15px; }
+
+    .weather-cond { font-size: 12px; }
+
+    .weather-minmax { font-size: 11px; white-space: nowrap; }
+
+    .weather-row-bottom {
+      margin-top: 7px;
+      justify-content: flex-start;
+      gap: 5px;
+    }
+
+    .badge {
+      padding: 3px 8px;
+      font-size: 10.5px;
+    }
+
+    .weather-meta {
+      margin-top: 6px;
+      font-size: 9.5px;
+      line-height: 1.3;
+    }
+
+    .weather-credit { white-space: nowrap; }
+
+    /* 도현 지금: 핵심 상태 + 얇은 타임라인만 */
+    .sched-header { gap: 7px; }
+
+    .sched-avatar {
+      width: 26px;
+      height: 26px;
+      border-width: 1.5px;
+    }
+
+    .sched-title { font-size: 14.5px; gap: 4px; }
+
+    .sched-sub { display: none; }
+
+    .sched-live-dot { width: 6px; height: 6px; }
+
+    .sched-clock-time { font-size: 15px; }
+
+    .sched-clock-day { font-size: 9.5px; margin-top: 1px; }
+
+    .sched-days { margin-top: 7px; gap: 3px; }
+
+    .sched-day {
+      width: 26px;
+      padding: 4px 0;
+      font-size: 11px;
+    }
+
+    .sched-today-btn { padding: 4px 8px; font-size: 10px; }
+
+    .sched-hero {
+      margin-top: 7px;
+      padding: 8px 10px;
+      border-radius: 14px;
+    }
+
+    .sched-cat { font-size: 10px; padding: 2px 7px; }
+
+    .sched-hero-time { font-size: 10.5px; }
+
+    .sched-now { margin: 4px 0 0; font-size: 12.5px; line-height: 1.3; }
+
+    .sched-now b { font-size: 14px; }
+
+    .sched-progress { height: 5px; margin: 6px 0 4px; }
+
+    .sched-hero-foot { font-size: 10px; gap: 2px 8px; }
+
+    .sched-barwrap { margin-top: 8px; }
+
+    .sched-bar-head { font-size: 9.5px; margin-bottom: 3px; }
+
+    .sched-track { height: 16px; border-radius: 8px; }
+
+    .sched-barpos { padding-top: 11px; }
+
+    .sched-playhead { top: 11px; }
+
+    .sched-playhead .sched-now-tag { top: -11px; font-size: 8px; padding: 0 5px; }
+
+    .sched-ticks { height: 11px; margin-top: 1px; }
+
+    .sched-tick { font-size: 8.5px; }
+
+    .sched-toggle {
+      display: block;
+      margin: 8px auto 0;
+      border: 1px dashed #E3D4B8;
+      background: rgba(255, 253, 245, 0.8);
+      border-radius: 999px;
+      padding: 3px 11px;
+      font-family: inherit;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #8A7B63;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .sched-detail[hidden] { display: none; }
+
+    .sched-detail { margin-top: 8px; }
+
+    .sched-rows { display: grid; gap: 5px; }
+
+    .sched-morning { margin-top: 0; margin-bottom: 6px; }
+
+    /* ===== 폰(넓은 쪽): 날씨 + 도현 지금 나란히 ===== */
+    @media (min-width: 430px) and (max-width: 759px) {
+      .app-shell {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+        gap: 12px;
+        align-items: start;
+      }
+
+      .app-shell > * { margin-top: 0; margin-bottom: 0; }
+
+      .header { grid-row: 1; grid-column: 1 / -1; }
+
+      .weather-card {
+        grid-row: 2;
+        grid-column: 1;
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .schedule-section {
+        grid-row: 2;
+        grid-column: 2;
+        align-self: stretch;
+      }
+
+      .cal-section { grid-row: 3; grid-column: 1 / -1; }
+      .todo-section { grid-row: 4; grid-column: 1 / -1; }
+      .sticker-section { grid-row: 5; grid-column: 1 / -1; }
+      .screen-section { grid-row: 6; grid-column: 1 / -1; }
+      .meal-section { grid-row: 7; grid-column: 1 / -1; }
+      .shop-section { grid-row: 8; grid-column: 1 / -1; }
+      .photo-card { grid-row: 9; grid-column: 1 / -1; margin: 0; }
+      .log-section { grid-row: 10; grid-column: 1 / -1; }
+    }
+
+    /* ===== 세로 태블릿: 2칸 ===== */
     @media (min-width: 760px) {
+      .sched-rows {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+      }
+
       .app-shell {
         max-width: 960px;
         padding: calc(22px + env(safe-area-inset-top)) 20px calc(42px + env(safe-area-inset-bottom));
@@ -3060,7 +3394,6 @@
 
       .header { grid-row: 1; grid-column: 1 / -1; }
 
-      /* 첫 화면: 날씨·사용시간(왼쪽) + 가족 달력(오른쪽, 두 줄 높이) */
       .weather-card {
         grid-row: 2;
         grid-column: 1;
@@ -3068,26 +3401,17 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 10px;
-        margin-bottom: 0;
       }
 
-      .screen-section {
-        grid-row: 3;
-        grid-column: 1;
-        align-self: stretch;
-      }
-
-      .cal-section {
-        grid-row: 2 / 4;
+      .schedule-section {
+        grid-row: 2;
         grid-column: 2;
         align-self: stretch;
-        height: 100%;
       }
 
-      .schedule-section { grid-row: 4; grid-column: 1 / -1; }
+      .cal-section { grid-row: 3; grid-column: 1 / -1; }
 
-      .todo-section { grid-row: 5; grid-column: 1 / -1; }
+      .todo-section { grid-row: 4; grid-column: 1 / -1; }
 
       #todoMembers {
         display: grid;
@@ -3098,17 +3422,21 @@
 
       .todo-member-card { margin-bottom: 0; }
 
-      .sticker-section { grid-row: 6; grid-column: 1 / -1; }
+      .sticker-section { grid-row: 5; grid-column: 1 / -1; }
 
       .sticker-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 14px;
       }
 
-      .meal-section { grid-row: 7; grid-column: 1; }
+      .screen-section {
+        grid-row: 6;
+        grid-column: 1;
+        align-self: stretch;
+      }
 
       .shop-section {
-        grid-row: 7;
+        grid-row: 6;
         grid-column: 2;
         align-self: stretch;
         display: flex;
@@ -3116,22 +3444,19 @@
         justify-content: center;
       }
 
-      /* 맨 아래: 가족 사진 + 가족에게 감사편지 */
+      .meal-section { grid-row: 7; grid-column: 1; }
+
       .photo-card {
-        grid-row: 8;
-        grid-column: 1;
+        grid-row: 7;
+        grid-column: 2;
         align-self: start;
         margin: 0;
       }
 
-      .log-section {
-        grid-row: 8;
-        grid-column: 2;
-        align-self: stretch;
-        height: 100%;
-      }
+      .log-section { grid-row: 8; grid-column: 1 / -1; }
     }
 
+    /* ===== 가로 태블릿 · 데스크톱: 3칸 ===== */
     @media (min-width: 1080px) {
       .app-shell {
         max-width: 1340px;
@@ -3142,10 +3467,24 @@
 
       .header { grid-row: 1; grid-column: 1 / -1; }
 
-      /* 첫 화면 3칸: 날씨+사용시간 | 가족 달력(두 줄) | 급식+장보기 */
       .weather-card {
         grid-row: 2;
         grid-column: 1;
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .schedule-section {
+        grid-row: 2;
+        grid-column: 2;
+        align-self: stretch;
+      }
+
+      .cal-section {
+        grid-row: 2 / 4;
+        grid-column: 3;
         align-self: stretch;
         height: 100%;
       }
@@ -3154,63 +3493,46 @@
         grid-row: 3;
         grid-column: 1;
         align-self: stretch;
-        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-      }
-
-      .cal-section {
-        grid-row: 2 / 4;
-        grid-column: 2;
-        align-self: stretch;
-        height: 100%;
-      }
-
-      .meal-section {
-        grid-row: 2;
-        grid-column: 3;
-        align-self: stretch;
       }
 
       .shop-section {
         grid-row: 3;
-        grid-column: 3;
+        grid-column: 2;
         align-self: stretch;
-        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
       }
 
-      .schedule-section { grid-row: 4; grid-column: 1 / -1; }
-
-      .todo-section { grid-row: 5; grid-column: 1 / -1; }
+      .todo-section { grid-row: 4; grid-column: 1 / -1; }
 
       #todoMembers {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
-      .sticker-section { grid-row: 6; grid-column: 1 / -1; }
+      .sticker-section { grid-row: 5; grid-column: 1 / -1; }
 
       .sticker-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
       }
 
-      /* 맨 아래: 가족 사진 | 가족에게 감사편지 */
+      .meal-section { grid-row: 6; grid-column: 1; }
+
       .photo-card {
-        grid-row: 7;
-        grid-column: 1;
+        grid-row: 6;
+        grid-column: 2;
         align-self: start;
         margin: 0;
       }
 
       .log-section {
-        grid-row: 7;
-        grid-column: 2 / 4;
+        grid-row: 6;
+        grid-column: 3;
         align-self: stretch;
-        height: 100%;
       }
     }
 
@@ -3237,6 +3559,8 @@
         </div>
         <button class="pill-btn record-cta" id="focusRecordBtn" type="button">💌 감사편지 쓰기</button>
       </div>
+      <div class="dday-strip" id="ddayStrip" aria-label="디데이 카운트다운"></div>
+      <div class="dday-form-host" id="ddayFormHost"></div>
     </header>
 
     <section class="weather-card" aria-label="수원 망포동 날씨와 대기질">
@@ -3247,23 +3571,41 @@
           <span class="weather-temp" id="weatherTemp">11°</span>
           <span class="weather-cond" id="weatherCond">맑음</span>
         </div>
-        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-          <span class="weather-minmax" id="weatherMinMax">최저 8° · 최고 17°</span>
-          <span class="badge badge-fair" id="pm10Badge">미세먼지 보통</span>
-        </div>
+        <span class="weather-minmax" id="weatherMinMax">최저 8° · 최고 17°</span>
       </div>
       <div class="weather-row-bottom">
-        <div class="air-badges">
-          <span class="badge badge-bad" id="pm25Badge">초미세먼지 나쁨</span>
-        </div>
-        <span class="badge badge-mask" id="maskBadge">😷 마스크 챙겨요</span>
+        <span class="badge badge-fair" id="pm10Badge">미세먼지 보통</span>
+        <span class="badge badge-bad" id="pm25Badge">초미세먼지 나쁨</span>
+        <span class="badge badge-mask" id="maskBadge">😷 마스크</span>
       </div>
       <div class="weather-meta">
-        <span id="weatherUpdated">망포동·영통동 기준</span>
-        <span>
+        <span id="weatherUpdated">망포동 기준</span>
+        <span class="weather-credit">
           <a href="https://developer.apple.com/weatherkit/data-source-attribution/" target="_blank" rel="noopener">&#xF8FF; Weather</a> ·
           <a href="https://www.airkorea.or.kr/" target="_blank" rel="noopener">AirKorea</a>
         </span>
+      </div>
+    </section>
+
+    <section class="schedule-section" id="scheduleSection" aria-label="도현이 지금 상태바">
+      <div class="sched-header">
+        <img class="sched-avatar" id="schedAvatar" alt="도현" />
+        <div class="sched-head-text">
+          <h2 class="sched-title">도현 지금 <span class="sched-live-dot" id="schedLiveDot" aria-hidden="true"></span></h2>
+          <p class="sched-sub" id="schedSub">2학기 시간표</p>
+        </div>
+        <div class="sched-clock">
+          <span class="sched-clock-time" id="schedClock">--:--</span>
+          <span class="sched-clock-day" id="schedClockDay">불러오는 중</span>
+        </div>
+      </div>
+      <div class="sched-days" id="schedDays" role="group" aria-label="요일 선택"></div>
+      <div id="schedHero"></div>
+      <div id="schedBar"></div>
+      <button class="sched-toggle" id="schedToggleBtn" type="button" aria-expanded="false" aria-controls="schedDetail">전체 시간표 ▾</button>
+      <div class="sched-detail" id="schedDetail" hidden>
+        <div class="sched-morning" id="schedMorning"></div>
+        <div class="sched-rows" id="schedRows"></div>
       </div>
     </section>
 
@@ -3286,24 +3628,6 @@
       <div class="cal-list" id="calList"></div>
       <div id="calUpcoming"></div>
       <p class="cal-hint" id="calHint">⚙️ 동기화 URL 연결 시 구글·네이버 연동 일정이 자동 표시돼요</p>
-    </section>
-
-    <section class="schedule-section" id="scheduleSection" aria-label="도현이 지금 상태바">
-      <div class="sched-header">
-        <img class="sched-avatar" id="schedAvatar" alt="도현" />
-        <div class="sched-head-text">
-          <h2 class="sched-title">🏃 도현이 지금 상태 <span class="sched-live-dot" id="schedLiveDot" aria-hidden="true"></span></h2>
-          <p class="sched-sub" id="schedSub">2학기 시간표로 지금 무엇을 하는지 보여드려요</p>
-        </div>
-        <div class="sched-clock">
-          <span class="sched-clock-time" id="schedClock">--:--</span>
-          <span class="sched-clock-day" id="schedClockDay">불러오는 중</span>
-        </div>
-      </div>
-      <div class="sched-days" id="schedDays" role="group" aria-label="요일 선택"></div>
-      <div id="schedHero"></div>
-      <div id="schedBar"></div>
-      <div class="sched-rows" id="schedRows"></div>
     </section>
 
     <section class="todo-section" id="todoSection" aria-label="오늘 할 일">
@@ -3614,6 +3938,7 @@
       renderScreenTime();
       renderShopping();
       renderCalendar();
+      renderDday();
       renderLetterChips();
       renderLetters();
     }
@@ -3912,7 +4237,7 @@
           if (daily.temperature_2m_min && daily.temperature_2m_max) {
             document.getElementById('weatherMinMax').textContent = `최저 ${Math.round(daily.temperature_2m_min[0])}° · 최고 ${Math.round(daily.temperature_2m_max[0])}°`;
           }
-          document.getElementById('weatherUpdated').textContent = `수원 망포동 실시간 (${formatNowTime()} 업데이트)`;
+          document.getElementById('weatherUpdated').textContent = `망포동 ${formatNowTime()} 기준`;
         }
         if (aRes.ok) {
           const a = await aRes.json();
@@ -3932,7 +4257,7 @@
             b25.className = `badge ${cls25}`;
             if (g25 === '나쁨') needMask = true;
           }
-          document.getElementById('maskBadge').textContent = needMask ? '😷 마스크 챙겨요' : '🌿 바깥놀이 좋아요';
+          document.getElementById('maskBadge').textContent = needMask ? '😷 마스크' : '🌿 바깥놀이';
         }
       } catch {
         // Keep initial snapshot on offline
@@ -5243,6 +5568,182 @@
       }
     });
 
+    // ⏳ 디데이 카운트다운 (헤더 맨 아래 · 작게)
+    let ddayExpanded = false;
+    let ddayFormOpen = false;
+    const DDAY_WINDOW_DAYS = 90;
+    const DDAY_FAMILY_RE = /(생일|파티|돌잔치|환갑|기념일|캠핑|여행|투어|휴가|방학|개학|졸업|입학|결혼식)/;
+    const DDAY_HOLIDAY_TITLE_RE = /(휴일|공휴일|대체공휴일|christmas eve|christmas day|크리스마스\s*(이브|이브날)?$)/i;
+
+    function ddayEmoji(title) {
+      const t = String(title || '');
+      if (/(생일|파티|돌잔치|환갑)/.test(t)) return '🎂';
+      if (/(캠핑|여행|투어|나들이|휴가)/.test(t)) return '🏕️';
+      if (/(시험|입학|졸업|개학|방학)/.test(t)) return '🎓';
+      return '⏳';
+    }
+
+    function ddayCountLabel(days) {
+      return days === 0 ? 'D-DAY' : `D-${days}`;
+    }
+
+    function ddayShortTitle(title) {
+      const raw = String(title || '').replace(/\s+/g, ' ').trim();
+      const noParen = raw.replace(/\s*\([^)]*\)\s*$/, '').trim();
+      let t = noParen || raw;
+      if (t.length > 20) t = t.slice(0, 19).trimEnd() + '…';
+      return t;
+    }
+
+    function ddayShortDate(dateKey) {
+      const p = String(dateKey || '').split('-');
+      return `${Number(p[1]) || 0}/${Number(p[2]) || 0}`;
+    }
+
+    function ddayItems() {
+      const base = parseDateKey(dateKeyOf(kstDate()));
+      const out = [];
+      const seen = {};
+      allCalendarItems().forEach(ev => {
+        if (!ev || !ev.date) return;
+        const cal = String(ev.calendar || '');
+        if (/Holidays in South Korea|대한민국의 휴일/.test(cal)) return;   // 공휴일 달력은 건너뜁니다
+        const title = String(ev.title || '').replace(/\s+/g, ' ').trim();
+        if (!title) return;
+        if (DDAY_HOLIDAY_TITLE_RE.test(title)) return;
+        if (/전형료|납부|입금/.test(title)) return;
+        const key = `${ev.date}|${title}`;
+        if (seen[key]) return;
+        seen[key] = true;
+        const days = Math.round((parseDateKey(ev.date) - base) / 86400000);
+        if (!isFinite(days) || days < 0 || days > DDAY_WINDOW_DAYS) return;
+        out.push({
+          id: ev.id,
+          date: ev.date,
+          title,
+          time: ev.time || '',
+          days,
+          custom: false,
+          family: ev.source === 'manual' || DDAY_FAMILY_RE.test(title)
+        });
+      });
+      // 직접 추가한 디데이는 state.todos(memberId: 'dday')에 'YYYY-MM-DD|제목' 으로 저장 → 4대 폰 동기화
+      (Array.isArray(state.todos) ? state.todos : []).forEach(t => {
+        if (!t || t.memberId !== 'dday') return;
+        const raw = String(t.text || '');
+        const cut = raw.indexOf('|');
+        if (cut < 0) return;
+        const date = raw.slice(0, cut).trim();
+        const title = raw.slice(cut + 1).replace(/\s+/g, ' ').trim();
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !title) return;
+        const days = Math.round((parseDateKey(date) - base) / 86400000);
+        if (!isFinite(days) || days < 0) return;
+        out.push({ id: t.id, date, title, time: '', days, custom: true, family: true });
+      });
+      // 가족의 큰 날(생일·캠핑·여행·기념일…)을 먼저, 그 안에서 가까운 날짜 순
+      out.sort((a, b) => ((a.family === b.family) ? 0 : (a.family ? -1 : 1)) || (a.days - b.days) || String(a.title).localeCompare(String(b.title)));
+      return out;
+    }
+
+    function buildDdayForm() {
+      const form = document.createElement('form');
+      form.className = 'dday-form';
+      const date = document.createElement('input');
+      date.type = 'date';
+      date.className = 'dday-date';
+      date.required = true;
+      date.setAttribute('aria-label', '디데이 날짜');
+      const title = document.createElement('input');
+      title.type = 'text';
+      title.className = 'dday-title-input';
+      title.maxLength = 30;
+      title.placeholder = '제목 (예: 해남 캠핑카)';
+      title.required = true;
+      title.setAttribute('aria-label', '디데이 제목');
+      const save = document.createElement('button');
+      save.type = 'submit';
+      save.textContent = '추가';
+      const cancel = document.createElement('button');
+      cancel.type = 'button';
+      cancel.className = 'dday-cancel';
+      cancel.textContent = '취소';
+      cancel.addEventListener('click', () => { ddayFormOpen = false; renderDday(); });
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const dateVal = date.value;
+        const titleVal = title.value.trim();
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(dateVal) || !titleVal) return;
+        state.todos = state.todos || [];
+        state.todos.push({
+          id: 'dday-' + Date.now(),
+          memberId: 'dday',
+          text: `${dateVal}|${titleVal}`,
+          done: false
+        });
+        ddayFormOpen = false;
+        saveState();
+        renderDday();
+        showToast('⏳ 디데이를 추가했어요');
+      });
+      form.append(date, title, save, cancel);
+      return form;
+    }
+
+    function renderDday() {
+      const strip = document.getElementById('ddayStrip');
+      if (!strip) return;
+      const items = ddayItems();
+      strip.innerHTML = '';
+      const shown = ddayExpanded ? items : items.slice(0, 4);
+      shown.forEach(it => {
+        const pill = document.createElement('span');
+        pill.className = 'dday-pill' + (it.days <= 7 ? ' dday-soon' : ' dday-later') + (it.custom ? ' dday-custom' : '');
+        pill.title = `${it.title} · ${it.date}`;
+        const label = document.createElement('span');
+        label.className = 'dday-label';
+        label.textContent = `${ddayEmoji(it.title)} ${ddayShortDate(it.date)} ${ddayShortTitle(it.title)}`;
+        const count = document.createElement('span');
+        count.className = 'dday-count';
+        count.textContent = ddayCountLabel(it.days);
+        pill.append(label, count);
+        if (it.custom) {
+          const x = document.createElement('button');
+          x.type = 'button';
+          x.className = 'dday-x';
+          x.setAttribute('aria-label', `${it.title} 디데이 삭제`);
+          x.textContent = '✕';
+          x.addEventListener('click', () => {
+            state.todos = (state.todos || []).filter(t => !t || String(t.id) !== String(it.id));
+            saveState();
+            renderDday();
+            renderTodos();
+          });
+          pill.appendChild(x);
+        }
+        strip.appendChild(pill);
+      });
+      const hidden = items.length - shown.length;
+      if (items.length > 4 || ddayExpanded) {
+        const more = document.createElement('button');
+        more.type = 'button';
+        more.className = 'dday-more';
+        more.textContent = ddayExpanded ? '접기' : `+${hidden}`;
+        more.addEventListener('click', () => { ddayExpanded = !ddayExpanded; renderDday(); });
+        strip.appendChild(more);
+      }
+      const add = document.createElement('button');
+      add.type = 'button';
+      add.className = 'dday-add';
+      add.textContent = ddayFormOpen ? '✕ 닫기' : '+ 디데이';
+      add.addEventListener('click', () => { ddayFormOpen = !ddayFormOpen; renderDday(); });
+      strip.appendChild(add);
+      const host = document.getElementById('ddayFormHost');
+      if (host) {
+        host.innerHTML = '';
+        if (ddayFormOpen) host.appendChild(buildDdayForm());
+      }
+    }
+
     // Optional Cloud Sync (for multi-phone real-time sharing via Google Apps Script or JSON endpoint)
     let lastRemoteSignature = '';
     let pendingRemoteRender = false;
@@ -5692,7 +6193,10 @@
           }).join('') + '</div>';
       }
 
-      wrap.innerHTML = morningHtml +
+      const morningHost = document.getElementById('schedMorning');
+      if (morningHost) morningHost.innerHTML = morningHtml;
+
+      wrap.innerHTML =
         '<div class="sched-barwrap">' +
           '<div class="sched-bar-head">' +
             '<span>오후 타임라인 <b>13:00~' + schedClockText(barEnd) + '</b></span>' +
@@ -5765,7 +6269,24 @@
       renderSchedHero(slots, ref, isRefDay, dayInfo);
       renderSchedBar(slots, ref, isRefDay);
       renderSchedRows(slots, ref, isRefDay);
+      syncSchedDetail();
     }
+
+    // 전체 시간표(아침 칩 + 시간대 목록)는 접어 두고, 필요할 때만 펼칩니다
+    let schedDetailOpen = false;
+    function syncSchedDetail() {
+      const detail = document.getElementById('schedDetail');
+      const btn = document.getElementById('schedToggleBtn');
+      if (detail) detail.hidden = !schedDetailOpen;
+      if (btn) {
+        btn.textContent = schedDetailOpen ? '접기 ▴' : '전체 시간표 ▾';
+        btn.setAttribute('aria-expanded', schedDetailOpen ? 'true' : 'false');
+      }
+    }
+    document.getElementById('schedToggleBtn').addEventListener('click', () => {
+      schedDetailOpen = !schedDetailOpen;
+      syncSchedDetail();
+    });
 
     function schedParseSim(text) {
       const m = String(text || '').trim().match(/^([월화수목금토일]|sun|mon|tue|wed|thu|fri|sat)?[\s\-_:]*(\d{1,2}):(\d{2})$/i);

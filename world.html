@@ -1683,7 +1683,7 @@ html[data-resolved="night"] .toast{background:var(--coin);color:#10233C;border-c
       var d = pick.date;
       host.innerHTML =
         '<div class="meal-head">' +
-          '<span class="meal-date">' + (pick.isToday ? '오늘 ' : '다음 급식 ') + shortDate(pick.ymd) + ' (' + DOW_NAMES[d.getDay()] + ')</span>' +
+          '<span class="meal-date">' + (pick.isToday ? '오늘 ' : '다음 급식 ') + shortDate(dateKeyOf(d)) + ' (' + DOW_NAMES[d.getDay()] + ')</span>' +
           (pick.data.cal ? '<span class="meal-kcal">' + esc(pick.data.cal) + '</span>' : '') +
         '</div>' +
         '<div class="dish-list">' + pick.data.dishes.map(function (n) {

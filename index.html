@@ -527,6 +527,85 @@
       transform: scale(0.96);
     }
 
+    .todo-head-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .todo-lock-btn {
+      flex-shrink: 0;
+      border: 1px solid #EFE6D3;
+      background: #FFFFFF;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size:15px;
+      font-weight: 800;
+      color: #7A6E5E;
+      font-family: inherit;
+      white-space: nowrap;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: 0 2px 6px rgba(120, 100, 60, 0.06);
+    }
+
+    .todo-lock-btn:active {
+      transform: scale(0.96);
+    }
+
+    .todo-lock-btn.on {
+      border-color: #F3CE8E;
+      background: #FFF6E1;
+      color: #A97A2A;
+      box-shadow: 0 0 0 3px rgba(240, 196, 110, 0.18);
+    }
+
+    /* 🔒 잠겨 있을 땐 완료 체크만 되고, 추가·수정·삭제 버튼은 숨겨요 */
+    #todoSection.locked .todo-head-actions #todoAddTopBtn,
+    #todoSection.locked .todo-add-row,
+    #todoSection.locked .todo-actions {
+      display: none;
+    }
+
+    /* 🔒 비밀번호 입력 모달 */
+    .pin-helper {
+      margin: 2px 0 12px;
+      font-size:15px;
+      color: #8A8074;
+      text-align: center;
+    }
+
+    .pin-input {
+      width: 100%;
+      border: 1.5px solid #E5DCCB;
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-size:26px;
+      font-weight: 800;
+      letter-spacing: 0.45em;
+      text-indent: 0.45em;
+      text-align: center;
+      font-family: inherit;
+      background: #FFFFFF;
+      color: #33302B;
+    }
+
+    .pin-input:focus {
+      outline: none;
+      border-color: #DF7C94;
+      box-shadow: 0 0 0 3px rgba(223, 124, 148, 0.16);
+    }
+
+    .pin-error {
+      min-height: 20px;
+      margin: 7px 0 0;
+      font-size:15px;
+      font-weight: 700;
+      color: #D9534F;
+      text-align: center;
+    }
+
     .todo-member-card {
       border-radius: 22px;
       padding: 13px;
@@ -3998,6 +4077,7 @@
     html[data-style="meonjak"] .shop-add-btn,
     html[data-style="meonjak"] .sched-toggle,
     html[data-style="meonjak"] .sticker-lock-btn,
+    html[data-style="meonjak"] .todo-lock-btn,
     html[data-style="meonjak"] .screen-lock-btn {
       border: 2px solid var(--mj-cocoa);
       border-radius: 999px;
@@ -4291,9 +4371,12 @@
       <div class="todo-header">
         <div>
           <h2 class="todo-title">☑️ 오늘 할 일</h2>
-          <p class="todo-subtitle">도현·이현·엄마·아빠가 각자 할 일을 체크해요</p>
+          <p class="todo-subtitle">도현·이현·엄마·아빠가 각자 할 일을 체크해요 · 추가·수정은 🔒 수정</p>
         </div>
-        <button class="todo-add-btn" id="todoAddTopBtn" type="button">+ 할 일 추가</button>
+        <div class="todo-head-actions">
+          <button class="todo-lock-btn" id="todoLockBtn" type="button" aria-pressed="false">🔒 수정</button>
+          <button class="todo-add-btn" id="todoAddTopBtn" type="button">+ 할 일 추가</button>
+        </div>
       </div>
       <div id="todoMembers"></div>
     </section>
@@ -4438,6 +4521,22 @@
         <input class="field-input" id="todoTextInput" type="text" maxlength="40" placeholder="예: 알림장 물병정리" />
       </div>
       <button class="save-btn" id="saveTodoBtn" type="button">저장하기</button>
+    </div>
+  </div>
+
+  <!-- Todo Lock (PIN) Modal -->
+  <div class="modal-backdrop" id="todoPinModal">
+    <div class="modal-sheet" role="dialog" aria-modal="true" aria-labelledby="todoPinTitle">
+      <div class="modal-head">
+        <h3 class="modal-title" id="todoPinTitle">🔒 할 일 수정</h3>
+        <button class="close-btn" id="closeTodoPinModal" type="button">✕</button>
+      </div>
+      <p class="pin-helper">비밀번호 4자리를 입력해 주세요</p>
+      <div class="field-group">
+        <input class="pin-input" id="todoPinInput" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="할 일 수정 비밀번호 4자리" />
+        <p class="pin-error" id="todoPinError" role="alert"></p>
+      </div>
+      <button class="save-btn" id="todoPinOkBtn" type="button">확인</button>
     </div>
   </div>
 
@@ -5839,6 +5938,91 @@
     }
 
     // Today's To-Do
+    // 🔒 할 일 추가·수정·삭제는 비밀번호(2580)로만 열려요. 완료 체크(✓)는 잠금과 상관없이 언제나 자유롭습니다.
+    // 잠금을 푼 상태는 저장하지 않아요(새로고침하면 다시 잠깁니다).
+    const TODO_EDIT_PIN = '2580';
+    let todoEditUnlocked = false;
+
+    function syncTodoLockUi() {
+      const section = document.getElementById('todoSection');
+      const btn = document.getElementById('todoLockBtn');
+      if (section) section.classList.toggle('locked', !todoEditUnlocked);
+      if (btn) {
+        btn.textContent = todoEditUnlocked ? '🔓 완료' : '🔒 수정';
+        btn.classList.toggle('on', todoEditUnlocked);
+        btn.setAttribute('aria-pressed', todoEditUnlocked ? 'true' : 'false');
+        btn.setAttribute('aria-label', todoEditUnlocked ? '할 일 수정 완료(다시 잠그기)' : '할 일 추가·수정·삭제 잠금 풀기(비밀번호)');
+      }
+    }
+
+    // 함수 안에서도 한 번 더 막아 둡니다(직접 호출·키보드 조작 대비)
+    function todoEditGuard() {
+      if (todoEditUnlocked) return true;
+      showToast('🔒 수정을 누르고 비밀번호를 입력해 주세요');
+      return false;
+    }
+
+    function openTodoPinModal() {
+      const modal = document.getElementById('todoPinModal');
+      const input = document.getElementById('todoPinInput');
+      const err = document.getElementById('todoPinError');
+      if (!modal || !input) return;
+      input.value = '';
+      if (err) err.textContent = '';
+      modal.classList.add('open');
+      setTimeout(() => input.focus(), 160);
+    }
+
+    function closeTodoPinModal() {
+      const modal = document.getElementById('todoPinModal');
+      const input = document.getElementById('todoPinInput');
+      const err = document.getElementById('todoPinError');
+      if (input) input.value = '';
+      if (err) err.textContent = '';
+      if (modal) modal.classList.remove('open');
+    }
+
+    function submitTodoPin() {
+      const input = document.getElementById('todoPinInput');
+      const err = document.getElementById('todoPinError');
+      const value = String(input && input.value ? input.value : '').replace(/[^0-9]/g, '');
+      if (value === TODO_EDIT_PIN) {
+        todoEditUnlocked = true;
+        closeTodoPinModal();
+        syncTodoLockUi();
+        renderTodos();
+        showToast('🔓 이제 할 일을 추가·수정·삭제할 수 있어요');
+        return;
+      }
+      if (err) err.textContent = '비밀번호가 맞지 않아요';
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    document.getElementById('todoLockBtn').addEventListener('click', () => {
+      if (todoEditUnlocked) {
+        todoEditUnlocked = false;
+        syncTodoLockUi();
+        renderTodos();
+        showToast('🔒 할 일 수정을 잠갔어요');
+        return;
+      }
+      openTodoPinModal();
+    });
+    document.getElementById('todoPinOkBtn').addEventListener('click', submitTodoPin);
+    document.getElementById('closeTodoPinModal').addEventListener('click', closeTodoPinModal);
+    document.getElementById('todoPinInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        submitTodoPin();
+      }
+    });
+    document.getElementById('todoPinModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('todoPinModal')) closeTodoPinModal();
+    });
+
     function orderedTodoMembers() {
       const ordered = TODO_MEMBER_ORDER
         .map(id => state.members.find(m => m.id === id))
@@ -5879,7 +6063,9 @@
         if (!items.length) {
           const empty = document.createElement('div');
           empty.className = 'todo-empty';
-          empty.textContent = '아직 할 일이 없어요. 아래 버튼으로 추가해 보세요.';
+          empty.textContent = todoEditUnlocked
+            ? '아직 할 일이 없어요. 아래 버튼으로 추가해 보세요.'
+            : '아직 할 일이 없어요. 🔒 수정을 누르면 추가할 수 있어요.';
           list.appendChild(empty);
         }
         items.forEach(t => {
@@ -5902,6 +6088,7 @@
         card.querySelector('.todo-add-row').addEventListener('click', () => openTodoModal({ memberId: m.id }));
         wrap.appendChild(card);
       });
+      syncTodoLockUi();
     }
 
     function toggleTodo(id) {
@@ -5914,6 +6101,7 @@
     }
 
     function deleteTodo(id) {
+      if (!todoEditGuard()) return;
       const idx = state.todos.findIndex(x => x.id === id);
       if (idx < 0) return;
       const removed = state.todos.splice(idx, 1)[0];
@@ -5925,6 +6113,7 @@
     let todoDraft = { memberId: 'dohyun', todoId: null };
 
     function openTodoModal(opts) {
+      if (!todoEditGuard()) return;
       const pick = opts || {};
       todoDraft = {
         memberId: pick.memberId || TODO_MEMBER_ORDER[0],
@@ -5955,6 +6144,7 @@
     }
 
     function saveTodoDraft() {
+      if (!todoEditGuard()) return;
       const input = document.getElementById('todoTextInput');
       const text = input.value.trim();
       if (!text) {

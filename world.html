@@ -282,6 +282,22 @@ html[data-resolved="night"] .sync-pill{background:rgba(9,24,44,.85);color:#CFE4F
 html[data-resolved="night"] .chip-btn.on{background:var(--coin);color:#10233C;border-color:var(--coin-d)}
 .empty{font-size:14px;font-weight:700;color:var(--ink-faint);padding:10px 2px;text-align:center;line-height:1.5}
 
+/* ---------------- 🔒 비밀번호 · 할 일 수정 모달 ---------------- */
+.fd-modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(10,20,40,.55);backdrop-filter:blur(2px)}
+.fd-modal.open{display:flex}
+.fd-modal-card{width:100%;max-width:340px;background:var(--paper);border:2.5px solid var(--line);border-radius:16px;padding:14px 15px 16px;box-shadow:0 7px 0 var(--shadow)}
+.fd-modal-title{margin:0 0 4px;font-size:18px;font-weight:900;letter-spacing:-.4px}
+.fd-modal-sub{margin:0 0 9px;font-size:13.5px;font-weight:700;color:var(--ink-soft);line-height:1.5}
+.fd-pin{width:100%;text-align:center;font-size:26px;font-weight:900;letter-spacing:.42em;text-indent:.42em;padding:9px 10px;border:2px solid var(--line);border-radius:11px;background:var(--paper-2);color:var(--ink);font-family:inherit}
+.fd-pin:focus{outline:none;border-color:var(--coin-d);box-shadow:0 0 0 3px rgba(251,208,0,.28)}
+.fd-edit{width:100%;font-size:16px;font-weight:800;padding:9px 10px;border:2px solid var(--line);border-radius:11px;background:var(--paper-2);color:var(--ink);font-family:inherit}
+.fd-edit:focus{outline:none;border-color:var(--sky-blue);box-shadow:0 0 0 3px rgba(4,156,216,.2)}
+.fd-err{min-height:18px;margin:6px 0 0;font-size:13px;font-weight:800;color:var(--red);text-align:center}
+.fd-modal-actions{display:flex;gap:7px;margin-top:9px}
+.fd-modal-actions button{flex:1 1 0;font-size:15px;font-weight:900;padding:8px 0;border:2px solid var(--line);border-radius:9px;background:var(--paper-2);cursor:pointer;box-shadow:0 3px 0 var(--shadow)}
+.fd-modal-actions button.primary{background:var(--coin);border-color:var(--coin-d);color:#4A3200}
+.fd-modal-actions button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--shadow)}
+
 /* ---------------- 달력 ---------------- */
 .cal-legend{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;font-weight:800;color:var(--ink-soft);margin-bottom:4px}
 .cal-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:3px;vertical-align:middle}
@@ -415,6 +431,12 @@ html[data-resolved="night"] .todo-col{border-color:rgba(190,220,250,.2)}
 .todo-item .row-coin,.todo-item .x{flex:0 0 auto}
 .todo-item.done span{text-decoration:line-through;color:var(--ink-faint)}
 .todo-item .x{margin-left:auto;border:0;background:transparent;color:var(--ink-faint);font-size:12.5px;font-weight:900;cursor:pointer;padding:0 1px;line-height:1}
+.todo-item .pen{margin-left:auto;border:0;background:transparent;color:var(--ink-faint);font-size:11.5px;font-weight:900;cursor:pointer;padding:0 1px;line-height:1}
+.todo-item .pen + .x{margin-left:2px}
+/* 🔒 잠겨 있을 땐 추가창·수정·삭제만 숨기고 체크박스와 코인은 그대로 보입니다 */
+html[data-todo-lock="1"] .quick-add[data-add="todo"],
+html[data-todo-lock="1"] .todo-item .pen,
+html[data-todo-lock="1"] .todo-item .x{display:none}
 .quick-add{display:flex;gap:3px;margin-top:5px}
 .quick-add input{
   flex:1 1 auto;min-width:0;font-size:13.5px;font-weight:700;padding:4px 6px;border:1.6px solid var(--line);
@@ -1168,6 +1190,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
           <article class="card">
             <div class="card-head">
               <h2 class="card-title">👨‍👩‍👧 아빠 · 엄마 할 일</h2>
+              <button class="chip-btn" type="button" data-act="todo-lock" aria-pressed="false" aria-label="할 일 추가·수정·삭제 잠금 풀기">🔒 수정</button>
             </div>
             <div class="pill-strip" id="pillStrip">
               <button class="pill" type="button" data-act="parent-toggle">👨 아빠 할 일 <b id="appaPill">0/0</b></button>
@@ -1193,7 +1216,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
                 <div data-now="dohyun"></div>
               </article>
               <article class="card">
-                <div class="card-head"><h2 class="card-title">☑️ 도현 오늘 할 일</h2></div>
+                <div class="card-head"><h2 class="card-title">☑️ 도현 오늘 할 일</h2><button class="chip-btn" type="button" data-act="todo-lock" aria-pressed="false" aria-label="할 일 추가·수정·삭제 잠금 풀기">🔒 수정</button></div>
                 <div class="todo-col" data-todo="dohyun" data-mode="compact"></div>
               </article>
               <article class="card">
@@ -1219,7 +1242,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
                 <div data-now="ihyun"></div>
               </article>
               <article class="card">
-                <div class="card-head"><h2 class="card-title">☑️ 이현 오늘 할 일</h2></div>
+                <div class="card-head"><h2 class="card-title">☑️ 이현 오늘 할 일</h2><button class="chip-btn" type="button" data-act="todo-lock" aria-pressed="false" aria-label="할 일 추가·수정·삭제 잠금 풀기">🔒 수정</button></div>
                 <div class="todo-col" data-todo="ihyun" data-mode="compact"></div>
               </article>
               <article class="card">
@@ -1263,6 +1286,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
             <div class="card-head">
               <h2 class="card-title">☑️ 도현 오늘 할 일</h2>
               <span class="card-tools card-sub" id="dohyunDoneSub"></span>
+              <button class="chip-btn" type="button" data-act="todo-lock" aria-pressed="false" aria-label="할 일 추가·수정·삭제 잠금 풀기">🔒 수정</button>
             </div>
             <div data-todo="dohyun" data-mode="full"></div>
           </article>
@@ -1326,6 +1350,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
             <div class="card-head">
               <h2 class="card-title">☑️ 이현 오늘 할 일</h2>
               <span class="card-tools card-sub" id="ihyunDoneSub"></span>
+              <button class="chip-btn" type="button" data-act="todo-lock" aria-pressed="false" aria-label="할 일 추가·수정·삭제 잠금 풀기">🔒 수정</button>
             </div>
             <div data-todo="ihyun" data-mode="full"></div>
           </article>
@@ -1477,6 +1502,34 @@ html[data-skin="meonjak"] .craft-only{display:none}
   </footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- 🔒 할 일 수정 비밀번호 모달 -->
+<div class="fd-modal" id="todoPinModal" role="dialog" aria-modal="true" aria-labelledby="todoPinTitle">
+  <div class="fd-modal-card">
+    <h3 class="fd-modal-title" id="todoPinTitle">🔒 할 일 수정</h3>
+    <p class="fd-modal-sub">비밀번호 4자리를 입력하면 할 일을 추가·수정·삭제할 수 있어요</p>
+    <input class="fd-pin" id="todoPinInput" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="할 일 수정 비밀번호 4자리" />
+    <p class="fd-err" id="todoPinErr" role="alert"></p>
+    <div class="fd-modal-actions">
+      <button type="button" id="todoPinCancel">취소</button>
+      <button type="button" class="primary" id="todoPinOk">확인</button>
+    </div>
+  </div>
+</div>
+
+<!-- ✏️ 할 일 내용 수정 모달 -->
+<div class="fd-modal" id="todoEditModal" role="dialog" aria-modal="true" aria-labelledby="todoEditTitle">
+  <div class="fd-modal-card">
+    <h3 class="fd-modal-title" id="todoEditTitle">✏️ 할 일 수정</h3>
+    <p class="fd-modal-sub">할 일 내용을 고쳐 주세요</p>
+    <input class="fd-edit" id="todoEditInput" type="text" maxlength="30" autocomplete="off" aria-label="할 일 내용" />
+    <p class="fd-err" id="todoEditErr" role="alert"></p>
+    <div class="fd-modal-actions">
+      <button type="button" id="todoEditCancel">취소</button>
+      <button type="button" class="primary" id="todoEditSave">저장</button>
+    </div>
+  </div>
+</div>
 <script>
 /* =====================================================================
    우리 가족 마리오 월드 · world.html
@@ -3573,16 +3626,22 @@ html[data-skin="meonjak"] .craft-only{display:none}
               '<input type="checkbox" data-check="todo" data-id="' + esc(t.id) + '"' + (t.done ? ' checked' : '') + ' aria-label="' + esc(t.text) + '" />' +
               '<span>' + esc(t.text || '할 일') + '</span>' +
               (isKid ? '<span class="row-coin" aria-hidden="true">' + unitIcon(!!t.done) + '</span>' : '') +
-              '<button type="button" class="x" data-act="todo-del" data-id="' + esc(t.id) + '" aria-label="' + esc(t.text) + ' 삭제">✕</button>' +
+              (todoUnlocked
+                ? '<button type="button" class="pen" data-act="todo-edit" data-id="' + esc(t.id) + '" aria-label="' + esc(t.text) + ' 수정">✏️</button>' +
+                  '<button type="button" class="x" data-act="todo-del" data-id="' + esc(t.id) + '" aria-label="' + esc(t.text) + ' 삭제">✕</button>'
+                : '') +
               '</label>';
           }).join('') : '<div class="empty" style="padding:5px 0">오늘 할 일을 적어 보세요</div>') +
           (sorted.length > shown.length ? '<div class="empty" style="padding:3px 0 0;text-align:left">+' + (sorted.length - shown.length) + '개 더 있어요</div>' : '') +
         '</div>' +
-        '<form class="quick-add" data-add="todo" data-member="' + memberId + '" autocomplete="off">' +
-          '<input type="text" name="text" maxlength="30" placeholder="' + esc(name) + ' 할 일 추가" aria-label="' + esc(name) + ' 할 일 추가" />' +
-          '<button type="submit" aria-label="추가">+</button>' +
-        '</form>';
+        (todoUnlocked
+          ? '<form class="quick-add" data-add="todo" data-member="' + memberId + '" autocomplete="off">' +
+              '<input type="text" name="text" maxlength="30" placeholder="' + esc(name) + ' 할 일 추가" aria-label="' + esc(name) + ' 할 일 추가" />' +
+              '<button type="submit" aria-label="추가">+</button>' +
+            '</form>'
+          : '');
     });
+    syncTodoLockBtns();
   }
 
   function renderPills() {
@@ -3986,6 +4045,113 @@ html[data-skin="meonjak"] .craft-only{display:none}
     return (state.todos || []).filter(function (t) { return t && String(t.id) === String(id); })[0] || null;
   }
 
+  /* ---------------------------- 🔒 할 일 수정 잠금 ----------------------------
+     할 일 추가·수정·삭제는 비밀번호(2580)로만 열립니다. 완료 체크는 잠금과 상관없이 언제나 되고,
+     잠금을 푼 상태는 저장하지 않습니다(새로고침하면 다시 잠깁니다). */
+  var TODO_EDIT_PIN = '2580';
+  var todoUnlocked = false;
+
+  function syncTodoLockBtns() {
+    document.documentElement.setAttribute('data-todo-lock', todoUnlocked ? '0' : '1');
+    $$('[data-act="todo-lock"]').forEach(function (b) {
+      b.textContent = todoUnlocked ? '🔓 완료' : '🔒 수정';
+      b.classList.toggle('on', todoUnlocked);
+      b.setAttribute('aria-pressed', todoUnlocked ? 'true' : 'false');
+      b.setAttribute('aria-label', todoUnlocked ? '할 일 수정 완료(다시 잠그기)' : '할 일 추가·수정·삭제 잠금 풀기(비밀번호)');
+    });
+  }
+
+  /* 함수 안에서도 한 번 더 막아 둡니다(직접 호출·키보드 조작 대비) */
+  function todoEditGuard() {
+    if (todoUnlocked) return true;
+    toast('🔒 수정을 누르고 비밀번호를 입력해 주세요');
+    return false;
+  }
+
+  function fdOpen(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.add('open');
+  }
+  function fdClose(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.remove('open');
+  }
+
+  function openTodoPinModal() {
+    var input = $('#todoPinInput');
+    var err = $('#todoPinErr');
+    if (!input) return;
+    input.value = '';
+    if (err) err.textContent = '';
+    fdOpen('todoPinModal');
+    setTimeout(function () { input.focus(); }, 150);
+  }
+
+  function closeTodoPinModal() {
+    var input = $('#todoPinInput');
+    var err = $('#todoPinErr');
+    if (input) input.value = '';
+    if (err) err.textContent = '';
+    fdClose('todoPinModal');
+  }
+
+  function submitTodoPin() {
+    var input = $('#todoPinInput');
+    var err = $('#todoPinErr');
+    var value = String(input && input.value ? input.value : '').replace(/[^0-9]/g, '');
+    if (value === TODO_EDIT_PIN) {
+      todoUnlocked = true;
+      closeTodoPinModal();
+      refreshTodoArea();
+      syncTodoLockBtns();
+      toast('🔓 이제 할 일을 추가·수정·삭제할 수 있어요');
+      return;
+    }
+    if (err) err.textContent = '비밀번호가 맞지 않아요';
+    if (input) { input.value = ''; input.focus(); }
+  }
+
+  var todoEditId = null;
+
+  function openTodoEditModal(id) {
+    if (!todoEditGuard()) return;
+    var t = findTodo(id);
+    if (!t) return;
+    todoEditId = String(t.id);
+    var input = $('#todoEditInput');
+    var err = $('#todoEditErr');
+    if (err) err.textContent = '';
+    if (input) input.value = t.text || '';
+    fdOpen('todoEditModal');
+    setTimeout(function () { if (input) { input.focus(); input.select(); } }, 150);
+  }
+
+  function closeTodoEditModal() {
+    todoEditId = null;
+    var err = $('#todoEditErr');
+    if (err) err.textContent = '';
+    fdClose('todoEditModal');
+  }
+
+  function submitTodoEdit() {
+    if (!todoEditGuard()) { closeTodoEditModal(); return; }
+    var input = $('#todoEditInput');
+    var err = $('#todoEditErr');
+    var t = todoEditId ? findTodo(todoEditId) : null;
+    if (!t) { closeTodoEditModal(); return; }
+    var text = String(input && input.value ? input.value : '').replace(/\s+/g, ' ').trim().slice(0, 30);
+    if (!text) {
+      if (err) err.textContent = '할 일 내용을 적어 주세요';
+      if (input) input.focus();
+      return;
+    }
+    t.text = text;
+    commit();
+    closeTodoEditModal();
+    refreshTodoArea();
+    toast('✏️ 할 일을 고쳤어요');
+  }
+
   /* 할 일 · 진화 화면만 다시 그리기 */
   function refreshTodoArea() {
     renderTodos();
@@ -4010,6 +4176,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
 
   /* 🔄 오늘 할 일 새로 시작 (어제 완료 표시가 남아 있을 때) */
   function resetTodayTodos(kidId) {
+    if (!todoEditGuard()) return;
     var changed = false;
     kidTodos(kidId).forEach(function (t) { if (t.done) { t.done = false; changed = true; } });
     if (!changed) { toast('오늘 할 일이 이미 모두 비어 있어요'); return; }
@@ -4020,6 +4187,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
   }
 
   function addTodo(memberId, text) {
+    if (!todoEditGuard()) return;
     var v = String(text || '').replace(/\s+/g, ' ').trim().slice(0, 30);
     if (!v) return;
     state.todos.push({ id: 't-' + Date.now() + '-' + Math.random().toString(36).slice(2, 5), memberId: memberId, text: v, done: false });
@@ -4052,6 +4220,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
   }
 
   function deleteTodo(id) {
+    if (!todoEditGuard()) return;
     var t = findTodo(id);
     if (!t) return;
     state.todos = state.todos.filter(function (x) { return !x || String(x.id) !== String(id); });
@@ -4189,7 +4358,18 @@ html[data-skin="meonjak"] .craft-only{display:none}
         break;
       case 'screen-plus': stepScreen(el.getAttribute('data-kid'), SCREEN_STEP); break;
       case 'screen-minus': stepScreen(el.getAttribute('data-kid'), -SCREEN_STEP); break;
+      case 'todo-lock':
+        if (todoUnlocked) {
+          todoUnlocked = false;
+          syncTodoLockBtns();
+          refreshTodoArea();
+          toast('🔒 할 일 수정을 잠갔어요');
+        } else {
+          openTodoPinModal();
+        }
+        break;
       case 'todo-del': e.preventDefault(); e.stopPropagation(); deleteTodo(el.getAttribute('data-id')); break;
+      case 'todo-edit': e.preventDefault(); e.stopPropagation(); openTodoEditModal(el.getAttribute('data-id')); break;
       case 'shop-chip': addShop(el.getAttribute('data-item')); break;
       case 'shop-del': e.preventDefault(); e.stopPropagation(); deleteShop(el.getAttribute('data-id')); break;
       case 'sched-day':
@@ -4222,6 +4402,22 @@ html[data-skin="meonjak"] .craft-only{display:none}
         break;
     }
   });
+
+  /* 🔒 비밀번호 · 할 일 수정 모달 */
+  function bindFd(id, ev, fn) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener(ev, fn);
+  }
+  bindFd('todoPinOk', 'click', submitTodoPin);
+  bindFd('todoPinCancel', 'click', closeTodoPinModal);
+  bindFd('todoPinInput', 'keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); submitTodoPin(); } });
+  bindFd('todoPinInput', 'input', function () { var err = $('#todoPinErr'); if (err) err.textContent = ''; });
+  bindFd('todoPinModal', 'click', function (e) { if (e.target === this) closeTodoPinModal(); });
+  bindFd('todoEditSave', 'click', submitTodoEdit);
+  bindFd('todoEditCancel', 'click', closeTodoEditModal);
+  bindFd('todoEditInput', 'keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); submitTodoEdit(); } });
+  bindFd('todoEditInput', 'input', function () { var err = $('#todoEditErr'); if (err) err.textContent = ''; });
+  bindFd('todoEditModal', 'click', function (e) { if (e.target === this) closeTodoEditModal(); });
 
   document.addEventListener('change', function (e) {
     var el = e.target;
@@ -4280,6 +4476,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
     paintStars();
     renderWhoChips();
     renderLetterFilters();
+    syncTodoLockBtns();
 
     var hash = (location.hash || '').replace('#', '');
     setView(hash || 'dashboard');

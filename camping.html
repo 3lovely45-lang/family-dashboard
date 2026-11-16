@@ -559,6 +559,7 @@
   var busy = false;       // 요청 진행 중
   var lastSync = null;    // Date
   var pendingDelete = {}; // 삭제 요청한 id (중복 요청 방지)
+  var lastKey = "";       // 마지막으로 그린 상태의 지문 (바뀐 게 없으면 다시 그리지 않음)
 
   /* ---------------------------------------------------------------- DOM */
   var $ = function (id) { return document.getElementById(id); };
@@ -678,7 +679,7 @@
     return apiGet().then(function (data) {
       if (adopt(data)) {
         setStatus("ok", "마지막 동기화 " + hhmm(lastSync) + " · 6초마다 자동");
-        if (!isEditing()) render();
+        if (!isEditing() && keyOf() !== lastKey) render();
         return true;
       }
       setStatus("err", "서버 응답을 읽지 못했어요 · 잠시 뒤 다시 시도합니다");
@@ -701,7 +702,7 @@
       if (data && data.ok === true) {
         adopt(data);
         setStatus("ok", "저장 완료 · " + hhmm(lastSync));
-        if (!isEditing()) render();
+        if (!isEditing() && keyOf() !== lastKey) render();
         return true;
       }
       setStatus("err", "저장에 실패했어요 · 다시 불러옵니다");
@@ -793,7 +794,12 @@
     "</article>";
   }
 
+  function keyOf() {
+    return state.filter + "|" + JSON.stringify(state.items);
+  }
+
   function render() {
+    lastKey = keyOf();
     var list = filtered();
     renderTabs();
     renderProgress();

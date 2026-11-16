@@ -1562,6 +1562,293 @@
     }
 
 
+    /* ☔ 우산 · 😷 마스크 알림 배지 */
+    .badge-on {
+      background: linear-gradient(135deg, #FFE9A8, #FFD07A);
+      color: #7A4A00;
+      border: 1px solid #F2C764;
+      box-shadow: 0 0 0 3px rgba(242, 199, 100, 0.18);
+      font-weight: 800;
+    }
+
+    .badge-quiet {
+      background: #F6F5F0;
+      color: #6B6459;
+      border: 1px solid #EAE5D8;
+    }
+
+    /* 📢 집안 공지 · 준비물 메모 */
+    .notice-section {
+      margin-top: 16px;
+      background: linear-gradient(180deg, #FFF8E8 0%, #FFFDF5 68%);
+      border: 1px solid #F3E2C0;
+      border-radius: 26px;
+      padding: 14px 15px 15px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .notice-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .notice-title {
+      margin: 0;
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size:22px;
+      line-height: 1.2;
+      color: #3F3A34;
+      letter-spacing: -0.01em;
+    }
+
+    .notice-sub {
+      margin: 3px 0 0;
+      font-size:14px;
+      color: #8A8074;
+    }
+
+    .notice-lock-btn {
+      flex-shrink: 0;
+      border: 1px solid #EFE1C4;
+      background: #FFFFFF;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size:15px;
+      font-weight: 800;
+      color: #7A6E5E;
+      font-family: inherit;
+      white-space: nowrap;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: 0 2px 6px rgba(120, 100, 60, 0.06);
+    }
+
+    .notice-lock-btn:active {
+      transform: scale(0.96);
+    }
+
+    .notice-lock-btn.on {
+      border-color: #F3CE8E;
+      background: #FFF6E1;
+      color: #A97A2A;
+      box-shadow: 0 0 0 3px rgba(240, 196, 110, 0.18);
+    }
+
+    .notice-list {
+      margin-top: 9px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .notice-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      max-width: 100%;
+      background: #FFF3D6;
+      border: 1px solid #F4DFA9;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size:15.5px;
+      font-weight: 700;
+      color: #5C4A20;
+      line-height: 1.25;
+    }
+
+    .notice-pill > span:first-child {
+      overflow-wrap: anywhere;
+    }
+
+    .notice-empty {
+      font-size:15px;
+      color: #9E9488;
+      padding: 5px 2px;
+    }
+
+    .notice-form {
+      margin-top: 9px;
+      display: flex;
+      gap: 7px;
+    }
+
+    .notice-input {
+      flex: 1 1 auto;
+      min-width: 0;
+      border: 1.5px solid #EBD9B4;
+      border-radius: 16px;
+      padding: 10px 13px;
+      font-size:16px;
+      font-family: inherit;
+      background: #FFFFFF;
+      color: #33302B;
+    }
+
+    .notice-input:focus {
+      outline: none;
+      border-color: #DF7C94;
+      box-shadow: 0 0 0 3px rgba(223, 124, 148, 0.16);
+    }
+
+    .notice-add-btn {
+      flex-shrink: 0;
+      border: none;
+      border-radius: 16px;
+      padding: 10px 15px;
+      background: #F6C86E;
+      color: #6A4500;
+      font-size:15.5px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(200, 150, 60, 0.2);
+    }
+
+    .notice-add-btn:active {
+      transform: scale(0.96);
+    }
+
+    .notice-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .notice-chip {
+      border: 1px solid #F0DFB8;
+      background: #FFFBEE;
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size:14px;
+      font-weight: 700;
+      color: #7A6231;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .notice-chip:active {
+      transform: scale(0.95);
+    }
+
+    .notice-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 1px;
+      flex-shrink: 0;
+    }
+
+    .notice-icon-btn {
+      border: none;
+      background: transparent;
+      padding: 0 1px;
+      font-size:14px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    #noticeSection.locked .notice-form,
+    #noticeSection.locked .notice-chips,
+    #noticeSection.locked .notice-actions {
+      display: none;
+    }
+
+    @media (max-width: 460px) {
+      .notice-title { font-size:19px; }
+      .notice-pill { font-size:14.5px; padding: 6px 10px; }
+      .notice-input, .notice-add-btn { font-size:15px; }
+    }
+
+    /* 🎉 축하 폭죽 · 💮 칭찬 스탬프 (화면 조작을 가로막지 않아요) */
+    .celebrate-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 90;
+      overflow: hidden;
+    }
+
+    .celebrate-layer canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .celebrate-badge {
+      position: absolute;
+      left: 50%;
+      top: 24%;
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0;
+      background: rgba(255, 255, 255, 0.96);
+      border: 2px solid #FFD98A;
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size:19px;
+      font-weight: 900;
+      color: #8A5A00;
+      white-space: nowrap;
+      box-shadow: 0 10px 26px rgba(120, 90, 30, 0.18);
+    }
+
+    .celebrate-badge.show {
+      animation: celebratePop 1.55s ease-out forwards;
+    }
+
+    @keyframes celebratePop {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+      18% { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
+      32% { transform: translate(-50%, -50%) scale(1); }
+      78% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%, -64%) scale(0.98); }
+    }
+
+    .celebrate-stamp {
+      position: absolute;
+      left: 50%;
+      top: 33%;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 6px double #E4685F;
+      background: rgba(255, 248, 244, 0.9);
+      color: #C9453C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12px;
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size:20px;
+      font-weight: 900;
+      line-height: 1.2;
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(-14deg) scale(2.4);
+      box-shadow: 0 12px 30px rgba(200, 90, 80, 0.18);
+    }
+
+    .celebrate-stamp.allclear {
+      border-color: #F0A93C;
+      color: #B26A00;
+    }
+
+    .celebrate-stamp.show {
+      animation: celebrateStamp 1.55s cubic-bezier(0.2, 1.5, 0.4, 1) forwards;
+    }
+
+    @keyframes celebrateStamp {
+      0% { opacity: 0; transform: translate(-50%, -50%) rotate(-24deg) scale(2.6); }
+      34% { opacity: 1; transform: translate(-50%, -50%) rotate(-10deg) scale(0.93); }
+      46% { transform: translate(-50%, -50%) rotate(-10deg) scale(1.05); }
+      56% { transform: translate(-50%, -50%) rotate(-10deg) scale(1); }
+      82% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%, -50%) rotate(-10deg) scale(1.02); }
+    }
+
     /* Family Calendar Section */
     .cal-section {
       margin-top: 16px;
@@ -4293,6 +4580,7 @@
         </div>
       </div>
       <div class="weather-row-bottom">
+        <span class="badge badge-quiet" id="umbrellaBadge">☔ 우산</span>
         <span class="badge badge-fair" id="pm10Badge">미세 보통</span>
         <span class="badge badge-bad" id="pm25Badge">초미세 나쁨</span>
         <span class="badge badge-mask" id="maskBadge">😷 마스크</span>
@@ -4348,6 +4636,22 @@
       </div>
     </section>
 
+    <section class="notice-section locked" id="noticeSection" aria-label="집안 공지 · 준비물 메모">
+      <div class="notice-header">
+        <div>
+          <h2 class="notice-title">📢 집안 공지 · 준비물 메모</h2>
+          <p class="notice-sub">한 줄로 가족에게 알려요 · 쓸 때만 🔒 수정</p>
+        </div>
+        <button class="notice-lock-btn" id="noticeLockBtn" type="button" aria-pressed="false">🔒 수정</button>
+      </div>
+      <div class="notice-list" id="noticeList"></div>
+      <form class="notice-form" id="noticeForm" autocomplete="off">
+        <input class="notice-input" id="noticeInput" type="text" maxlength="40" placeholder="예: 내일 체육복 · 물통 챙기기" aria-label="집안 공지 한 줄" />
+        <button class="notice-add-btn" id="noticeAddBtn" type="submit">추가</button>
+      </form>
+      <div class="notice-chips" id="noticeChips"></div>
+    </section>
+
     <section class="cal-section" id="calendarSection" aria-label="가족 달력">
       <div class="cal-header">
         <h2 class="cal-title">📅 가족 달력</h2>
@@ -4398,7 +4702,7 @@
       <div class="screen-header">
         <div>
           <h2 class="screen-title">📱 이번주 전자기기 사용시간</h2>
-          <p class="screen-subtitle">평소엔 잠금 · 🔒 수정을 누르면 10분 단위로 조절해요</p>
+          <p class="screen-subtitle">평소엔 잠금 · 🔒 수정을 누르면 10분 단위로 조절해요 · 매주 일요일 자동 초기화</p>
         </div>
         <button class="screen-lock-btn" id="screenLockBtn" type="button" aria-pressed="false">🔒 수정</button>
       </div>
@@ -4562,6 +4866,7 @@
     </div>
   </div>
 
+  <div class="celebrate-layer" id="celebrateLayer" aria-hidden="true"></div>
   <div class="toast" id="toast"></div>
 
   <script>
@@ -4706,6 +5011,8 @@
       const kept = [];
       (Array.isArray(todos) ? todos : []).forEach(t => {
         if (!t || typeof t !== 'object') { changed = true; return; }
+        // 집안 공지('notice')와 시스템 마커('sys')는 할 일 계산에서 늘 그대로 보존합니다
+        if (t.memberId === 'notice' || t.memberId === 'sys') { kept.push(t); return; }
         const id = String(t.id == null ? '' : t.id);
         const text = String(t.text == null ? '' : t.text).trim();
         if (HW_DROP_IDS.indexOf(id) >= 0 || text === HW_DROP_TEXT) { changed = true; return; }
@@ -4757,21 +5064,31 @@
         next.todos = syncHomeworkTodos(next.todos).todos;
         next.screenTime = normalizeScreenTime(parsed.screenTime);
         next.events = Array.isArray(parsed.events) ? parsed.events : [];
-        next.calendarEvents = Array.isArray(parsed.calendarEvents) ? parsed.calendarEvents : [];
+        next.calendarEvents = filterCalendarEvents(parsed.calendarEvents);
         return next;
       } catch {
         return structuredClone(DEFAULT_STATE);
       }
     }
 
-    function saveState() {
+    // 🔄 기기 간 덮어쓰기 방지
+    //    이 기기에서 생긴 변경은 연산(pendingOps)으로 쌓아 두고, 올리기 직전에
+    //    서버의 최신 상태를 받아(GET) 이 기기의 연산만 병합한 뒤 올립니다(POST).
+    let pendingOps = [];
+    let syncInFlight = false;
+    let syncDirty = false;
+    let cloudReady = false;
+
+    function saveState(op) {
       lastLocalMutationAt = Date.now();
+      if (op && typeof op === 'object') pendingOps.push(op);
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       } catch (e) {
         console.warn(e);
       }
       pushCloudSync();
+      return true;
     }
 
     function showToast(msg) {
@@ -4823,6 +5140,7 @@
       renderDday();
       renderLetterChips();
       renderLetters();
+      renderNotice();
     }
 
     function letterMemberNames() {
@@ -4950,7 +5268,7 @@
         card.querySelector('.letter-del').addEventListener('click', () => {
           const idx = state.logs.findIndex(l => String(l.id) === String(item.id));
           if (idx > -1) state.logs.splice(idx, 1);
-          saveState();
+          saveState({ t: 'log-del', id: item.id });
           renderLetters();
         });
         list.appendChild(card);
@@ -4993,14 +5311,18 @@
     document.getElementById('saveSettingsBtn').addEventListener('click', () => {
       state.tagline = document.getElementById('taglineInput').value.trim() || DEFAULT_STATE.tagline;
       state.syncUrl = document.getElementById('syncUrlInput').value.trim();
+      const memberEdits = [];
       document.querySelectorAll('#memberEditFields input').forEach(inp => {
         const idx = Number(inp.dataset.idx);
         const field = inp.dataset.field;
         if (state.members[idx] && inp.value.trim()) {
           state.members[idx][field] = inp.value.trim();
+          const m = state.members[idx];
+          memberEdits.push({ t: 'member-edit', id: m.id, name: m.name, sub: m.sub });
         }
       });
-      saveState();
+      memberEdits.forEach(op => pendingOps.push(op));
+      saveState({ t: 'tagline', text: state.tagline });
       renderAll();
       document.getElementById('settingsModal').classList.remove('open');
       showToast('설정을 저장했어요');
@@ -5026,16 +5348,17 @@
       const text = inp.value.trim();
       if (!text) return;
       const author = `${letterFromName} → ${letterToName}`;
-      state.logs.unshift({
+      const newLog = {
         id: Date.now(),
         author,
         text,
         time: LETTER_TIME_PREFIX + formatNowDateTime()
-      });
+      };
+      state.logs.unshift(newLog);
       // Code.gs 의 MAX_LOGS(200)와 같은 상한으로, 편지가 계속 누적됩니다
       if (state.logs.length > 200) state.logs = state.logs.slice(0, 200);
       inp.value = '';
-      saveState();
+      saveState({ t: 'log-add', log: { id: newLog.id, author: newLog.author, text: newLog.text, time: formatNowDateTime() } });
       renderLetters();
       showToast('감사편지가 따뜻하게 쌓였어요 💌');
     });
@@ -5101,9 +5424,66 @@
       return ['나쁨', 'badge-bad'];
     }
 
+    // ☔ 비/눈 날씨 코드인지 (Open-Meteo WMO)
+    function rainyCode(code) {
+      const c = Number(code);
+      if (!isFinite(c)) return false;
+      return (c >= 51 && c <= 67) || (c >= 71 && c <= 77) || (c >= 80 && c <= 82) || c >= 95;
+    }
+
+    // ☔ 우산 배지: 오늘 비 → 강조 · 오늘은 아니고 내일 비 → 차분한 안내 · 그 외 → 필요 없음
+    function renderUmbrellaBadge(todayRain, todayCode, tomorrowRain, tomorrowCode) {
+      const el = document.getElementById('umbrellaBadge');
+      if (!el) return;
+      const rainToday = typeof todayRain === 'number' ? todayRain : null;
+      const rainTomorrow = typeof tomorrowRain === 'number' ? tomorrowRain : null;
+      const wetToday = (rainToday !== null && rainToday >= 30) || rainyCode(todayCode);
+      const wetTomorrow = (rainTomorrow !== null && rainTomorrow >= 60) || rainyCode(tomorrowCode);
+      if (wetToday) {
+        el.textContent = '☔ 우산 챙기기';
+        el.className = 'badge badge-on';
+        el.setAttribute('title', '오늘 비 소식이 있어요' + (rainToday !== null ? ' (강수확률 ' + Math.round(rainToday) + '%)' : ''));
+        return;
+      }
+      if (wetTomorrow) {
+        el.textContent = '🌂 내일 비 예보';
+        el.className = 'badge badge-fair';
+        el.setAttribute('title', '내일 비 소식이 있어요' + (rainTomorrow !== null ? ' (강수확률 ' + Math.round(rainTomorrow) + '%)' : ''));
+        return;
+      }
+      el.textContent = '☀️ 우산 필요 없음';
+      el.className = 'badge badge-quiet';
+      el.setAttribute('title', '오늘·내일 비 소식이 없어요');
+    }
+
+    // 😷 마스크 배지: pm10 > 80 또는 pm2.5 > 35 면 강조, 좋음/보통은 구분해서 표시
+    function renderMaskBadge(pm10, pm25) {
+      const el = document.getElementById('maskBadge');
+      if (!el) return;
+      const grades = [];
+      const need = (typeof pm10 === 'number' && pm10 > 80) || (typeof pm25 === 'number' && pm25 > 35);
+      if (typeof pm10 === 'number') grades.push(pm10Grade(pm10)[0]);
+      if (typeof pm25 === 'number') grades.push(pm25Grade(pm25)[0]);
+      if (need) {
+        el.textContent = '😷 마스크 필수';
+        el.className = 'badge badge-on';
+        el.setAttribute('title', '미세먼지가 나빠요 · 마스크를 챙겨요');
+        return;
+      }
+      if (grades.length && grades.every(g => g === '좋음')) {
+        el.textContent = '😊 마스크 필요 없음';
+        el.className = 'badge badge-good';
+        el.setAttribute('title', '공기가 좋아요 · 바깥놀이 괜찮아요');
+        return;
+      }
+      el.textContent = '🙂 마스크 선택';
+      el.className = 'badge badge-fair';
+      el.setAttribute('title', '공기가 보통이에요 · 민감하면 마스크를 써요');
+    }
+
     async function refreshWeather() {
       try {
-        const wUrl = 'https://api.open-meteo.com/v1/forecast?latitude=37.2469&longitude=127.0563&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul&forecast_days=1';
+        const wUrl = 'https://api.open-meteo.com/v1/forecast?latitude=37.2469&longitude=127.0563&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FSeoul&forecast_days=2';
         const aUrl = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.2469&longitude=127.0563&current=pm10,pm2_5&timezone=Asia%2FSeoul';
         const [wRes, aRes] = await Promise.all([fetch(wUrl), fetch(aUrl)]);
         if (wRes.ok) {
@@ -5123,26 +5503,33 @@
             document.getElementById('weatherMinMax').textContent = `최저 ${Math.round(daily.temperature_2m_min[0])}° · 최고 ${Math.round(daily.temperature_2m_max[0])}°`;
           }
           document.getElementById('weatherUpdated').textContent = `망포동 ${formatNowTime()}`;
+          // ☔ 오늘·내일 강수확률과 날씨 코드로 우산 배지를 정합니다
+          const rain = Array.isArray(daily.precipitation_probability_max) ? daily.precipitation_probability_max : [];
+          const codes = Array.isArray(daily.weather_code) ? daily.weather_code : [];
+          renderUmbrellaBadge(
+            typeof rain[0] === 'number' ? rain[0] : null,
+            typeof codes[0] === 'number' ? codes[0] : cur.weather_code,
+            typeof rain[1] === 'number' ? rain[1] : null,
+            typeof codes[1] === 'number' ? codes[1] : null
+          );
         }
         if (aRes.ok) {
           const a = await aRes.json();
           const curA = a.current || {};
-          let needMask = false;
           if (typeof curA.pm10 === 'number') {
             const [g10, cls10] = pm10Grade(curA.pm10);
             const b10 = document.getElementById('pm10Badge');
             b10.textContent = `미세 ${g10}`;
             b10.className = `badge ${cls10}`;
-            if (g10 === '나쁨') needMask = true;
           }
           if (typeof curA.pm2_5 === 'number') {
             const [g25, cls25] = pm25Grade(curA.pm2_5);
             const b25 = document.getElementById('pm25Badge');
             b25.textContent = `초미세 ${g25}`;
             b25.className = `badge ${cls25}`;
-            if (g25 === '나쁨') needMask = true;
           }
-          document.getElementById('maskBadge').textContent = needMask ? '😷 마스크' : '🌿 바깥놀이';
+          // 😷 마스크 배지 (pm10 > 80 || pm2.5 > 35 → 마스크 필수)
+          renderMaskBadge(curA.pm10, curA.pm2_5);
         }
       } catch {
         // Keep initial snapshot on offline
@@ -5579,13 +5966,14 @@
         return;
       }
       if (!Array.isArray(state.todos)) state.todos = [];
-      state.todos.push({
+      const shopTodo = {
         id: 'shop-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
         memberId: SHOP_MEMBER_ID,
         text: text,
         done: false
-      });
-      saveState();
+      };
+      state.todos.push(shopTodo);
+      saveState({ t: 'todo-add', todo: shopTodo });
       if (input) {
         input.value = '';
         input.focus();
@@ -5598,7 +5986,7 @@
       const item = shopItems().filter(t => t.id === id)[0];
       if (!item) return;
       item.done = !item.done;
-      saveState();
+      saveState({ t: 'todo-tog', id: item.id, done: item.done });
       renderShopping();
       showToast(item.done ? '샀어요 ✓ ' + item.text : '다시 살 것에 넣었어요');
     }
@@ -5607,7 +5995,7 @@
       const idx = state.todos.findIndex(t => t && t.id === id && t.memberId === SHOP_MEMBER_ID);
       if (idx < 0) return;
       state.todos.splice(idx, 1);
-      saveState();
+      saveState({ t: 'todo-del', id: id });
       renderShopping();
       showToast('장보기 목록에서 지웠어요');
     }
@@ -5616,6 +6004,7 @@
       const bought = shopItems().filter(t => t.done);
       if (!bought.length) return;
       state.todos = state.todos.filter(t => !(t && t.memberId === SHOP_MEMBER_ID && t.done));
+      bought.forEach(item => pendingOps.push({ t: 'todo-del', id: item.id }));
       saveState();
       renderShopping();
       showToast('산 것 ' + bought.length + '개를 정리했어요');
@@ -5685,7 +6074,7 @@
       if (!m) return 0;
       const count = Math.max(0, Math.min(STICKER_MAX, Math.floor(Number(next) || 0)));
       m.stars = count;
-      saveState();
+      saveState({ t: 'stars', id: kidId, stars: count });
       renderStickers();
       return count;
     }
@@ -5698,8 +6087,9 @@
         return;
       }
       m.stars = 0;
-      addWishTicket(kidId);
-      saveState();
+      const claimed = addWishTicket(kidId);
+      if (claimed) pendingOps.push({ t: 'todo-add', todo: { id: claimed.id, memberId: claimed.memberId, text: '', done: false } });
+      saveState({ t: 'stars', id: kidId, stars: 0 });
       renderStickers();
       showToast('🎉 ' + m.name + ' 주말 소원권 1장 받았어요!');
     }
@@ -5711,7 +6101,7 @@
       const text = String(rawText == null ? '' : rawText).replace(/\s+/g, ' ').trim().slice(0, 40);
       if ((ticket.text || '') === text) return false;
       ticket.text = text;
-      saveState();
+      saveState({ t: 'todo-upd', id: ticket.id, text: text, memberId: ticket.memberId });
       return true;
     }
 
@@ -5719,7 +6109,7 @@
       const ticket = state.todos.find(x => x && x.id === id);
       if (!ticket) return;
       ticket.done = !!done;
-      saveState();
+      saveState({ t: 'todo-tog', id: ticket.id, done: ticket.done });
       renderStickers();
     }
 
@@ -5727,7 +6117,7 @@
       const idx = state.todos.findIndex(x => x && x.id === id && String(x.memberId || '').indexOf(WISH_PREFIX) === 0);
       if (idx < 0) return;
       state.todos.splice(idx, 1);
-      saveState();
+      saveState({ t: 'todo-del', id: id });
       renderStickers();
       showToast('소원권을 지웠어요');
     }
@@ -5964,11 +6354,23 @@
       return false;
     }
 
-    function openTodoPinModal() {
+    // 🔒 비밀번호 모달은 할 일·집안 공지가 함께 씁니다 (pinTarget)
+    let pinTarget = 'todo';
+
+    function openTodoPinModal(target) {
+      pinTarget = target === 'notice' ? 'notice' : 'todo';
       const modal = document.getElementById('todoPinModal');
       const input = document.getElementById('todoPinInput');
       const err = document.getElementById('todoPinError');
+      const title = document.getElementById('todoPinTitle');
       if (!modal || !input) return;
+      if (title) title.textContent = pinTarget === 'notice' ? '🔒 집안 공지 수정' : '🔒 할 일 수정';
+      const helper = modal.querySelector('.pin-helper');
+      if (helper) {
+        helper.textContent = pinTarget === 'notice'
+          ? '비밀번호 4자리를 입력하면 집안 공지를 적을 수 있어요'
+          : '비밀번호 4자리를 입력해 주세요';
+      }
       input.value = '';
       if (err) err.textContent = '';
       modal.classList.add('open');
@@ -5989,8 +6391,15 @@
       const err = document.getElementById('todoPinError');
       const value = String(input && input.value ? input.value : '').replace(/[^0-9]/g, '');
       if (value === TODO_EDIT_PIN) {
-        todoEditUnlocked = true;
         closeTodoPinModal();
+        if (pinTarget === 'notice') {
+          noticeUnlocked = true;
+          syncNoticeLockUi();
+          renderNotice();
+          showToast('🔓 이제 집안 공지를 적을 수 있어요');
+          return;
+        }
+        todoEditUnlocked = true;
         syncTodoLockUi();
         renderTodos();
         showToast('🔓 이제 할 일을 추가·수정·삭제할 수 있어요');
@@ -6027,6 +6436,181 @@
     });
     document.getElementById('todoPinModal').addEventListener('click', (e) => {
       if (e.target === document.getElementById('todoPinModal')) closeTodoPinModal();
+    });
+
+    // ===== 📢 집안 공지 · 준비물 메모 (memberId 'notice' · 비밀번호 2580 잠금) =====
+    //  시트 '가족할일' 탭에 memberId 'notice' 로 들어가 4대 기기가 함께 봅니다.
+    const NOTICE_MEMBER_ID = 'notice';
+    const NOTICE_CHIPS = ['체육복', '물통', '리코더', '우산', '늦어요'];
+    let noticeUnlocked = false;
+    let noticeEditingId = null;
+
+    function noticeItems() {
+      if (!Array.isArray(state.todos)) state.todos = [];
+      return state.todos.filter(t => t && t.memberId === NOTICE_MEMBER_ID);
+    }
+
+    function syncNoticeLockUi() {
+      const section = document.getElementById('noticeSection');
+      const btn = document.getElementById('noticeLockBtn');
+      if (section) section.classList.toggle('locked', !noticeUnlocked);
+      if (!btn) return;
+      btn.textContent = noticeUnlocked ? '🔓 완료' : '🔒 수정';
+      btn.classList.toggle('on', noticeUnlocked);
+      btn.setAttribute('aria-pressed', noticeUnlocked ? 'true' : 'false');
+      btn.setAttribute('aria-label', noticeUnlocked ? '집안 공지 수정 완료(다시 잠그기)' : '집안 공지 추가·수정·삭제 잠금 풀기(비밀번호)');
+    }
+
+    function noticeEditGuard() {
+      if (noticeUnlocked) return true;
+      showToast('🔒 수정을 누르고 비밀번호를 입력해 주세요');
+      return false;
+    }
+
+    function renderNoticeChips() {
+      const host = document.getElementById('noticeChips');
+      if (!host) return;
+      host.innerHTML = '';
+      NOTICE_CHIPS.forEach(word => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'notice-chip';
+        btn.textContent = word;
+        btn.addEventListener('click', () => addNoticeItem(word));
+        host.appendChild(btn);
+      });
+    }
+
+    function renderNotice() {
+      const list = document.getElementById('noticeList');
+      if (!list) return;
+      const items = noticeItems();
+      list.innerHTML = '';
+      if (!items.length) {
+        const empty = document.createElement('div');
+        empty.className = 'notice-empty';
+        empty.textContent = noticeUnlocked
+          ? '아직 공지가 없어요 · 아래에 한 줄 적어 보세요'
+          : '등록된 공지가 없어요 · 🔒 수정으로 적어 보세요';
+        list.appendChild(empty);
+      }
+      items.forEach(item => {
+        const pill = document.createElement('span');
+        pill.className = 'notice-pill';
+        const text = document.createElement('span');
+        text.textContent = item.text;
+        pill.appendChild(text);
+        if (noticeUnlocked) {
+          const actions = document.createElement('span');
+          actions.className = 'notice-actions';
+          const edit = document.createElement('button');
+          edit.type = 'button';
+          edit.className = 'notice-icon-btn';
+          edit.textContent = '✏️';
+          edit.setAttribute('aria-label', (item.text || '공지') + ' 수정');
+          edit.addEventListener('click', () => startNoticeEdit(item));
+          const del = document.createElement('button');
+          del.type = 'button';
+          del.className = 'notice-icon-btn';
+          del.textContent = '✕';
+          del.setAttribute('aria-label', (item.text || '공지') + ' 삭제');
+          del.addEventListener('click', () => deleteNoticeItem(item.id));
+          actions.append(edit, del);
+          pill.appendChild(actions);
+        }
+        list.appendChild(pill);
+      });
+      renderNoticeChips();
+      syncNoticeLockUi();
+    }
+
+    function startNoticeEdit(item) {
+      if (!noticeEditGuard()) return;
+      noticeEditingId = item.id;
+      const input = document.getElementById('noticeInput');
+      const btn = document.getElementById('noticeAddBtn');
+      if (input) {
+        input.value = item.text || '';
+        input.focus();
+        input.select();
+      }
+      if (btn) btn.textContent = '고치기';
+    }
+
+    function resetNoticeForm() {
+      noticeEditingId = null;
+      const input = document.getElementById('noticeInput');
+      const btn = document.getElementById('noticeAddBtn');
+      if (input) input.value = '';
+      if (btn) btn.textContent = '추가';
+    }
+
+    function addNoticeItem(raw) {
+      if (!noticeEditGuard()) return;
+      const text = String(raw == null ? '' : raw).replace(/\s+/g, ' ').trim().slice(0, 40);
+      if (!text) {
+        showToast('공지 내용을 먼저 적어 주세요');
+        const input = document.getElementById('noticeInput');
+        if (input) input.focus();
+        return;
+      }
+      const id = 'notice-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+      if (!Array.isArray(state.todos)) state.todos = [];
+      state.todos.push({ id: id, memberId: NOTICE_MEMBER_ID, text: text, done: false });
+      saveState({ t: 'todo-add', todo: { id: id, memberId: NOTICE_MEMBER_ID, text: text, done: false } });
+      resetNoticeForm();
+      renderNotice();
+      showToast('📢 집안 공지에 올렸어요');
+    }
+
+    function updateNoticeItem(id, raw) {
+      if (!noticeEditGuard()) return;
+      const text = String(raw == null ? '' : raw).replace(/\s+/g, ' ').trim().slice(0, 40);
+      if (!text) {
+        showToast('공지 내용을 적어 주세요');
+        return;
+      }
+      const item = state.todos.filter(t => t && String(t.id) === String(id))[0];
+      if (!item) return;
+      item.text = text;
+      saveState({ t: 'todo-upd', id: item.id, text: text, memberId: NOTICE_MEMBER_ID });
+      resetNoticeForm();
+      renderNotice();
+      showToast('✏️ 집안 공지를 고쳤어요');
+    }
+
+    function deleteNoticeItem(id) {
+      if (!noticeEditGuard()) return;
+      if (!Array.isArray(state.todos)) return;
+      const idx = state.todos.findIndex(t => t && String(t.id) === String(id) && t.memberId === NOTICE_MEMBER_ID);
+      if (idx < 0) return;
+      state.todos.splice(idx, 1);
+      saveState({ t: 'todo-del', id: id });
+      renderNotice();
+      showToast('집안 공지를 지웠어요');
+    }
+
+    document.getElementById('noticeLockBtn').addEventListener('click', () => {
+      if (noticeUnlocked) {
+        noticeUnlocked = false;
+        resetNoticeForm();
+        renderNotice();
+        showToast('🔒 집안 공지를 잠갔어요');
+        return;
+      }
+      openTodoPinModal('notice');
+    });
+
+    document.getElementById('noticeForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('noticeInput');
+      const value = input ? input.value : '';
+      if (noticeEditingId) updateNoticeItem(noticeEditingId, value);
+      else addNoticeItem(value);
+    });
+
+    document.getElementById('noticeForm').addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') resetNoticeForm();
     });
 
     function orderedTodoMembers() {
@@ -6101,9 +6685,12 @@
       const t = state.todos.find(x => x.id === id);
       if (!t) return;
       t.done = !t.done;
-      saveState();
+      saveState({ t: 'todo-tog', id: t.id, done: t.done });
       renderTodos();
-      if (t.done) showToast('할 일을 완료했어요 ✓');
+      if (t.done) {
+        showToast('할 일을 완료했어요 ✓');
+        celebrateTodoCheck(t.memberId);
+      }
     }
 
     function deleteTodo(id) {
@@ -6111,7 +6698,7 @@
       const idx = state.todos.findIndex(x => x.id === id);
       if (idx < 0) return;
       const removed = state.todos.splice(idx, 1)[0];
-      saveState();
+      saveState({ t: 'todo-del', id: id });
       renderTodos();
       showToast(`'${removed.text}' 할 일을 지웠어요`);
     }
@@ -6163,16 +6750,18 @@
         if (t) {
           t.text = text;
           t.memberId = todoDraft.memberId;
+          saveState({ t: 'todo-upd', id: t.id, text: t.text, memberId: t.memberId });
         }
       } else {
-        state.todos.push({
+        const created = {
           id: `t-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
           memberId: todoDraft.memberId,
           text,
           done: false
-        });
+        };
+        state.todos.push(created);
+        saveState({ t: 'todo-add', todo: created });
       }
-      saveState();
       renderTodos();
       document.getElementById('todoModal').classList.remove('open');
       showToast(todoDraft.todoId ? '할 일을 수정했어요' : '할 일을 추가했어요');
@@ -6289,7 +6878,7 @@
           const next = clampScreenTime(range.value, max);
           state.screenTime[id] = next;
           paint(next);
-          saveState();
+          saveState({ t: 'screen', id: id, value: next });
         });
         row.querySelectorAll('.screen-step-btn').forEach(btn => {
           btn.addEventListener('click', () => {
@@ -6298,7 +6887,7 @@
             range.value = next;
             state.screenTime[id] = next;
             paint(next);
-            saveState();
+            saveState({ t: 'screen-add', id: id, delta: delta });
           });
         });
         wrap.appendChild(row);
@@ -6311,6 +6900,162 @@
       syncScreenLockUi();
       showToast(screenEditUnlocked ? '🔓 이제 버튼으로 조절할 수 있어요' : '🔒 사용시간을 잠갔어요');
     });
+
+    // ===== ⏳ 매주 일요일 00:00(KST) 전자기기 사용시간 자동 초기화 =====
+    //  기준점(마커)은 state.todos 안에 { id:'sys-screen-reset-week', memberId:'sys', text:<일요일 날짜> }
+    //  로 저장하고, 화면 어느 곳에도 보이지 않게 걸러 냅니다.
+    function currentSundayKey() {
+      const d = kstDateNow();
+      const sunday = new Date(d.getFullYear(), d.getMonth(), d.getDate() - d.getDay());
+      return dateKeyOf(sunday);
+    }
+
+    function screenWeekMarker() {
+      if (!Array.isArray(state.todos)) state.todos = [];
+      return state.todos.filter(t => t && String(t.id) === SCREEN_WEEK_MARKER_ID)[0] || null;
+    }
+
+    function checkScreenWeekReset() {
+      if (!Array.isArray(state.todos)) state.todos = [];
+      // 시트의 실제 값을 받아 온 뒤에만 기준점·초기화를 건드립니다 (데이터 보호)
+      if (state.syncUrl && !cloudReady) return false;
+      const week = currentSundayKey();
+      const marker = screenWeekMarker();
+      if (!marker) {
+        // 이번 주(월~토) 사용시간은 지우지 않고, 기준점만 조용히 시드합니다
+        const seeded = { id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: week, done: false };
+        state.todos.push(seeded);
+        saveState({ t: 'todo-add', todo: { id: seeded.id, memberId: seeded.memberId, text: seeded.text, done: false } });
+        return false;
+      }
+      if (String(marker.text || '') === week) return false;
+      // 새 일요일이 지났어요 → 이번 주 사용시간을 0으로
+      marker.text = week;
+      state.screenTime = { dohyun: 0, ihyun: 0 };
+      saveState({ t: 'screen-reset', week: week });
+      renderScreenTime();
+      showToast('🔄 일요일이라 이번 주 전자기기 시간이 0분으로 초기화됐어요');
+      return true;
+    }
+
+    // ===== 🎉 축하 폭죽 · 💮 칭찬 스탬프 =====
+    const FAMILY_CHECK_IDS = ['appa', 'eomma', 'dohyun', 'ihyun'];
+    const CONFETTI_WORDS = ['짝짝짝! 잘했어요 🎉', '최고예요! 🎊', '멋져요 ✨'];
+    const STAMP_WORDS = ['참 잘했어요 💯', '도장 쿵! 💮', '완벽해요 ⭐', '최고 👍', '멋지다 🏅'];
+
+    function pickRandom(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function celebrationLayer() {
+      let layer = document.getElementById('celebrateLayer');
+      if (!layer) {
+        layer = document.createElement('div');
+        layer.id = 'celebrateLayer';
+        layer.className = 'celebrate-layer';
+        layer.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(layer);
+      }
+      return layer;
+    }
+
+    function fireConfetti(layer) {
+      if (!layer) return;
+      const canvas = document.createElement('canvas');
+      const w = Math.max(320, window.innerWidth);
+      const h = Math.max(320, window.innerHeight);
+      canvas.width = w;
+      canvas.height = h;
+      layer.appendChild(canvas);
+      let ctx = null;
+      try {
+        ctx = canvas.getContext('2d');
+      } catch (e) {
+        ctx = null;
+      }
+      if (!ctx) {
+        canvas.remove();
+        return;
+      }
+      const colors = ['#F0796A', '#F0B44C', '#8AD8BE', '#8FC3F0', '#E68FB3', '#C7A8F0'];
+      const cx = w / 2;
+      const cy = h * 0.3;
+      const parts = [];
+      for (let i = 0; i < 90; i++) {
+        const angle = (Math.PI * 2 * i) / 90 + Math.random() * 0.5;
+        const speed = 3 + Math.random() * 6;
+        parts.push({
+          x: cx + (Math.random() - 0.5) * 80,
+          y: cy + (Math.random() - 0.5) * 30,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 3,
+          size: 3 + Math.random() * 6,
+          color: colors[i % colors.length],
+          rot: Math.random() * Math.PI,
+          vr: (Math.random() - 0.5) * 0.35
+        });
+      }
+      const start = (window.performance && performance.now) ? performance.now() : Date.now();
+      function frame(now) {
+        const elapsed = (now || Date.now()) - start;
+        const fade = Math.max(0, 1 - elapsed / 1500);
+        ctx.clearRect(0, 0, w, h);
+        parts.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.16;
+          p.vx *= 0.995;
+          p.rot += p.vr;
+          ctx.save();
+          ctx.globalAlpha = fade;
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.72);
+          ctx.restore();
+        });
+        if (elapsed < 1500) requestAnimationFrame(frame);
+        else canvas.remove();
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function addStampBadge(layer, text, allClear) {
+      const stamp = document.createElement('div');
+      stamp.className = 'celebrate-stamp show' + (allClear ? ' allclear' : '');
+      stamp.textContent = text;
+      layer.appendChild(stamp);
+      return stamp;
+    }
+
+    function addCelebrateBadge(layer, text) {
+      const badge = document.createElement('div');
+      badge.className = 'celebrate-badge show';
+      badge.textContent = text;
+      layer.appendChild(badge);
+      return badge;
+    }
+
+    // 실제 우리 가족 할 일을 완료 체크할 때만 축하 연출 (화면 조작은 가로막지 않아요)
+    function celebrateTodoCheck(memberId) {
+      if (FAMILY_CHECK_IDS.indexOf(memberId) < 0) return;
+      const layer = celebrationLayer();
+      layer.innerHTML = '';
+      const items = (state.todos || []).filter(t => t && t.memberId === memberId);
+      const allClear = items.length > 0 && items.every(t => t.done);
+      if (allClear) {
+        fireConfetti(layer);
+        setTimeout(() => fireConfetti(layer), 320);
+        addStampBadge(layer, '🏆 오늘 할 일 올클리어!', true);
+      } else if (Math.random() < 0.5) {
+        fireConfetti(layer);
+        addCelebrateBadge(layer, pickRandom(CONFETTI_WORDS));
+      } else {
+        addStampBadge(layer, pickRandom(STAMP_WORDS), false);
+      }
+      clearTimeout(celebrateTodoCheck._t);
+      celebrateTodoCheck._t = setTimeout(() => { layer.innerHTML = ''; }, 1750);
+    }
 
     // Family Calendar
     const WEEKDAY_LABELS = ['일', '월', '화', '수', '목', '금', '토'];
@@ -6344,6 +7089,17 @@
       return a.title < b.title ? -1 : (a.title > b.title ? 1 : 0);
     }
 
+    // 🇰🇷 공휴일 캘린더가 영어·한국어 두 벌 켜져 있어 같은 공휴일이 두 번 보입니다.
+    //    '대한민국의 휴일'만 남기고 영어 사본('Holidays in South Korea')은 걸러 냅니다.
+    function isDuplicateHolidayEvent(ev) {
+      if (!ev || typeof ev !== 'object') return false;
+      return String(ev.calendar || '').trim().toLowerCase() === 'holidays in south korea';
+    }
+
+    function filterCalendarEvents(list) {
+      return (Array.isArray(list) ? list : []).filter(ev => !isDuplicateHolidayEvent(ev));
+    }
+
     function allCalendarItems() {
       const out = [];
       (Array.isArray(state.events) ? state.events : []).forEach(e => {
@@ -6359,6 +7115,7 @@
       });
       (Array.isArray(state.calendarEvents) ? state.calendarEvents : []).forEach(e => {
         if (!e || !e.date) return;
+        if (isDuplicateHolidayEvent(e)) return;
         const allDay = e.allDay === true || e.time === '종일' || !e.time;
         out.push({
           id: `sync-${e.date}-${e.time || ''}-${e.title || ''}`,
@@ -6513,13 +7270,14 @@
         return;
       }
       const time = document.getElementById('eventTimeInput').value || '';
-      state.events.unshift({
+      const newEvent = {
         id: `e-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
         date: calSelected,
         title,
         time
-      });
-      saveState();
+      };
+      state.events.unshift(newEvent);
+      saveState({ t: 'event-add', event: newEvent });
       renderCalendar();
       document.getElementById('eventModal').classList.remove('open');
       showToast('일정을 추가했어요');
@@ -6529,7 +7287,7 @@
       const before = state.events.length;
       state.events = state.events.filter(e => e.id !== id);
       if (state.events.length === before) return;
-      saveState();
+      saveState({ t: 'event-del', id: id });
       renderCalendar();
       showToast('일정을 지웠어요');
     }
@@ -6709,14 +7467,15 @@
         const titleVal = title.value.trim();
         if (!/^\d{4}-\d{2}-\d{2}$/.test(dateVal) || !titleVal) return;
         state.todos = state.todos || [];
-        state.todos.push({
+        const ddayTodo = {
           id: 'dday-' + Date.now(),
           memberId: 'dday',
           text: `${dateVal}|${titleVal}`,
           done: false
-        });
+        };
+        state.todos.push(ddayTodo);
         ddayFormOpen = false;
-        saveState();
+        saveState({ t: 'todo-add', todo: ddayTodo });
         renderDday();
         showToast('⏳ 디데이를 추가했어요');
       });
@@ -6749,7 +7508,7 @@
           x.textContent = '✕';
           x.addEventListener('click', () => {
             state.todos = (state.todos || []).filter(t => !t || String(t.id) !== String(it.id));
-            saveState();
+            saveState({ t: 'todo-del', id: it.id });
             renderDday();
             renderTodos();
           });
@@ -6823,6 +7582,8 @@
       const dot = document.getElementById('syncDot');
       // 방금 누른 체크가 업로드 중에 덮어써지지 않도록 6초간 쉬어요
       if (Date.now() - lastLocalMutationAt < 6000) return;
+      // 아직 올리는 중이거나 올릴 변경이 남아 있으면 화면을 덮어쓰지 않아요
+      if (syncInFlight || pendingOps.length) return;
       if (state.syncUrl) {
         dot.classList.add('syncing');
         try {
@@ -6842,9 +7603,12 @@
                 if (hwMerge.changed) setTimeout(() => { pushCloudSync(); }, 1200);
               }
               if (data.screenTime && typeof data.screenTime === 'object') state.screenTime = normalizeScreenTime(data.screenTime);
-              if (Array.isArray(data.calendarEvents)) state.calendarEvents = data.calendarEvents;
+              if (Array.isArray(data.calendarEvents)) state.calendarEvents = filterCalendarEvents(data.calendarEvents);
               if (Array.isArray(data.events)) state.events = data.events;
               localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+              cloudReady = true;
+              // ⏳ 새 일요일이 지났으면 이번 주 사용시간을 0으로 (마커만 없으면 조용히 시드)
+              checkScreenWeekReset();
               // 내용이 실제로 바뀌었을 때만 다시 그리고, 입력 중에는 잠시 미루어요
               const signature = syncSignature();
               if (signature !== lastRemoteSignature) {
@@ -6868,7 +7632,7 @@
               if (data.tagline) state.tagline = data.tagline;
               if (Array.isArray(data.todos)) state.todos = syncHomeworkTodos(data.todos).todos;
               if (data.screenTime && typeof data.screenTime === 'object') state.screenTime = normalizeScreenTime(data.screenTime);
-              if (Array.isArray(data.calendarEvents)) state.calendarEvents = data.calendarEvents;
+              if (Array.isArray(data.calendarEvents)) state.calendarEvents = filterCalendarEvents(data.calendarEvents);
               if (Array.isArray(data.events)) state.events = data.events;
               renderAll();
             }
@@ -6877,31 +7641,217 @@
       }
     }
 
+    // ===== 🔄 서버 최신 상태 + 이 기기의 변경만 병합해서 올리기 =====
+    const SYS_MEMBER_ID = 'sys';
+    const SCREEN_WEEK_MARKER_ID = 'sys-screen-reset-week';
+
+    function cloneJson(value) {
+      try {
+        return JSON.parse(JSON.stringify(value));
+      } catch (e) {
+        return value;
+      }
+    }
+
+    // 서버에서 받은 상태를 이 페이지가 쓰는 모양으로 정리합니다
+    function syncBaseFromServer(data) {
+      const base = cloneJson(data && typeof data === 'object' ? data : {}) || {};
+      base.tagline = base.tagline || state.tagline;
+      base.members = Array.isArray(base.members) && base.members.length
+        ? normalizeMemberSubs(base.members)
+        : cloneJson(state.members);
+      base.logs = Array.isArray(base.logs) ? base.logs : [];
+      base.events = Array.isArray(base.events) ? base.events : [];
+      // 캘린더는 서버(Code.gs)가 매번 만들어 주므로, 응답에 없을 때만 이 기기 값을 씁니다
+      base.calendarEvents = Array.isArray(base.calendarEvents)
+        ? filterCalendarEvents(base.calendarEvents)
+        : filterCalendarEvents(state.calendarEvents);
+      base.screenTime = normalizeScreenTime(base.screenTime);
+      const hw = syncHomeworkTodos(Array.isArray(base.todos) ? base.todos : []);
+      base.todos = hw.todos;
+      return base;
+    }
+
+    // 최신 서버 상태 위에 이 기기의 변경 연산만 ID·멤버 단위로 적용합니다
+    function mergeOpsIntoState(base, ops) {
+      const next = base || {};
+      if (!Array.isArray(next.todos)) next.todos = [];
+      if (!Array.isArray(next.members)) next.members = [];
+      if (!Array.isArray(next.logs)) next.logs = [];
+      if (!Array.isArray(next.events)) next.events = [];
+      next.screenTime = normalizeScreenTime(next.screenTime);
+
+      const idxOf = (id) => next.todos.findIndex(x => x && String(x.id) === String(id));
+      const todoOf = (todo) => ({
+        id: String(todo.id),
+        memberId: todo.memberId == null ? '' : String(todo.memberId),
+        text: todo.text == null ? '' : String(todo.text),
+        done: !!todo.done
+      });
+      const upsertTodo = (todo) => {
+        if (!todo || todo.id == null) return;
+        const i = idxOf(todo.id);
+        if (i < 0) next.todos.push(todoOf(todo));
+        else next.todos[i] = todoOf(todo);
+      };
+
+      (Array.isArray(ops) ? ops : []).forEach(op => {
+        if (!op || typeof op !== 'object') return;
+        switch (op.t) {
+          case 'todo-add':
+            upsertTodo(op.todo);
+            break;
+          case 'todo-upd': {
+            const i = idxOf(op.id);
+            if (i >= 0) {
+              if (op.text != null) next.todos[i].text = String(op.text);
+              if (op.memberId) next.todos[i].memberId = String(op.memberId);
+            } else if (op.todo) {
+              upsertTodo(op.todo);
+            }
+            break;
+          }
+          case 'todo-tog': {
+            const i = idxOf(op.id);
+            if (i >= 0) next.todos[i].done = !!op.done;
+            break;
+          }
+          case 'todo-del':
+            next.todos = next.todos.filter(x => !(x && String(x.id) === String(op.id)));
+            break;
+          case 'stars': {
+            const m = next.members.filter(x => x && x.id === op.id)[0];
+            if (m) m.stars = Math.max(0, Math.min(5, Math.floor(Number(op.stars) || 0)));
+            break;
+          }
+          case 'screen':
+            if (SCREEN_TIME_LIMITS[op.id]) {
+              next.screenTime[op.id] = clampScreenTime(op.value, SCREEN_TIME_LIMITS[op.id]);
+            }
+            break;
+          case 'screen-add':
+            if (SCREEN_TIME_LIMITS[op.id]) {
+              next.screenTime[op.id] = clampScreenTime(Number(next.screenTime[op.id] || 0) + Number(op.delta || 0), SCREEN_TIME_LIMITS[op.id]);
+            }
+            break;
+          case 'screen-reset':
+            next.screenTime = { dohyun: 0, ihyun: 0 };
+            upsertTodo({ id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: op.week, done: false });
+            break;
+          case 'log-add': {
+            const log = op.log || {};
+            if (log.id == null) break;
+            const item = { id: log.id, author: log.author, text: log.text, time: log.time };
+            const i = next.logs.findIndex(x => x && String(x.id) === String(log.id));
+            if (i < 0) next.logs.unshift(item);
+            else next.logs[i] = item;
+            next.logs = next.logs.slice(0, 200);
+            break;
+          }
+          case 'log-del':
+            next.logs = next.logs.filter(x => !(x && String(x.id) === String(op.id)));
+            break;
+          case 'tagline':
+            if (op.text) next.tagline = String(op.text);
+            break;
+          case 'member-edit': {
+            const m = next.members.filter(x => x && x.id === op.id)[0];
+            if (m) {
+              if (op.name) m.name = String(op.name);
+              if (op.sub) m.sub = String(op.sub);
+            }
+            break;
+          }
+          case 'event-add':
+            if (op.event && op.event.id != null) {
+              const i = next.events.findIndex(x => x && String(x.id) === String(op.event.id));
+              if (i < 0) next.events.unshift(cloneJson(op.event));
+              else next.events[i] = cloneJson(op.event);
+            }
+            break;
+          case 'event-del':
+            next.events = next.events.filter(x => !(x && String(x.id) === String(op.id)));
+            break;
+          default:
+            break;
+        }
+      });
+      return next;
+    }
+
+    function buildSyncPayload(from) {
+      return {
+        tagline: from.tagline,
+        members: from.members,
+        // 편지 시각은 시트에서 날짜·시간 값으로 바뀌지 않도록 글자 그대로 보냅니다
+        logs: (from.logs || []).map(l => ({
+          id: l.id,
+          author: l.author,
+          text: l.text,
+          time: LETTER_TIME_PREFIX + letterTimeText(l)
+        })),
+        todos: from.todos,
+        screenTime: from.screenTime,
+        events: from.events
+      };
+    }
+
     async function pushCloudSync() {
       if (!state.syncUrl) return;
+      if (syncInFlight) { syncDirty = true; return; }
+      if (!pendingOps.length) return;
       const dot = document.getElementById('syncDot');
-      dot.classList.add('syncing');
+      syncInFlight = true;
+      if (dot) dot.classList.add('syncing');
+      const inFlightOps = pendingOps.splice(0);
       try {
-        await fetch(state.syncUrl, {
+        // 1) 먼저 서버의 최신 상태를 받아옵니다 (다른 폰·태블릿의 변경을 지우지 않도록)
+        let base = null;
+        try {
+          const getUrl = state.syncUrl + (state.syncUrl.indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now();
+          const gRes = await fetch(getUrl, { cache: 'no-store' });
+          if (gRes && gRes.ok) {
+            const data = await gRes.json();
+            if (data && data.ok !== false) base = syncBaseFromServer(data);
+          }
+        } catch (e) {
+          base = null;
+        }
+        // 2) 최신 서버 상태 위에 이 기기의 변경만 병합합니다
+        const merged = base ? mergeOpsIntoState(base, inFlightOps) : syncBaseFromServer(cloneJson(state));
+        if (base) cloudReady = true;
+        // 3) 병합 결과를 올립니다
+        const pRes = await fetch(state.syncUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({
-            tagline: state.tagline,
-            members: state.members,
-            // 편지 시각은 시트에서 날짜·시간 값으로 바뀌지 않도록 글자 그대로 보냅니다
-            logs: (state.logs || []).map(l => ({
-              id: l.id,
-              author: l.author,
-              text: l.text,
-              time: LETTER_TIME_PREFIX + letterTimeText(l)
-            })),
-            todos: state.todos,
-            screenTime: state.screenTime,
-            events: state.events
-          })
+          body: JSON.stringify(buildSyncPayload(merged))
         });
-      } catch {}
-      dot.classList.remove('syncing');
+        // 4) 이 사이 새 입력이 없을 때만 화면 상태도 병합본으로 맞춥니다
+        if (base && pRes && pRes.ok && !pendingOps.length) {
+          state.tagline = merged.tagline;
+          state.members = normalizeMemberSubs(merged.members);
+          state.todos = merged.todos;
+          state.logs = merged.logs;
+          state.screenTime = merged.screenTime;
+          state.events = merged.events;
+          state.calendarEvents = filterCalendarEvents(merged.calendarEvents);
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          } catch (e) {}
+          lastRemoteSignature = syncSignature();
+          renderAfterRemoteSync();
+        }
+      } catch (e) {
+        // 네트워크 오류: 이 기기의 변경은 이미 화면(localStorage)에 반영돼 있어요
+      } finally {
+        if (dot) dot.classList.remove('syncing');
+        syncInFlight = false;
+        if (pendingOps.length) syncDirty = true;
+        if (syncDirty) {
+          syncDirty = false;
+          setTimeout(() => { pushCloudSync(); }, 400);
+        }
+      }
     }
 
     // ===== 가족 포토 카드 · 9장 슬라이드 =====
@@ -7671,6 +8621,8 @@
     initShopping();
     refreshWeather();
     pullCloudSync();
+    // ⏳ 동기화 주소가 없는 오프라인 모드에서도 일요일 기준점은 조용히 맞춰 둡니다
+    checkScreenWeekReset();
     setInterval(() => {
       if (state.syncUrl) pullCloudSync();
     }, 15000);

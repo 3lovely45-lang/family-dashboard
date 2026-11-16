@@ -24,6 +24,7 @@
     --who-2:#a2663f;   /* 민규 */
     --who-3:#7a5aa8;   /* 영준 */
     --who-0:#9b9284;   /* 미정 */
+    --who-4:#2c8a65;   /* 캠핏 오더 */
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
@@ -121,21 +122,23 @@
 
   /* 담당자 탭 */
   .tabs{
-    display:flex;
-    flex-wrap:wrap;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
     gap:7px;
     margin-top:13px;
   }
   .tab{
-    flex:0 0 auto;
+    min-width:0;
+    justify-content:center;
     border:1.5px solid rgba(255,255,255,.28);
     background:rgba(255,255,255,.08);
     color:#fff8ea;
     border-radius:99px;
-    padding:7px 10px;
-    font-size:14px;
+    padding:7px 9px;
+    font-size:13.5px;
     font-weight:700;
-    letter-spacing:-.4px;
+    letter-spacing:-.5px;
+    white-space:nowrap;
     cursor:pointer;
     display:flex;align-items:center;gap:5px;
     transition:background .18s,border-color .18s,color .18s;
@@ -257,6 +260,7 @@
   .chip.on[data-who="민규"]{background:var(--who-2);}
   .chip.on[data-who="영준"]{background:var(--who-3);}
   .chip.on[data-who="미정"]{background:var(--who-0);}
+  .chip.on[data-who="캠핏 오더"]{background:var(--who-4);}
   .del{
     flex:0 0 auto;
     border:none;
@@ -466,6 +470,16 @@
     font-weight:600;
     margin:18px 0 4px;
   }
+
+  /* ---------- 좁은 화면(모바일 460px 이하) 보정 ---------- */
+  @media (max-width:480px){
+    .tabs{gap:6px;}
+    .tab{padding:7px 6px;font-size:13px;gap:4px;letter-spacing:-.6px;}
+    .tab .cnt{padding:1px 5px;min-width:18px;font-size:11.5px;}
+    .row2{padding-left:0;flex-wrap:wrap;row-gap:7px;}
+    .who{gap:5px;}
+    .chip{padding:5px 9px;font-size:13.5px;letter-spacing:-.5px;}
+  }
 </style>
 </head>
 <body>
@@ -502,6 +516,7 @@
           <option value="병석">병석</option>
           <option value="민규">민규</option>
           <option value="영준">영준</option>
+          <option value="캠핏 오더">캠핏 오더</option>
         </select>
         <button class="add-btn" id="addBtn" type="button">추가</button>
       </div>
@@ -533,7 +548,7 @@
   // 가족 대시보드·가족 캘린더 데이터와는 완전히 분리된 저장소입니다.
   var SYNC_URL = "https://script.google.com/macros/s/AKfycbw1BhXaH2LqjfTrGrnaC8rb4fWolJcCIKDYvcIyKjDBkrkXy7QVdnYcYIfE47ZhOKyyHg/exec";
 
-  var ASSIGNEES = ["병석", "민규", "영준", "미정"];
+  var ASSIGNEES = ["병석", "민규", "영준", "미정", "캠핏 오더"];
   // 메뉴 흐름: 금저녁 부대찌개·불고기 / 토아침 고등어·계란국 / 토점심 고기 / 토저녁 쭈삼·어묵탕
   var DEFAULT_CATS = ["공통 준비물", "금요일 저녁", "토요일 아침", "토요일 점심", "토요일 저녁"];
   var CAT_EMOJI = {
@@ -558,7 +573,7 @@
     "토요일 저녁": ["김가루/참기름(볶음밥)", "청양고추", "곤약/물떡"]
   };
   var POLL_MS = 6000;
-  var LS_KEY = "camping-checklist-v2";
+  var LS_KEY = "camping-checklist-v3";
 
   var state = {
     items: [],

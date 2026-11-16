@@ -768,7 +768,7 @@
   function itemHTML(it) {
     var who = ASSIGNEES.indexOf(it.assignee) >= 0 ? it.assignee : "미정";
     var chips = ASSIGNEES.map(function (a) {
-      return '<button type="button" class="chip' + (a === who ? " on" : "") + '" data-who="' + esc(a) + '" data-assign="' + esc(it.id) + '">' + esc(a) + "</button>";
+      return '<button type="button" class="chip' + (a === who ? " on" : "") + '" data-who="' + esc(a) + '" data-assign="' + esc(it.id) + '" aria-label="' + esc(it.name + " 담당자 " + a) + '" aria-pressed="' + (a === who ? "true" : "false") + '">' + esc(a) + "</button>";
     }).join("");
     var ed = editing[it.id];
     return '<article class="item' + (it.checked ? " done" : "") + '" data-id="' + esc(it.id) + '">' +
@@ -830,7 +830,7 @@
       }
       if (quick.length) {
         html += '<div class="quick">' + quick.map(function (nm) {
-          return '<button type="button" class="qchip" data-quick="' + esc(nm) + '" data-cat="' + esc(cat) + '">' + esc(nm) + "</button>";
+          return '<button type="button" class="qchip" data-quick="' + esc(nm) + '" data-cat="' + esc(cat) + '" aria-label="' + esc(nm + " 추가") + '">' + esc(nm) + "</button>";
         }).join("") + "</div>";
       }
       html += "</section>";

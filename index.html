@@ -2799,7 +2799,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* 🏆 칭찬 스티커 · 주말 소원권 (도현·이현) */
+    /* 🏆 칭찬 스티커 · 소원권 (도현·이현) */
     .sticker-section {
       margin-top: 16px;
       background: rgba(255, 253, 245, 0.96);
@@ -4725,11 +4725,11 @@
       <div id="todoMembers"></div>
     </section>
 
-    <section class="sticker-section" id="stickerSection" aria-label="도현 · 이현 칭찬 스티커와 주말 소원권">
+    <section class="sticker-section" id="stickerSection" aria-label="도현 · 이현 칭찬 스티커와 소원권">
       <div class="sticker-header">
         <div>
-          <h2 class="sticker-title">🏆 칭찬 스티커 · 주말 소원권</h2>
-          <p class="sticker-subtitle">칭찬 스티커 5개를 모으면 주말 소원권 한 장이 생겨요</p>
+          <h2 class="sticker-title">🏆 칭찬 스티커 · 소원권</h2>
+          <p class="sticker-subtitle">칭찬 스티커 5개를 모으면 소원권 한 장이 생겨요</p>
         </div>
         <button class="sticker-lock-btn" id="stickerLockBtn" type="button" aria-pressed="false">🔒 수정</button>
       </div>
@@ -6062,14 +6062,14 @@
       renderShopping();
     }
 
-    // 🏆 칭찬 스티커 · 주말 소원권 (도현·이현)
+    // 🏆 칭찬 스티커 · 소원권 (도현·이현)
     //  · 칭찬 스티커 개수 -> state.members[].stars (0~5) : 시트 '가족별점' 탭과 동기화
-    //  · 주말 소원권 -> state.todos 안에 memberId 'wish_dohyun' / 'wish_ihyun' : 시트 '가족할일' 탭과 동기화
+    //  · 소원권 -> state.todos 안에 memberId 'wish_dohyun' / 'wish_ihyun' : 시트 '가족할일' 탭과 동기화
     //    (오늘 할 일 · 장보기 목록과 섞이지 않도록 memberId 로 꼭 나눠 둡니다)
     const STICKER_MAX = 5;
     const STICKER_KIDS = ['dohyun', 'ihyun'];
     const WISH_PREFIX = 'wish_';
-    const WISH_FALLBACK_TEXT = '주말 소원권';
+    const WISH_FALLBACK_TEXT = '소원권';
     const WISH_PLACEHOLDER = '소원을 적어보세요 (예: 치킨 먹기)';
     const wishUsedOpen = { dohyun: false, ihyun: false };
 
@@ -6131,7 +6131,7 @@
       if (claimed) pendingOps.push({ t: 'todo-add', todo: { id: claimed.id, memberId: claimed.memberId, text: '', done: false } });
       saveState({ t: 'stars', id: kidId, stars: 0 });
       renderStickers();
-      showToast('🎉 ' + m.name + ' 주말 소원권 1장 받았어요!');
+      showToast('🎉 ' + m.name + ' 소원권 1장 받았어요!');
     }
 
     // 소원 내용 저장 (엔터·포커스아웃에서 불립니다). 다시 그리지 않아 입력 중인 커서를 지키고, 저장 여부만 돌려줍니다.
@@ -6182,7 +6182,7 @@
         btn.textContent = stickerEditUnlocked ? '🔓 완료' : '🔒 수정';
         btn.classList.toggle('on', stickerEditUnlocked);
         btn.setAttribute('aria-pressed', stickerEditUnlocked ? 'true' : 'false');
-        btn.setAttribute('aria-label', stickerEditUnlocked ? '칭찬 스티커 수정 완료(다시 잠그기)' : '칭찬 스티커·주말 소원권 수정하기(잠금 풀기)');
+        btn.setAttribute('aria-label', stickerEditUnlocked ? '칭찬 스티커 수정 완료(다시 잠그기)' : '칭찬 스티커·소원권 수정하기(잠금 풀기)');
       }
       if (!section) return;
       section.classList.toggle('locked', !stickerEditUnlocked);
@@ -6240,7 +6240,7 @@
           '</div>' +
           '<div class="sticker-claim-slot"></div>' +
           '<div class="sticker-wish-tray">' +
-            '<div class="sticker-wish-head"><span>🎟️ 주말 소원권</span><span class="sticker-wish-count">' + tickets.length + '장</span></div>' +
+            '<div class="sticker-wish-head"><span>🎟️ 소원권</span><span class="sticker-wish-count">' + tickets.length + '장</span></div>' +
             '<div class="wish-active-list"></div>' +
             '<div class="wish-used-zone"></div>' +
           '</div>';
@@ -6289,7 +6289,7 @@
           const claim = document.createElement('button');
           claim.type = 'button';
           claim.className = 'sticker-claim';
-          claim.textContent = '🎁 5개 완성! 주말 소원권 받기';
+          claim.textContent = '🎁 5개 완성! 소원권 받기';
           claim.addEventListener('click', () => {
             if (!stickerEditGuard()) return;
             claimWishTicket(kidId);
@@ -6298,7 +6298,7 @@
         } else {
           const hint = document.createElement('div');
           hint.className = 'sticker-hint';
-          hint.textContent = '스티커 ' + (STICKER_MAX - stars) + '개 더 모으면 주말 소원권이 생겨요 ✨';
+          hint.textContent = '스티커 ' + (STICKER_MAX - stars) + '개 더 모으면 소원권이 생겨요 ✨';
           claimSlot.appendChild(hint);
         }
 
@@ -6315,7 +6315,7 @@
           row.className = 'wish-row';
           row.innerHTML =
             '<span class="wish-emoji" aria-hidden="true">🎟️</span>' +
-            '<input class="wish-input" type="text" maxlength="40" placeholder="' + WISH_PLACEHOLDER + '" value="' + escapeHtml(ticket.text || '') + '" aria-label="' + safeName + ' 주말 소원" />' +
+            '<input class="wish-input" type="text" maxlength="40" placeholder="' + WISH_PLACEHOLDER + '" value="' + escapeHtml(ticket.text || '') + '" aria-label="' + safeName + ' 소원" />' +
             '<button class="wish-use" type="button">사용하기</button>' +
             '<button class="wish-del" type="button" aria-label="소원권 삭제">✕</button>';
           const input = row.querySelector('.wish-input');

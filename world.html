@@ -1404,7 +1404,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
           </article>
           <article class="card">
             <div class="card-head">
-              <h2 class="card-title">⭐ 칭찬 스티커 · 주말 소원권</h2>
+              <h2 class="card-title">⭐ 칭찬 스티커 · 소원권</h2>
               <button class="chip-btn" type="button" data-act="sticker-lock" aria-pressed="false">🔒 수정</button>
             </div>
             <div data-sticker="dohyun"></div>
@@ -1468,7 +1468,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
           </article>
           <article class="card">
             <div class="card-head">
-              <h2 class="card-title">⭐ 칭찬 스티커 · 주말 소원권</h2>
+              <h2 class="card-title">⭐ 칭찬 스티커 · 소원권</h2>
               <button class="chip-btn" type="button" data-act="sticker-lock" aria-pressed="false">🔒 수정</button>
             </div>
             <div data-sticker="ihyun"></div>
@@ -1516,8 +1516,8 @@ html[data-skin="meonjak"] .craft-only{display:none}
     <!-- ================= ⭐ 스티커 ================= -->
     <section class="view" id="view-sticker" aria-label="칭찬 스티커">
       <div class="view-head">
-        <h2 class="view-title">⭐ 칭찬 스티커 · 주말 소원권</h2>
-        <span class="view-sub">스티커 5개를 모으면 주말 소원권 한 장!</span>
+        <h2 class="view-title">⭐ 칭찬 스티커 · 소원권</h2>
+        <span class="view-sub">스티커 5개를 모으면 소원권 한 장!</span>
         <button class="chip-btn" type="button" data-act="sticker-lock" aria-pressed="false" style="margin-left:auto">🔒 수정</button>
       </div>
       <div class="view-grid two">
@@ -1534,8 +1534,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
         <article class="card">
           <div class="card-head"><h2 class="card-title">🎟️ 소원권 사용 안내</h2></div>
           <p class="card-sub" style="margin:0;line-height:1.7">
-            스티커 5칸을 다 채우면 <b>🎁 주말 소원권 받기</b>를 눌러 한 장을 받아요.<br>
-            받은 소원권에는 하고 싶은 일을 적어 두고, 주말에 함께 이뤄 줘요.<br>
+            스티커 5칸을 다 채우면 <b>🎁 소원권 받기</b>를 눌러 한 장을 받아요. 받은 소원권은 리셋되지 않고 계속 쌓이며, 하고 싶은 일을 적어 두고 원하는 때에 쓸 수 있어요.<br>
             사용한 소원권은 <b>사용 완료</b>로 표시하고 언제든 되돌릴 수 있어요.
           </p>
         </article>
@@ -3547,7 +3546,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
   }
   function wishLabel(t) {
     var text = t && typeof t.text === 'string' ? t.text.trim() : '';
-    return text || '주말 소원권';
+    return text || '소원권';
   }
   function kidTodos(kidId) {
     return (state.todos || []).filter(function (t) { return t && t.memberId === kidId; });
@@ -3559,7 +3558,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
      🍄 파워업 진화 · 🪙(💚) 오늘의 코인
      · 할 일 1개 = 코인 1개. 오늘 할 일을 다 모으면 그날 진화(일~토 7일 = 최종 진화)
      · 진화 기록은 state.todos 안에 memberId 'evo' 로 남겨 시트·4대 폰이 함께 씁니다
-     · 칭찬 스티커(stars)·주말 소원권(wish_*)과는 완전히 따로 움직입니다
+     · 칭찬 스티커(stars)·소원권(wish_*)과는 완전히 따로 움직입니다
      ================================================================ */
   function skinCfg() { return SKINS[skin] || SKINS.mario; }
   function kstIsoNow() {
@@ -4036,9 +4035,9 @@ html[data-skin="meonjak"] .craft-only{display:none}
             '<button type="button" data-act="sticker-minus" data-kid="' + kidId + '">−1 스티커</button>' +
             '<button type="button" class="primary" data-act="sticker-plus" data-kid="' + kidId + '">+1 스티커</button>' +
           '</div>' +
-          (stars >= STICKER_MAX ? '<button type="button" class="sticker-claim" data-act="wish-claim" data-kid="' + kidId + '">🎁 5개 완성! 주말 소원권 받기</button>' : '') +
+          (stars >= STICKER_MAX ? '<button type="button" class="sticker-claim" data-act="wish-claim" data-kid="' + kidId + '">🎁 5개 완성! 소원권 받기</button>' : '') +
           '<div class="wish-tray">' +
-            '<div class="wish-head"><span>🎟️ 주말 소원권</span><span class="n">' + tickets.length + '장</span></div>' +
+            '<div class="wish-head"><span>🎟️ 소원권</span><span class="n">' + tickets.length + '장</span></div>' +
             (active.length ? active.map(function (t) {
               return '<div class="wish-row"><input type="text" value="' + esc(t.text || '') + '" data-wish-input="' + esc(t.id) + '" maxlength="40" placeholder="소원을 적어보세요 (예: 치킨 먹기)"' + (stickerUnlocked ? '' : ' readonly') + ' aria-label="소원 내용" />' +
                 '<button type="button" data-act="wish-use" data-id="' + esc(t.id) + '">사용</button>' +
@@ -4078,17 +4077,20 @@ html[data-skin="meonjak"] .craft-only{display:none}
     if (!m) return;
     if (stickerCount(kidId) < STICKER_MAX) { toast('칭찬 스티커 5개를 모으면 소원권을 받을 수 있어요'); return; }
     m.stars = 0;
-    state.todos.push({
+    var newTicket = {
       id: 'wish-' + kidId + '-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
       memberId: 'wish_' + kidId,
       text: '',
       done: false
-    });
+    };
+    state.todos.push(newTicket);
+    /* 여러 기기가 동시에 써도 소원권이 유실되지 않도록 추가 연산으로 올립니다 (누적 저장) */
+    pendingOps.push({ t: 'todo-add', todo: newTicket });
     commit({ t: 'stars', id: kidId, stars: 0 });
     renderStickers();
     renderDexes();
     renderStickerSummary();
-    toast('🎉 ' + m.name + ' 주말 소원권 1장 받았어요!');
+    toast('🎉 ' + m.name + ' 소원권 1장 받았어요!');
   }
   function updateWishText(id, raw) {
     if (!stickerGuard()) return;

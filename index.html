@@ -485,6 +485,7 @@
 
     .todo-header {
       display: flex;
+      flex-wrap: wrap;
       align-items: flex-start;
       justify-content: space-between;
       gap: 10px;
@@ -532,6 +533,7 @@
       align-items: center;
       gap: 6px;
       flex-shrink: 0;
+      margin-left: auto;
     }
 
     .todo-lock-btn {
@@ -6018,6 +6020,10 @@
         e.preventDefault();
         submitTodoPin();
       }
+    });
+    document.getElementById('todoPinInput').addEventListener('input', () => {
+      const err = document.getElementById('todoPinError');
+      if (err) err.textContent = '';
     });
     document.getElementById('todoPinModal').addEventListener('click', (e) => {
       if (e.target === document.getElementById('todoPinModal')) closeTodoPinModal();

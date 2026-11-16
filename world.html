@@ -787,8 +787,6 @@ html[data-skin="craft"] .craft-only{display:initial}
       <button class="tab" type="button" data-c="green" data-act="tab" data-view="dohyun">👦 도현</button>
       <button class="tab" type="button" data-c="green" data-act="tab" data-view="ihyun">👧 이현</button>
       <button class="tab" type="button" data-c="gold" data-act="tab" data-view="sticker">⭐ 스티커</button>
-      <button class="tab" type="button" data-c="blue" data-act="tab" data-view="todo-dohyun">☑️ 도현 할 일</button>
-      <button class="tab" type="button" data-c="blue" data-act="tab" data-view="todo-ihyun">☑️ 이현 할 일</button>
       <button class="tab" type="button" data-c="green" data-act="tab" data-view="shop">🛒 장보기</button>
       <button class="tab" type="button" data-c="red" data-act="tab" data-view="letters">💌 편지</button>
     </nav>
@@ -1136,58 +1134,6 @@ html[data-skin="craft"] .craft-only{display:initial}
           <div class="card-head"><h2 class="card-title">🏅 이번주 기록</h2></div>
           <div id="stickerSummary"></div>
         </article>
-      </div>
-    </section>
-
-    <!-- ================= ☑️ 도현 할 일 ================= -->
-    <section class="view" id="view-todo-dohyun" aria-label="도현 할 일">
-      <div class="view-head">
-        <h2 class="view-title">☑️ 도현 할 일</h2>
-        <span class="view-sub" id="todoDohyunSub"></span>
-      </div>
-      <div class="view-grid two">
-        <article class="card">
-          <div class="card-head"><h2 class="card-title">오늘 할 일</h2></div>
-          <div data-todo="dohyun" data-mode="big"></div>
-        </article>
-        <div class="col">
-          <article class="card">
-            <div class="card-head"><h2 class="card-title">⭐ 칭찬 스티커</h2></div>
-            <div data-sticker="dohyun"></div>
-          </article>
-          <article class="card">
-            <div class="card-head"><h2 class="card-title">📱 전자기기 사용시간</h2>
-              <button class="chip-btn" type="button" data-act="screen-lock" data-kid="dohyun" aria-pressed="false">🔒 수정</button>
-            </div>
-            <div data-screen="dohyun"></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= ☑️ 이현 할 일 ================= -->
-    <section class="view" id="view-todo-ihyun" aria-label="이현 할 일">
-      <div class="view-head">
-        <h2 class="view-title">☑️ 이현 할 일</h2>
-        <span class="view-sub" id="todoIhyunSub"></span>
-      </div>
-      <div class="view-grid two">
-        <article class="card">
-          <div class="card-head"><h2 class="card-title">오늘 할 일</h2></div>
-          <div data-todo="ihyun" data-mode="big"></div>
-        </article>
-        <div class="col">
-          <article class="card">
-            <div class="card-head"><h2 class="card-title">⭐ 칭찬 스티커</h2></div>
-            <div data-sticker="ihyun"></div>
-          </article>
-          <article class="card">
-            <div class="card-head"><h2 class="card-title">📱 전자기기 사용시간</h2>
-              <button class="chip-btn" type="button" data-act="screen-lock" data-kid="ihyun" aria-pressed="false">🔒 수정</button>
-            </div>
-            <div data-screen="ihyun"></div>
-          </article>
-        </div>
       </div>
     </section>
 
@@ -3476,8 +3422,6 @@ html[data-skin="craft"] .craft-only{display:initial}
     set('#todoCardSub', '도현 ' + dItems.filter(function (t) { return !t.done; }).length + ' · 이현 ' + iItems.filter(function (t) { return !t.done; }).length + ' 남음 · ' + DOW_KANA[hwTodayDow()] + ' 숙제 반영');
     set('#dohyunDoneSub', dItems.filter(function (t) { return t.done; }).length + '/' + dItems.length + ' 완료');
     set('#ihyunDoneSub', iItems.filter(function (t) { return t.done; }).length + '/' + iItems.length + ' 완료');
-    set('#todoDohyunSub', dItems.length + '개 중 ' + dItems.filter(function (t) { return t.done; }).length + '개 완료');
-    set('#todoIhyunSub', iItems.length + '개 중 ' + iItems.filter(function (t) { return t.done; }).length + '개 완료');
     set('#footSync', lastSyncOk ? 'Google 시트와 실시간 동기화 중 · ' + formatNowTime() + ' 확인' : 'Google 시트에 연결하는 중이에요');
   }
 
@@ -3505,8 +3449,11 @@ html[data-skin="craft"] .craft-only{display:initial}
   /* ================================================================
      화면 전환
      ================================================================ */
-  var VIEWS = ['dashboard', 'dohyun', 'ihyun', 'sticker', 'todo-dohyun', 'todo-ihyun', 'shop', 'letters'];
+  var VIEWS = ['dashboard', 'dohyun', 'ihyun', 'sticker', 'shop', 'letters'];
+  /* 예전 링크·기억된 화면(#todo-dohyun / #todo-ihyun)은 아이 탭으로 이어서 열어요 */
+  var VIEW_ALIAS = { 'todo-dohyun': 'dohyun', 'todo-ihyun': 'ihyun' };
   function setView(name) {
+    if (VIEW_ALIAS[name]) name = VIEW_ALIAS[name];
     if (VIEWS.indexOf(name) < 0) name = 'dashboard';
     view = name;
     $$('.view').forEach(function (v) { v.classList.toggle('on', v.id === 'view-' + name); });

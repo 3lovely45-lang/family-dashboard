@@ -587,6 +587,8 @@ html[data-resolved="night"] .sched-row.is-now{background:#3B3413}
 .sched-row.is-past{opacity:.55}
 .sched-row .now-flag{margin-left:auto;font-size:9px;font-weight:900;background:var(--mario-red);color:#fff;border-radius:999px;padding:0 6px}
 html[data-resolved="night"] .sched-row .now-flag{background:var(--coin);color:#10233C}
+.sched-motto-line{margin:6px 1px 7px;font-size:10px;font-weight:800;color:var(--ink-soft);line-height:1.5;letter-spacing:-.2px}
+.hw-chip{font-size:9px;font-weight:900;padding:1px 6px;border-radius:999px;border:1.4px solid var(--pipe-d);background:var(--pipe);color:#fff;vertical-align:middle}
 
 /* ---------------- 뷰 전용 ---------------- */
 .view-head{display:flex;align-items:center;gap:8px;margin:0 0 10px;flex-wrap:wrap}
@@ -1112,9 +1114,14 @@ html[data-skin="craft"] .craft-only{display:initial}
             </article>
             <article class="card">
               <div class="card-head"><h2 class="card-title">🏃 도현은 지금</h2></div>
-              <div data-now="dash"></div>
+              <div data-now="dohyun"></div>
             </article>
           </div>
+
+          <article class="card">
+            <div class="card-head"><h2 class="card-title">🎀 이현은 지금</h2></div>
+            <div data-now="ihyun"></div>
+          </article>
         </div>
       </div>
     </section>
@@ -1163,9 +1170,9 @@ html[data-skin="craft"] .craft-only{display:initial}
               <h2 class="card-title">🏃 도현은 지금</h2>
               <span class="card-tools card-sub">2학기 시간표</span>
             </div>
-            <div data-now="full"></div>
-            <div class="sched-days" data-sched-days></div>
-            <div class="sched-rows" data-sched-rows></div>
+            <div data-now="dohyun"></div>
+            <div class="sched-days" data-sched-days="dohyun"></div>
+            <div class="sched-rows" data-sched-rows="dohyun"></div>
           </article>
           <article class="card">
             <div class="card-head"><h2 class="card-title">🍱 글빛초 점심</h2></div>
@@ -1221,6 +1228,16 @@ html[data-skin="craft"] .craft-only{display:initial}
           </article>
         </div>
         <div class="col">
+          <article class="card">
+            <div class="card-head">
+              <h2 class="card-title">🎀 이현은 지금</h2>
+              <span class="card-tools card-sub">2학기 시간표</span>
+            </div>
+            <div data-now="ihyun"></div>
+            <p class="sched-motto-line">우리 도토리가 공부할 때 ^0^ : 글씨 바르고 천천히 정성껏 쓰기</p>
+            <div class="sched-days" data-sched-days="ihyun"></div>
+            <div class="sched-rows" data-sched-rows="ihyun"></div>
+          </article>
           <article class="card">
             <div class="card-head">
               <h2 class="card-title">🌤️ 이현이의 하루</h2>
@@ -1548,18 +1565,89 @@ html[data-skin="craft"] .craft-only{display:initial}
       { id: 'ihyun', name: '이현', sub: '미소 천사 이현', stars: 0, avatar: 'ihyun' }
     ],
     logs: [],
-    todos: [],
+    todos: [
+      { id: 't-d1', memberId: 'dohyun', text: '알림장 물병정리', done: false },
+      { id: 't-d3', memberId: 'dohyun', text: '씻고 양치하기', done: false },
+      { id: 't-i1', memberId: 'ihyun', text: '알림장 물병정리', done: false },
+      { id: 't-i3', memberId: 'ihyun', text: '씻고 양치하기', done: false }
+    ],
     screenTime: { dohyun: 0, ihyun: 0 },
     events: [],
     calendarEvents: []
   };
+
+  /* ================================================================
+     📝 요일별 숙제 (하얀색 = 학원·운동·방과후가 아닌 숙제)
+     · 오늘 요일 숙제만 '오늘 할 일'에 자동으로 올리고 지난 날짜 숙제는 정리
+     · 학원·운동·방과후 항목은 넣지 않습니다
+     ================================================================ */
+  var HOMEWORK_BY_DAY = {
+    dohyun: {
+      mon: ['국어 숙제', '수학 숙제'],
+      tue: ['한자 숙제', '리틀팍스 숙제'],
+      wed: ['리틀팍스 숙제'],
+      thu: ['수학 숙제', '주산 숙제', '한자 숙제'],
+      fri: ['수학 숙제', '국어 숙제', '리틀팍스 숙제'],
+      sat: ['리틀팍스 숙제', '수학 숙제', '국어 숙제', '일기 쓰기', '한국사 숙제'],
+      sun: ['리틀팍스 숙제', '수학 숙제', '국어 숙제', '독서록 쓰기', '한국사 숙제']
+    },
+    ihyun: {
+      mon: ['기적의 계산', '한자', '국어', '센클 숙제', '수학'],
+      tue: ['기적의 계산', '한자', '국어', '수학'],
+      wed: ['센클 숙제', '국어', '영어책'],
+      thu: ['한자', '영어책'],
+      fri: ['기적의 계산', '영어책'],
+      sat: ['센클 숙제', '수학', '국어', '한자', '주산'],
+      sun: ['센클 숙제', '수학', '국어', '주산', '일기']
+    }
+  };
+  var HW_KIDS = ['dohyun', 'ihyun'];
+  var HW_DROP_IDS = ['t-d2', 't-i2'];
+  var HW_DROP_TEXT = '오늘 할일 공부하기';
+  var DOW_KANA = { sun: '일', mon: '월', tue: '화', wed: '수', thu: '목', fri: '금', sat: '토' };
+
+  function hwTodayDow() {
+    return ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][kstNow().getDay()];
+  }
+  function hwIdOf(dateKey, kidId, idx) {
+    return 'hw-' + dateKey + '-' + kidId + '-' + idx;
+  }
+  function homeworkTodosFor(dateKey, dowKey) {
+    var out = [];
+    HW_KIDS.forEach(function (kidId) {
+      ((HOMEWORK_BY_DAY[kidId] || {})[dowKey] || []).forEach(function (text, idx) {
+        out.push({ id: hwIdOf(dateKey, kidId, idx), memberId: kidId, text: text, done: false });
+      });
+    });
+    return out;
+  }
+  function syncHomeworkTodos(todos) {
+    var today = todayKey();
+    var dow = hwTodayDow();
+    var prefix = 'hw-' + today + '-';
+    var changed = false;
+    var kept = [];
+    (Array.isArray(todos) ? todos : []).forEach(function (t) {
+      if (!t || typeof t !== 'object') { changed = true; return; }
+      var id = String(t.id == null ? '' : t.id);
+      var text = String(t.text == null ? '' : t.text).trim();
+      if (HW_DROP_IDS.indexOf(id) >= 0 || text === HW_DROP_TEXT) { changed = true; return; }
+      if (id.indexOf('hw-') === 0 && id.indexOf(prefix) !== 0) { changed = true; return; }
+      kept.push(t);
+    });
+    var have = {};
+    kept.forEach(function (t) { if (t && t.id != null) have[String(t.id)] = true; });
+    homeworkTodosFor(today, dow).forEach(function (item) {
+      if (!have[item.id]) { kept.push(item); changed = true; }
+    });
+    return { todos: kept, changed: changed };
+  }
 
   var state = JSON.parse(JSON.stringify(DEFAULT_STATE));
   var packLocal = {};
   var view = 'dashboard';
   var calCursor = null;
   var calSelected = null;
-  var schedDay = null;
   var stickerUnlocked = false;
   var screenUnlocked = { dohyun: false, ihyun: false };
   var wishUsedOpen = { dohyun: false, ihyun: false };
@@ -1673,6 +1761,8 @@ html[data-skin="craft"] .craft-only{display:initial}
         };
       });
     }
+    // 오늘 요일 숙제로 맞춰 둡니다 (지난 날짜 숙제·'오늘 할일 공부하기' 정리)
+    next.todos = syncHomeworkTodos(next.todos).todos;
     if (raw.screenTime && typeof raw.screenTime === 'object') {
       next.screenTime.dohyun = clampMinutes(raw.screenTime.dohyun, SCREEN_LIMITS.dohyun);
       next.screenTime.ihyun = clampMinutes(raw.screenTime.ihyun, SCREEN_LIMITS.ihyun);
@@ -1813,6 +1903,15 @@ html[data-skin="craft"] .craft-only{display:initial}
         if (lastMutationAt > startedAt) return;
         state = normalizeState(data);
         saveLocal();
+        // 시트에 오늘 숙제가 아직 없어 이 기기에서 더해진 경우에는 시트에도 알려 줍니다
+        var todayHwPrefix = 'hw-' + todayKey() + '-';
+        var sheetHwCount = (Array.isArray(data.todos) ? data.todos : []).filter(function (t) {
+          return t && String(t.id || '').indexOf(todayHwPrefix) === 0;
+        }).length;
+        if (sheetHwCount < homeworkTodosFor(todayKey(), hwTodayDow()).length) {
+          lastMutationAt = Date.now();
+          schedulePush();
+        }
         // 다른 기기에서 오늘 할 일을 다 끝냈다면 오늘 진화도 함께 해금합니다
         if (reconcileEvoFromSheet()) {
           saveLocal();
@@ -2711,58 +2810,128 @@ html[data-skin="craft"] .craft-only{display:initial}
   /* ================================================================
      이벤트 · 시간표 데이터
      ================================================================ */
-  var SCHEDULE = {
-    mon: [
-      { from: '08:00', to: '09:00', cat: 'morning', label: '티볼' },
-      { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
-      { from: '14:30', to: '15:30', cat: 'homework', label: '국어 숙제' },
-      { from: '15:30', to: '16:30', cat: 'climb', label: '클라이밍' },
-      { from: '16:30', to: '18:50', cat: 'homework', label: '수학 숙제' },
-      { from: '18:50', to: '21:00', cat: 'climb', label: '유니티 농구' },
-      { from: '21:00', to: '22:30', cat: 'rest', label: '자유 · 취침 준비' },
-      { from: '22:30', to: '24:00', cat: 'sleep', label: '취침' }
-    ],
-    tue: [
-      { from: '08:00', to: '09:00', cat: 'homework', label: '한자 숙제' },
-      { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
-      { from: '14:30', to: '14:40', cat: 'rest', label: '이동 · 준비' },
-      { from: '14:40', to: '17:20', cat: 'academy', label: '리틀팍스' },
-      { from: '17:20', to: '18:00', cat: 'rest', label: '저녁 · 이동' },
-      { from: '18:00', to: '19:30', cat: 'ball', label: '박지성 축구' },
-      { from: '19:30', to: '21:30', cat: 'homework', label: '리틀팍스 숙제' },
-      { from: '21:30', to: '24:00', cat: 'sleep', label: '취침' }
-    ],
-    wed: [
-      { from: '08:00', to: '09:00', cat: 'morning', label: '티볼' },
-      { from: '09:00', to: '13:30', cat: 'school', label: '학교' },
-      { from: '13:30', to: '16:00', cat: 'homework', label: '리틀팍스 숙제' },
-      { from: '16:00', to: '17:00', cat: 'climb', label: '클라이밍' },
-      { from: '17:00', to: '22:00', cat: 'homework', label: '리틀팍스 숙제' },
-      { from: '22:00', to: '24:00', cat: 'sleep', label: '취침' }
-    ],
-    thu: [
-      { from: '08:00', to: '09:00', cat: 'homework', label: '주산 숙제' },
-      { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
-      { from: '14:30', to: '14:40', cat: 'rest', label: '이동 · 준비' },
-      { from: '14:40', to: '17:20', cat: 'academy', label: '리틀팍스' },
-      { from: '17:20', to: '22:00', cat: 'homework', label: '수학 · 주산 · 한자 숙제' },
-      { from: '22:00', to: '24:00', cat: 'sleep', label: '취침' }
-    ],
-    fri: [
-      { from: '08:00', to: '09:00', cat: 'morning', label: '티볼' },
-      { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
-      { from: '14:30', to: '15:40', cat: 'ball', label: '배드민턴 방과후' },
-      { from: '15:40', to: '22:30', cat: 'homework', label: '수학 · 국어 · 리틀팍스 숙제' },
-      { from: '22:30', to: '24:00', cat: 'sleep', label: '취침' }
-    ],
-    sat: [
-      { from: '09:00', to: '22:30', cat: 'homework', label: '리틀팍스 · 수학 · 국어 · 일기 · 한국사 숙제' },
-      { from: '22:30', to: '24:00', cat: 'sleep', label: '취침' }
-    ],
-    sun: [
-      { from: '09:00', to: '21:30', cat: 'homework', label: '리틀팍스 · 수학 · 국어 · 독서록 · 한국사 숙제' },
-      { from: '21:30', to: '24:00', cat: 'sleep', label: '취침' }
-    ]
+  var SCHEDULES = {
+    dohyun: {
+      mon: [
+        { from: '08:00', to: '09:00', cat: 'morning', label: '티볼' },
+        { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
+        { from: '14:30', to: '15:30', cat: 'homework', label: '국어 숙제' },
+        { from: '15:30', to: '16:30', cat: 'climb', label: '클라이밍' },
+        { from: '16:30', to: '18:50', cat: 'homework', label: '수학 숙제' },
+        { from: '18:50', to: '21:00', cat: 'climb', label: '유니티 농구' },
+        { from: '21:00', to: '22:30', cat: 'rest', label: '자유 · 취침 준비' },
+        { from: '22:30', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      tue: [
+        { from: '08:00', to: '09:00', cat: 'homework', label: '한자 숙제' },
+        { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
+        { from: '14:30', to: '14:40', cat: 'rest', label: '이동 · 준비' },
+        { from: '14:40', to: '17:20', cat: 'academy', label: '리틀팍스' },
+        { from: '17:20', to: '18:00', cat: 'rest', label: '저녁 · 이동' },
+        { from: '18:00', to: '19:30', cat: 'ball', label: '박지성 축구' },
+        { from: '19:30', to: '21:30', cat: 'homework', label: '리틀팍스 숙제' },
+        { from: '21:30', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      wed: [
+        { from: '08:00', to: '09:00', cat: 'morning', label: '티볼' },
+        { from: '09:00', to: '13:30', cat: 'school', label: '학교' },
+        { from: '13:30', to: '16:00', cat: 'homework', label: '리틀팍스 숙제' },
+        { from: '16:00', to: '17:00', cat: 'climb', label: '클라이밍' },
+        { from: '17:00', to: '22:00', cat: 'homework', label: '리틀팍스 숙제' },
+        { from: '22:00', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      thu: [
+        { from: '08:00', to: '09:00', cat: 'homework', label: '주산 숙제' },
+        { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
+        { from: '14:30', to: '14:40', cat: 'rest', label: '이동 · 준비' },
+        { from: '14:40', to: '17:20', cat: 'academy', label: '리틀팍스' },
+        { from: '17:20', to: '22:00', cat: 'homework', label: '수학 · 주산 · 한자 숙제' },
+        { from: '22:00', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      fri: [
+        { from: '08:00', to: '09:00', cat: 'morning', label: '티볼' },
+        { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
+        { from: '14:30', to: '15:40', cat: 'ball', label: '배드민턴 방과후' },
+        { from: '15:40', to: '22:30', cat: 'homework', label: '수학 · 국어 · 리틀팍스 숙제' },
+        { from: '22:30', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      sat: [
+        { from: '09:00', to: '22:30', cat: 'homework', label: '리틀팍스 · 수학 · 국어 · 일기 · 한국사 숙제' },
+        { from: '22:30', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      sun: [
+        { from: '09:00', to: '21:30', cat: 'homework', label: '리틀팍스 · 수학 · 국어 · 독서록 · 한국사 숙제' },
+        { from: '21:30', to: '24:00', cat: 'sleep', label: '취침' }
+      ]
+    },
+    ihyun: {
+      mon: [
+        { from: '08:00', to: '09:00', cat: 'morning', label: '리틀팍스 영상' },
+        { from: '09:00', to: '14:00', cat: 'school', label: '학교' },
+        { from: '14:00', to: '16:00', cat: 'homework', label: '기적의 계산 · 한자 · 국어' },
+        { from: '16:00', to: '17:30', cat: 'academy', label: '센클 영어도서관' },
+        { from: '17:30', to: '20:00', cat: 'homework', label: '센클 숙제 · 수학' },
+        { from: '20:00', to: '21:00', cat: 'rest', label: '자유 · 취침 준비' },
+        { from: '21:00', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      tue: [
+        { from: '08:00', to: '09:00', cat: 'morning', label: '리틀팍스 영상' },
+        { from: '09:00', to: '14:00', cat: 'school', label: '학교' },
+        { from: '14:00', to: '15:00', cat: 'homework', label: '기적의 계산 · 한자 · 국어' },
+        { from: '15:00', to: '15:50', cat: 'academy', label: '아지트 드럼' },
+        { from: '15:50', to: '16:00', cat: 'rest', label: '이동 · 준비' },
+        { from: '16:00', to: '17:30', cat: 'academy', label: '센클 영어도서관' },
+        { from: '17:30', to: '20:00', cat: 'homework', label: '수학' },
+        { from: '20:00', to: '21:00', cat: 'rest', label: '자유 · 취침 준비' },
+        { from: '21:00', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      wed: [
+        { from: '08:00', to: '09:00', cat: 'morning', label: '리틀팍스 영상' },
+        { from: '09:00', to: '14:00', cat: 'school', label: '학교' },
+        { from: '14:00', to: '15:00', cat: 'homework', label: '센클 숙제' },
+        { from: '15:00', to: '15:50', cat: 'academy', label: '아지트 드럼' },
+        { from: '15:50', to: '16:00', cat: 'rest', label: '이동 · 준비' },
+        { from: '16:00', to: '17:00', cat: 'homework', label: '국어' },
+        { from: '17:00', to: '17:50', cat: 'academy', label: '댄스' },
+        { from: '17:50', to: '18:00', cat: 'rest', label: '이동 · 준비' },
+        { from: '18:00', to: '20:00', cat: 'homework', label: '영어책' },
+        { from: '20:00', to: '21:00', cat: 'rest', label: '자유 · 취침 준비' },
+        { from: '21:00', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      thu: [
+        { from: '08:00', to: '09:00', cat: 'morning', label: '리틀팍스 영상' },
+        { from: '09:00', to: '14:30', cat: 'school', label: '학교' },
+        { from: '14:30', to: '15:10', cat: 'homework', label: '한자' },
+        { from: '15:10', to: '16:20', cat: 'ball', label: '마술 방과후' },
+        { from: '16:20', to: '17:00', cat: 'rest', label: '쉬는 시간 · 이동' },
+        { from: '17:00', to: '18:30', cat: 'academy', label: '센클 영어도서관' },
+        { from: '18:30', to: '20:00', cat: 'homework', label: '영어책' },
+        { from: '20:00', to: '21:00', cat: 'rest', label: '자유 · 취침 준비' },
+        { from: '21:00', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      fri: [
+        { from: '08:00', to: '09:00', cat: 'morning', label: '리틀팍스 영상' },
+        { from: '09:00', to: '13:45', cat: 'school', label: '학교' },
+        { from: '13:45', to: '14:30', cat: 'homework', label: '기적의 계산' },
+        { from: '14:30', to: '15:40', cat: 'ball', label: '배드민턴 방과후' },
+        { from: '15:40', to: '16:00', cat: 'rest', label: '이동 · 준비' },
+        { from: '16:00', to: '16:50', cat: 'academy', label: '아지트 드럼' },
+        { from: '16:50', to: '17:00', cat: 'rest', label: '이동 · 준비' },
+        { from: '17:00', to: '17:50', cat: 'academy', label: '댄스' },
+        { from: '17:50', to: '18:00', cat: 'rest', label: '이동 · 준비' },
+        { from: '18:00', to: '20:00', cat: 'homework', label: '영어책' },
+        { from: '20:00', to: '22:00', cat: 'rest', label: '자유 · 취침 준비' },
+        { from: '22:00', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      sat: [
+        { from: '09:00', to: '22:00', cat: 'homework', label: '센클 숙제 · 수학 · 국어 · 한자 · 주산' },
+        { from: '22:00', to: '24:00', cat: 'sleep', label: '취침' }
+      ],
+      sun: [
+        { from: '09:00', to: '21:00', cat: 'homework', label: '센클 숙제 · 수학 · 국어 · 주산 · 일기' },
+        { from: '21:00', to: '24:00', cat: 'sleep', label: '취침' }
+      ]
+    }
   };
 
   var SCHED_PRETTY = {
@@ -2785,7 +2954,23 @@ html[data-skin="craft"] .craft-only{display:initial}
     '이동 · 준비': { text: '🚶 이동 · 쉬는 시간' },
     '저녁 · 이동': { text: '🍽️ 저녁 · 쉬는 시간' },
     '자유 · 취침 준비': { text: '🛋️ 자유 · 취침 준비' },
-    '취침': { text: '🌙 취침 시간', sub: '오늘 일정 끝 · 푹 자는 중' }
+    '취침': { text: '🌙 취침 시간', sub: '오늘 일정 끝 · 푹 자는 중' },
+    '리틀팍스 영상': { text: '📺 리틀팍스 영상 보는 중', short: '리틀팍스 영상' },
+    '기적의 계산 · 한자 · 국어': { text: '📝 기적의 계산·한자·국어' },
+    '기적의 계산': { text: '📝 기적의 계산 숙제' },
+    '센클 영어도서관': { text: '🩷 센클 영어도서관', short: '센클 영어도서관' },
+    '센클 숙제 · 수학': { text: '📝 센클 숙제 · 수학' },
+    '센클 숙제': { text: '📝 센클 숙제' },
+    '수학': { text: '📝 수학 숙제' },
+    '국어': { text: '📝 국어 숙제' },
+    '한자': { text: '📝 한자 숙제' },
+    '영어책': { text: '📖 영어책 읽기' },
+    '아지트 드럼': { text: '🥁 아지트 드럼', short: '드럼' },
+    '댄스': { text: '💃 댄스', short: '댄스' },
+    '마술 방과후': { text: '🎩 마술 방과후' },
+    '쉬는 시간 · 이동': { text: '🚶 쉬는 시간 · 이동' },
+    '센클 숙제 · 수학 · 국어 · 한자 · 주산': { text: '📝 토요일 숙제 시간' },
+    '센클 숙제 · 수학 · 국어 · 주산 · 일기': { text: '📝 일요일 숙제 시간' }
   };
 
   var SCHED_CATS = {
@@ -2809,7 +2994,12 @@ html[data-skin="craft"] .craft-only{display:initial}
     { key: 'sat', label: '토', name: '토요일' }
   ];
   var SCHED_ORDER = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  var SCHED_KIDS = ['dohyun', 'ihyun'];
+  var schedDayByKid = { dohyun: null, ihyun: null };
 
+  function schedTable(kidId) {
+    return SCHEDULES[kidId] || SCHEDULES.dohyun;
+  }
   function schedMinutes(text) {
     var parts = String(text || '0:0').split(':');
     return (Number(parts[0]) || 0) * 60 + (Number(parts[1]) || 0);
@@ -2817,8 +3007,8 @@ html[data-skin="craft"] .craft-only{display:initial}
   function schedDayKey(d) {
     return ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][d.getDay()];
   }
-  function schedSlots(dayKey) {
-    return (SCHEDULE[dayKey] || []).map(function (s) {
+  function schedSlots(dayKey, kidId) {
+    return (schedTable(kidId)[dayKey] || []).map(function (s) {
       return {
         cat: s.cat, label: s.label, from: s.from, to: s.to,
         s: schedMinutes(s.from), e: schedMinutes(s.to)
@@ -2847,11 +3037,12 @@ html[data-skin="craft"] .craft-only{display:initial}
     if (p.short) return p.short;
     return String(p.text || label).replace(/^[^0-9A-Za-z가-힣]+/, '').replace(/ 중$/, '').trim();
   }
-  function nowInfo() {
+  function nowInfo(kidId) {
+    var kid = kidId || 'dohyun';
     var d = kstNow();
     var dayKey = schedDayKey(d);
     var min = d.getHours() * 60 + d.getMinutes();
-    var slots = schedSlots(dayKey);
+    var slots = schedSlots(dayKey, kid);
     var slot = schedFind(slots, min);
     var nextText = '';
     if (slot) {
@@ -2865,7 +3056,7 @@ html[data-skin="craft"] .craft-only{display:initial}
     if (!nextText) {
       var idx = SCHED_ORDER.indexOf(dayKey);
       var nextKey = SCHED_ORDER[(idx + 1) % SCHED_ORDER.length];
-      var nx = schedSlots(nextKey)[0];
+      var nx = schedSlots(nextKey, kid)[0];
       nextText = nx ? '다음 · 내일 ' + nx.from + ' ' + schedNextName(nx.label) : '';
     }
     if (!slot) {
@@ -3687,7 +3878,8 @@ html[data-skin="craft"] .craft-only{display:initial}
       var open = items.filter(function (t) { return !t.done; });
       var done = items.filter(function (t) { return t.done; });
       var sorted = open.concat(done);
-      var limit = mode === 'compact' ? 4 : sorted.length;
+      // 요일별 숙제까지 다 보이도록 대시보드 요약 카드에서도 잘라내지 않습니다
+      var limit = sorted.length;
       var shown = sorted.slice(0, limit);
       var coin = isKid ? coinInfo(memberId) : null;
       var needReset = !!(coin && coin.stale && coin.done > 0);
@@ -4007,8 +4199,9 @@ html[data-skin="craft"] .craft-only{display:initial}
 
   /* ---------------------------- 지금 · 시간표 ---------------------------- */
   function renderNowCards() {
-    var info = nowInfo();
     $$('[data-now]').forEach(function (host) {
+      var kid = host.getAttribute('data-now') || 'dohyun';
+      var info = nowInfo(kid);
       host.innerHTML =
         '<div class="now-wrap">' +
           '<div class="now-svg" aria-hidden="true">' + sceneSVG(info.cat) + '</div>' +
@@ -4021,32 +4214,35 @@ html[data-skin="craft"] .craft-only{display:initial}
     });
   }
   function renderSchedule() {
-    var daysHost = $('[data-sched-days]');
-    var rowsHost = $('[data-sched-rows]');
-    if (!daysHost || !rowsHost) return;
-    var todayDay = schedDayKey(kstNow());
-    if (!schedDay) schedDay = todayDay;
-    daysHost.innerHTML = SCHED_ORDER.map(function (key) {
-      var info = SCHED_DAYS.filter(function (d) { return d.key === key; })[0];
-      return '<button type="button" class="sched-day' + (key === schedDay ? ' on' : '') + (key === todayDay ? ' is-today' : '') +
-        '" data-act="sched-day" data-day="' + key + '" aria-pressed="' + (key === schedDay ? 'true' : 'false') + '">' + info.label + '</button>';
-    }).join('') +
-      (schedDay !== todayDay ? '<button type="button" class="sched-day" style="width:auto;padding:0 7px" data-act="sched-day" data-day="' + todayDay + '">오늘</button>' : '');
+    $$('[data-sched-days]').forEach(function (daysHost) {
+      var kid = daysHost.getAttribute('data-sched-days') || 'dohyun';
+      var rowsHost = $('[data-sched-rows="' + kid + '"]');
+      if (!rowsHost) return;
+      var todayDay = schedDayKey(kstNow());
+      if (!schedDayByKid[kid] || !schedTable(kid)[schedDayByKid[kid]]) schedDayByKid[kid] = todayDay;
+      var schedDay = schedDayByKid[kid];
+      daysHost.innerHTML = SCHED_ORDER.map(function (key) {
+        var info = SCHED_DAYS.filter(function (d) { return d.key === key; })[0];
+        return '<button type="button" class="sched-day' + (key === schedDay ? ' on' : '') + (key === todayDay ? ' is-today' : '') +
+          '" data-act="sched-day" data-kid="' + kid + '" data-day="' + key + '" aria-pressed="' + (key === schedDay ? 'true' : 'false') + '">' + info.label + '</button>';
+      }).join('') +
+        (schedDay !== todayDay ? '<button type="button" class="sched-day" style="width:auto;padding:0 7px" data-act="sched-day" data-kid="' + kid + '" data-day="' + todayDay + '">오늘</button>' : '');
 
-    var slots = schedSlots(schedDay);
-    var isToday = schedDay === todayDay;
-    var nowMin = kstNow().getHours() * 60 + kstNow().getMinutes();
-    var active = isToday ? schedFind(slots, nowMin) : null;
-    rowsHost.innerHTML = slots.map(function (slot) {
-      var cat = SCHED_CATS[slot.cat] || SCHED_CATS.rest;
-      var cls = 'sched-row';
-      if (active === slot) cls += ' is-now';
-      else if (isToday && slot.e <= nowMin) cls += ' is-past';
-      return '<div class="' + cls + '"><i class="dot" style="background:' + cat.color + '"></i>' +
-        '<span class="tm">' + slot.from + '~' + slot.to + '</span>' +
-        '<span class="nm">' + esc(slot.label) + '</span>' +
-        (active === slot ? '<span class="now-flag">지금</span>' : '') + '</div>';
-    }).join('');
+      var slots = schedSlots(schedDay, kid);
+      var isToday = schedDay === todayDay;
+      var nowMin = kstNow().getHours() * 60 + kstNow().getMinutes();
+      var active = isToday ? schedFind(slots, nowMin) : null;
+      rowsHost.innerHTML = slots.map(function (slot) {
+        var cat = SCHED_CATS[slot.cat] || SCHED_CATS.rest;
+        var cls = 'sched-row';
+        if (active === slot) cls += ' is-now';
+        else if (isToday && slot.e <= nowMin) cls += ' is-past';
+        return '<div class="' + cls + '"><i class="dot" style="background:' + cat.color + '"></i>' +
+          '<span class="tm">' + slot.from + '~' + slot.to + '</span>' +
+          '<span class="nm">' + esc(slot.label) + '</span>' +
+          (active === slot ? '<span class="now-flag">지금</span>' : '') + '</div>';
+      }).join('');
+    });
   }
 
   /* ---------------------------- 소제목 ---------------------------- */
@@ -4056,7 +4252,7 @@ html[data-skin="craft"] .craft-only{display:initial}
     var dItems = kidTodos('dohyun');
     var iItems = kidTodos('ihyun');
     var set = function (sel, text) { var el = $(sel); if (el) el.textContent = text; };
-    set('#todoCardSub', '도현 ' + dItems.filter(function (t) { return !t.done; }).length + ' · 이현 ' + iItems.filter(function (t) { return !t.done; }).length + ' 남음');
+    set('#todoCardSub', '도현 ' + dItems.filter(function (t) { return !t.done; }).length + ' · 이현 ' + iItems.filter(function (t) { return !t.done; }).length + ' 남음 · ' + DOW_KANA[hwTodayDow()] + ' 숙제 반영');
     set('#dohyunDoneSub', dItems.filter(function (t) { return t.done; }).length + '/' + dItems.length + ' 완료');
     set('#ihyunDoneSub', iItems.filter(function (t) { return t.done; }).length + '/' + iItems.length + ' 완료');
     set('#todoDohyunSub', dItems.length + '개 중 ' + dItems.filter(function (t) { return t.done; }).length + '개 완료');
@@ -4366,7 +4562,8 @@ html[data-skin="craft"] .craft-only{display:initial}
       case 'shop-chip': addShop(el.getAttribute('data-item')); break;
       case 'shop-del': e.preventDefault(); e.stopPropagation(); deleteShop(el.getAttribute('data-id')); break;
       case 'sched-day':
-        schedDay = el.getAttribute('data-day');
+        var schedKid = el.getAttribute('data-kid') || 'dohyun';
+        schedDayByKid[schedKid] = el.getAttribute('data-day');
         renderSchedule();
         break;
       case 'letter-from':

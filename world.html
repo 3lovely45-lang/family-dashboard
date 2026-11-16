@@ -2112,7 +2112,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
           break;
         case 'screen-reset':
           next.screenTime = { dohyun: 0, ihyun: 0 };
-          upsertTodo({ id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: op.week, done: false });
+          upsertTodo({ id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: op.markerText || screenWeekText(op.week), done: false });
           break;
         case 'log-add':
           var log = op.log || {};
@@ -4270,6 +4270,19 @@ html[data-skin="meonjak"] .craft-only{display:none}
     return dateKeyOf(new Date(d.getFullYear(), d.getMonth(), d.getDate() - d.getDay()));
   }
 
+  /* 구글 시트가 '2026-11-15'를 날짜로 바꾸지 않도록 보이지 않는 문자(ZWSP)를 붙입니다 */
+  var WEEK_ZERO = '\u200B';
+  var WEEK_KEY_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+  function screenWeekText(week) {
+    return WEEK_ZERO + String(week || '');
+  }
+
+  function screenWeekKeyOf(text) {
+    var t = String(text == null ? '' : text).replace(/[\u200B\uFEFF]/g, '').trim();
+    return WEEK_KEY_RE.test(t) ? t : '';
+  }
+
   function screenWeekMarker() {
     return (state.todos || []).filter(function (t) { return t && String(t.id) === SCREEN_WEEK_MARKER_ID; })[0] || null;
   }
@@ -4282,15 +4295,22 @@ html[data-skin="meonjak"] .craft-only{display:none}
     var marker = screenWeekMarker();
     if (!marker) {
       // 이번 주 사용시간은 지우지 않고 기준점만 조용히 시드합니다
-      var seeded = { id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: week, done: false };
+      var seeded = { id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: screenWeekText(week), done: false };
       state.todos.push(seeded);
       commit({ t: 'todo-add', todo: seeded });
       return false;
     }
-    if (String(marker.text || '') === week) return false;
-    marker.text = week;
+    var markerWeek = screenWeekKeyOf(marker.text);
+    if (markerWeek === week) return false;
+    if (!markerWeek) {
+      // 기준점이 날짜로 읽히지 않으면 초기화하지 않고 이번 주로만 맞춥니다
+      marker.text = screenWeekText(week);
+      commit({ t: 'todo-upd', id: SCREEN_WEEK_MARKER_ID, text: marker.text, memberId: SYS_MEMBER_ID, todo: { id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: marker.text, done: false } });
+      return false;
+    }
+    marker.text = screenWeekText(week);
     state.screenTime = { dohyun: 0, ihyun: 0 };
-    commit({ t: 'screen-reset', week: week });
+    commit({ t: 'screen-reset', week: week, markerText: marker.text });
     renderScreens();
     toast('🔄 일요일이라 이번 주 전자기기 시간이 0분으로 초기화됐어요');
     return true;

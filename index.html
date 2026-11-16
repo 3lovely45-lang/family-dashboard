@@ -6910,6 +6910,19 @@
       return dateKeyOf(sunday);
     }
 
+    // 구글 시트가 '2026-11-15'를 날짜로 바꿔 버리지 않도록 보이지 않는 문자(ZWSP)를 앞에 붙입니다
+    const WEEK_ZERO = '\u200B';
+    const WEEK_KEY_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+    function screenWeekText(week) {
+      return WEEK_ZERO + String(week || '');
+    }
+
+    function screenWeekKeyOf(text) {
+      const t = String(text == null ? '' : text).replace(/[\u200B\uFEFF]/g, '').trim();
+      return WEEK_KEY_RE.test(t) ? t : '';
+    }
+
     function screenWeekMarker() {
       if (!Array.isArray(state.todos)) state.todos = [];
       return state.todos.filter(t => t && String(t.id) === SCREEN_WEEK_MARKER_ID)[0] || null;
@@ -6923,16 +6936,23 @@
       const marker = screenWeekMarker();
       if (!marker) {
         // 이번 주(월~토) 사용시간은 지우지 않고, 기준점만 조용히 시드합니다
-        const seeded = { id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: week, done: false };
+        const seeded = { id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: screenWeekText(week), done: false };
         state.todos.push(seeded);
         saveState({ t: 'todo-add', todo: { id: seeded.id, memberId: seeded.memberId, text: seeded.text, done: false } });
         return false;
       }
-      if (String(marker.text || '') === week) return false;
+      const markerWeek = screenWeekKeyOf(marker.text);
+      if (markerWeek === week) return false;
+      if (!markerWeek) {
+        // 기준점이 날짜로 읽히지 않으면(예전 값·시트 변환) 초기화하지 않고 이번 주로만 맞춥니다
+        marker.text = screenWeekText(week);
+        saveState({ t: 'todo-upd', id: SCREEN_WEEK_MARKER_ID, text: marker.text, memberId: SYS_MEMBER_ID, todo: { id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: marker.text, done: false } });
+        return false;
+      }
       // 새 일요일이 지났어요 → 이번 주 사용시간을 0으로
-      marker.text = week;
+      marker.text = screenWeekText(week);
       state.screenTime = { dohyun: 0, ihyun: 0 };
-      saveState({ t: 'screen-reset', week: week });
+      saveState({ t: 'screen-reset', week: week, markerText: marker.text });
       renderScreenTime();
       showToast('🔄 일요일이라 이번 주 전자기기 시간이 0분으로 초기화됐어요');
       return true;
@@ -7736,7 +7756,7 @@
             break;
           case 'screen-reset':
             next.screenTime = { dohyun: 0, ihyun: 0 };
-            upsertTodo({ id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: op.week, done: false });
+            upsertTodo({ id: SCREEN_WEEK_MARKER_ID, memberId: SYS_MEMBER_ID, text: op.markerText || screenWeekText(op.week), done: false });
             break;
           case 'log-add': {
             const log = op.log || {};

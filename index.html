@@ -8806,7 +8806,7 @@
 
     // 자정이 지나거나 날짜가 바뀌면 오늘 요일 숙제로 자동 교체
     setInterval(() => {
-      // 🌅 날이 바뀌였으면 알림장 물병정리 · 씻고 양치하기를 먼저 체크 해제합니다
+      // 🌅 날이 바뀌었으면 알림장 물병정리 · 씻고 양치하기를 먼저 체크 해제합니다
       checkDailyTodoReset();
       const hwTick = syncHomeworkTodos(state.todos);
       if (!hwTick.changed) return;

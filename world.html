@@ -3773,7 +3773,7 @@ html[data-skin="craft"] .craft-only{display:initial}
     renderLetterFilters();
 
     var hash = (location.hash || '').replace('#', '');
-    setView(VIEWS.indexOf(hash) >= 0 ? hash : 'dashboard');
+    setView(hash || 'dashboard');
 
     renderClock();
     renderWeather();

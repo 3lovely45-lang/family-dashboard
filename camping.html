@@ -172,7 +172,15 @@
     letter-spacing:-.35px;
     display:flex;align-items:center;gap:7px;
   }
-  .cat-sub{font-size:13px;color:var(--ink-soft);font-weight:700;}
+  .cat-title-block{display:flex;flex-direction:column;gap:1px;min-width:0;}
+  .cat-menu{
+    font-size:12px;
+    font-weight:700;
+    color:#a2988a;
+    letter-spacing:-.2px;
+    line-height:1.25;
+  }
+  .cat-sub{font-size:13px;color:var(--ink-soft);font-weight:700;flex:0 0 auto;}
   .items{display:flex;flex-direction:column;gap:9px;}
 
   .item{
@@ -526,23 +534,31 @@
   var SYNC_URL = "https://script.google.com/macros/s/AKfycbw1BhXaH2LqjfTrGrnaC8rb4fWolJcCIKDYvcIyKjDBkrkXy7QVdnYcYIfE47ZhOKyyHg/exec";
 
   var ASSIGNEES = ["병석", "민규", "영준", "미정"];
-  var DEFAULT_CATS = ["고기 · 해산물", "찌개 · 식사", "채소 · 쌈 · 양념", "화구 · 소모품", "물 · 음료"];
+  // 메뉴 흐름: 금저녁 부대찌개·불고기 / 토아침 고등어·계란국 / 토점심 고기 / 토저녁 쭈삼·어묵탕
+  var DEFAULT_CATS = ["공통 준비물", "금요일 저녁", "토요일 아침", "토요일 점심", "토요일 저녁"];
   var CAT_EMOJI = {
-    "고기 · 해산물": "🥩",
-    "찌개 · 식사": "🍲",
-    "채소 · 쌈 · 양념": "🥬",
-    "화구 · 소모품": "🔥",
-    "물 · 음료": "🥤"
+    "공통 준비물": "🎒",
+    "금요일 저녁": "🌙",
+    "토요일 아침": "☀️",
+    "토요일 점심": "🔥",
+    "토요일 저녁": "🍻"
+  };
+  var CAT_MENU = {
+    "공통 준비물": "3명 공용 · 화구 · 식기 · 음료",
+    "금요일 저녁": "부대찌개 · 불고기",
+    "토요일 아침": "고등어 · 계란국",
+    "토요일 점심": "삼겹살 · 가리비 쌈",
+    "토요일 저녁": "쭈삼 · 꼬치어묵탕"
   };
   var QUICK = {
-    "고기 · 해산물": ["목살", "소시지", "버터/치즈"],
-    "찌개 · 식사": ["라면사리", "김치", "햇반", "아침라면"],
-    "채소 · 쌈 · 양념": ["마늘/고추", "쌈장/기름장", "소금/후추", "파절이/양파"],
-    "화구 · 소모품": ["토치/부탄가스", "석쇠/호일", "목장갑", "물티슈/키친타월", "일회용 수저/접시/컵", "쓰레기봉투"],
-    "물 · 음료": ["얼음", "음료수", "커피", "과자/마시멜로"]
+    "공통 준비물": ["아이스박스/얼음팩", "모기향/핫팩", "지퍼백/랩", "구급약/소화제"],
+    "금요일 저녁": ["치즈/떡사리", "당면사리", "두부"],
+    "토요일 아침": ["계란", "식용유", "식빵/잼"],
+    "토요일 점심": ["비빔면/라면", "소시지", "구워먹는 치즈", "명이나물"],
+    "토요일 저녁": ["김가루/참기름(볶음밥)", "청양고추", "곤약/물떡"]
   };
   var POLL_MS = 6000;
-  var LS_KEY = "camping-checklist-v1";
+  var LS_KEY = "camping-checklist-v2";
 
   var state = {
     items: [],
@@ -658,10 +674,19 @@
       if (data.meta.title) state.title = data.meta.title;
       state.updatedAt = data.meta.updatedAt || state.updatedAt;
     }
-    if (Array.isArray(data.categories) && data.categories.length) state.cats = data.categories;
+    // 서버(구버전 스크립트)가 옛 카테고리 목록을 돌려줘도 메뉴 5개 구성을 유지합니다.
+    if (Array.isArray(data.categories) && data.categories.length) {
+      var hasDefault = false;
+      for (var k = 0; k < DEFAULT_CATS.length; k++) {
+        if (data.categories.indexOf(DEFAULT_CATS[k]) >= 0) { hasDefault = true; break; }
+      }
+      if (hasDefault) state.cats = data.categories;
+    }
+    if (!state.cats.length) state.cats = DEFAULT_CATS.slice();
     for (var c = 0; c < state.cats.length; c++) {
       if (!CAT_EMOJI[state.cats[c]]) CAT_EMOJI[state.cats[c]] = "🍽";
     }
+    renderCatOptions();
     lastSync = new Date();
     state.online = true;
     saveLocal();
@@ -820,7 +845,8 @@
       var left = rows.filter(function (it) { return !it.checked; }).length;
 
       html += '<section class="cat">';
-      html += '<div class="cat-head"><h2 class="cat-title">' + esc(CAT_EMOJI[cat] || "🍽") + " " + esc(cat) + "</h2>" +
+      var menuNote = CAT_MENU[cat] ? '<span class="cat-menu">' + esc(CAT_MENU[cat]) + "</span>" : "";
+      html += '<div class="cat-head"><div class="cat-title-block"><h2 class="cat-title">' + esc(CAT_EMOJI[cat] || "🍽") + " " + esc(cat) + "</h2>" + menuNote + "</div>" +
         '<span class="cat-sub">' + (rows.length ? left + " / " + rows.length + " 남음" : "") + "</span></div>";
       if (rows.length) {
         html += '<div class="items">' + rows.map(itemHTML).join("") + "</div>";

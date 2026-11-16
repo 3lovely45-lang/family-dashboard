@@ -4032,7 +4032,6 @@ html[data-skin="meonjak"] .craft-only{display:none}
             '<span class="sticker-progress">' + stars + ' / ' + STICKER_MAX + '개 · 🎟️ ' + tickets.length + '장</span></div>' +
           '<div class="sticker-slots" role="group" aria-label="' + esc(name) + ' 칭찬 스티커">' + slots + '</div>' +
           '<div class="sticker-actions">' +
-            '<button type="button" data-act="sticker-minus" data-kid="' + kidId + '">−1 스티커</button>' +
             '<button type="button" class="primary" data-act="sticker-plus" data-kid="' + kidId + '">+1 스티커</button>' +
           '</div>' +
           (stars >= STICKER_MAX ? '<button type="button" class="sticker-claim" data-act="wish-claim" data-kid="' + kidId + '">🎁 5개 완성! 소원권 받기</button>' : '') +
@@ -5008,12 +5007,6 @@ html[data-skin="meonjak"] .craft-only{display:none}
         var after = setStickers(kidId, cur + 1);
         if (after >= STICKER_MAX) toast('⭐ 스티커 5개 완성! 소원권을 받을 수 있어요');
         else toast('⭐ 칭찬 스티커를 붙였어요 (' + after + '/' + STICKER_MAX + ')');
-        break;
-      case 'sticker-minus':
-        kidId = el.getAttribute('data-kid');
-        if (!stickerUnlocked) { toast('🔒 수정을 누르면 스티커를 뗄 수 있어요'); return; }
-        if (stickerCount(kidId) <= 0) { toast('아직 붙인 스티커가 없어요'); return; }
-        setStickers(kidId, stickerCount(kidId) - 1);
         break;
       case 'wish-claim':
         if (!stickerUnlocked) { toast('🔒 수정을 누르면 소원권을 받을 수 있어요'); return; }

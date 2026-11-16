@@ -6235,7 +6235,6 @@
           '</div>' +
           '<div class="sticker-slots" role="group" aria-label="' + safeName + ' 칭찬 스티커"></div>' +
           '<div class="sticker-actions">' +
-            '<button class="sticker-btn" type="button" data-act="minus" aria-label="스티커 한 개 떼기">−1 스티커</button>' +
             '<button class="sticker-btn primary" type="button" data-act="plus" aria-label="스티커 한 개 붙이기">+1 스티커</button>' +
           '</div>' +
           '<div class="sticker-claim-slot"></div>' +
@@ -6260,17 +6259,6 @@
           });
           slots.appendChild(slot);
         }
-
-        card.querySelector('[data-act="minus"]').addEventListener('click', () => {
-          if (!stickerEditGuard()) return;
-          const now = stickerCount(kidId);
-          if (now <= 0) {
-            showToast('아직 붙인 스티커가 없어요');
-            return;
-          }
-          setStickerCount(kidId, now - 1);
-          showToast('스티커를 한 개 뗐어요');
-        });
 
         card.querySelector('[data-act="plus"]').addEventListener('click', () => {
           if (!stickerEditGuard()) return;

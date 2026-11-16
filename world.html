@@ -450,7 +450,7 @@ html[data-resolved="night"] .dex-stage{color:#FFE58A;background:#3A3008}
 .evo-coins .coin-ic{width:14px;height:14px;flex:0 0 auto;display:block}
 .evo-coins.full .num{color:var(--good)}
 .evo-coins .full-flag{font-size:11.5px;font-weight:900;color:var(--good)}
-.evo-days{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;margin-top:5px}
+.evo-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;margin-top:5px}
 .evo-day{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;border:1.6px solid rgba(29,42,68,.24);border-radius:7px;background:var(--paper-2);padding:2px 0 3px;line-height:1.05;min-width:0}
 .evo-day .dw{font-size:12px;font-weight:900;color:var(--ink-faint);letter-spacing:-.4px;line-height:1.15}
 .evo-day .mk{font-size:13.5px;font-weight:900;color:var(--ink-faint);height:12px;line-height:12px}
@@ -465,11 +465,24 @@ html[data-resolved="night"] .evo-day.on{background:#4A3E0C;border-color:#B78F00}
 html[data-resolved="night"] .evo-day.on .dw{color:#FFE58A}
 html[data-resolved="night"] .evo-day.on .mk{color:#9BEF8A}
 html[data-resolved="night"] .evo-next{color:#A8BEDC}
-.evo-blocks{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;margin-top:5px}
+.evo-blocks{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;margin-top:5px}
 .evo-block{height:8px;border:1.4px solid rgba(29,42,68,.28);border-radius:3px;background:var(--paper-3)}
 .evo-block.on{background:var(--coin);border-color:var(--coin-d);box-shadow:inset 0 -2px 0 rgba(0,0,0,.14)}
 .evo-next{font-size:12px;font-weight:800;color:var(--ink-soft);margin-top:5px;line-height:1.5;letter-spacing:-.2px}
 .evo-next.win{color:var(--good)}
+/* 일~토 7칸이 좁은 폰에서도 한 줄에 깔끔하게 */
+@media(max-width:460px){
+  .evo-days,.evo-blocks{gap:2px}
+  .evo-day{padding:2px 0 2px;border-width:1.4px;border-radius:6px}
+  .evo-day .dw{font-size:11px;letter-spacing:-.6px}
+  .evo-day .mk{font-size:12px}
+}
+@media(max-width:360px){
+  .evo-days,.evo-blocks{gap:1.5px}
+  .evo-day{border-radius:5px}
+  .evo-day .dw{font-size:10px}
+  .evo-day .mk{font-size:11px}
+}
 .evo-reset{display:block;width:100%;margin:3px 0 5px;padding:3.5px 6px;font-size:12px;font-weight:900;letter-spacing:-.3px;border:1.8px dashed var(--coin-d);border-radius:7px;background:var(--accent-2);color:#6B4A00;cursor:pointer;font-family:inherit}
 html[data-resolved="night"] .evo-reset{background:#3A3008;color:#FFE58A;border-color:#8A5A00}
 .evo-reset:active{transform:translateY(1px)}
@@ -1680,7 +1693,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
         { lv: 6, name: '무적 스타', emoji: '⭐' },
         { lv: 7, name: '골드 마리오', emoji: '👑' }
       ],
-      note: '할 일 1개 = 🪙 1코인 · 오늘 코인을 다 모으면 레벨업! (월~토 · 스티커·소원권과 별개)'
+      note: '할 일 1개 = 🪙 1코인 · 오늘 코인을 다 모으면 레벨업! (일~토 · 스티커·소원권과 별개)'
     },
     craft: {
       unitIcon: '💚', unitName: '에메랄드', unitShort: '에메랄드',
@@ -1693,7 +1706,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
         { lv: 6, name: '인챈트 다이아', emoji: '✨' },
         { lv: 7, name: '네더라이트 마스터', emoji: '🖤' }
       ],
-      note: '할 일 1개 = 💚 1에메랄드 · 오늘 에메랄드를 다 모으면 진화! (월~토 · 스티커·소원권과 별개)'
+      note: '할 일 1개 = 💚 1에메랄드 · 오늘 에메랄드를 다 모으면 진화! (일~토 · 스티커·소원권과 별개)'
     },
     meonjak: {
       unitIcon: '⭐', unitName: '별사탕', unitShort: '별사탕',
@@ -1706,7 +1719,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
         { lv: 6, name: '별사탕 천사', emoji: '🌟' },
         { lv: 7, name: '반짝이 마스터', emoji: '👑' }
       ],
-      note: '할 일 1개 = ⭐ 1별사탕 · 오늘 별사탕을 다 모으면 진화! (월~토 · 스티커·소원권과 별개)'
+      note: '할 일 1개 = ⭐ 1별사탕 · 오늘 별사탕을 다 모으면 진화! (일~토 · 스티커·소원권과 별개)'
     }
   };
 
@@ -1837,6 +1850,12 @@ html[data-skin="meonjak"] .craft-only{display:none}
   var calCursor = null;
   var calSelected = null;
   var stickerUnlocked = false;
+  /* 함수 안에서도 한 번 더 막아 둡니다(직접 호출·키보드 조작 대비) */
+  function stickerGuard() {
+    if (stickerUnlocked) return true;
+    toast('🔒 수정을 누르고 비밀번호를 입력해 주세요');
+    return false;
+  }
   var screenUnlocked = { dohyun: false, ihyun: false };
   var wishUsedOpen = { dohyun: false, ihyun: false };
   var letterFrom = '아빠';
@@ -3538,7 +3557,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
   }
   /* ================================================================
      🍄 파워업 진화 · 🪙(💚) 오늘의 코인
-     · 할 일 1개 = 코인 1개. 오늘 할 일을 다 모으면 그날 진화(월~토 6일 = 최종 진화)
+     · 할 일 1개 = 코인 1개. 오늘 할 일을 다 모으면 그날 진화(일~토 7일 = 최종 진화)
      · 진화 기록은 state.todos 안에 memberId 'evo' 로 남겨 시트·4대 폰이 함께 씁니다
      · 칭찬 스티커(stars)·주말 소원권(wish_*)과는 완전히 따로 움직입니다
      ================================================================ */
@@ -3549,16 +3568,17 @@ html[data-skin="meonjak"] .craft-only{display:none}
   }
   function evoWeekDates() {
     var now = kstNow();
-    var monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - ((now.getDay() + 6) % 7));
+    /* 이번 주는 일요일부터 시작해 토요일까지 7일 */
+    var sunday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay());
     var out = [];
-    for (var i = 0; i < 6; i++) {
-      out.push(dateKeyOf(new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i)));
+    for (var i = 0; i < 7; i++) {
+      out.push(dateKeyOf(new Date(sunday.getFullYear(), sunday.getMonth(), sunday.getDate() + i)));
     }
     return out;
   }
   function evoIsWeekday() {
-    var d = kstNow().getDay();
-    return d >= 1 && d <= 6;
+    /* 일~토 매일 진화 가능 */
+    return true;
   }
   function evoUpdatedAtKey() {
     var m = String(state.updatedAt || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -3593,7 +3613,10 @@ html[data-skin="meonjak"] .craft-only{display:none}
   function evoHas(kidId, date) { return !!evoWeek(kidId)[date]; }
   function evoStage(kidId) {
     var stages = skinCfg().stages;
-    return stages[clamp(evoCount(kidId), 0, 6)];
+    var cnt = evoCount(kidId);
+    /* 7/7 완주 시 최종 Lv.7 */
+    if (cnt >= 7) return stages[6];
+    return stages[clamp(cnt, 0, 5)];
   }
   function evoAdd(kidId, date) {
     if (evoHas(kidId, date)) return false;
@@ -3614,12 +3637,12 @@ html[data-skin="meonjak"] .craft-only{display:none}
   }
   /* 지난 주 진화 기록 정리 (MAX_TODOS 를 아껴요) — 지운 id 를 돌려줍니다 */
   function pruneEvo() {
-    var monday = evoWeekDates()[0];
+    var sunday = evoWeekDates()[0];
     var removed = [];
     state.todos = (state.todos || []).filter(function (t) {
       if (!t || t.memberId !== 'evo') return true;
       var p = evoDateOf(t);
-      if (!p || p.date < monday) { removed.push(t.id); return false; }
+      if (!p || p.date < sunday) { removed.push(t.id); return false; }
       return true;
     });
     return removed;
@@ -3851,8 +3874,8 @@ html[data-skin="meonjak"] .craft-only{display:none}
       var on = !!hit[week[i]];
       var isToday = week[i] === today;
       out += '<div class="evo-day' + (on ? ' on' : '') + (isToday ? ' today' : '') + '"' +
-        ' aria-label="' + DOW_NAMES[i + 1] + '요일 ' + (on ? '진화 완료' : '아직') + '">' +
-        '<span class="dw">' + DOW_NAMES[i + 1] + '</span>' +
+        ' aria-label="' + DOW_NAMES[i] + '요일 ' + (on ? '진화 완료' : '아직') + '">' +
+        '<span class="dw">' + DOW_NAMES[i] + '</span>' +
         '<span class="mk">' + (on ? '✓' : (isToday ? '◌' : '·')) + '</span></div>';
     }
     void coin;
@@ -3872,16 +3895,14 @@ html[data-skin="meonjak"] .craft-only{display:none}
   }
   function evoBlocksHtml(cnt) {
     var out = '';
-    for (var i = 0; i < 6; i++) out += '<div class="evo-block' + (i < cnt ? ' on' : '') + '"></div>';
-    return '<div class="evo-blocks" aria-label="이번 주 ' + cnt + '/6일">' + out + '</div>';
+    for (var i = 0; i < 7; i++) out += '<div class="evo-block' + (i < cnt ? ' on' : '') + '"></div>';
+    return '<div class="evo-blocks" aria-label="이번 주 ' + cnt + '/7일">' + out + '</div>';
   }
   function evoNextLine(kidId, cnt, coin) {
     var cfg = skinCfg();
     var today = todayKey();
-    var dow = kstNow().getDay();
     var next = cfg.stages[Math.min(cnt + 1, 6)];
-    if (cnt >= 6) return '🎉 월~토 올클리어! ' + cfg.stages[6].emoji + ' ' + cfg.stages[6].name + ' 완성!';
-    if (dow === 0) return cnt > 0 ? '🎉 이번 주 완주 기록! 월요일에 새 시즌이 시작돼요' : '이번 주 기록은 아직 없어요 · 월요일에 새 시즌 시작!';
+    if (cnt >= 7) return '🎉 일~토 올클리어! ' + cfg.stages[6].emoji + ' ' + cfg.stages[6].name + ' 완성!';
     if (evoHas(kidId, today)) return '오늘 완료! 내일 다 하면 ' + next.emoji + ' ' + roParticle(next.name);
     if (coin.total === 0) return '할 일을 추가하면 ' + cfg.unitIcon + ' ' + cfg.unitShort + '을 모을 수 있어요';
     if (coin.stale && coin.done > 0) return '새로 시작을 누르고 오늘 ' + cfg.unitShort + '을 모아요';
@@ -3908,7 +3929,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
       var coin = coinInfo(kidId);
       var lvline = '<span class="dex-lv">Lv.' + st.lv + '</span>' +
         '<span class="dex-stage">' + st.emoji + ' ' + esc(st.name) + '</span>' +
-        '<span class="dex-badge">' + (big ? '이번 주 ' : '') + cnt + '/6일</span>';
+        '<span class="dex-badge">' + (big ? '이번 주 ' : '') + cnt + '/7일</span>';
       host.innerHTML = big
         ? '<div class="kid-hero" style="margin-bottom:7px">' +
             '<div class="big">' + evoSprite(st.lv) + '</div>' +
@@ -3917,13 +3938,13 @@ html[data-skin="meonjak"] .craft-only{display:none}
               '<div class="lvline">' + lvline + '</div></div>' +
           '</div>' +
           evoCoinsHtml(coin) + evoDaysHtml(kidId, coin) + evoBlocksHtml(cnt) +
-          '<div class="evo-next' + (cnt >= 6 ? ' win' : '') + '">' + esc(evoNextLine(kidId, cnt, coin)) + '</div>'
+          '<div class="evo-next' + (cnt >= 7 ? ' win' : '') + '">' + esc(evoNextLine(kidId, cnt, coin)) + '</div>'
         : '<div class="dex-row">' +
             '<div class="dex-sprite">' + evoSprite(st.lv) + '</div>' +
             '<div class="dex-body">' +
               '<div class="dex-top"><span class="dex-name">' + esc(name) + '</span>' + lvline + '</div>' +
               evoCoinsHtml(coin) + evoDaysHtml(kidId, coin) +
-              '<div class="evo-next' + (cnt >= 6 ? ' win' : '') + '">' + esc(evoNextLine(kidId, cnt, coin)) + '</div>' +
+              '<div class="evo-next' + (cnt >= 7 ? ' win' : '') + '">' + esc(evoNextLine(kidId, cnt, coin)) + '</div>' +
             '</div>' +
           '</div>';
     });
@@ -4041,6 +4062,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
   }
 
   function setStickers(kidId, next) {
+    if (!stickerGuard()) return 0;
     var m = memberById(kidId);
     if (!m) return 0;
     m.stars = clamp(Math.floor(Number(next) || 0), 0, STICKER_MAX);
@@ -4051,6 +4073,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
     return m.stars;
   }
   function claimWish(kidId) {
+    if (!stickerGuard()) return;
     var m = memberById(kidId);
     if (!m) return;
     if (stickerCount(kidId) < STICKER_MAX) { toast('칭찬 스티커 5개를 모으면 소원권을 받을 수 있어요'); return; }
@@ -4068,6 +4091,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
     toast('🎉 ' + m.name + ' 주말 소원권 1장 받았어요!');
   }
   function updateWishText(id, raw) {
+    if (!stickerGuard()) return;
     var ticket = (state.todos || []).filter(function (t) { return t && t.id === id; })[0];
     if (!ticket) return;
     var text = String(raw == null ? '' : raw).replace(/\s+/g, ' ').trim().slice(0, 40);
@@ -4076,6 +4100,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
     commit({ t: 'todo-upd', id: ticket.id, text: text, memberId: ticket.memberId });
   }
   function setWishDone(id, done) {
+    if (!stickerGuard()) return;
     var ticket = (state.todos || []).filter(function (t) { return t && t.id === id; })[0];
     if (!ticket) return;
     ticket.done = !!done;
@@ -4085,6 +4110,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
     renderStickerSummary();
   }
   function deleteWish(id) {
+    if (!stickerGuard()) return;
     var before = state.todos.length;
     state.todos = state.todos.filter(function (t) {
       return !(t && t.id === id && String(t.memberId || '').indexOf('wish_') === 0);
@@ -4587,18 +4613,22 @@ html[data-skin="meonjak"] .craft-only{display:none}
   var pinTarget = 'todo';
 
   function openTodoPinModal(target) {
-    pinTarget = target === 'notice' ? 'notice' : 'todo';
+    pinTarget = target === 'notice' ? 'notice' : (target === 'sticker' ? 'sticker' : 'todo');
     var input = $('#todoPinInput');
     var err = $('#todoPinErr');
     var title = $('#todoPinTitle');
     if (!input) return;
-    if (title) title.textContent = pinTarget === 'notice' ? '🔒 집안 공지 수정' : '🔒 할 일 수정';
+    if (title) title.textContent = pinTarget === 'notice'
+      ? '🔒 집안 공지 수정'
+      : (pinTarget === 'sticker' ? '🔒 칭찬 스티커 수정' : '🔒 할 일 수정');
     var modal = $('#todoPinModal');
     var sub = modal ? modal.querySelector('.fd-modal-sub') : null;
     if (sub) {
       sub.textContent = pinTarget === 'notice'
         ? '비밀번호 4자리를 입력하면 집안 공지를 적을 수 있어요'
-        : '비밀번호 4자리를 입력하면 할 일을 추가·수정·삭제할 수 있어요';
+        : (pinTarget === 'sticker'
+          ? '비밀번호 4자리를 입력하면 스티커와 소원권을 바꿀 수 있어요'
+          : '비밀번호 4자리를 입력하면 할 일을 추가·수정·삭제할 수 있어요');
     }
     input.value = '';
     if (err) err.textContent = '';
@@ -4624,6 +4654,12 @@ html[data-skin="meonjak"] .craft-only{display:none}
         noticeUnlocked = true;
         renderNotice();
         toast('🔓 이제 집안 공지를 적을 수 있어요');
+        return;
+      }
+      if (pinTarget === 'sticker') {
+        stickerUnlocked = true;
+        renderStickers();
+        toast('🔓 이제 스티커와 소원권을 바꿀 수 있어요');
         return;
       }
       todoUnlocked = true;
@@ -4948,9 +4984,13 @@ html[data-skin="meonjak"] .craft-only{display:none}
         if (panel) panel.classList.toggle('open');
         break;
       case 'sticker-lock':
-        stickerUnlocked = !stickerUnlocked;
-        renderStickers();
-        toast(stickerUnlocked ? '🔓 이제 스티커와 소원권을 바꿀 수 있어요' : '🔒 칭찬 스티커를 잠갔어요');
+        if (stickerUnlocked) {
+          stickerUnlocked = false;
+          renderStickers();
+          toast('🔒 칭찬 스티커를 잠갔어요');
+        } else {
+          openTodoPinModal('sticker');
+        }
         break;
       case 'sticker-set':
         kidId = el.getAttribute('data-kid');
@@ -4987,6 +5027,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
         deleteWish(el.getAttribute('data-id'));
         break;
       case 'wish-restore':
+        if (!stickerUnlocked) { toast('🔒 수정을 누르면 바꿀 수 있어요'); return; }
         setWishDone(el.getAttribute('data-id'), false);
         break;
       case 'wish-used':
@@ -5083,6 +5124,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
     if (kind === 'todo') toggleTodo(el.getAttribute('data-id'));
     else if (kind === 'shop') toggleShop(el.getAttribute('data-id'));
     else if (el.getAttribute('data-wish-input')) {
+      if (!stickerUnlocked) { toast('🔒 수정을 누르면 바꿀 수 있어요'); return; }
       updateWishText(el.getAttribute('data-wish-input'), el.value);
     }
   });

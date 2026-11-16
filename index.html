@@ -6108,6 +6108,7 @@
     }
 
     function setStickerCount(kidId, next) {
+      if (!stickerEditGuard()) return 0;
       const m = state.members.find(x => x && x.id === kidId);
       if (!m) return 0;
       const count = Math.max(0, Math.min(STICKER_MAX, Math.floor(Number(next) || 0)));
@@ -6118,6 +6119,7 @@
     }
 
     function claimWishTicket(kidId) {
+      if (!stickerEditGuard()) return;
       const m = state.members.find(x => x && x.id === kidId);
       if (!m) return;
       if (stickerCount(kidId) < STICKER_MAX) {
@@ -6134,6 +6136,7 @@
 
     // 소원 내용 저장 (엔터·포커스아웃에서 불립니다). 다시 그리지 않아 입력 중인 커서를 지키고, 저장 여부만 돌려줍니다.
     function updateWishText(id, rawText) {
+      if (!stickerEditGuard()) return false;
       const ticket = state.todos.find(x => x && x.id === id);
       if (!ticket) return false;
       const text = String(rawText == null ? '' : rawText).replace(/\s+/g, ' ').trim().slice(0, 40);
@@ -6144,6 +6147,7 @@
     }
 
     function setWishDone(id, done) {
+      if (!stickerEditGuard()) return;
       const ticket = state.todos.find(x => x && x.id === id);
       if (!ticket) return;
       ticket.done = !!done;
@@ -6152,6 +6156,7 @@
     }
 
     function deleteWishTicket(id) {
+      if (!stickerEditGuard()) return;
       const idx = state.todos.findIndex(x => x && x.id === id && String(x.memberId || '').indexOf(WISH_PREFIX) === 0);
       if (idx < 0) return;
       state.todos.splice(idx, 1);
@@ -6160,8 +6165,15 @@
       showToast('소원권을 지웠어요');
     }
 
-    // 🔒 평소엔 잠금: '수정'을 누를 때만 스티커·소원권을 바꿀 수 있어요 (동기화로 다시 그려도 잠금 상태 유지)
+    // 🔒 평소엔 잠금: '수정'을 누르고 비밀번호(2580)를 넣어야 스티커·소원권을 바꿀 수 있어요 (동기화로 다시 그려도 잠금 상태 유지)
     let stickerEditUnlocked = false;
+
+    // 함수 안에서도 한 번 더 막아 둡니다(직접 호출·키보드 조작 대비)
+    function stickerEditGuard() {
+      if (stickerEditUnlocked) return true;
+      showToast('🔒 수정을 누르고 비밀번호를 입력해 주세요');
+      return false;
+    }
 
     function syncStickerLockUi() {
       const section = document.getElementById('stickerSection');
@@ -6185,9 +6197,13 @@
     }
 
     document.getElementById('stickerLockBtn').addEventListener('click', () => {
-      stickerEditUnlocked = !stickerEditUnlocked;
-      syncStickerLockUi();
-      showToast(stickerEditUnlocked ? '🔓 이제 스티커와 소원권을 바꿀 수 있어요' : '🔒 칭찬 스티커를 잠갔어요');
+      if (stickerEditUnlocked) {
+        stickerEditUnlocked = false;
+        syncStickerLockUi();
+        showToast('🔒 칭찬 스티커를 잠갔어요');
+        return;
+      }
+      openTodoPinModal('sticker');
     });
 
     function renderStickers() {
@@ -6239,12 +6255,14 @@
           slot.textContent = filled ? '⭐' : '';
           slot.setAttribute('aria-label', safeName + ' 스티커 ' + (i + 1) + '번째 칸 ' + (filled ? '(붙음)' : '(비어 있음)'));
           slot.addEventListener('click', () => {
+            if (!stickerEditGuard()) return;
             setStickerCount(kidId, i + 1 === stars ? stars - 1 : i + 1);
           });
           slots.appendChild(slot);
         }
 
         card.querySelector('[data-act="minus"]').addEventListener('click', () => {
+          if (!stickerEditGuard()) return;
           const now = stickerCount(kidId);
           if (now <= 0) {
             showToast('아직 붙인 스티커가 없어요');
@@ -6255,6 +6273,7 @@
         });
 
         card.querySelector('[data-act="plus"]').addEventListener('click', () => {
+          if (!stickerEditGuard()) return;
           const now = stickerCount(kidId);
           if (now >= STICKER_MAX) {
             showToast('스티커 5개를 다 모았어요! 아래에서 소원권을 받아 보세요');
@@ -6271,7 +6290,10 @@
           claim.type = 'button';
           claim.className = 'sticker-claim';
           claim.textContent = '🎁 5개 완성! 주말 소원권 받기';
-          claim.addEventListener('click', () => claimWishTicket(kidId));
+          claim.addEventListener('click', () => {
+            if (!stickerEditGuard()) return;
+            claimWishTicket(kidId);
+          });
           claimSlot.appendChild(claim);
         } else {
           const hint = document.createElement('div');
@@ -6309,6 +6331,7 @@
           });
           input.addEventListener('blur', commit);
           row.querySelector('.wish-use').addEventListener('click', () => {
+            if (!stickerEditGuard()) return;
             updateWishText(ticket.id, input.value);
             setWishDone(ticket.id, true);
             showToast('🎟️ ' + wishLabel(ticket) + ' 사용 완료!');
@@ -6344,6 +6367,7 @@
               restore.className = 'wish-restore';
               restore.textContent = '되돌리기';
               restore.addEventListener('click', () => {
+                if (!stickerEditGuard()) return;
                 setWishDone(ticket.id, false);
                 showToast('소원권을 다시 쓸 수 있게 되돌렸어요');
               });
@@ -6396,18 +6420,22 @@
     let pinTarget = 'todo';
 
     function openTodoPinModal(target) {
-      pinTarget = target === 'notice' ? 'notice' : 'todo';
+      pinTarget = target === 'notice' ? 'notice' : (target === 'sticker' ? 'sticker' : 'todo');
       const modal = document.getElementById('todoPinModal');
       const input = document.getElementById('todoPinInput');
       const err = document.getElementById('todoPinError');
       const title = document.getElementById('todoPinTitle');
       if (!modal || !input) return;
-      if (title) title.textContent = pinTarget === 'notice' ? '🔒 집안 공지 수정' : '🔒 할 일 수정';
+      if (title) title.textContent = pinTarget === 'notice'
+        ? '🔒 집안 공지 수정'
+        : (pinTarget === 'sticker' ? '🔒 칭찬 스티커 수정' : '🔒 할 일 수정');
       const helper = modal.querySelector('.pin-helper');
       if (helper) {
         helper.textContent = pinTarget === 'notice'
           ? '비밀번호 4자리를 입력하면 집안 공지를 적을 수 있어요'
-          : '비밀번호 4자리를 입력해 주세요';
+          : (pinTarget === 'sticker'
+            ? '비밀번호 4자리를 입력하면 스티커와 소원권을 바꿀 수 있어요'
+            : '비밀번호 4자리를 입력해 주세요');
       }
       input.value = '';
       if (err) err.textContent = '';
@@ -6435,6 +6463,12 @@
           syncNoticeLockUi();
           renderNotice();
           showToast('🔓 이제 집안 공지를 적을 수 있어요');
+          return;
+        }
+        if (pinTarget === 'sticker') {
+          stickerEditUnlocked = true;
+          syncStickerLockUi();
+          showToast('🔓 이제 스티커와 소원권을 바꿀 수 있어요');
           return;
         }
         todoEditUnlocked = true;

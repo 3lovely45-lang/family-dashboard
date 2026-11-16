@@ -4165,8 +4165,8 @@
       logs: [],
       todos: [
         { id: 't-d1', memberId: 'dohyun', text: '알림장 물병정리', done: false },
-        { id: 't-d3', memberId: 'dohyun', text: '씻고 양치하기', done: false },
         { id: 't-i1', memberId: 'ihyun', text: '알림장 물병정리', done: false },
+        { id: 't-d3', memberId: 'dohyun', text: '씻고 양치하기', done: false },
         { id: 't-i3', memberId: 'ihyun', text: '씻고 양치하기', done: false }
       ],
       screenTime: { dohyun: 0, ihyun: 0 },
@@ -4251,6 +4251,35 @@
 
     // 오늘 날짜 숙제만 남기고(이미 있으면 done 상태 그대로), 지난 날짜 숙제·'오늘 할일 공부하기'는 정리합니다.
     // 사용자가 직접 넣은 할 일, 알림장·양치, shopping·wish_*·evo 항목은 건드리지 않습니다.
+    // 🪥 '씻고 양치하기'는 도현·이현 할 일 목록의 맨 끝에 둡니다
+    //    (숙제·직접 추가한 할 일·기존 체크 상태는 그대로 두고 이 항목만 뒤로 옮깁니다)
+    const WASH_LAST_KIDS = ['dohyun', 'ihyun'];
+    const WASH_LAST_IDS = ['t-d3', 't-i3'];
+    const WASH_LAST_TEXT = '씻고 양치하기';
+    function isWashTodo(t) {
+      if (!t) return false;
+      const id = String(t.id == null ? '' : t.id);
+      const text = String(t.text == null ? '' : t.text).trim();
+      return WASH_LAST_IDS.indexOf(id) >= 0 || text === WASH_LAST_TEXT;
+    }
+    function moveWashTodosLast(todos) {
+      const list = Array.isArray(todos) ? todos.slice() : [];
+      let moved = false;
+      WASH_LAST_KIDS.forEach(kidId => {
+        const wash = list.filter(t => t && isWashTodo(t) && t.memberId === kidId);
+        if (!wash.length) return;
+        const rest = list.filter(t => !(t && isWashTodo(t) && t.memberId === kidId));
+        let lastIdx = -1;
+        rest.forEach((t, i) => { if (t && t.memberId === kidId) lastIdx = i; });
+        const insertAt = lastIdx < 0 ? rest.length : lastIdx + 1;
+        const next = rest.slice(0, insertAt).concat(wash, rest.slice(insertAt));
+        if (next.length !== list.length || next.some((t, i) => t !== list[i])) moved = true;
+        list.length = 0;
+        next.forEach(t => list.push(t));
+      });
+      return { todos: list, moved: moved };
+    }
+
     function syncHomeworkTodos(todos, dateKey, dowKey) {
       const today = dateKey || todayDateKey();
       const dow = dowKey || todayDowKey();
@@ -4270,7 +4299,10 @@
       homeworkTodosFor(today, dow).forEach(item => {
         if (!have[item.id]) { kept.push(item); changed = true; }
       });
-      return { todos: kept, changed: changed };
+      // 새로 붙은 오늘 숙제까지 반영한 뒤 '씻고 양치하기'를 맨 끝으로 보냅니다
+      const washOrder = moveWashTodosLast(kept);
+      if (washOrder.moved) changed = true;
+      return { todos: washOrder.todos, changed: changed };
     }
 
     const TODO_MEMBER_ORDER = ['dohyun', 'ihyun', 'eomma', 'appa'];
@@ -5504,7 +5536,8 @@
       if (!Array.isArray(state.todos)) state.todos = structuredClone(DEFAULT_STATE.todos);
       wrap.innerHTML = '';
       orderedTodoMembers().forEach(m => {
-        const items = state.todos.filter(t => t.memberId === m.id);
+        let items = state.todos.filter(t => t.memberId === m.id);
+        if (items.some(isWashTodo)) items = moveWashTodosLast(items).todos;
         const doneCount = items.filter(t => t.done).length;
         const hwToday = (HOMEWORK_BY_DAY[m.id] || {})[todayDowKey()] || [];
         const hwBadge = hwToday.length

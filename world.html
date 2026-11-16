@@ -1275,8 +1275,8 @@ html[data-skin="craft"] .craft-only{display:initial}
     logs: [],
     todos: [
       { id: 't-d1', memberId: 'dohyun', text: '알림장 물병정리', done: false },
-      { id: 't-d3', memberId: 'dohyun', text: '씻고 양치하기', done: false },
       { id: 't-i1', memberId: 'ihyun', text: '알림장 물병정리', done: false },
+      { id: 't-d3', memberId: 'dohyun', text: '씻고 양치하기', done: false },
       { id: 't-i3', memberId: 'ihyun', text: '씻고 양치하기', done: false }
     ],
     screenTime: { dohyun: 0, ihyun: 0 },
@@ -1329,6 +1329,35 @@ html[data-skin="craft"] .craft-only{display:initial}
     });
     return out;
   }
+  /* 🪥 '씻고 양치하기'는 도현·이현 할 일 목록의 맨 끝에 둡니다
+     (숙제·직접 추가한 할 일·기존 체크 상태는 그대로 두고 이 항목만 뒤로 옮깁니다) */
+  var WASH_LAST_KIDS = ['dohyun', 'ihyun'];
+  var WASH_LAST_IDS = ['t-d3', 't-i3'];
+  var WASH_LAST_TEXT = '씻고 양치하기';
+  function isWashTodo(t) {
+    if (!t) return false;
+    var id = String(t.id == null ? '' : t.id);
+    var text = String(t.text == null ? '' : t.text).trim();
+    return WASH_LAST_IDS.indexOf(id) >= 0 || text === WASH_LAST_TEXT;
+  }
+  function moveWashTodosLast(todos) {
+    var list = (Array.isArray(todos) ? todos : []).slice();
+    var moved = false;
+    WASH_LAST_KIDS.forEach(function (kidId) {
+      var wash = list.filter(function (t) { return t && isWashTodo(t) && t.memberId === kidId; });
+      if (!wash.length) return;
+      var rest = list.filter(function (t) { return !(t && isWashTodo(t) && t.memberId === kidId); });
+      var lastIdx = -1;
+      rest.forEach(function (t, i) { if (t && t.memberId === kidId) lastIdx = i; });
+      var insertAt = lastIdx < 0 ? rest.length : lastIdx + 1;
+      var next = rest.slice(0, insertAt).concat(wash, rest.slice(insertAt));
+      if (next.length !== list.length || next.some(function (t, i) { return t !== list[i]; })) moved = true;
+      list.length = 0;
+      next.forEach(function (t) { list.push(t); });
+    });
+    return { todos: list, moved: moved };
+  }
+
   function syncHomeworkTodos(todos) {
     var today = todayKey();
     var dow = hwTodayDow();
@@ -1348,7 +1377,10 @@ html[data-skin="craft"] .craft-only{display:initial}
     homeworkTodosFor(today, dow).forEach(function (item) {
       if (!have[item.id]) { kept.push(item); changed = true; }
     });
-    return { todos: kept, changed: changed };
+    // 새로 붙은 오늘 숙제까지 반영한 뒤 '씻고 양치하기'를 맨 끝으로 보냅니다
+    var washOrder = moveWashTodosLast(kept);
+    if (washOrder.moved) changed = true;
+    return { todos: washOrder.todos, changed: changed };
   }
 
   var state = JSON.parse(JSON.stringify(DEFAULT_STATE));
@@ -3043,6 +3075,7 @@ html[data-skin="craft"] .craft-only{display:initial}
       var open = items.filter(function (t) { return !t.done; });
       var done = items.filter(function (t) { return t.done; });
       var sorted = open.concat(done);
+      if (sorted.some(isWashTodo)) sorted = moveWashTodosLast(sorted).todos;
       // 요일별 숙제까지 다 보이도록 대시보드 요약 카드에서도 잘라내지 않습니다
       var limit = sorted.length;
       var shown = sorted.slice(0, limit);

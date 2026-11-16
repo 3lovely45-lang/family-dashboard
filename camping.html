@@ -471,6 +471,163 @@
     margin:18px 0 4px;
   }
 
+  /* ---------- 캠핑 파스텔 포토 카드 ---------- */
+  .photo-card{
+    margin:12px 0 0;
+    padding:8px 8px 0;
+    background:linear-gradient(160deg,#fffdf6 0%,#fdf4e6 100%);
+    border:1px solid #ecdfc6;
+    border-radius:20px;
+    box-shadow:0 6px 18px rgba(150,120,70,.10);
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition:transform .18s ease,box-shadow .18s ease;
+  }
+  .photo-card:active{transform:scale(.995);box-shadow:0 3px 10px rgba(150,120,70,.12);}
+  .photo-frame{
+    position:relative;
+    width:100%;
+    aspect-ratio:4 / 3;
+    max-height:214px;
+    min-height:148px;
+    border-radius:14px;
+    overflow:hidden;
+    background:#f4ecdc;
+    border:3px solid #fffdf7;
+    box-shadow:inset 0 0 0 1px rgba(120,100,70,.08);
+    touch-action:pan-y;
+    -webkit-user-select:none;
+    user-select:none;
+  }
+  .photo-track{position:absolute;inset:0;}
+  .photo-track img{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    object-position:50% 50%;
+    display:block;
+    opacity:0;
+    transition:opacity .7s ease;
+    pointer-events:none;
+    -webkit-user-drag:none;
+  }
+  .photo-track img.is-active{opacity:1;}
+  .photo-track img.is-contain{object-fit:contain;}
+  .photo-frame-bg{
+    position:absolute;inset:-14px;z-index:0;
+    background-size:cover;background-position:50% 50%;
+    filter:blur(16px) saturate(1.05) brightness(1.02);
+    opacity:0;transition:opacity .7s ease;pointer-events:none;
+  }
+  .photo-frame-bg.is-on{opacity:1;}
+  .photo-nav{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+    width:29px;height:29px;
+    display:flex;align-items:center;justify-content:center;
+    padding:0 0 2px;
+    border:1px solid rgba(224,205,172,.95);
+    border-radius:50%;
+    background:rgba(255,252,245,.88);
+    color:#7d6a4f;
+    font-family:inherit;
+    font-size:19px;font-weight:700;line-height:1;
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(150,120,70,.16);
+  }
+  .photo-nav:active{transform:translateY(-50%) scale(.92);}
+  .photo-nav.prev{left:8px;}
+  .photo-nav.next{right:8px;}
+  .photo-counter{
+    position:absolute;top:8px;right:8px;z-index:3;
+    padding:3px 9px;border-radius:999px;
+    background:rgba(45,42,34,.5);
+    color:#fff8ec;font-size:12.5px;font-weight:700;letter-spacing:.2px;
+    backdrop-filter:blur(3px);
+  }
+  .photo-dots{
+    position:absolute;left:50%;bottom:9px;z-index:3;transform:translateX(-50%);
+    display:flex;align-items:center;gap:4px;
+    padding:4px 8px;border-radius:999px;
+    background:rgba(45,42,34,.4);
+    backdrop-filter:blur(3px);
+  }
+  .photo-dot{
+    width:5px;height:5px;padding:0;border:none;border-radius:999px;
+    background:rgba(255,248,236,.55);
+    cursor:pointer;
+    transition:width .25s ease,background .25s ease;
+  }
+  .photo-dot.is-active{width:14px;background:#fff8ec;}
+  .photo-zoom{
+    position:absolute;right:9px;bottom:9px;z-index:3;
+    padding:3px 9px;border-radius:999px;
+    background:rgba(255,252,245,.9);
+    border:1px solid rgba(224,205,172,.9);
+    color:#7d6a4f;font-size:12.5px;font-weight:700;letter-spacing:-.2px;
+  }
+  .photo-caption{
+    margin:0;
+    padding:9px 4px 11px;
+    text-align:center;
+    font-size:16px;
+    font-weight:800;
+    color:#a2663f;
+    letter-spacing:-.3px;
+  }
+
+  /* 포토 라이트박스 */
+  .photo-lightbox{
+    position:fixed;inset:0;z-index:220;
+    display:none;
+    align-items:center;justify-content:center;
+    padding:16px 56px;
+    background:rgba(24,26,20,.9);
+    backdrop-filter:blur(2px);
+  }
+  .photo-lightbox.on{display:flex;}
+  .photo-lightbox img{
+    max-width:100%;max-height:82vh;
+    border-radius:16px;
+    background:#fffdf7;
+    box-shadow:0 22px 50px rgba(0,0,0,.5);
+  }
+  .photo-lightbox .lb-close{
+    position:absolute;top:calc(12px + env(safe-area-inset-top));right:14px;
+    width:40px;height:40px;
+    border:none;border-radius:50%;
+    background:rgba(255,255,255,.92);
+    color:#3f3a30;font-size:20px;line-height:1;
+    cursor:pointer;
+  }
+  .photo-lightbox .lb-caption{
+    position:absolute;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom));
+    margin:0;text-align:center;
+    font-size:15.5px;font-weight:800;color:#f4eada;letter-spacing:-.2px;
+  }
+  .photo-lightbox .lb-nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:44px;height:44px;
+    display:flex;align-items:center;justify-content:center;
+    padding:0 0 3px;
+    border:none;border-radius:50%;
+    background:rgba(255,255,255,.88);
+    color:#3f3a30;font-family:inherit;
+    font-size:26px;font-weight:700;line-height:1;
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.28);
+    z-index:2;
+  }
+  .photo-lightbox .lb-nav:active{transform:translateY(-50%) scale(.94);}
+  .photo-lightbox .lb-nav.prev{left:8px;}
+  .photo-lightbox .lb-nav.next{right:8px;}
+  .photo-lightbox .lb-count{
+    position:absolute;top:calc(18px + env(safe-area-inset-top));left:50%;transform:translateX(-50%);
+    padding:4px 12px;border-radius:999px;
+    background:rgba(255,255,255,.16);
+    color:#f8efe2;font-size:13.5px;font-weight:800;letter-spacing:.1px;
+  }
+
   /* ---------- 좁은 화면(모바일 460px 이하) 보정 ---------- */
   @media (max-width:480px){
     .tabs{gap:6px;}
@@ -479,6 +636,9 @@
     .row2{padding-left:0;flex-wrap:wrap;row-gap:7px;}
     .who{gap:5px;}
     .chip{padding:5px 9px;font-size:13.5px;letter-spacing:-.5px;}
+    .photo-frame{max-height:200px;min-height:138px;}
+    .photo-caption{font-size:15.5px;padding:8px 4px 10px;}
+    .photo-nav{width:27px;height:27px;font-size:18px;}
   }
 
   /* ---------- 360px 안드로이드 폭: 담당자 칩 5개 + 삭제 버튼을 한 줄에 ---------- */
@@ -487,6 +647,7 @@
     .who{gap:4px;}
     .chip{padding:4px 7px;font-size:12.5px;letter-spacing:-.6px;}
     .del{padding:2px 4px;font-size:17px;}
+    .photo-frame{max-height:180px;min-height:130px;}
   }
 </style>
 </head>
@@ -507,6 +668,19 @@
     </div>
     <div class="tabs" id="tabs"></div>
   </header>
+
+  <section class="photo-card" id="photoCard" role="button" tabindex="0" aria-label="캠핑 파스텔 포토 카드 · 7장 슬라이드 · 크게 보기">
+    <div class="photo-frame" id="photoFrame">
+      <div class="photo-frame-bg" id="photoFrameBg"></div>
+      <div class="photo-track" id="photoTrack"></div>
+      <button class="photo-nav prev" id="photoPrev" type="button" aria-label="이전 사진">‹</button>
+      <button class="photo-nav next" id="photoNext" type="button" aria-label="다음 사진">›</button>
+      <span class="photo-counter" id="photoCounter">1 / 7</span>
+      <div class="photo-dots" id="photoDots" aria-label="사진 선택"></div>
+      <span class="photo-zoom">🔍 크게 보기</span>
+    </div>
+    <p class="photo-caption" id="photoCaption">🏕️ 초록 잔디 위 트램펄린</p>
+  </section>
 
   <main id="list"></main>
   <p class="footer-note">3명이 같이 쓰는 링크예요 · 체크·담당자 변경은 6초 안에 모두에게 반영됩니다</p>
@@ -1184,6 +1358,217 @@
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
+})();
+</script>
+  <div class="photo-lightbox" id="photoLightbox" role="dialog" aria-modal="true" aria-label="캠핑 사진 크게 보기">
+    <button class="lb-close" id="photoLightboxClose" type="button" aria-label="닫기">✕</button>
+    <button class="lb-nav prev" id="photoLightboxPrev" type="button" aria-label="이전 사진">‹</button>
+    <img id="photoLightboxImg" src="./photos/camping-1.webp" alt="캠핑 파스텔 일러스트 사진 1" />
+    <button class="lb-nav next" id="photoLightboxNext" type="button" aria-label="다음 사진">›</button>
+    <span class="lb-count" id="photoLightboxCount">1 / 7</span>
+    <p class="lb-caption" id="photoLightboxCaption">🏕️ 초록 잔디 위 트램펄린</p>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+
+  var PHOTO_SLIDES = [
+    { thumb: './photos/camping-1-thumb.webp', full: './photos/camping-1.webp', pos: '50% 48%', cap: '🏕️ 초록 잔디 위 트램펄린' },
+    { thumb: './photos/camping-2-thumb.webp', full: './photos/camping-2.webp', pos: '50% 50%', cap: '🤸 트램펄린 위로 점프!' },
+    { thumb: './photos/camping-3-thumb.webp', full: './photos/camping-3.webp', pos: '50% 58%', cap: '🍜 캠핑 아침은 컵라면과 생선구이' },
+    { thumb: './photos/camping-4-thumb.webp', full: './photos/camping-4.webp', pos: '50% 52%', cap: '😆 텐트 안에서 까르르 웃음' },
+    { thumb: './photos/camping-5-thumb.webp', full: './photos/camping-5.webp', pos: '50% 50%', cap: '🧸 이너텐트 우리들 놀이터' },
+    { thumb: './photos/camping-6-thumb.webp', full: './photos/camping-6.webp', pos: '50% 55%', fit: 'contain', cap: '🛏️ 포근한 이너텐트에서 누워 쉬기' },
+    { thumb: './photos/camping-7-thumb.webp', full: './photos/camping-7.webp', pos: '50% 45%', cap: '✌️ 텐트 입구에서 찰칵' }
+  ];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var cardEl = $('photoCard');
+  var frameEl = $('photoFrame');
+  var frameBgEl = $('photoFrameBg');
+  var trackEl = $('photoTrack');
+  var dotsEl = $('photoDots');
+  var counterEl = $('photoCounter');
+  var captionEl = $('photoCaption');
+  var prevEl = $('photoPrev');
+  var nextEl = $('photoNext');
+  var lbEl = $('photoLightbox');
+  var lbImg = $('photoLightboxImg');
+  var lbClose = $('photoLightboxClose');
+  var lbPrev = $('photoLightboxPrev');
+  var lbNext = $('photoLightboxNext');
+  var lbCount = $('photoLightboxCount');
+  var lbCaption = $('photoLightboxCaption');
+
+  var TOTAL = PHOTO_SLIDES.length;
+  var INTERVAL = 4500;
+  var index = 0;
+  var hovered = false;
+  var dragging = false;
+  var pausedUntil = 0;
+  var suppressClick = false;
+  var timer = null;
+  var imgs = [];
+  var dots = [];
+
+  PHOTO_SLIDES.forEach(function (slide, i) {
+    var img = document.createElement('img');
+    img.alt = '캠핑 파스텔 일러스트 사진 ' + (i + 1);
+    img.decoding = 'async';
+    img.draggable = false;
+    img.style.objectPosition = slide.pos;
+    if (slide.fit === 'contain') img.classList.add('is-contain');
+    trackEl.appendChild(img);
+    imgs.push(img);
+
+    var dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'photo-dot';
+    dot.setAttribute('aria-label', (i + 1) + '번째 사진');
+    dot.addEventListener('click', function (e) {
+      e.stopPropagation();
+      goTo(i);
+      pausedUntil = Date.now() + 6000;
+    });
+    dotsEl.appendChild(dot);
+    dots.push(dot);
+  });
+
+  function load(i) {
+    var idx = (i + TOTAL) % TOTAL;
+    var img = imgs[idx];
+    if (img && !img.getAttribute('src')) img.src = PHOTO_SLIDES[idx].thumb;
+  }
+
+  function render() {
+    load(index); load(index + 1); load(index - 1);
+    imgs.forEach(function (img, i) { img.classList.toggle('is-active', i === index); });
+    dots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === index); });
+    var cur = PHOTO_SLIDES[index];
+    if (cur.fit === 'contain') {
+      frameBgEl.style.backgroundImage = "url('" + cur.thumb + "')";
+      frameBgEl.classList.add('is-on');
+    } else {
+      frameBgEl.classList.remove('is-on');
+    }
+    counterEl.textContent = (index + 1) + ' / ' + TOTAL;
+    captionEl.textContent = cur.cap;
+    cardEl.setAttribute('aria-label', '캠핑 파스텔 포토 카드 · ' + (index + 1) + ' / ' + TOTAL + ' · 크게 보기');
+    if (lbEl.classList.contains('on')) lbSync();
+  }
+
+  function goTo(i) {
+    index = (i % TOTAL + TOTAL) % TOTAL;
+    render();
+  }
+  function nextSlide() { goTo(index + 1); }
+  function prevSlide() { goTo(index - 1); }
+
+  function tick() {
+    if (document.hidden) return;
+    if (hovered || dragging) return;
+    if (Date.now() < pausedUntil) return;
+    if (lbEl.classList.contains('on')) return;
+    nextSlide();
+  }
+  function startTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(tick, INTERVAL);
+  }
+  startTimer();
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { if (timer) { clearInterval(timer); timer = null; } }
+    else if (!timer) startTimer();
+  });
+
+  frameEl.addEventListener('mouseenter', function () { hovered = true; });
+  frameEl.addEventListener('mouseleave', function () { hovered = false; pausedUntil = Date.now() + 1200; });
+  prevEl.addEventListener('click', function (e) { e.stopPropagation(); prevSlide(); pausedUntil = Date.now() + 6000; });
+  nextEl.addEventListener('click', function (e) { e.stopPropagation(); nextSlide(); pausedUntil = Date.now() + 6000; });
+
+  // 카드 안에서 좌우 스와이프
+  var tx = 0, ty = 0;
+  frameEl.addEventListener('touchstart', function (e) {
+    dragging = true;
+    tx = e.touches[0].clientX;
+    ty = e.touches[0].clientY;
+  }, { passive: true });
+  frameEl.addEventListener('touchmove', function (e) {
+    if (!dragging) return;
+    if (Math.abs(e.touches[0].clientX - tx) > 12) e.preventDefault();
+  }, { passive: false });
+  frameEl.addEventListener('touchend', function (e) {
+    dragging = false;
+    pausedUntil = Date.now() + 4000;
+    var t = e.changedTouches[0];
+    var dx = t.clientX - tx;
+    var dy = t.clientY - ty;
+    if (Math.abs(dx) >= 36 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      suppressClick = true;
+      setTimeout(function () { suppressClick = false; }, 420);
+      if (dx < 0) nextSlide(); else prevSlide();
+    }
+  }, { passive: true });
+
+  // 라이트박스
+  function lbSync() {
+    var slide = PHOTO_SLIDES[index];
+    if (lbImg.getAttribute('src') !== slide.full) lbImg.src = slide.full;
+    lbImg.alt = '캠핑 파스텔 일러스트 사진 ' + (index + 1);
+    lbCount.textContent = (index + 1) + ' / ' + TOTAL;
+    lbCaption.textContent = slide.cap;
+    [1, -1].forEach(function (d) {
+      var pre = new Image();
+      pre.src = PHOTO_SLIDES[(index + d + TOTAL) % TOTAL].full;
+    });
+  }
+  function openLb() {
+    lbSync();
+    lbEl.classList.add('on');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    lbEl.classList.remove('on');
+    document.body.style.overflow = '';
+    pausedUntil = Date.now() + 1200;
+  }
+
+  cardEl.addEventListener('click', function () { if (!suppressClick) openLb(); });
+  cardEl.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLb(); }
+    else if (e.key === 'ArrowRight' && !lbEl.classList.contains('on')) { e.preventDefault(); nextSlide(); }
+    else if (e.key === 'ArrowLeft' && !lbEl.classList.contains('on')) { e.preventDefault(); prevSlide(); }
+  });
+
+  lbClose.addEventListener('click', function (e) { e.stopPropagation(); closeLb(); });
+  lbEl.addEventListener('click', closeLb);
+  lbImg.addEventListener('click', function (e) { e.stopPropagation(); });
+  lbPrev.addEventListener('click', function (e) { e.stopPropagation(); prevSlide(); });
+  lbNext.addEventListener('click', function (e) { e.stopPropagation(); nextSlide(); });
+
+  var lbx = 0, lby = 0;
+  lbEl.addEventListener('touchstart', function (e) {
+    lbx = e.touches[0].clientX;
+    lby = e.touches[0].clientY;
+  }, { passive: true });
+  lbEl.addEventListener('touchend', function (e) {
+    var t = e.changedTouches[0];
+    var dx = t.clientX - lbx;
+    var dy = t.clientY - lby;
+    if (Math.abs(dx) >= 36 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      if (dx < 0) nextSlide(); else prevSlide();
+    }
+  }, { passive: true });
+
+  document.addEventListener('keydown', function (e) {
+    if (!lbEl.classList.contains('on')) return;
+    if (e.key === 'Escape') { e.preventDefault(); closeLb(); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); nextSlide(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+  });
+
+  render();
 })();
 </script>
 </body>

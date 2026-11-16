@@ -4484,7 +4484,45 @@
       .world-link { padding: 6px 8px; }
     }
 
-  </style>
+  
+    /* ===== 📢 집안 공지 카드가 가족 달력 '바로 위'에 오도록 그리드 한 줄 추가 =====
+       (달력 위에 공지 → 그 아래로 기존 카드들이 한 줄씩 내려갑니다) */
+    @media (min-width: 430px) and (max-width: 759px) {
+      .notice-section { grid-row: 4; grid-column: 1 / -1; margin-top: 0; }
+      .cal-section { grid-row: 5; }
+      .todo-section { grid-row: 6; }
+      .sticker-section { grid-row: 7; }
+      .screen-section { grid-row: 8; }
+      .meal-section { grid-row: 9; }
+      .shop-section { grid-row: 10; }
+      .photo-card { grid-row: 11; }
+      .log-section { grid-row: 12; }
+    }
+
+    @media (min-width: 760px) {
+      .notice-section { grid-row: 4; grid-column: 1 / -1; margin-top: 0; }
+      .cal-section { grid-row: 5; }
+      .todo-section { grid-row: 6; }
+      .sticker-section { grid-row: 7; }
+      .screen-section { grid-row: 8; }
+      .meal-section { grid-row: 8; }
+      .shop-section { grid-row: 9; }
+      .photo-card { grid-row: 9; }
+      .log-section { grid-row: 10; }
+    }
+
+    @media (min-width: 1080px) {
+      .notice-section { grid-row: 3; grid-column: 1 / -1; margin-top: 0; }
+      .cal-section { grid-row: 4; }
+      .todo-section { grid-row: 5; }
+      .sticker-section { grid-row: 6; }
+      .screen-section { grid-row: 7; }
+      .meal-section { grid-row: 7; }
+      .shop-section { grid-row: 8; }
+      .photo-card { grid-row: 8; }
+      .log-section { grid-row: 8; }
+    }
+</style>
   <script>
     try {
       if (localStorage.getItem('family_dashboard_style_v1') === 'meonjak') {

@@ -1721,7 +1721,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
   var SYNC_URL = 'https://script.google.com/macros/s/AKfycbx9_QM6IyqMzTOVRohBbXSlvB4NQy-O4wTzImnSKe1vkBFaBIcCFMoH8a_aEeOOI34/exec';
   var STORAGE_KEY = 'family_world_mario_v1';
   /* 🔖 자동 업데이트 감지용 빌드 번호 (version.json 과 같으면 최신) */
-  var APP_BUILD_ID = '2026-11-17-v3';
+  var APP_BUILD_ID = '2026-11-17-v4';
   var THEME_KEY = 'family_world_mario_theme';
   var WEATHER_KEY = 'family_world_mario_weather';
   var MEAL_CACHE_KEY = 'family_world_mario_meal';
@@ -2906,8 +2906,8 @@ html[data-skin="meonjak"] .craft-only{display:none}
         { from: '15:30', to: '16:30', cat: 'climb', label: '클라이밍' },
         { from: '16:30', to: '18:50', cat: 'homework', label: '수학 숙제' },
         { from: '18:50', to: '21:00', cat: 'climb', label: '유니티 농구' },
-        { from: '21:00', to: '22:30', cat: 'rest', label: '자유 · 취침 준비' },
-        { from: '22:30', to: '24:00', cat: 'sleep', label: '취침' }
+        { from: '21:00', to: '22:00', cat: 'rest', label: '자유 · 취침 준비' },
+        { from: '22:00', to: '24:00', cat: 'sleep', label: '취침' }
       ],
       tue: [
         { from: '08:00', to: '09:00', cat: 'homework', label: '한자 숙제' },
@@ -2917,7 +2917,8 @@ html[data-skin="meonjak"] .craft-only{display:none}
         { from: '17:20', to: '18:00', cat: 'rest', label: '저녁 · 이동' },
         { from: '18:00', to: '19:30', cat: 'ball', label: '박지성 축구' },
         { from: '19:30', to: '21:30', cat: 'homework', label: '리틀팍스 숙제' },
-        { from: '21:30', to: '24:00', cat: 'sleep', label: '취침' }
+        { from: '21:30', to: '22:00', cat: 'rest', label: '자유 · 취침 준비' },
+        { from: '22:00', to: '24:00', cat: 'sleep', label: '취침' }
       ],
       wed: [
         { from: '08:00', to: '09:00', cat: 'morning', label: '티볼' },

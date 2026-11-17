@@ -550,6 +550,8 @@ html[data-todo-lock="1"] .todo-item .x{display:none}
 .pill b{font-weight:900}
 .pill.shop{background:#FFF6DD}
 html[data-resolved="night"] .pill.shop{background:#20304A}
+.pill.library{background:#EEEBFF}
+html[data-resolved="night"] .pill.library{background:#232A4A}
 .parent-panel{margin-top:6px;display:none}
 .parent-panel.open{display:block}
 .parent-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
@@ -649,6 +651,25 @@ html[data-resolved="night"] .wish-tray{border-color:rgba(190,220,250,.24)}
 .shop-item input:checked::after{content:"";position:absolute;left:3.5px;top:1px;width:4px;height:7px;border-right:2.2px solid #fff;border-bottom:2.2px solid #fff;transform:rotate(40deg)}
 .shop-item.done span{text-decoration:line-through;color:var(--ink-faint)}
 .shop-item .x{margin-left:auto;border:0;background:transparent;color:var(--ink-faint);font-size:12.5px;font-weight:900;cursor:pointer;padding:0 2px}
+
+/* ---------------- 도서관 ---------------- */
+.lib-who{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-bottom:6px}
+.lib-who .lb{font-size:12px;font-weight:900;color:var(--ink-faint);margin-right:1px}
+.lib-chip{font-size:12.5px;font-weight:800;padding:2px 7px;border-radius:999px;border:1.4px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;font-family:inherit}
+.lib-chip.on{background:var(--violet);border-color:#6B57D8;color:#fff}
+html[data-resolved="night"] .lib-chip.on{background:var(--coin);border-color:var(--coin-d);color:#10233C}
+.lib-list{display:flex;flex-direction:column;gap:1px}
+.lib-item{display:flex;align-items:center;gap:5px;font-size:14.5px;font-weight:700;padding:3px 0;letter-spacing:-.3px}
+.lib-item input{appearance:none;width:14px;height:14px;border:1.8px solid var(--line);border-radius:3px;background:var(--paper);flex:0 0 auto;cursor:pointer;position:relative;margin:0}
+.lib-item input:checked{background:var(--violet);border-color:#6B57D8}
+.lib-item input:checked::after{content:"";position:absolute;left:3.5px;top:1px;width:4px;height:7px;border-right:2.2px solid #fff;border-bottom:2.2px solid #fff;transform:rotate(40deg)}
+.lib-item.done span{text-decoration:line-through;color:var(--ink-faint)}
+.lib-item.done .lib-who-tag{text-decoration:none}
+.lib-item .x{margin-left:auto;border:0;background:transparent;color:var(--ink-faint);font-size:12.5px;font-weight:900;cursor:pointer;padding:0 2px}
+.lib-who-tag{flex:0 0 auto;font-size:11.5px;font-weight:900;padding:0 6px;border-radius:999px;border:1.4px solid #C9C0F2;background:#EFEBFF;color:#5A46B0}
+html[data-resolved="night"] .lib-who-tag{background:#232A4A;border-color:#6B57D8;color:#CFC6FF}
+.lib-clear{margin-top:6px;width:100%;border:1.5px dashed rgba(29,42,68,.28);background:var(--paper-2);border-radius:8px;padding:4px 8px;font-size:12.5px;font-weight:900;color:var(--ink-soft);font-family:inherit;cursor:pointer}
+html[data-resolved="night"] .lib-clear{border-color:rgba(190,220,250,.28)}
 
 /* ---------------- 편지 ---------------- */
 .letter-write{background:var(--paper-2);border:1.6px dashed rgba(29,42,68,.24);border-radius:10px;padding:8px;margin-bottom:9px}
@@ -1159,6 +1180,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
       <button class="tab" type="button" data-c="green" data-act="tab" data-view="ihyun">👧 이현</button>
       <button class="tab" type="button" data-c="gold" data-act="tab" data-view="sticker">⭐ 스티커</button>
       <button class="tab" type="button" data-c="green" data-act="tab" data-view="shop">🛒 장보기</button>
+      <button class="tab" type="button" data-c="blue" data-act="tab" data-view="library">📚 도서관</button>
       <button class="tab" type="button" data-c="red" data-act="tab" data-view="letters">💌 편지</button>
     </nav>
     <div class="top-right">
@@ -1376,6 +1398,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
               <button class="pill" type="button" data-act="parent-toggle">👨 아빠 할 일 <b id="appaPill">0/0</b></button>
               <button class="pill" type="button" data-act="parent-toggle">👩 엄마 할 일 <b id="eommaPill">0/0</b></button>
               <button class="pill shop" type="button" data-act="tab" data-view="shop">🛒 장보기 <b id="shopPill">0개</b></button>
+              <button class="pill library" type="button" data-act="tab" data-view="library">📚 도서관 <b id="libPill">0권</b></button>
             </div>
             <div class="parent-panel" id="parentPanel">
               <div class="parent-two">
@@ -1640,6 +1663,34 @@ html[data-skin="meonjak"] .craft-only{display:none}
       </div>
     </section>
 
+    <!-- ================= 📚 도서관 ================= -->
+    <section class="view" id="view-library" aria-label="도서관 빌릴 책">
+      <div class="view-head">
+        <h2 class="view-title">📚 도서관 빌릴 책</h2>
+        <span class="view-sub" id="libSub"></span>
+      </div>
+      <div class="view-grid two">
+        <article class="card">
+          <div class="card-head"><h2 class="card-title">빌릴 책 목록</h2></div>
+          <div class="lib-who" id="libWhoChips" role="group" aria-label="누구 책인지 고르기"></div>
+          <div class="lib-list" id="libList"></div>
+          <form class="quick-add" data-add="library" autocomplete="off">
+            <input type="text" name="text" maxlength="60" placeholder="빌리고 싶은 책 (예: 흔한남매 3)" aria-label="빌릴 책 제목" />
+            <button type="submit" aria-label="도서관 책 추가">+</button>
+          </form>
+          <button class="lib-clear" id="libClearBtn" type="button" data-act="lib-clear" hidden>빌린 책 비우기</button>
+        </article>
+        <article class="card">
+          <div class="card-head"><h2 class="card-title">📖 도서관 책 요약</h2></div>
+          <div id="libSummary"></div>
+          <p class="card-sub" style="margin-top:8px;line-height:1.7">
+            가족 모두 같은 목록을 보고 함께 체크해요. 빌린 책은 체크하면 아래로 내려가요.<br>
+            <b>도현 · 이현 · 아빠 · 엄마</b> 누구 책인지 골라서 담을 수 있어요.
+          </p>
+        </article>
+      </div>
+    </section>
+
     <!-- ================= 💌 편지 ================= -->
     <section class="view" id="view-letters" aria-label="감사편지">
       <div class="view-head">
@@ -1721,7 +1772,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
   var SYNC_URL = 'https://script.google.com/macros/s/AKfycbx9_QM6IyqMzTOVRohBbXSlvB4NQy-O4wTzImnSKe1vkBFaBIcCFMoH8a_aEeOOI34/exec';
   var STORAGE_KEY = 'family_world_mario_v1';
   /* 🔖 자동 업데이트 감지용 빌드 번호 (version.json 과 같으면 최신) */
-  var APP_BUILD_ID = '2026-11-17-v4';
+  var APP_BUILD_ID = '2026-11-17-v5';
   var THEME_KEY = 'family_world_mario_theme';
   var WEATHER_KEY = 'family_world_mario_weather';
   var MEAL_CACHE_KEY = 'family_world_mario_meal';
@@ -4011,6 +4062,17 @@ html[data-skin="meonjak"] .craft-only{display:none}
   function shopItems() {
     return (state.todos || []).filter(function (t) { return t && t.memberId === 'shopping'; });
   }
+  function libItems() {
+    return (state.todos || []).filter(function (t) { return t && t.memberId === 'library'; });
+  }
+  var LIB_WHO = ['도현', '이현', '아빠', '엄마'];
+  var libWho = '';
+  function libSplitWho(text) {
+    var raw = String(text == null ? '' : text).trim();
+    var m = raw.match(/^\[([^\]]{1,8})\]\s*/);
+    if (!m) return { who: '', title: raw };
+    return { who: m[1].trim(), title: raw.slice(m[0].length).trim() };
+  }
   function letterTimeText(item) {
     var raw = String((item && item.time) || '').replace(/[\u200B\uFEFF]/g, '').trim();
     if (/^\d{1,2}\/\d{1,2}\s+\d{1,2}:\d{2}$/.test(raw)) return raw;
@@ -4505,6 +4567,8 @@ html[data-skin="meonjak"] .craft-only{display:none}
     if (appaEl) appaEl.textContent = doneCount('appa') + '/' + ((state.todos || []).filter(function (t) { return t.memberId === 'appa'; }).length);
     if (eommaEl) eommaEl.textContent = doneCount('eomma') + '/' + ((state.todos || []).filter(function (t) { return t.memberId === 'eomma'; }).length);
     if (shopEl) shopEl.textContent = shopItems().filter(function (t) { return !t.done; }).length + '개';
+    var libEl = $('#libPill');
+    if (libEl) libEl.textContent = libItems().filter(function (t) { return !t.done; }).length + '권';
   }
 
   /* ---------------------------- 스티커 ---------------------------- */
@@ -5029,7 +5093,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
     var id = String(t.id == null ? '' : t.id);
     if (id === DAILY_RESET_MARKER_ID) return false;
     var memberId = String(t.memberId == null ? '' : t.memberId);
-    if (memberId === 'sys' || memberId === 'notice' || memberId === 'evo' || memberId === 'shopping' || memberId === 'dday') return false;
+    if (memberId === 'sys' || memberId === 'notice' || memberId === 'evo' || memberId === 'shopping' || memberId === 'library' || memberId === 'dday') return false;
     if (memberId.indexOf('wish_') === 0) return false;
     var key = String(t.text == null ? '' : t.text).replace(/\s+/g, '');
     if (DAILY_RESET_TEXT_KEYS.indexOf(key) >= 0) return true;
@@ -5121,6 +5185,85 @@ html[data-skin="meonjak"] .craft-only{display:none}
     renderShop();
     renderPills();
     toast('🛒 ' + v + ' 담았어요');
+  }
+
+  /* ---------------------------- 📚 도서관 ---------------------------- */
+  function renderLibrary() {
+    var chips = $('#libWhoChips');
+    var list = $('#libList');
+    var sum = $('#libSummary');
+    var clearBtn = $('#libClearBtn');
+    var items = libItems();
+    var open = items.filter(function (t) { return !t.done; });
+    var done = items.filter(function (t) { return t.done; });
+    if (chips) {
+      chips.innerHTML = '<span class="lb">누구 책?</span>' + [''].concat(LIB_WHO).map(function (who) {
+        return '<button type="button" class="lib-chip' + (libWho === who ? ' on' : '') + '" data-act="lib-who" data-who="' + esc(who) + '" aria-pressed="' + (libWho === who ? 'true' : 'false') + '">' + esc(who || '전체') + '</button>';
+      }).join('');
+    }
+    if (clearBtn) clearBtn.hidden = done.length === 0;
+    if (list) {
+      list.innerHTML = items.length ? open.concat(done).map(function (t) {
+        var p = libSplitWho(t.text);
+        return '<label class="lib-item' + (t.done ? ' done' : '') + '">' +
+          '<input type="checkbox" data-check="lib" data-id="' + esc(t.id) + '"' + (t.done ? ' checked' : '') + ' aria-label="' + esc(t.text) + '" />' +
+          (p.who ? '<span class="lib-who-tag">' + esc(p.who) + '</span>' : '') +
+          '<span>' + esc(p.title) + '</span>' +
+          '<button type="button" class="x" data-act="lib-del" data-id="' + esc(t.id) + '" aria-label="' + esc(t.text) + ' 지우기">✕</button>' +
+          '</label>';
+      }).join('') : '<div class="empty">아직 빌릴 책이 없어요 📚 아래에 적어 보세요</div>';
+    }
+    if (sum) {
+      sum.innerHTML = '<div class="dex-row"><div class="dex-body"><div class="dex-top"><span class="dex-name">📚 빌릴 책</span>' +
+        '<span class="dex-lv" style="background:var(--violet);border-color:#6B57D8;color:#fff">' + open.length + '권</span></div>' +
+        '<div class="dex-meta">빌린 책 ' + done.length + '권 · 모두 ' + items.length + '권</div></div></div>';
+    }
+    var sub = $('#libSub');
+    if (sub) sub.textContent = '빌릴 책 ' + open.length + '권 · 빌린 책 ' + done.length + '권';
+  }
+  function addLibrary(text) {
+    var v = String(text || '').replace(/\s+/g, ' ').trim().slice(0, 60);
+    if (!v) { toast('빌리고 싶은 책을 먼저 적어 주세요'); return; }
+    var full = libWho ? '[' + libWho + '] ' + v : v;
+    var dup = libItems().filter(function (t) {
+      return !t.done && String(t.text).replace(/\s+/g, ' ').trim() === full;
+    })[0];
+    if (dup) { toast('이미 목록에 있어요 · ' + v); return; }
+    var item = { id: 'lib-' + Date.now() + '-' + Math.random().toString(36).slice(2, 5), memberId: 'library', text: full, done: false };
+    state.todos.push(item);
+    commit({ t: 'todo-add', todo: item });
+    renderLibrary();
+    renderPills();
+    toast("📚 '" + v + "' 담았어요");
+  }
+  function toggleLibrary(id) {
+    var t = findTodo(id);
+    if (!t || t.memberId !== 'library') return;
+    t.done = !t.done;
+    commit({ t: 'todo-tog', id: t.id, done: t.done });
+    renderLibrary();
+    renderPills();
+    var p = libSplitWho(t.text);
+    toast(t.done ? '빌렸어요 ✓ ' + (p.title || t.text) : '다시 빌릴 목록에 넣었어요');
+  }
+  function deleteLibrary(id) {
+    var t = findTodo(id);
+    if (!t || t.memberId !== 'library') return;
+    state.todos = state.todos.filter(function (x) { return !x || String(x.id) !== String(id); });
+    commit({ t: 'todo-del', id: id });
+    renderLibrary();
+    renderPills();
+    toast('도서관 목록에서 지웠어요');
+  }
+  function clearLibrary() {
+    var done = libItems().filter(function (t) { return t.done; });
+    if (!done.length) return;
+    state.todos = state.todos.filter(function (t) { return !(t && t.memberId === 'library' && t.done); });
+    done.forEach(function (t) { pendingOps.push({ t: 'todo-del', id: t.id }); });
+    commit();
+    renderLibrary();
+    renderPills();
+    toast('빌린 책 ' + done.length + '권을 정리했어요');
   }
 
   /* ---------------------------- 편지 ---------------------------- */
@@ -5358,6 +5501,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
     renderDday();
     renderMeals();
     renderShop();
+    renderLibrary();
     renderLetters();
     renderWhoChips();
     renderLetterFilters();
@@ -5370,7 +5514,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
   /* ================================================================
      화면 전환
      ================================================================ */
-  var VIEWS = ['dashboard', 'dohyun', 'ihyun', 'sticker', 'shop', 'letters'];
+  var VIEWS = ['dashboard', 'dohyun', 'ihyun', 'sticker', 'shop', 'library', 'letters'];
   /* 예전 링크·기억된 화면(#todo-dohyun / #todo-ihyun)은 아이 탭으로 이어서 열어요 */
   var VIEW_ALIAS = { 'todo-dohyun': 'dohyun', 'todo-ihyun': 'ihyun' };
   function setView(name) {
@@ -5910,6 +6054,9 @@ html[data-skin="meonjak"] .craft-only{display:none}
       case 'todo-edit': e.preventDefault(); e.stopPropagation(); openTodoEditModal(el.getAttribute('data-id')); break;
       case 'shop-chip': addShop(el.getAttribute('data-item')); break;
       case 'shop-del': e.preventDefault(); e.stopPropagation(); deleteShop(el.getAttribute('data-id')); break;
+      case 'lib-who': libWho = el.getAttribute('data-who') || ''; renderLibrary(); break;
+      case 'lib-del': e.preventDefault(); e.stopPropagation(); deleteLibrary(el.getAttribute('data-id')); break;
+      case 'lib-clear': e.preventDefault(); clearLibrary(); break;
       case 'sched-day':
         var schedKid = el.getAttribute('data-kid') || 'dohyun';
         schedDayByKid[schedKid] = el.getAttribute('data-day');
@@ -6005,6 +6152,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
     var kind = el.getAttribute('data-check');
     if (kind === 'todo') toggleTodo(el.getAttribute('data-id'));
     else if (kind === 'shop') toggleShop(el.getAttribute('data-id'));
+    else if (kind === 'lib') toggleLibrary(el.getAttribute('data-id'));
     else if (el.getAttribute('data-wish-input')) {
       if (!stickerUnlocked) { toast('🔒 수정을 누르면 바꿀 수 있어요'); return; }
       updateWishText(el.getAttribute('data-wish-input'), el.value);
@@ -6021,6 +6169,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
     var value = input ? input.value : '';
     if (kind === 'todo') addTodo(form.getAttribute('data-member'), value);
     else if (kind === 'shop') addShop(value);
+    else if (kind === 'library') addLibrary(value);
     else if (kind === 'notice') {
       if (noticeEditingId) updateNotice(noticeEditingId, value);
       else addNotice(value);

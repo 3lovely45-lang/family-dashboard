@@ -1736,6 +1736,248 @@
       color: #8A8074;
     }
 
+    /* 📚 도서관 빌릴 책 메모판 */
+    .library-section {
+      margin-top: 16px;
+      background: rgba(250, 249, 255, 0.96);
+      border: 1px solid #E7E2F4;
+      border-radius: 26px;
+      padding: 15px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .library-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .library-title {
+      margin: 0;
+      font-family: 'Jua', 'Pretendard', sans-serif;
+      font-size:22.5px;
+      line-height: 1.2;
+      color: #3F3A34;
+      letter-spacing: -0.01em;
+    }
+
+    .library-subtitle {
+      margin: 5px 0 0;
+      font-size:15px;
+      color: #8A8074;
+      word-break: keep-all;
+    }
+
+    .library-count-pill {
+      flex-shrink: 0;
+      border: 1px solid #DAD2F2;
+      background: #F1EDFF;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size:14px;
+      font-weight: 800;
+      color: #5B4B9B;
+      white-space: nowrap;
+    }
+
+    .library-count-pill.done {
+      border-color: #E3D5BA;
+      background: #FFF6E4;
+      color: #A97A2A;
+    }
+
+    .library-who {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin: 11px 0 0;
+    }
+
+    .library-who-label {
+      font-size:13px;
+      font-weight: 800;
+      color: #9A8F80;
+      margin-right: 1px;
+    }
+
+    .library-chip {
+      border: 1px solid #E7E2F4;
+      background: #FFFFFF;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size:14px;
+      font-weight: 700;
+      color: #6B6258;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .library-chip.active {
+      background: #9A86E0;
+      border-color: #7C68C9;
+      color: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(154, 134, 224, 0.16);
+    }
+
+    .library-chip:active {
+      transform: scale(0.95);
+    }
+
+    .library-form {
+      display: flex;
+      gap: 6px;
+      margin: 8px 0;
+    }
+
+    .library-input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #E7E2F4;
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 9px 12px;
+      font-size:15.5px;
+      font-family: inherit;
+      color: var(--text-main);
+    }
+
+    .library-input:focus {
+      outline: none;
+      border-color: #B9A9EE;
+      box-shadow: 0 0 0 3px rgba(154, 134, 224, 0.16);
+    }
+
+    .library-add-btn {
+      border: none;
+      background: #9A86E0;
+      border-radius: 14px;
+      padding: 9px 14px;
+      font-size:15.5px;
+      font-weight: 800;
+      color: #FFFFFF;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .library-add-btn:active {
+      transform: scale(0.96);
+    }
+
+    .library-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .library-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid #E7E2F4;
+      background: #FFFFFF;
+      border-radius: 15px;
+      padding: 9px 11px;
+    }
+
+    .library-row.done {
+      background: #FBFAFF;
+      border-color: #F0ECF9;
+    }
+
+    .library-check {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1.5px solid #C3B4EC;
+      background: #F7F4FF;
+      color: transparent;
+      font-size:14.5px;
+      font-weight: 900;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .library-row.done .library-check {
+      background: #9A86E0;
+      border-color: #9A86E0;
+      color: #FFFFFF;
+    }
+
+    .library-text {
+      flex: 1;
+      min-width: 0;
+      font-size:16px;
+      font-weight: 600;
+      color: #2F2A25;
+      word-break: break-word;
+      cursor: pointer;
+    }
+
+    .library-row.done .library-text {
+      color: #A99C8B;
+      text-decoration: line-through;
+    }
+
+    .library-who-tag {
+      display: inline-block;
+      border-radius: 999px;
+      background: #F1ECFF;
+      border: 1px solid #E1D9FA;
+      color: #6C56BE;
+      padding: 0 7px;
+      font-size:12.5px;
+      font-weight: 800;
+      vertical-align: middle;
+    }
+
+    .library-row.done .library-who-tag {
+      background: #F7F5FB;
+      border-color: #EDE9F5;
+      color: #A99C8B;
+      text-decoration: none;
+    }
+
+    .library-del {
+      border: none;
+      background: transparent;
+      color: #C9BFB0;
+      font-size:15.5px;
+      font-family: inherit;
+      cursor: pointer;
+      padding: 4px 2px;
+    }
+
+    .library-del:active {
+      color: #DF7C94;
+    }
+
+    .library-clear {
+      margin-top: 9px;
+      width: 100%;
+      border: 1px dashed #DCD3F0;
+      background: #FCFAFF;
+      border-radius: 13px;
+      padding: 8px 10px;
+      font-size:14px;
+      font-weight: 700;
+      color: #7A6AA8;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .library-empty {
+      padding: 14px 6px;
+      text-align: center;
+      font-size:15px;
+      color: #8A8074;
+    }
 
     /* ☔ 우산 · 😷 마스크 알림 배지 */
     .badge-on {
@@ -4489,6 +4731,7 @@
     html[data-style="meonjak"] .screen-section,
     html[data-style="meonjak"] .meal-section,
     html[data-style="meonjak"] .shop-section,
+    html[data-style="meonjak"] .library-section,
     html[data-style="meonjak"] .log-section,
     html[data-style="meonjak"] .photo-card,
     html[data-style="meonjak"] .sticker-card {
@@ -4527,6 +4770,7 @@
     html[data-style="meonjak"] .screen-title,
     html[data-style="meonjak"] .meal-title,
     html[data-style="meonjak"] .shop-title,
+    html[data-style="meonjak"] .library-title,
     html[data-style="meonjak"] .log-title,
     html[data-style="meonjak"] .sched-title,
     html[data-style="meonjak"] .todo-member-name {
@@ -4544,6 +4788,7 @@
     html[data-style="meonjak"] .meal-nav-btn,
     html[data-style="meonjak"] .meal-week-btn,
     html[data-style="meonjak"] .shop-add-btn,
+    html[data-style="meonjak"] .library-add-btn,
     html[data-style="meonjak"] .sched-toggle,
     html[data-style="meonjak"] .sticker-lock-btn,
     html[data-style="meonjak"] .todo-lock-btn,
@@ -4566,12 +4811,20 @@
     }
 
     html[data-style="meonjak"] .shop-chip,
+    html[data-style="meonjak"] .library-chip,
     html[data-style="meonjak"] .todo-pick-chip,
     html[data-style="meonjak"] .who-chip,
     html[data-style="meonjak"] .filter {
       border: 2px solid var(--mj-cocoa);
       background: var(--mj-butter);
       color: var(--mj-cocoa);
+    }
+
+    html[data-style="meonjak"] .library-chip.active {
+      background: var(--mj-pink);
+      border-color: var(--mj-cocoa);
+      color: #6E3346;
+      box-shadow: 0 3px 0 rgba(90, 64, 56, 0.16);
     }
 
     /* ---- 달력: 오늘은 딸기우유 핑크 ---- */
@@ -4677,6 +4930,7 @@
       .shop-section { grid-row: 10; }
       .photo-card { grid-row: 11; }
       .log-section { grid-row: 12; }
+      .library-section { grid-row: 13; grid-column: 1 / -1; }
     }
 
     @media (min-width: 760px) {
@@ -4689,6 +4943,7 @@
       .shop-section { grid-row: 9; }
       .photo-card { grid-row: 9; }
       .log-section { grid-row: 10; }
+      .library-section { grid-row: 11; grid-column: 1 / -1; }
     }
 
     @media (min-width: 1080px) {
@@ -4701,6 +4956,7 @@
       .shop-section { grid-row: 8; }
       .photo-card { grid-row: 8; }
       .log-section { grid-row: 8; }
+      .library-section { grid-row: 9; grid-column: 1 / -1; }
     }
 </style>
   <script>
@@ -4966,6 +5222,23 @@
       <button class="shop-clear" id="shopClearBtn" type="button" hidden>산 것 비우기</button>
     </section>
 
+    <section class="library-section" id="librarySection" aria-label="도서관 빌릴 책 메모판">
+      <div class="library-header">
+        <div>
+          <h2 class="library-title">📚 도서관 빌릴 책 메모판</h2>
+          <p class="library-subtitle">빌리고 싶은 책 있으면 바로 적어요</p>
+        </div>
+        <span class="library-count-pill" id="libraryCountPill">빌릴 책 0권</span>
+      </div>
+      <div class="library-who" id="libraryWhoChips" role="group" aria-label="누구 책인지 고르기"></div>
+      <form class="library-form" id="libraryForm">
+        <input class="library-input" id="libraryInput" type="text" maxlength="60" placeholder="예: 마법천자문 60, 흔한남매, 고양이 해결사..." autocomplete="off" />
+        <button class="library-add-btn" type="submit">추가</button>
+      </form>
+      <div class="library-list" id="libraryList"></div>
+      <button class="library-clear" id="libraryClearBtn" type="button" hidden>빌린 책 비우기</button>
+    </section>
+
     <section class="photo-card" id="photoCard" role="button" tabindex="0" aria-label="우리 가족 포토 카드 · 9장 슬라이드 · 크게 보기">
       <div class="photo-frame" id="photoFrame">
         <div class="photo-frame-bg" id="photoFrameBg"></div>
@@ -5096,7 +5369,7 @@
 
     const STORAGE_KEY = 'family_dashboard_mangpo_v1';
     // 🔖 자동 업데이트 감지용 빌드 번호 (version.json 과 같으면 최신)
-    const APP_BUILD_ID = '2026-11-17-v4';
+    const APP_BUILD_ID = '2026-11-17-v5';
     // 가족 실시간 동기화 (Google Apps Script 웹 앱 · 시트 '우리 가족 기록장 데이터')
     const DEFAULT_SYNC_URL = 'https://script.google.com/macros/s/AKfycbx9_QM6IyqMzTOVRohBbXSlvB4NQy-O4wTzImnSKe1vkBFaBIcCFMoH8a_aEeOOI34/exec';
 
@@ -5360,6 +5633,7 @@
       renderStickers();
       renderScreenTime();
       renderShopping();
+      renderLibrary();
       renderCalendar();
       renderDday();
       renderLetterChips();
@@ -6246,6 +6520,185 @@
       if (clearBtn) clearBtn.addEventListener('click', clearBoughtShopItems);
       renderShopQuickChips();
       renderShopping();
+    }
+
+    // 📚 도서관 빌릴 책 메모판 (state.todos 안에 memberId 'library'으로 저장 → 4대 폰 실시간 동기화)
+    const LIB_MEMBER_ID = 'library';
+    const LIB_ID_PREFIX = 'lib-';
+    const LIB_WHO_CHOICES = ['도현', '이현', '아빠', '엄마'];
+    const LIB_WHO_RE = /^\[([^\]]{1,8})\]\s*/;
+    let libWho = '';   // '' = 전체(누구 책인지 안 고름)
+
+    function libItems() {
+      if (!Array.isArray(state.todos)) state.todos = [];
+      return state.todos.filter(t => t && t.memberId === LIB_MEMBER_ID);
+    }
+
+    function libSplitWho(text) {
+      const raw = String(text == null ? '' : text).trim();
+      const m = raw.match(LIB_WHO_RE);
+      if (!m) return { who: '', title: raw };
+      return { who: m[1].trim(), title: raw.slice(m[0].length).trim() };
+    }
+
+    function libTextWithWho(title, who) {
+      return who ? '[' + who + '] ' + title : title;
+    }
+
+    function renderLibraryWhoChips() {
+      const wrap = document.getElementById('libraryWhoChips');
+      if (!wrap) return;
+      wrap.innerHTML = '';
+      const label = document.createElement('span');
+      label.className = 'library-who-label';
+      label.textContent = '누구 책?';
+      wrap.appendChild(label);
+      [''].concat(LIB_WHO_CHOICES).forEach(who => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'library-chip' + (libWho === who ? ' active' : '');
+        btn.textContent = who || '전체';
+        btn.setAttribute('aria-pressed', libWho === who ? 'true' : 'false');
+        btn.addEventListener('click', () => {
+          libWho = who;
+          renderLibraryWhoChips();
+        });
+        wrap.appendChild(btn);
+      });
+    }
+
+    function renderLibrary() {
+      const list = document.getElementById('libraryList');
+      const pill = document.getElementById('libraryCountPill');
+      const clearBtn = document.getElementById('libraryClearBtn');
+      if (!list) return;
+      const items = libItems();
+      const pending = items.filter(t => !t.done);
+      const borrowed = items.filter(t => t.done);
+      if (pill) {
+        pill.textContent = pending.length
+          ? '빌릴 책 ' + pending.length + '권'
+          : (items.length ? '다 빌렸어요!' : '빌릴 책 0권');
+        pill.classList.toggle('done', pending.length === 0 && items.length > 0);
+      }
+      if (clearBtn) clearBtn.hidden = borrowed.length === 0;
+      list.innerHTML = '';
+      if (!items.length) {
+        const empty = document.createElement('div');
+        empty.className = 'library-empty';
+        empty.textContent = '빌리고 싶은 책이 있으면 적어 두세요 📚';
+        list.appendChild(empty);
+        return;
+      }
+      pending.concat(borrowed).forEach(item => {
+        const parts = libSplitWho(item.text);
+        const row = document.createElement('div');
+        row.className = 'library-row' + (item.done ? ' done' : '');
+        const check = document.createElement('button');
+        check.type = 'button';
+        check.className = 'library-check';
+        check.textContent = '✓';
+        check.setAttribute('aria-label', item.done ? '빌림 취소' : '빌렸어요');
+        const textEl = document.createElement('span');
+        textEl.className = 'library-text';
+        if (parts.who) {
+          const tag = document.createElement('span');
+          tag.className = 'library-who-tag';
+          tag.textContent = parts.who;
+          textEl.appendChild(tag);
+          textEl.appendChild(document.createTextNode(' ' + parts.title));
+        } else {
+          textEl.textContent = parts.title;
+        }
+        const del = document.createElement('button');
+        del.type = 'button';
+        del.className = 'library-del';
+        del.textContent = '✕';
+        del.setAttribute('aria-label', '삭제');
+        check.addEventListener('click', () => toggleLibraryItem(item.id));
+        textEl.addEventListener('click', () => toggleLibraryItem(item.id));
+        del.addEventListener('click', () => deleteLibraryItem(item.id));
+        row.appendChild(check);
+        row.appendChild(textEl);
+        row.appendChild(del);
+        list.appendChild(row);
+      });
+    }
+
+    function addLibraryItem(rawText) {
+      const input = document.getElementById('libraryInput');
+      const title = String(rawText == null ? '' : rawText).replace(/\s+/g, ' ').trim();
+      if (!title) {
+        showToast('빌리고 싶은 책을 먼저 적어 주세요');
+        if (input) input.focus();
+        return;
+      }
+      const text = libTextWithWho(title, libWho);
+      if (libItems().some(t => !t.done && String(t.text).replace(/\s+/g, ' ').trim() === text)) {
+        showToast('이미 목록에 있어요 · ' + title);
+        if (input) {
+          input.value = '';
+          input.focus();
+        }
+        return;
+      }
+      const libTodo = {
+        id: LIB_ID_PREFIX + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+        memberId: LIB_MEMBER_ID,
+        text: text,
+        done: false
+      };
+      state.todos.push(libTodo);
+      saveState({ t: 'todo-add', todo: libTodo });
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+      renderLibrary();
+      showToast("📚 '" + title + "' 담았어요");
+    }
+
+    function toggleLibraryItem(id) {
+      const item = libItems().filter(t => t.id === id)[0];
+      if (!item) return;
+      item.done = !item.done;
+      saveState({ t: 'todo-tog', id: item.id, done: item.done });
+      renderLibrary();
+      const title = libSplitWho(item.text).title || String(item.text);
+      showToast(item.done ? '빌렸어요 ✓ ' + title : '다시 빌릴 목록에 넣었어요');
+    }
+
+    function deleteLibraryItem(id) {
+      const idx = state.todos.findIndex(t => t && t.id === id && t.memberId === LIB_MEMBER_ID);
+      if (idx < 0) return;
+      state.todos.splice(idx, 1);
+      saveState({ t: 'todo-del', id: id });
+      renderLibrary();
+      showToast('도서관 목록에서 지웠어요');
+    }
+
+    function clearBorrowedLibraryItems() {
+      const borrowed = libItems().filter(t => t.done);
+      if (!borrowed.length) return;
+      state.todos = state.todos.filter(t => !(t && t.memberId === LIB_MEMBER_ID && t.done));
+      borrowed.forEach(item => pendingOps.push({ t: 'todo-del', id: item.id }));
+      saveState();
+      renderLibrary();
+      showToast('빌린 책 ' + borrowed.length + '권을 정리했어요');
+    }
+
+    function initLibrary() {
+      const form = document.getElementById('libraryForm');
+      const clearBtn = document.getElementById('libraryClearBtn');
+      if (!form) return;
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const input = document.getElementById('libraryInput');
+        addLibraryItem(input ? input.value : '');
+      });
+      if (clearBtn) clearBtn.addEventListener('click', clearBorrowedLibraryItems);
+      renderLibraryWhoChips();
+      renderLibrary();
     }
 
     // 🏆 칭찬 스티커 · 소원권 (도현·이현)
@@ -7577,7 +8030,7 @@
       const id = String(t.id == null ? '' : t.id);
       if (id === DAILY_RESET_MARKER_ID) return false;
       const memberId = String(t.memberId == null ? '' : t.memberId);
-      if (memberId === 'sys' || memberId === 'notice' || memberId === 'evo' || memberId === 'shopping' || memberId === 'dday') return false;
+      if (memberId === 'sys' || memberId === 'notice' || memberId === 'evo' || memberId === 'shopping' || memberId === 'library' || memberId === 'dday') return false;
       if (memberId.indexOf('wish_') === 0) return false;
       const key = String(t.text == null ? '' : t.text).replace(/\s+/g, '');
       if (DAILY_RESET_TEXT_KEYS.indexOf(key) >= 0) return true;
@@ -9471,6 +9924,7 @@
     restoreScreenTimers();
     initMeal();
     initShopping();
+    initLibrary();
     refreshWeather();
     pullCloudSync();
     // ⏳ 동기화 주소가 없는 오프라인 모드에서도 일요일 기준점은 조용히 맞춰 둡니다

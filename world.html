@@ -1084,6 +1084,66 @@ html[data-skin="meonjak"] .meonjak-only{display:initial}
 html[data-skin="meonjak"] .mario-only,
 html[data-skin="meonjak"] .craft-only{display:none}
 
+
+  /* ================= v3: 타이머 · 준비물 · 디데이 · 도감 · 급식 전환 ================= */
+  .meal-switch{display:inline-flex;gap:3px;align-items:center;margin-left:auto}
+  .meal-switch button{border:2px solid var(--line);background:var(--paper-2);border-radius:9px;padding:2px 8px;font:inherit;font-size:12px;font-weight:900;color:var(--ink-soft);cursor:pointer;line-height:1.5}
+  .meal-switch button.on{background:var(--accent);border-color:var(--coin-d);color:#4A3200;box-shadow:0 2px 0 var(--shadow)}
+  .meal-empty{font-size:13.5px;font-weight:700;color:var(--ink-faint);padding:8px 0}
+
+  .dday-strip{display:flex;gap:6px;align-items:center;overflow-x:auto;padding:8px 10px;margin:0 0 10px;border:2px solid var(--line);border-radius:12px;background:var(--paper);box-shadow:0 3px 0 var(--shadow);scrollbar-width:none}
+  .dday-strip::-webkit-scrollbar{display:none}
+  .dday-strip:empty{display:none}
+  .dday-pill{display:inline-flex;align-items:center;gap:5px;flex:0 0 auto;padding:4px 9px;border-radius:999px;border:2px solid var(--line);background:var(--paper-2);font-size:12.5px;font-weight:800;color:var(--ink)}
+  .dday-label{white-space:nowrap;max-width:170px;overflow:hidden;text-overflow:ellipsis}
+  .dday-count{font-weight:900;color:var(--ink-soft)}
+  .dday-pill.dday-soon{background:#FFF0F3;border-color:#F6C6D2}
+  .dday-pill.dday-soon .dday-count{color:#C0392B}
+  .dday-pill.dday-custom{background:#FFF8E4;border-color:#F0DCA0}
+  .dday-x{border:0;background:transparent;color:var(--ink-faint);font-weight:900;cursor:pointer;padding:0 2px;font-size:12px}
+  .dday-more,.dday-add{border:2px solid var(--line);background:var(--paper-2);border-radius:999px;padding:4px 9px;font:inherit;font-size:12px;font-weight:900;color:var(--ink-soft);cursor:pointer;flex:0 0 auto}
+  .dday-form-host:empty{display:none}
+  .dday-form{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:0 0 10px;padding:7px 9px;border:2px solid var(--line);border-radius:12px;background:var(--paper-2)}
+  .dday-form input{font:inherit;font-size:12.5px;padding:4px 7px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+  .dday-form .dday-date{width:132px}
+  .dday-form .dday-title-input{flex:1 1 130px}
+  .dday-form button{font:inherit;font-size:12.5px;font-weight:900;padding:4px 10px;border:2px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer}
+  .dday-form button.dday-cancel{background:transparent;color:var(--ink-faint)}
+
+  .screen-timer{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:6px}
+  .screen-timer:empty{display:none}
+  .screen-timer .tlabel{font-size:11.5px;font-weight:900;color:var(--ink-faint)}
+  .screen-timer button{border:2px solid var(--line);background:var(--paper);border-radius:9px;padding:3px 8px;font:inherit;font-size:12px;font-weight:900;color:var(--ink-soft);cursor:pointer;line-height:1.5}
+  .screen-timer button.run{border-color:#B9D7F0;color:#1F5E8C;background:#F4FAFF}
+  .screen-timer button.stop{border-color:#F0D090;color:#8A6524;background:#FFF8E8}
+  .screen-timer button.cancel{border-color:#EBCFCF;color:#A5544F;background:#FFF5F4}
+  .screen-timer button:active{transform:scale(.94)}
+  .screen-locked .screen-timer button{pointer-events:none;opacity:.55}
+  .timer-badge{display:inline-flex;align-items:center;gap:4px;border:2px solid #BFDCF2;background:#EEF7FF;color:#1F5E8C;border-radius:999px;padding:2px 8px;font-size:12px;font-weight:900;font-variant-numeric:tabular-nums}
+  .timer-badge.tight{border-color:#F0B4A4;background:#FFF2EE;color:#C1502F}
+  .timer-notice{display:inline-flex;border:2px solid #F0DCA0;background:#FFF9E8;color:#8A6524;border-radius:999px;padding:2px 8px;font-size:11.5px;font-weight:900}
+  .screen-card.screen-warn{border-color:#F0C58F;background:#FFFBF3}
+  .screen-card.screen-over{border-color:#F0B4A4;background:#FFF7F5}
+  .screen-card.screen-warn .screen-val{color:#B0651C}
+  .screen-card.screen-over .screen-val{color:#C1502F}
+
+  .now-depart{margin-top:6px;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;border:2px solid #F6C6D2;background:#FFF1F4;color:#B23F62;font-size:13px;font-weight:900}
+  .now-prep{margin-top:6px;display:flex;flex-direction:column;gap:4px}
+  .now-prep .pline{display:block;font-size:12.5px;font-weight:800;color:var(--ink-soft);background:var(--paper-2);border:2px solid var(--line);border-radius:10px;padding:4px 8px;word-break:keep-all}
+  .now-prep .pline.next{color:#4B6278;background:#F4F8FB}
+  .card.is-departing{border-color:#F6C6D2;box-shadow:0 0 0 3px rgba(246,198,210,.3),0 4px 0 var(--shadow)}
+
+  .dex-sum{margin-top:6px;padding:5px 8px;border:2px dashed var(--line);border-radius:10px;background:var(--paper-2);display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  .dex-sum-line{font-size:12px;font-weight:900;color:var(--ink-soft)}
+  .dex-sum-icons{display:inline-flex;gap:1px;margin-left:auto}
+  .dex-ico{font-style:normal;font-size:13px;filter:grayscale(1);opacity:.28}
+  .dex-ico.on{filter:none;opacity:1}
+
+  .wish-memo{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:3px 0 4px;padding:5px 6px;border:2px solid var(--line);border-radius:10px;background:#FFF9EF}
+  .wish-memo[hidden]{display:none}
+  .wish-memo input{flex:1 1 120px;min-width:0;font:inherit;font-size:12px;padding:3px 7px;border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+  .wish-memo button{font:inherit;font-size:11.5px;font-weight:900;padding:3px 8px;border:2px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer}
+  .sticker-locked .wish-memo button,.sticker-locked .wish-memo input{pointer-events:none;opacity:.7}
 </style>
 </head>
 <body>
@@ -1252,6 +1312,8 @@ html[data-skin="meonjak"] .craft-only{display:none}
 
     <!-- ================= 🏠 대시보드 ================= -->
     <section class="view on" id="view-dashboard" aria-label="대시보드">
+      <div class="dday-strip" id="ddayStrip" aria-label="디데이 카운트다운"></div>
+      <div class="dday-form-host" id="ddayFormHost"></div>
       <div class="dash-grid">
         <!-- ===== 왼쪽: 가족 달력 · 오늘/내일 · 글빛초 점심 · 아빠엄마 ===== -->
         <div class="col">
@@ -1294,7 +1356,13 @@ html[data-skin="meonjak"] .craft-only{display:none}
               <div class="day-cols" id="dayAgenda"></div>
             </article>
             <article class="card">
-              <div class="card-head"><h2 class="card-title">🍱 글빛초 점심</h2></div>
+              <div class="card-head">
+                <h2 class="card-title">🍽️ 글빛초 점심</h2>
+                <div class="meal-switch" role="group" aria-label="오늘·내일 급식 보기">
+                  <button type="button" class="on" data-act="meal-day" data-day="today" aria-pressed="true">오늘</button>
+                  <button type="button" data-act="meal-day" data-day="tomorrow" aria-pressed="false">내일</button>
+                </div>
+              </div>
               <div data-meal="dash"></div>
             </article>
           </div>
@@ -1652,6 +1720,8 @@ html[data-skin="meonjak"] .craft-only{display:none}
 
   var SYNC_URL = 'https://script.google.com/macros/s/AKfycbx9_QM6IyqMzTOVRohBbXSlvB4NQy-O4wTzImnSKe1vkBFaBIcCFMoH8a_aEeOOI34/exec';
   var STORAGE_KEY = 'family_world_mario_v1';
+  /* 🔖 자동 업데이트 감지용 빌드 번호 (version.json 과 같으면 최신) */
+  var APP_BUILD_ID = '2026-11-17-v3';
   var THEME_KEY = 'family_world_mario_theme';
   var WEATHER_KEY = 'family_world_mario_weather';
   var MEAL_CACHE_KEY = 'family_world_mario_meal';
@@ -1857,6 +1927,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
   }
   var screenUnlocked = { dohyun: false, ihyun: false };
   var wishUsedOpen = { dohyun: false, ihyun: false };
+  var wishMemoId = '';   /* 사용 메모를 적는 중인 소원권 id */
   var letterFrom = '아빠';
   var letterTo = LETTER_TO_ALL;
   var letterFilter = '전체';
@@ -2013,7 +2084,9 @@ html[data-skin="meonjak"] .craft-only{display:none}
 
   function commit(op) {
     var pruned = pruneEvo() || [];
+    var evoAdded = pruneEvo.added || [];
     pruned.forEach(function (id) { pendingOps.push({ t: 'todo-del', id: id }); });
+    evoAdded.forEach(function (rec) { pendingOps.push({ t: 'todo-add', todo: rec }); });
     state.updatedAt = kstIsoNow();
     saveLocal();
     lastMutationAt = Date.now();
@@ -2709,6 +2782,9 @@ html[data-skin="meonjak"] .craft-only{display:none}
     }
     var monday = mealMonday(kstNow());
     var friday = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 4);
+    // '내일' 탭도 볼 수 있게 내일이 금요일보다 뒤면 그날까지 함께 조회합니다
+    var tomorrow = mealTomorrowDate();
+    if (mealYmd(tomorrow) > mealYmd(friday)) friday = tomorrow;
     mealState = 'loading';
     renderMeals();
     var url = NEIS_URL + '?Type=json&pIndex=1&pSize=30'
@@ -2754,8 +2830,46 @@ html[data-skin="meonjak"] .craft-only{display:none}
     }
     return null;
   }
+  var mealPick = 'today';
+  function mealTomorrowDate() {
+    var d = kstNow();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+  }
+  function renderMealSwitch() {
+    $$('[data-act="meal-day"]').forEach(function (btn) {
+      var on = (btn.getAttribute('data-day') === 'tomorrow') === (mealPick === 'tomorrow');
+      btn.classList.toggle('on', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
   function renderMeals() {
+    renderMealSwitch();
     $$('[data-meal]').forEach(function (host) {
+      if (mealPick === 'tomorrow') {
+        var tom = mealTomorrowDate();
+        var tomKey = mealYmd(tom);
+        var tomData = mealDays[tomKey];
+        if (!tomData && mealState === 'loading') {
+          host.innerHTML = '<div class="meal-loading">🍚 내일 급식 메뉴를 불러오는 중이에요…</div>';
+          return;
+        }
+        if (!tomData) {
+          host.innerHTML = '<div class="meal-head"><span class="meal-date">내일 ' + shortDate(dateKeyOf(tom)) + ' (' + DOW_NAMES[tom.getDay()] + ')</span></div>' +
+            '<div class="meal-empty">주말/휴일 급식이 없어요</div>';
+          return;
+        }
+        host.innerHTML =
+          '<div class="meal-head">' +
+            '<span class="meal-date">' + dateKeyOf(tom).replace(/-/g, '.') + ' (' + DOW_NAMES[tom.getDay()] + ')</span>' +
+            (tomData.cal ? '<span class="meal-kcal">' + esc(tomData.cal) + '</span>' : '') +
+          '</div>' +
+          '<div class="dish-list">' + tomData.dishes.map(function (n) {
+            return '<span class="dish">' + esc(n) + '</span>';
+          }).join('') + '</div>' +
+          '<div class="meal-note">글빛초 ' + esc(tomData.kind || '중식') + ' · 내일 메뉴' +
+          (mealState === 'stale' ? ' · 저장된 메뉴' : '') + '</div>';
+        return;
+      }
       var pick = mealForToday();
       if (mealState === 'loading' && !pick) {
         host.innerHTML = '<div class="meal-loading">🍚 급식 메뉴를 불러오는 중이에요…</div>';
@@ -2763,7 +2877,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
       }
       if (!pick) {
         var dow = kstNow().getDay();
-        host.innerHTML = '<div class="meal-loading">' + (dow === 0 || dow === 6 ? '주말이라 급식이 없어요 🙂' : '오늘은 급식 정보가 없어요') + '</div>';
+        host.innerHTML = '<div class="meal-loading">' + (dow === 0 || dow === 6 ? '주말/휴일 급식이 없어요' : '오늘은 급식 정보가 없어요') + '</div>';
         return;
       }
       var d = pick.date;
@@ -3661,17 +3775,198 @@ html[data-skin="meonjak"] .craft-only{display:none}
     if (state.todos.length !== before) pendingOps.push({ t: 'todo-del', id: 'evo-' + kidId + '-' + date });
     return state.todos.length !== before;
   }
-  /* 지난 주 진화 기록 정리 (MAX_TODOS 를 아껴요) — 지운 id 를 돌려줍니다 */
+  /* 🧾 누적 도감을 위해 진화 기록을 지우지 않고 접어 둡니다.
+     · 이번 주(일~토)는 일별 기록 그대로 → 오늘 코인·진화 계산에 씁니다
+     · 지난 13주(약 90일)는 주별 요약 1줄(kid|W|일요일|일수)
+     · 그보다 오래된 기록은 전체 합계 1줄(kid|T|누적일수|7일완주|최고Lv)
+     시트 '가족할일' 탭은 100줄까지만 저장되므로(Code.gs MAX_TODOS) 이렇게 접어서 보관합니다. */
+  var EVO_KEEP_WEEKS = 13;
+  var EVO_WEEK_RE = /^([a-z]+)\|W\|(\d{4}-\d{2}-\d{2})\|(\d{1,2})$/;
+  var EVO_TOTAL_RE = /^([a-z]+)\|T\|(\d+)\|(\d+)\|(\d+)$/;
+
+  function evoSundayOf(dateKey) {
+    var d = parseDateKey(dateKey);
+    if (!d) return '';
+    return dateKeyOf(new Date(d.getFullYear(), d.getMonth(), d.getDate() - d.getDay()));
+  }
+  function evoWeekSumOf(t) {
+    var m = String((t && t.text) || '').match(EVO_WEEK_RE);
+    if (!m) return null;
+    return { kid: m[1], week: m[2], days: clamp(Number(m[3]) || 0, 0, 7) };
+  }
+  function evoTotalOf(t) {
+    var m = String((t && t.text) || '').match(EVO_TOTAL_RE);
+    if (!m) return null;
+    return { kid: m[1], days: Number(m[2]) || 0, full: Number(m[3]) || 0, maxLv: Number(m[4]) || 0 };
+  }
+  function evoWeekRecord(kidId, week, days) {
+    return { id: 'evosum-' + kidId + '-' + week, memberId: 'evo', text: kidId + '|W|' + week + '|' + clamp(days, 0, 7), done: true };
+  }
+  function evoTotalRecord(kidId, days, full, maxLv) {
+    return { id: 'evototal-' + kidId, memberId: 'evo', text: kidId + '|T|' + days + '|' + full + '|' + clamp(maxLv, 0, 7), done: true };
+  }
+  function upsertEvoRecord(rec) {
+    var idx = -1;
+    (state.todos || []).forEach(function (t, i) { if (t && String(t.id) === String(rec.id)) idx = i; });
+    if (idx >= 0) state.todos[idx] = rec;
+    else state.todos.push(rec);
+  }
+
   function pruneEvo() {
+    if (!Array.isArray(state.todos)) state.todos = [];
     var sunday = evoWeekDates()[0];
-    var removed = [];
-    state.todos = (state.todos || []).filter(function (t) {
-      if (!t || t.memberId !== 'evo') return true;
+    var sunDate = parseDateKey(sunday);
+    var keepFrom = sunDate
+      ? dateKeyOf(new Date(sunDate.getFullYear(), sunDate.getMonth(), sunDate.getDate() - (EVO_KEEP_WEEKS - 1) * 7))
+      : '';
+    var removed = [];      /* 시트에서 지울 id */
+    var added = [];        /* 시트에 새로/다시 쓸 레코드 */
+    var sums = {};         /* 'week|kid' -> { week, kid, days, base, rec } */
+    var totals = {};       /* kid -> { days:{}, full, maxLv, base } */
+    var kept = [];
+
+    state.todos.forEach(function (t) {
+      if (!t || t.memberId !== 'evo') { kept.push(t); return; }
       var p = evoDateOf(t);
-      if (!p || p.date < sunday) { removed.push(t.id); return false; }
-      return true;
+      if (p) {
+        var wk = evoSundayOf(p.date);
+        if (!wk) { removed.push(t.id); return; }              /* 깨진 날짜만 정리 */
+        if (wk >= sunday) { kept.push(t); return; }            /* 이번 주는 일별 그대로 */
+        if (keepFrom && wk >= keepFrom) {
+          var key = wk + '|' + p.kid;                          /* 지난 13주: 주별 요약으로 */
+          var box = sums[key] = sums[key] || { week: wk, kid: p.kid, days: 0, base: 0 };
+          box.days = Math.min(7, box.days + 1);
+          removed.push(t.id);
+          return;
+        }
+        var tot = totals[p.kid] = totals[p.kid] || { days: {}, full: 0, maxLv: 0 };   /* 그보다 오래: 전체 합계로 */
+        tot.days[p.date] = true;
+        removed.push(t.id);
+        return;
+      }
+      var sum = evoWeekSumOf(t);
+      if (sum) {
+        if (!keepFrom || sum.week < keepFrom) {
+          var ot = totals[sum.kid] = totals[sum.kid] || { days: {}, full: 0, maxLv: 0 };
+          ot.baseDays = (ot.baseDays || 0) + sum.days;
+          if (sum.days >= 7) ot.full += 1;
+          ot.maxLv = Math.max(ot.maxLv, sum.days);
+          removed.push(t.id);
+          return;
+        }
+        var key2 = sum.week + '|' + sum.kid;                   /* 창 안의 기존 요약은 그대로 두고 값만 맞춥니다 */
+        var box2 = sums[key2] = sums[key2] || { week: sum.week, kid: sum.kid, days: 0, base: 0 };
+        box2.base = Math.max(box2.base, sum.days);
+        box2.rec = t;
+        kept.push(t);
+        return;
+      }
+      var total = evoTotalOf(t);
+      if (total) {
+        var tt = totals[total.kid] = totals[total.kid] || { days: {}, full: 0, maxLv: 0 };
+        tt.baseDays = (tt.baseDays || 0) + total.days;
+        tt.full += total.full;
+        tt.maxLv = Math.max(tt.maxLv, total.maxLv);
+        tt.rec = t;
+        kept.push(t);                                          /* 기존 합계 줄은 값이 바뀔 때만 고칩니다 */
+        return;
+      }
+      kept.push(t);   /* 알 수 없는 evo 기록은 지우지 않고 그대로 둡니다 */
     });
+
+    state.todos = kept;
+
+    Object.keys(sums).forEach(function (key) {
+      var s = sums[key];
+      var finalDays = Math.min(7, Math.max(s.base || 0, s.days || 0));
+      if (s.rec && finalDays === s.base) return;               /* 달라진 게 없으면 손대지 않습니다 */
+      var rec = evoWeekRecord(s.kid, s.week, finalDays);
+      upsertEvoRecord(rec);
+      added.push(rec);
+    });
+    Object.keys(totals).forEach(function (kid) {
+      var tot = totals[kid];
+      var byWeek = {};
+      Object.keys(tot.days).forEach(function (d) {
+        var w = evoSundayOf(d);
+        byWeek[w] = (byWeek[w] || 0) + 1;
+      });
+      var full = tot.full || 0;
+      var maxLv = tot.maxLv || 0;
+      Object.keys(byWeek).forEach(function (w) {
+        if (byWeek[w] >= 7) full += 1;
+        maxLv = Math.max(maxLv, byWeek[w]);
+      });
+      var days = (tot.baseDays || 0) + Object.keys(tot.days).length;
+      if (tot.rec) {
+        var old = evoTotalOf(tot.rec);
+        if (old && old.days === days && old.full === full && old.maxLv === Math.min(7, maxLv)) return;
+      }
+      var rec2 = evoTotalRecord(kid, days, full, maxLv);
+      upsertEvoRecord(rec2);
+      added.push(rec2);
+    });
+
+    pruneEvo.added = added;
     return removed;
+  }
+  pruneEvo.added = [];
+
+  /* 🏆 누적 도감 — 일별 + 주별 요약 + 전체 합계를 합쳐 셉니다 */
+  var DEX_STAGE_ICONS = ['🥚', '🍄', '🌸', '🍃', '⭐', '🔥', '👑'];
+  function evoStatsOf(kidId) {
+    var totalsDays = 0;
+    var totalsFull = 0;
+    var totalsMax = 0;
+    var weekDays = {};      /* 일요일 키 -> 그 주 달성 일수 */
+    (state.todos || []).forEach(function (t) {
+      if (!t || t.memberId !== 'evo') return;
+      var p = evoDateOf(t);
+      if (p) {
+        if (p.kid !== kidId) return;
+        var w = evoSundayOf(p.date);
+        weekDays[w] = (weekDays[w] || 0) + 1;
+        return;
+      }
+      var sum = evoWeekSumOf(t);
+      if (sum) {
+        if (sum.kid !== kidId) return;
+        weekDays[sum.week] = Math.max(weekDays[sum.week] || 0, sum.days);
+        return;
+      }
+      var total = evoTotalOf(t);
+      if (total && total.kid === kidId) {
+        totalsDays += total.days;
+        totalsFull += total.full;
+        totalsMax = Math.max(totalsMax, total.maxLv);
+      }
+    });
+    var totalDays = totalsDays;
+    var fullWeeks = totalsFull;
+    var maxLv = totalsMax;
+    Object.keys(weekDays).forEach(function (w) {
+      var n = Math.min(7, weekDays[w]);
+      totalDays += n;
+      if (n >= 7) fullWeeks += 1;
+      maxLv = Math.max(maxLv, n);
+    });
+    var thisWeek = evoWeekDates()[0];
+    return {
+      totalDays: totalDays,
+      fullWeeks: fullWeeks,
+      maxLv: clamp(maxLv, 0, 7),
+      weekDays: Math.min(7, weekDays[thisWeek] || 0)
+    };
+  }
+  function dexSummaryHtml(kidId) {
+    var s = evoStatsOf(kidId);
+    var icons = DEX_STAGE_ICONS.map(function (ic, i) {
+      return '<i class="dex-ico' + (i < s.maxLv ? ' on' : '') + '" title="Lv.' + (i + 1) + '">' + ic + '</i>';
+    }).join('');
+    return '<div class="dex-sum">' +
+      '<span class="dex-sum-line">🏆 7일 완주 ' + s.fullWeeks + '회 · 누적 ' + s.totalDays + '일</span>' +
+      '<span class="dex-sum-icons" aria-hidden="true">' + icons + '</span>' +
+      '</div>';
   }
   /* 오늘 할 일을 다 모으면 오늘 진화 해금 / 하나라도 풀면 오늘 진화만 되돌림 */
   function syncEvoFor(kidId) {
@@ -3964,17 +4259,193 @@ html[data-skin="meonjak"] .craft-only{display:none}
               '<div class="lvline">' + lvline + '</div></div>' +
           '</div>' +
           evoCoinsHtml(coin) + evoDaysHtml(kidId, coin) + evoBlocksHtml(cnt) +
+          dexSummaryHtml(kidId) +
           '<div class="evo-next' + (cnt >= 7 ? ' win' : '') + '">' + esc(evoNextLine(kidId, cnt, coin)) + '</div>'
         : '<div class="dex-row">' +
             '<div class="dex-sprite">' + evoSprite(st.lv) + '</div>' +
             '<div class="dex-body">' +
               '<div class="dex-top"><span class="dex-name">' + esc(name) + '</span>' + lvline + '</div>' +
               evoCoinsHtml(coin) + evoDaysHtml(kidId, coin) +
+              dexSummaryHtml(kidId) +
               '<div class="evo-next' + (cnt >= 7 ? ' win' : '') + '">' + esc(evoNextLine(kidId, cnt, coin)) + '</div>' +
             '</div>' +
           '</div>';
     });
     $$('[data-evo-note]').forEach(function (el) { el.textContent = cfg.note; });
+  }
+
+  /* ---------------------------- ⏳ 디데이 ---------------------------- */
+  var ddayExpanded = false;
+  var ddayFormOpen = false;
+  var DDAY_WINDOW_DAYS = 90;
+  var DDAY_FAMILY_RE = /(생일|파티|돌잔치|환갑|기념일|캠핑|여행|투어|휴가|방학|개학|졸업|입학|결혼식)/;
+  var DDAY_HOLIDAY_TITLE_RE = /(휴일|공휴일|대체공휴일|christmas eve|christmas day|크리스마스\s*(이브|이브날)?$)/i;
+
+  function ddayEmoji(title) {
+    var t = String(title || '');
+    if (/(생일|파티|돌잔치|환갑)/.test(t)) return '🎂';
+    if (/(캠핑|여행|투어|나들이|휴가)/.test(t)) return '🏕️';
+    if (/(시험|입학|졸업|개학|방학)/.test(t)) return '🎓';
+    return '⏳';
+  }
+  function ddayCountLabel(days) { return days === 0 ? 'D-DAY' : 'D-' + days; }
+  function ddayShortTitle(title) {
+    var raw = String(title || '').replace(/\s+/g, ' ').trim();
+    var noParen = raw.replace(/\s*\([^)]*\)\s*$/, '').trim();
+    var t = noParen || raw;
+    if (t.length > 20) t = t.slice(0, 19).trimEnd() + '…';
+    return t;
+  }
+  function ddayShortDate(key) {
+    var p = String(key || '').split('-');
+    return (Number(p[1]) || 0) + '/' + (Number(p[2]) || 0);
+  }
+  function ddayItems() {
+    var base = parseDateKey(todayKey());
+    var out = [];
+    var seen = {};
+    allEvents().forEach(function (ev) {
+      if (!ev || !ev.date) return;
+      var cal = String(ev.calendar || '');
+      if (/Holidays in South Korea|대한민국의 휴일/.test(cal)) return;   /* 공휴일 달력은 건너뜁니다 */
+      var title = String(ev.title || '').replace(/\s+/g, ' ').trim();
+      if (!title) return;
+      if (DDAY_HOLIDAY_TITLE_RE.test(title)) return;
+      if (/전형료|납부|입금/.test(title)) return;
+      var key = ev.date + '|' + title;
+      if (seen[key]) return;
+      seen[key] = true;
+      var days = Math.round((parseDateKey(ev.date) - base) / 86400000);
+      if (!isFinite(days) || days < 0 || days > DDAY_WINDOW_DAYS) return;
+      var manual = cal === '직접 추가';
+      out.push({
+        id: ev.id,
+        date: ev.date,
+        title: title,
+        time: ev.time || '',
+        days: days,
+        custom: false,
+        family: manual || DDAY_FAMILY_RE.test(title)
+      });
+    });
+    /* 직접 추가한 디데이는 state.todos(memberId 'dday')에 'YYYY-MM-DD|제목' 으로 저장됩니다 */
+    (state.todos || []).forEach(function (t) {
+      if (!t || t.memberId !== 'dday') return;
+      var raw = String(t.text || '');
+      var cut = raw.indexOf('|');
+      if (cut < 0) return;
+      var date = raw.slice(0, cut).trim();
+      var title = raw.slice(cut + 1).replace(/\s+/g, ' ').trim();
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !title) return;
+      var days = Math.round((parseDateKey(date) - base) / 86400000);
+      if (!isFinite(days) || days < 0) return;
+      out.push({ id: t.id, date: date, title: title, time: '', days: days, custom: true, family: true });
+    });
+    out.sort(function (a, b) {
+      return ((a.family === b.family) ? 0 : (a.family ? -1 : 1)) || (a.days - b.days) || String(a.title).localeCompare(String(b.title));
+    });
+    return out;
+  }
+  function buildDdayForm() {
+    var form = document.createElement('form');
+    form.className = 'dday-form';
+    form.setAttribute('autocomplete', 'off');
+    var date = document.createElement('input');
+    date.type = 'date';
+    date.className = 'dday-date';
+    date.required = true;
+    date.value = todayKey();
+    date.setAttribute('aria-label', '디데이 날짜');
+    var title = document.createElement('input');
+    title.type = 'text';
+    title.className = 'dday-title-input';
+    title.maxLength = 30;
+    title.placeholder = '제목 (예: 해남 캠핑카)';
+    title.required = true;
+    title.setAttribute('aria-label', '디데이 제목');
+    var save = document.createElement('button');
+    save.type = 'submit';
+    save.textContent = '추가';
+    var cancel = document.createElement('button');
+    cancel.type = 'button';
+    cancel.className = 'dday-cancel';
+    cancel.textContent = '취소';
+    cancel.addEventListener('click', function () { ddayFormOpen = false; renderDday(); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var dateVal = date.value;
+      var titleVal = title.value.trim();
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(dateVal) || !titleVal) return;
+      var ddayTodo = { id: 'dday-' + Date.now(), memberId: 'dday', text: dateVal + '|' + titleVal, done: false };
+      state.todos.push(ddayTodo);
+      ddayFormOpen = false;
+      commit({ t: 'todo-add', todo: ddayTodo });
+      renderDday();
+      toast('⏳ 디데이를 추가했어요');
+    });
+    form.appendChild(date);
+    form.appendChild(title);
+    form.appendChild(save);
+    form.appendChild(cancel);
+    return form;
+  }
+  function renderDday() {
+    var strip = $('#ddayStrip');
+    if (!strip) return;
+    /* 띠는 '가장 가까운 날'부터 보여 줍니다 (좁은 화면에서도 곧 오는 일정이 먼저 보이게) */
+    var items = ddayItems().sort(function (a, b) {
+      return (a.days - b.days) || String(a.title).localeCompare(String(b.title));
+    });
+    strip.innerHTML = '';
+    var shown = ddayExpanded ? items : items.slice(0, 4);
+    shown.forEach(function (it) {
+      var pill = document.createElement('span');
+      pill.className = 'dday-pill' + (it.days <= 7 ? ' dday-soon' : '') + (it.custom ? ' dday-custom' : '');
+      pill.title = it.title + ' · ' + it.date;
+      var label = document.createElement('span');
+      label.className = 'dday-label';
+      label.textContent = ddayEmoji(it.title) + ' ' + ddayShortDate(it.date) + ' ' + ddayShortTitle(it.title);
+      var count = document.createElement('span');
+      count.className = 'dday-count';
+      count.textContent = ddayCountLabel(it.days);
+      pill.appendChild(label);
+      pill.appendChild(count);
+      if (it.custom) {
+        var x = document.createElement('button');
+        x.type = 'button';
+        x.className = 'dday-x';
+        x.setAttribute('aria-label', it.title + ' 디데이 삭제');
+        x.textContent = '✕';
+        x.addEventListener('click', function () {
+          state.todos = (state.todos || []).filter(function (t) { return !t || String(t.id) !== String(it.id); });
+          commit({ t: 'todo-del', id: it.id });
+          renderDday();
+          renderTodos();
+        });
+        pill.appendChild(x);
+      }
+      strip.appendChild(pill);
+    });
+    var hidden = items.length - shown.length;
+    if (items.length > 4 || ddayExpanded) {
+      var more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'dday-more';
+      more.textContent = ddayExpanded ? '접기' : '+' + hidden;
+      more.addEventListener('click', function () { ddayExpanded = !ddayExpanded; renderDday(); });
+      strip.appendChild(more);
+    }
+    var add = document.createElement('button');
+    add.type = 'button';
+    add.className = 'dday-add';
+    add.textContent = ddayFormOpen ? '✕ 닫기' : '+ 디데이';
+    add.addEventListener('click', function () { ddayFormOpen = !ddayFormOpen; renderDday(); });
+    strip.appendChild(add);
+    var host = $('#ddayFormHost');
+    if (host) {
+      host.innerHTML = '';
+      if (ddayFormOpen) host.appendChild(buildDdayForm());
+    }
   }
 
   /* ---------------------------- 할 일 ---------------------------- */
@@ -4065,9 +4536,15 @@ html[data-skin="meonjak"] .craft-only{display:none}
           '<div class="wish-tray">' +
             '<div class="wish-head"><span>🎟️ 소원권</span><span class="n">' + tickets.length + '장</span></div>' +
             (active.length ? active.map(function (t) {
+              var openMemo = wishMemoId === t.id;
               return '<div class="wish-row"><input type="text" value="' + esc(t.text || '') + '" data-wish-input="' + esc(t.id) + '" maxlength="40" placeholder="소원을 적어보세요 (예: 치킨 먹기)"' + (stickerUnlocked ? '' : ' readonly') + ' aria-label="소원 내용" />' +
                 '<button type="button" data-act="wish-use" data-id="' + esc(t.id) + '">사용</button>' +
-                '<button type="button" data-act="wish-del" data-id="' + esc(t.id) + '">✕</button></div>';
+                '<button type="button" data-act="wish-del" data-id="' + esc(t.id) + '">✕</button></div>' +
+                '<div class="wish-memo"' + (openMemo ? '' : ' hidden') + '>' +
+                  '<input type="text" data-wish-memo="' + esc(t.id) + '" maxlength="40" value="' + esc(t.text || '') + '" placeholder="어떤 소원이었는지 한 줄 (비워도 돼요)" aria-label="사용한 소원 메모"' + (stickerUnlocked ? '' : ' readonly') + ' />' +
+                  '<button type="button" data-act="wish-memo-ok" data-id="' + esc(t.id) + '">사용 완료</button>' +
+                  '<button type="button" data-act="wish-memo-cancel" data-id="' + esc(t.id) + '">취소</button>' +
+                '</div>';
             }).join('') : '<div class="wish-empty">' + (tickets.length
               ? '지금 쓸 수 있는 소원권은 없어요 · 사용한 소원권은 아래에서 볼 수 있어요'
               : '아직 소원권이 없어요 · 스티커 5개를 모아 보세요') + '</div>') +
@@ -4164,6 +4641,168 @@ html[data-skin="meonjak"] .craft-only{display:none}
   }
 
   /* ---------------------------- 사용시간 ---------------------------- */
+  function screenTimerHtml(kidId, used, limit) {
+    var timer = readScreenTimer(kidId);
+    var out = [];
+    if (screenTimerNotice[kidId]) out.push('<span class="timer-notice">' + esc(screenTimerNotice[kidId]) + '</span>');
+    if (timer) {
+      var leftMs = Math.max(0, timer.endAt - Date.now());
+      out.push('<span class="timer-badge' + (leftMs <= 60000 ? ' tight' : '') + '" data-timer-badge="' + kidId + '" aria-live="polite">⏱️ 남은 시간 ' + screenTimerClock(leftMs) + '</span>');
+      if (screenUnlocked[kidId]) {
+        out.push('<button type="button" class="stop" data-act="timer-stop" data-kid="' + kidId + '">⏹ 정지(경과 반영)</button>');
+        out.push('<button type="button" class="cancel" data-act="timer-cancel" data-kid="' + kidId + '">✕ 취소</button>');
+      }
+    } else if (screenUnlocked[kidId]) {
+      out.push('<span class="tlabel">⏱️ 타이머</span>');
+      SCREEN_TIMER_PRESETS.forEach(function (min) {
+        out.push('<button type="button" class="run" data-act="timer-start" data-kid="' + kidId + '" data-min="' + min + '">▶ ' + min + '분</button>');
+      });
+    }
+    return '<div class="screen-timer">' + out.join('') + '</div>';
+  }
+
+  /* ================= ⏱️ 전자기기 20분·30분 타이머 =================
+     상태는 localStorage(familyDash_screenTimer_*)에 남겨 새로고침·다른 페이지에서도 이어집니다. */
+  var SCREEN_TIMER_STORE = 'familyDash_screenTimer_';
+  var SCREEN_TIMER_PRESETS = [20, 30];
+  var screenTimerNotice = { dohyun: '', ihyun: '' };
+  var screenTimerTick = null;
+
+  function screenTimerKey(id) { return SCREEN_TIMER_STORE + String(id); }
+  function readScreenTimer(id) {
+    try {
+      var raw = localStorage.getItem(screenTimerKey(id));
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      if (!obj || typeof obj !== 'object') return null;
+      var limit = SCREEN_LIMITS[id] || 420;
+      var totalMin = Math.round(Number(obj.totalMin) || 0);
+      var endAt = Number(obj.endAt) || 0;
+      if (!totalMin || !endAt) return null;
+      return { totalMin: Math.min(totalMin, limit), endAt: endAt, startedAt: Number(obj.startedAt) || (endAt - totalMin * 60000) };
+    } catch (e) { return null; }
+  }
+  function writeScreenTimer(id, obj) {
+    try { localStorage.setItem(screenTimerKey(id), JSON.stringify(obj)); return true; } catch (e) { return false; }
+  }
+  /* 먼저 꺼내 지운 뒤 합산합니다 → 두 페이지가 동시에 끝나도 한 번만 더해집니다 */
+  function consumeScreenTimer(id) {
+    var cur = null;
+    try { var raw = localStorage.getItem(screenTimerKey(id)); cur = raw ? JSON.parse(raw) : null; } catch (e) { cur = null; }
+    try { localStorage.removeItem(screenTimerKey(id)); } catch (e) {}
+    if (!cur || typeof cur !== 'object') return null;
+    var totalMin = Math.min(Math.round(Number(cur.totalMin) || 0), SCREEN_LIMITS[id] || 420);
+    var endAt = Number(cur.endAt) || 0;
+    if (!totalMin || !endAt) return null;
+    return { totalMin: totalMin, endAt: endAt, startedAt: Number(cur.startedAt) || (endAt - totalMin * 60000) };
+  }
+  function screenTimerActive(id) { return !!readScreenTimer(id); }
+  function anyScreenTimerActive() {
+    return Object.keys(SCREEN_LIMITS).some(function (id) { return screenTimerActive(id); });
+  }
+  function screenTimerClock(ms) {
+    var total = Math.max(0, Math.round(ms / 1000));
+    return pad2(Math.floor(total / 60)) + ':' + pad2(total % 60);
+  }
+  function startScreenTimer(id, minutes) {
+    if (!screenUnlocked[id]) { toast('🔒 수정을 누르면 타이머를 켤 수 있어요'); return false; }
+    if (!SCREEN_LIMITS[id]) return false;
+    var totalMin = Math.max(1, Math.round(Number(minutes) || 0));
+    var now = Date.now();
+    writeScreenTimer(id, { startedAt: now, endAt: now + totalMin * 60000, totalMin: totalMin });
+    screenTimerNotice[id] = '';
+    ensureScreenTimerTick();
+    renderScreens();
+    toast('⏱️ ' + totalMin + '분 타이머를 켰어요');
+    return true;
+  }
+  /* 타이머 완료분은 잠금과 상관없이 더합니다 */
+  function addScreenMinutes(id, delta) {
+    var limit = SCREEN_LIMITS[id];
+    if (!limit) return 0;
+    var next = clamp(clampMinutes(state.screenTime[id], limit) + Number(delta || 0), 0, limit);
+    state.screenTime[id] = next;
+    commit({ t: 'screen-add', id: id, delta: Number(delta) || 0 });
+    return next;
+  }
+  function finishScreenTimer(id, mode) {
+    var running = consumeScreenTimer(id);
+    if (!running) { renderScreens(); return 0; }
+    var name = memberName(id);
+    if (mode === 'cancel') {
+      screenTimerNotice[id] = '';
+      toast('✕ 타이머를 취소했어요 · 사용시간은 그대로예요');
+      renderScreens();
+      return 0;
+    }
+    var addMin = running.totalMin;
+    if (mode === 'stop') {
+      addMin = Math.min(running.totalMin, Math.max(1, Math.round((Date.now() - running.startedAt) / 60000)));
+    }
+    var next = addScreenMinutes(id, addMin);
+    if (mode === 'auto') {
+      screenTimerNotice[id] = '⏱️ ' + name + ' ' + addMin + '분 종료!';
+      playScreenTimerChime();
+      toast('⏱️ ' + name + ' ' + addMin + '분 끝! ' + formatMinutes(next) + '로 기록했어요');
+    } else {
+      screenTimerNotice[id] = '⏹ ' + addMin + '분 반영했어요';
+      toast('⏹ ' + addMin + '분을 사용시간에 더했어요');
+    }
+    renderScreens();
+    return addMin;
+  }
+  function playScreenTimerChime() {
+    try {
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      var ctx = new Ctx();
+      [659.25, 783.99, 987.77].forEach(function (freq, i) {
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        var t0 = ctx.currentTime + i * 0.16;
+        gain.gain.setValueAtTime(0, t0);
+        gain.gain.linearRampToValueAtTime(0.16, t0 + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.5);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(t0);
+        osc.stop(t0 + 0.55);
+      });
+      setTimeout(function () { try { ctx.close(); } catch (e) {} }, 1400);
+    } catch (e) { /* 소리 차단은 무시 */ }
+  }
+  function tickScreenTimers() {
+    var needRender = false;
+    Object.keys(SCREEN_LIMITS).forEach(function (id) {
+      var timer = readScreenTimer(id);
+      if (!timer) return;
+      var leftMs = timer.endAt - Date.now();
+      if (leftMs <= 0) { finishScreenTimer(id, 'auto'); needRender = true; return; }
+      var badge = document.querySelector('[data-timer-badge="' + id + '"]');
+      if (badge) {
+        badge.textContent = '⏱️ 남은 시간 ' + screenTimerClock(leftMs);
+        badge.classList.toggle('tight', leftMs <= 60000);
+      }
+    });
+    if (needRender) renderScreens();
+  }
+  function ensureScreenTimerTick() {
+    if (screenTimerTick) return;
+    screenTimerTick = setInterval(tickScreenTimers, 1000);
+  }
+  function restoreScreenTimers() {
+    var changed = false;
+    Object.keys(SCREEN_LIMITS).forEach(function (id) {
+      var timer = readScreenTimer(id);
+      if (!timer) return;
+      if (Date.now() >= timer.endAt) { finishScreenTimer(id, 'auto'); changed = true; }
+    });
+    if (anyScreenTimerActive()) ensureScreenTimerTick();
+    if (changed) renderScreens();
+  }
+
   function renderScreens() {
     $$('[data-screen]').forEach(function (host) {
       var kidId = host.getAttribute('data-screen');
@@ -4172,8 +4811,9 @@ html[data-skin="meonjak"] .craft-only{display:none}
       var used = clampMinutes(state.screenTime[kidId], limit);
       var pct = Math.round(used / limit * 100);
       var cls = pct >= 100 ? 'over' : (pct >= 75 ? 'warn' : '');
+      var warn = used >= limit ? ' screen-over' : (limit - used <= 30 ? ' screen-warn' : '');
       host.innerHTML =
-        '<div class="screen-card' + (screenUnlocked[kidId] ? '' : ' screen-locked') + '">' +
+        '<div class="screen-card' + (screenUnlocked[kidId] ? '' : ' screen-locked') + warn + '">' +
           '<div class="screen-head"><span class="screen-name">' + (kidId === 'dohyun' ? '👦' : '👧') + ' ' + esc(name) + '</span>' +
             '<span class="screen-val">' + formatMinutes(used) + ' / ' + formatMinutes(limit) + '</span></div>' +
           '<div class="screen-bar"><div class="screen-fill ' + cls + '" style="width:' + clamp(pct, 0, 100) + '%"></div></div>' +
@@ -4182,6 +4822,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
             '<button type="button" data-act="screen-plus" data-kid="' + kidId + '">+10분</button>' +
             '<span class="lim">' + formatMinutes(Math.max(0, limit - used)) + ' 남음</span>' +
           '</div>' +
+          screenTimerHtml(kidId, used, limit) +
           '<div class="screen-note">매주 일요일 자동 초기화</div>' +
         '</div>' +
         (screenUnlocked[kidId] ? '' : '');
@@ -4562,12 +5203,91 @@ html[data-skin="meonjak"] .craft-only{display:none}
     toast('💌 ' + letterTo + '에게 마음을 전했어요');
   }
 
+  /* ================= 🎒 학원·운동·방과후 준비물 ================= */
+  var PREP_MAP = {
+    '티볼': '운동화·물통',
+    '클라이밍': '클라이밍화·편한 옷',
+    '유니티 농구': '농구공·운동화·물통',
+    '박지성 축구': '축구화·정강이보호대·물통',
+    '리틀팍스': '교재·필기도구',
+    '배드민턴 방과후': '배드민턴 라켓·운동화',
+    '아지트 드럼': '드럼 스틱·교재',
+    '센클 영어도서관': '영어책·가방',
+    '댄스': '운동화·편한 옷',
+    '마술 방과후': '마술 도구'
+  };
+  var PREP_CATS = ['academy', 'ball', 'climb'];
+  var PREP_DEPART_MIN = 20;
+
+  /* 일정 이름이 PREP_MAP 과 똑같을 때만 챙길 것을 찾습니다 (숙제·영상은 준비물 아님) */
+  function prepOfLabel(label) {
+    var key = String(label || '').trim();
+    return key && PREP_MAP[key] ? PREP_MAP[key] : '';
+  }
+  function prepItemsOfDay(kidId, dayKey) {
+    var acts = [];
+    var items = [];
+    var seen = {};
+    schedSlots(dayKey, kidId).forEach(function (sl) {
+      var prep = prepOfLabel(sl.label);
+      if (!prep) return;
+      if (acts.indexOf(sl.label) < 0) acts.push(sl.label);
+      prep.split('·').forEach(function (raw) {
+        var item = String(raw || '').trim();
+        if (!item || seen[item]) return;
+        seen[item] = true;
+        items.push(item);
+      });
+    });
+    return { acts: acts, items: items };
+  }
+  function prepLineText(info, label) {
+    if (!info || !info.items.length) return '🎒 ' + label + ' 챙김: 특별 준비물 없음';
+    return '🎒 ' + label + ' 챙김: ' + info.acts.join('·') + ' → ' + info.items.join('·');
+  }
+  function nextDayKey(dayKey) {
+    var idx = SCHED_ORDER.indexOf(String(dayKey || '').toLowerCase());
+    if (idx < 0) return SCHED_ORDER[0];
+    return SCHED_ORDER[(idx + 1) % SCHED_ORDER.length];
+  }
+  function departInfoOf(kidId) {
+    var now = kstNow();
+    var dayKey = schedDayKey(now);
+    var min = now.getHours() * 60 + now.getMinutes();
+    var slots = schedSlots(dayKey, kidId);
+    for (var i = 0; i < slots.length; i += 1) {
+      var gap = slots[i].s - min;
+      if (gap > PREP_DEPART_MIN) break;
+      if (gap >= 1 && PREP_CATS.indexOf(slots[i].cat) >= 0) {
+        return { min: gap, label: slots[i].label, from: slots[i].from };
+      }
+    }
+    return null;
+  }
+  function prepHtmlOf(kidId) {
+    var now = kstNow();
+    var dayKey = schedDayKey(now);
+    var min = now.getHours() * 60 + now.getMinutes();
+    var lines = ['<span class="pline">' + esc(prepLineText(prepItemsOfDay(kidId, dayKey), '오늘')) + '</span>'];
+    var rest = schedSlots(dayKey, kidId).filter(function (sl) {
+      return PREP_CATS.indexOf(sl.cat) >= 0 && sl.s > min;
+    });
+    if (min >= 18 * 60 || !rest.length) {
+      lines.push('<span class="pline next">' + esc(prepLineText(prepItemsOfDay(kidId, nextDayKey(dayKey)), '내일')) + '</span>');
+    }
+    return lines.join('');
+  }
+
   /* ---------------------------- 지금 · 시간표 ---------------------------- */
   function renderNowCards() {
     $$('[data-now]').forEach(function (host) {
       var kid = host.getAttribute('data-now') || 'dohyun';
       var info = nowInfo(kid);
+      var dep = departInfoOf(kid);
+      var cardEl = host.closest('.card');
+      if (cardEl) cardEl.classList.toggle('is-departing', !!dep);
       host.innerHTML =
+        (dep ? '<div class="now-depart">🏃 곧 출발! ' + dep.min + '분 후 ' + esc(schedNextName(dep.label)) + '</div>' : '') +
         '<div class="now-wrap">' +
           '<div class="now-svg" aria-hidden="true">' + sceneSVG(info.cat) + '</div>' +
           '<div class="now-body">' +
@@ -4575,7 +5295,8 @@ html[data-skin="meonjak"] .craft-only{display:none}
             '<div class="now-time">' + esc(info.from) + ' ~ ' + esc(info.to) + (info.left ? ' · ' + esc(info.left) + ' 남음' : '') + '</div>' +
             '<div class="now-next">' + esc(info.next) + '</div>' +
           '</div>' +
-        '</div>';
+        '</div>' +
+        '<div class="now-prep">' + prepHtmlOf(kid) + '</div>';
     });
   }
   function renderSchedule() {
@@ -4635,6 +5356,8 @@ html[data-skin="meonjak"] .craft-only{display:none}
     renderStickers();
     renderStickerSummary();
     renderScreens();
+    renderDday();
+    renderMeals();
     renderShop();
     renderLetters();
     renderWhoChips();
@@ -5112,8 +5835,25 @@ html[data-skin="meonjak"] .craft-only{display:none}
         break;
       case 'wish-use':
         if (!stickerUnlocked) { toast('🔒 수정을 누르면 소원권을 쓸 수 있어요'); return; }
-        setWishDone(el.getAttribute('data-id'), true);
-        toast('🎉 소원권을 사용했어요');
+        wishMemoId = el.getAttribute('data-id');
+        renderStickers();
+        var memoInput = document.querySelector('[data-wish-memo="' + wishMemoId + '"]');
+        if (memoInput) { try { memoInput.focus(); memoInput.select(); } catch (e) {} }
+        break;
+      case 'wish-memo-ok': {
+        if (!stickerUnlocked) { toast('🔒 수정을 누르면 소원권을 쓸 수 있어요'); return; }
+        var wishId = el.getAttribute('data-id');
+        var memoEl = document.querySelector('[data-wish-memo="' + wishId + '"]');
+        var memoText = memoEl ? String(memoEl.value || '').replace(/\s+/g, ' ').trim() : '';
+        wishMemoId = '';
+        updateWishText(wishId, memoText);
+        setWishDone(wishId, true);
+        toast('🎟️ ' + (memoText || '소원권') + ' 사용 완료!');
+        break;
+      }
+      case 'wish-memo-cancel':
+        wishMemoId = '';
+        renderStickers();
         break;
       case 'wish-del':
         if (!stickerUnlocked) { toast('🔒 수정을 누르면 지울 수 있어요'); return; }
@@ -5135,6 +5875,14 @@ html[data-skin="meonjak"] .craft-only{display:none}
         toast(screenUnlocked[kidId] ? '🔓 사용시간을 바꿀 수 있어요' : '🔒 사용시간을 잠갔어요');
         break;
       case 'screen-plus': stepScreen(el.getAttribute('data-kid'), SCREEN_STEP); break;
+      case 'timer-start': startScreenTimer(el.getAttribute('data-kid'), Number(el.getAttribute('data-min')) || 20); break;
+      case 'timer-stop': finishScreenTimer(el.getAttribute('data-kid'), 'stop'); break;
+      case 'timer-cancel': finishScreenTimer(el.getAttribute('data-kid'), 'cancel'); break;
+      case 'meal-day':
+        mealPick = el.getAttribute('data-day') === 'tomorrow' ? 'tomorrow' : 'today';
+        renderMeals();
+        renderMealSwitch();
+        break;
       case 'screen-minus': stepScreen(el.getAttribute('data-kid'), -SCREEN_STEP); break;
       case 'todo-lock':
         if (todoUnlocked) {
@@ -5193,6 +5941,48 @@ html[data-skin="meonjak"] .craft-only{display:none}
         break;
     }
   });
+
+  /* ================= 🔄 새 버전 자동 감지 (5분 + 화면 다시 열 때) ================= */
+  var buildReloadPending = '';
+  var buildCheckBusy = false;
+
+  function appBusyForReload() {
+    if (isTextEntryFocused()) return true;
+    var pin = document.getElementById('todoPinModal');
+    if (pin && pin.classList.contains('open')) return true;
+    if (anyScreenTimerActive()) return true;
+    if (pendingOps && pendingOps.length) return true;
+    if (pushInFlight) return true;
+    if (wishMemoId) return true;
+    return false;
+  }
+
+  function maybeReloadForBuild() {
+    if (!buildReloadPending || buildReloadPending === APP_BUILD_ID) return false;
+    if (appBusyForReload()) return false;         /* 입력·타이머·저장 중이면 기다립니다 */
+    var done = '';
+    try { done = sessionStorage.getItem('autoReloadedBuild') || ''; } catch (e) { done = ''; }
+    if (done === buildReloadPending) return false; /* 같은 버전으로 두 번 새로고침하지 않습니다 */
+    try { sessionStorage.setItem('autoReloadedBuild', buildReloadPending); } catch (e) {}
+    toast('새 기능이 반영돼 화면을 새로고침해요...');
+    setTimeout(function () { try { location.reload(); } catch (e) {} }, 1500);
+    return true;
+  }
+
+  function checkAppBuild() {
+    if (buildCheckBusy) return;
+    buildCheckBusy = true;
+    fetch('./version.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
+        var build = data && data.build ? String(data.build) : '';
+        if (!build || build === APP_BUILD_ID) { buildReloadPending = ''; return; }
+        buildReloadPending = build;
+        maybeReloadForBuild();
+      })
+      .catch(function () { /* 오프라인 등: 조용히 넘어갑니다 */ })
+      .then(function () { buildCheckBusy = false; });
+  }
 
   /* 🔒 비밀번호 · 할 일 수정 모달 */
   function bindFd(id, ev, fn) {
@@ -5281,12 +6071,20 @@ html[data-skin="meonjak"] .craft-only{display:none}
 
     renderClock();
     renderWeather();
+    restoreScreenTimers();
     setInterval(renderClock, 15000);
     startSyncLoop();
     loadWeather();
     loadMeal(false);
     setInterval(function () { renderClock(); }, 60000);
-    setInterval(function () { renderNowCards(); renderSchedule(); }, 60000);
+    setInterval(function () { renderNowCards(); renderSchedule(); renderDday(); }, 60000);
+    /* 🔄 5분마다 새 버전 확인 · 미뤄 둔 새 버전은 한가해지면 반영 */
+    setTimeout(checkAppBuild, 3000);
+    setInterval(checkAppBuild, 5 * 60 * 1000);
+    setInterval(maybeReloadForBuild, 15 * 1000);
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') checkAppBuild();
+    });
     setInterval(loadWeather, 30 * 60 * 1000);
     setInterval(function () { loadMeal(false); }, 60 * 60 * 1000);
     setTimeout(function () { renderCalendar(); }, 400);

@@ -4278,7 +4278,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
   var ddayExpanded = false;
   var ddayFormOpen = false;
   var DDAY_WINDOW_DAYS = 90;
-  var DDAY_FAMILY_RE = /(생일|파티|돌잔치|환갑|기념일|캠핑|여행|투어|휴가|방학|개학|졸업|입학|결혼식)/;
+  var DDAY_FAMILY_RE = /(생일|파티|돌잔치|환갑|기념일|캠핑|여행|투어|휴가|방학|개학|졸업|입학|면접|결혼식)/;
   var DDAY_HOLIDAY_TITLE_RE = /(휴일|공휴일|대체공휴일|christmas eve|christmas day|크리스마스\s*(이브|이브날)?$)/i;
 
   function ddayEmoji(title) {
@@ -4392,10 +4392,8 @@ html[data-skin="meonjak"] .craft-only{display:none}
   function renderDday() {
     var strip = $('#ddayStrip');
     if (!strip) return;
-    /* 띠는 '가장 가까운 날'부터 보여 줍니다 (좁은 화면에서도 곧 오는 일정이 먼저 보이게) */
-    var items = ddayItems().sort(function (a, b) {
-      return (a.days - b.days) || String(a.title).localeCompare(String(b.title));
-    });
+    /* index 와 같은 순서: 가족의 큰 날(생일·캠핑·면접·기념일)을 먼저, 그 안에서 가까운 날 순 */
+    var items = ddayItems();
     strip.innerHTML = '';
     var shown = ddayExpanded ? items : items.slice(0, 4);
     shown.forEach(function (it) {

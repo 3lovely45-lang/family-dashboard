@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>임시 점검 · 콘솔 오류 수집</title>
+<style>body{font:14px/1.5 system-ui,sans-serif;padding:16px}#out{white-space:pre-wrap;word-break:break-all}</style>
+</head>
+<body>
+<h1>임시 점검 페이지 (확인 후 삭제)</h1>
+<p>world.html · index.html 을 같은 출처 iframe 으로 열어 콘솔·페이지 오류를 모읍니다.</p>
+<div id="out">running…</div>
+<script>
+(function () {
+  var TARGETS = ['./world.html', './index.html'];
+
+  function instrument(html) {
+    var collector =
+      '<scr' + 'ipt>window.__errs=[];(function(){' +
+      'window.addEventListener("error",function(e){window.__errs.push("error: "+(e.message||"")+" @"+(e.filename||"").split("/").pop()+":"+(e.lineno||""));});' +
+      'window.addEventListener("unhandledrejection",function(e){window.__errs.push("unhandledrejection: "+String(e.reason));});' +
+      'var ce=console.error;console.error=function(){try{window.__errs.push("console.error: "+Array.prototype.slice.call(arguments).map(String).join(" "));}catch(_){}return ce.apply(console,arguments);};' +
+      '})();</scr' + 'ipt>';
+    return html.replace(/<head[^>]*>/i, function (m) { return m + collector; });
+  }
+
+  var results = [];
+
+  async function run() {
+    for (var i = 0; i < TARGETS.length; i++) {
+      var t = TARGETS[i];
+      var html = await (await fetch(t + '?t=' + Date.now(), { cache: 'no-store' })).text();
+      var f = document.createElement('iframe');
+      f.style.cssText = 'width:1280px;height:900px;border:1px solid #ccc';
+      f.srcdoc = instrument(html);
+      document.body.appendChild(f);
+      await new Promise(function (r) { setTimeout(r, 9000); });
+      var errs = [];
+      var extra = {};
+      try {
+        errs = Array.from(f.contentWindow.__errs || []);
+        var doc = f.contentWindow.document;
+        extra.build = (f.contentWindow.document.querySelector('meta[name=build]') || {}).content || '';
+        extra.syncText = (doc.querySelector('#syncText') || {}).textContent || '';
+        extra.hasEvo = doc.body ? doc.body.innerText.indexOf('파워업 진화') >= 0 || doc.body.innerText.indexOf('누적') >= 0 : false;
+      } catch (e) {
+        errs = ['read-failed: ' + String(e)];
+      }
+      results.push({ target: t, count: errs.length, errors: errs.slice(0, 15), extra: extra });
+      f.remove();
+    }
+    var text = JSON.stringify(results, null, 1);
+    document.getElementById('out').textContent = 'RESULT ' + text;
+    document.title = 'RESULT ' + text.replace(/\s+/g, ' ');
+  }
+
+  run().catch(function (e) {
+    document.getElementById('out').textContent = 'CHECK_FAILED ' + String(e);
+    document.title = 'CHECK_FAILED ' + String(e);
+  });
+})();
+</script>
+</body>
+</html>

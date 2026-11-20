@@ -634,6 +634,229 @@
     color:#f8efe2;font-size:13.5px;font-weight:800;letter-spacing:.1px;
   }
 
+  /* ---------- 상단 뷰 전환 (🛒 장보기 / 💸 정산하기) ---------- */
+  .viewtabs{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+    margin:12px 0 0;
+    padding:5px;
+    border-radius:16px;
+    background:#f0e6d2;
+    border:1px solid #e4d7bd;
+  }
+  .viewtab{
+    min-width:0;
+    border:none;
+    background:transparent;
+    color:#7d7463;
+    font-family:inherit;
+    font-size:15.5px;
+    font-weight:800;
+    letter-spacing:-.45px;
+    padding:10px 6px;
+    border-radius:12px;
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .viewtab.on{
+    background:#fffdf7;
+    color:#2f4a3c;
+    box-shadow:0 2px 8px rgba(150,120,70,.16);
+  }
+  .viewtab .vbadge{
+    font-size:11.5px;
+    font-weight:800;
+    letter-spacing:-.3px;
+    background:#fbe6d6;
+    color:#b8562a;
+    border-radius:99px;
+    padding:1px 6px;
+    max-width:84px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .viewtab.on .vbadge{background:#f7ddc9;color:#a94d25;}
+  .viewtab .vbadge:empty{display:none;}
+
+  /* ---------- 정산 화면 ---------- */
+  body[data-view="settle"] .dock{display:none;}
+  body[data-view="settle"] .wrap{padding-bottom:calc(30px + env(safe-area-inset-bottom));}
+  body[data-view="settle"] #list,
+  body[data-view="settle"] #photoCard,
+  body[data-view="settle"] .tabs,
+  body[data-view="settle"] .tabs-hint,
+  body[data-view="settle"] .footer-note{display:none;}
+  body[data-view="shop"] #settlementView{display:none;}
+
+  #settlementView{margin-top:14px;}
+
+  .sblock{
+    background:#fffdf8;
+    border:1.5px solid var(--sand-line);
+    border-radius:20px;
+    padding:14px;
+    box-shadow:0 4px 14px rgba(150,130,95,.08);
+    margin-bottom:14px;
+  }
+  .sblock > h2{
+    margin:0;
+    font-size:17px;
+    font-weight:800;
+    letter-spacing:-.45px;
+    color:#3c4f42;
+  }
+  .sblock .shint{
+    margin:5px 0 0;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:-.2px;
+    color:#a2988a;
+  }
+  .sum-row{display:flex;gap:8px;margin-top:12px;}
+  .sum-cell{
+    flex:1 1 0;
+    min-width:0;
+    background:linear-gradient(160deg,#fbf5e7,#f7eedd);
+    border:1.5px solid #eddfc4;
+    border-radius:15px;
+    padding:10px 11px;
+  }
+  .sum-cell .k{display:block;font-size:11.5px;font-weight:800;color:#a2988a;letter-spacing:-.2px;}
+  .sum-cell .v{display:block;margin-top:3px;font-size:21px;font-weight:900;letter-spacing:-1px;color:#2f4a3c;word-break:keep-all;}
+  .snote{margin:8px 0 0;font-size:12px;font-weight:700;color:#a8927a;letter-spacing:-.2px;line-height:1.35;}
+  .bal-list{display:flex;flex-direction:column;gap:6px;margin-top:12px;}
+  .bal{
+    display:flex;align-items:center;gap:7px;
+    background:#faf4e7;border:1px solid #eee1c8;border-radius:12px;
+    padding:8px 10px;min-width:0;
+  }
+  .bal .bn{flex:0 0 auto;font-size:14px;font-weight:900;letter-spacing:-.4px;color:#3c4f42;}
+  .bal .bp{flex:0 0 auto;font-size:12px;font-weight:800;color:#9a8f7c;white-space:nowrap;}
+  .bal .bd{margin-left:auto;font-size:13.5px;font-weight:900;letter-spacing:-.4px;white-space:nowrap;}
+  .bal .bd.plus{color:#2f7d57;}
+  .bal .bd.minus{color:#c05a2c;}
+  .bal .bd.zero{color:#a49a88;}
+  .transfers{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+  .tr{
+    display:flex;align-items:center;gap:7px;min-width:0;
+    background:linear-gradient(135deg,#fff4e8,#fde9dd);
+    border:1.5px solid #f0d0b6;border-radius:14px;
+    padding:11px 12px;
+  }
+  .tr .from,.tr .to{font-size:15.5px;font-weight:900;letter-spacing:-.45px;color:#8a4526;}
+  .tr .arw{font-size:14px;font-weight:900;color:#c9743f;}
+  .tr .amt{margin-left:auto;font-size:17px;font-weight:900;letter-spacing:-.7px;color:#b8562a;white-space:nowrap;}
+  .tr.even{background:linear-gradient(135deg,#eff8f1,#e3f3ea);border-color:#cfe6d8;}
+  .tr.even .to{color:#2f6b4e;font-size:14.5px;letter-spacing:-.4px;}
+  .sempty{
+    margin:12px 0 0;padding:16px 12px;
+    text-align:center;
+    font-size:14px;font-weight:700;line-height:1.5;letter-spacing:-.3px;
+    color:#9a8f7c;
+    background:#fbf6ea;border:1.5px dashed #e2d3b6;border-radius:14px;
+  }
+  .scopy{
+    width:100%;margin-top:12px;
+    border:none;border-radius:13px;padding:13px 10px;
+    font-family:inherit;font-size:15.5px;font-weight:800;letter-spacing:-.35px;
+    color:#fff8ea;background:linear-gradient(135deg,#e2703a,#cf5c2f);
+    box-shadow:0 6px 16px rgba(206,92,47,.26);
+    cursor:pointer;
+  }
+  .scopy:active{transform:scale(.993);}
+
+  .pcard{
+    background:#fffdf8;
+    border:1.5px solid var(--sand-line);
+    border-radius:20px;
+    padding:13px 13px 14px;
+    box-shadow:0 4px 14px rgba(150,130,95,.08);
+    margin-bottom:14px;
+  }
+  .pcard-head{display:flex;align-items:center;justify-content:space-between;gap:9px;}
+  .pbadge{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:15px;font-weight:900;letter-spacing:-.4px;color:#fff;
+    border-radius:99px;padding:5px 13px;white-space:nowrap;
+  }
+  .pbadge[data-who="영준"]{background:var(--who-3);}
+  .pbadge[data-who="민규"]{background:var(--who-2);}
+  .pbadge[data-who="병석"]{background:var(--who-1);}
+  .ptotal{font-size:16px;font-weight:900;letter-spacing:-.6px;color:#2f4a3c;white-space:nowrap;}
+  .pexp-list{display:flex;flex-direction:column;gap:7px;margin-top:11px;}
+  .pexp{
+    display:flex;align-items:center;gap:8px;min-width:0;
+    background:#fdf9f0;border:1px solid #eee1c8;border-radius:13px;
+    padding:9px 10px;
+  }
+  .pexp .pname{
+    flex:1 1 auto;min-width:0;
+    font-size:15.5px;font-weight:800;letter-spacing:-.35px;color:#2f3129;
+    overflow-wrap:anywhere;cursor:text;
+  }
+  .pexp .pamt{
+    flex:0 0 auto;font-size:14.5px;font-weight:900;letter-spacing:-.4px;
+    color:#3f6b52;white-space:nowrap;cursor:text;
+  }
+  .pexp .pdel{
+    flex:0 0 auto;border:none;background:transparent;color:#c3b8a3;
+    font-family:inherit;font-size:17px;font-weight:800;line-height:1;
+    padding:2px 4px;border-radius:8px;cursor:pointer;
+  }
+  .pexp .pdel:active{background:#f6e9e2;color:#c2603f;}
+  .pexp-edit{
+    display:flex;flex-direction:column;gap:6px;min-width:0;
+    background:#fdf9f0;border:1px solid #e2d3b6;border-radius:13px;padding:9px 10px;
+  }
+  .pexp-edit .r{display:flex;gap:6px;min-width:0;}
+  .pexp-edit input{
+    min-width:0;font-family:inherit;font-size:15.5px;font-weight:700;color:var(--ink);
+    border:1.5px solid #d9c9a8;background:#fffefa;border-radius:10px;padding:8px 10px;
+  }
+  .pexp-edit input.n{flex:1 1 55%;}
+  .pexp-edit input.a{flex:1 1 40%;}
+  .pexp-edit .save{
+    flex:0 0 auto;border:none;border-radius:10px;padding:8px 16px;
+    font-family:inherit;font-size:14.5px;font-weight:800;color:#fff8ea;background:var(--pine);cursor:pointer;
+  }
+  .pexp-edit .cancel{
+    flex:0 0 auto;border:none;border-radius:10px;padding:8px 14px;
+    font-family:inherit;font-size:14.5px;font-weight:800;color:#6d6659;background:#efe6d3;cursor:pointer;
+  }
+  .pexp-empty{margin:11px 0 0;font-size:12.5px;font-weight:700;color:#a2988a;letter-spacing:-.2px;}
+  .pcard .quick{margin-top:10px;}
+  .padd{display:flex;flex-direction:column;gap:6px;margin-top:11px;}
+  .padd input{
+    width:100%;min-width:0;font-family:inherit;font-size:16px;font-weight:700;color:var(--ink);
+    background:#fffdf7;border:1.5px solid #ddceb0;border-radius:12px;padding:10px 11px;
+  }
+  .padd input::placeholder{color:#b3a992;font-weight:600;}
+  .padd-row{display:flex;gap:6px;min-width:0;}
+  .padd-row input{flex:1 1 auto;}
+  .padd-row .padd-btn{
+    flex:0 0 auto;border:none;border-radius:12px;padding:0 15px;
+    font-family:inherit;font-size:15.5px;font-weight:800;color:#fff8ea;background:var(--pine);cursor:pointer;
+  }
+  .padd-row .padd-btn:active{background:var(--pine-deep);}
+
+  @media (max-width:380px){
+    .viewtab{font-size:14px;padding:9px 4px;letter-spacing:-.6px;}
+    .viewtab .vbadge{max-width:62px;font-size:10.5px;}
+    .sum-cell{padding:9px 9px;}
+    .sum-cell .v{font-size:19px;letter-spacing:-.9px;}
+    .pexp{padding:8px 9px;gap:6px;}
+    .pexp .pname{font-size:14.5px;}
+    .pexp .pamt{font-size:13.5px;}
+    .tr{padding:10px;gap:5px;}
+    .tr .from,.tr .to{font-size:14.5px;}
+    .tr .amt{font-size:15.5px;}
+    .pbadge{font-size:14px;padding:5px 11px;}
+    .ptotal{font-size:15px;}
+  }
+
   /* ---------- 좁은 화면(모바일 460px 이하) 보정 ---------- */
   @media (max-width:480px){
     .tabs{gap:6px;}
@@ -660,7 +883,7 @@
   }
 </style>
 </head>
-<body>
+<body data-view="shop">
 <div class="wrap">
   <header class="hero">
     <div class="hero-top">
@@ -678,6 +901,13 @@
     <div class="tabs-hint">담당자별 챙김 · 챙긴 수 / 맡은 수</div>
     <div class="tabs" id="tabs"></div>
   </header>
+
+  <nav class="viewtabs" id="viewTabs" aria-label="장보기·정산 화면 전환">
+    <button type="button" class="viewtab on" data-view="shop" aria-pressed="true">🛒 장보기</button>
+    <button type="button" class="viewtab" data-view="settle" aria-pressed="false">💸 정산하기 <span class="vbadge" id="settleBadge"></span></button>
+  </nav>
+
+  <section id="settlementView" aria-label="정산하기"></section>
 
   <section class="photo-card" id="photoCard" role="button" tabindex="0" aria-label="캠핑 파스텔 포토 카드 · 7장 슬라이드 · 크게 보기">
     <div class="photo-frame" id="photoFrame">
@@ -767,15 +997,27 @@
   var POLL_MS = 6000;
   var LS_KEY = "camping-checklist-v3";
 
+  // 정산(지출) 행은 같은 items 시트를 그대로 쏩니다. 사람 구분은 category 접두사로 합니다.
+  // (catgory 를 사람별로 나눠야 같은 품목명을 따로 쓸 수 있습니다.)
+  var EXP_PREFIX = "💸 정산·";
+  var SETTLE_PEOPLE = ["영준", "민규", "병석"];
+
   var state = {
     items: [],
     cats: DEFAULT_CATS.slice(),
     title: "⛺ 캠핑 장보기 체크리스트",
     updatedAt: "",
     filter: "전체",
+    view: "shop",
     online: false
   };
   var editing = {};       // id -> {name, qty}
+  var sEditing = {};      // 정산 행 인라인 수정 id -> {name, amt}
+  var sDraft = {          // 사람별 정산 입력칸에 덜 쓴 글 (렌더가 돌아도 안 날아가게)
+    "영준": { n: "", a: "" },
+    "민규": { n: "", a: "" },
+    "병석": { n: "", a: "" }
+  };
   var busy = false;       // 요청 진행 중
   var lastSync = null;    // Date
   var pendingDelete = {}; // 삭제 요청한 id (중복 요청 방지)
@@ -802,6 +1044,9 @@
   var addCat = $("addCat");
   var addBtn = $("addBtn");
   var copyBtn = $("copyBtn");
+  var elSettle = $("settlementView");
+  var elViewTabs = $("viewTabs");
+  var elSettleBadge = $("settleBadge");
 
   /* ---------------------------------------------------------------- 유틸 */
   function esc(s) {
@@ -836,6 +1081,50 @@
     return null;
   }
   function tempId() { return "tmp" + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
+
+  /* ---------------------------------------------------------------- 정산 유틸 */
+  // 정산(지출) 행인지 판별합니다. 장보기 집계·목록·요약에서는 모두 빠집니다.
+  function isExpenseItem(it) {
+    return !!it && typeof it.category === "string" && it.category.indexOf(EXP_PREFIX) === 0;
+  }
+  function settleWho(it) {
+    return String((it && it.category) || "").slice(EXP_PREFIX.length).trim();
+  }
+  function shopItems() {
+    return state.items.filter(function (it) { return !isExpenseItem(it); });
+  }
+  function fmtNum(n) {
+    var v = Math.round(Number(n) || 0);
+    return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  function fmtWon(n) { return fmtNum(n) + "원"; }
+  // 이름 끝 글자의 받침에 따라 '이/가'를 고릅니다 (영준이 / 민규가).
+  function josaIga(name) {
+    var s = String(name || "");
+    if (!s) return "가";
+    var code = s.charCodeAt(s.length - 1);
+    if (code < 0xAC00 || code > 0xD7A3) return "가";
+    return ((code - 0xAC00) % 28 === 0) ? "가" : "이";
+  }
+  function amountOf(it) {
+    var digits = String((it && it.qty) || "").replace(/[^0-9]/g, "");
+    var n = parseInt(digits, 10);
+    return isFinite(n) ? n : 0;
+  }
+  function parseAmount(v) {
+    var digits = String(v == null ? "" : v).replace(/[^0-9]/g, "");
+    if (!digits) return 0;
+    var n = parseInt(digits, 10);
+    return isFinite(n) ? n : 0;
+  }
+  function settleItemsOf(who) {
+    return state.items.filter(function (it) {
+      return isExpenseItem(it) && settleWho(it) === who;
+    }).sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+  }
+  function settleLink() {
+    return String(location.href).split("#")[0] + "#settlement";
+  }
 
   /* ---------------------------------------------------------------- 저장(오프라인 캐시) */
   function saveLocal() {
@@ -909,7 +1198,7 @@
     return apiGet().then(function (data) {
       if (adopt(data)) {
         setStatus("ok", "마지막 동기화 " + hhmm(lastSync) + " · 6초마다 자동");
-        if (!isEditing() && keyOf() !== lastKey) render();
+        if (!blockedRender() && keyOf() !== lastKey) renderAll();
         return true;
       }
       setStatus("err", "서버 응답을 읽지 못했어요 · 잠시 뒤 다시 시도합니다");
@@ -932,7 +1221,7 @@
       if (data && data.ok === true) {
         adopt(data);
         setStatus("ok", "저장 완료 · " + hhmm(lastSync));
-        if (!isEditing() && keyOf() !== lastKey) render();
+        if (!blockedRender() && keyOf() !== lastKey) renderAll();
         return true;
       }
       setStatus("err", "저장에 실패했어요 · 다시 불러옵니다");
@@ -949,8 +1238,9 @@
 
   /* ---------------------------------------------------------------- 렌더 */
   function filtered() {
-    if (state.filter === "전체") return state.items.slice();
-    return state.items.filter(function (it) { return it.assignee === state.filter; });
+    var shop = shopItems();
+    if (state.filter === "전체") return shop;
+    return shop.filter(function (it) { return it.assignee === state.filter; });
   }
   // 담당자별 { 챙긴 수, 맡은 수 } 집계. 담당자가 비었거나 모르는 이름이면 '미정'으로 묶습니다.
   function counts() {
@@ -958,6 +1248,7 @@
     var total = { "전체": 0 };
     ASSIGNEES.forEach(function (a) { done[a] = 0; total[a] = 0; });
     state.items.forEach(function (it) {
+      if (isExpenseItem(it)) return;
       var who = ASSIGNEES.indexOf(it.assignee) >= 0 ? it.assignee : "미정";
       var hit = it.checked ? 1 : 0;
       done["전체"] += hit;
@@ -970,6 +1261,7 @@
   function catKeys() {
     var keys = state.cats.slice();
     state.items.forEach(function (it) {
+      if (isExpenseItem(it)) return;
       if (keys.indexOf(it.category) === -1) keys.push(it.category);
     });
     return keys;
@@ -1096,6 +1388,356 @@
     if (cur && cats.indexOf(cur) >= 0) addCat.value = cur;
   }
 
+  /* ---------------------------------------------------------------- 화면 전환 */
+  function setView(v, silent) {
+    var view = (v === "settle") ? "settle" : "shop";
+    state.view = view;
+    document.body.setAttribute("data-view", view);
+    if (elViewTabs) {
+      var btns = elViewTabs.querySelectorAll(".viewtab");
+      for (var i = 0; i < btns.length; i++) {
+        var on = btns[i].getAttribute("data-view") === view;
+        btns[i].classList.toggle("on", on);
+        btns[i].setAttribute("aria-pressed", on ? "true" : "false");
+      }
+    }
+    if (view === "settle") renderSettle();
+    else {
+      // 정산 화면을 떠날 때는 열린 수정칸을 닫아 6초 폴링 렌더가 막히지 않게 합니다.
+      for (var k2 in sEditing) {
+        if (Object.prototype.hasOwnProperty.call(sEditing, k2)) delete sEditing[k2];
+      }
+    }
+    if (!silent) {
+      try {
+        if (view === "settle") history.replaceState(null, "", "#settlement");
+        else history.replaceState(null, "", location.pathname + location.search);
+      } catch (e) { /* 파일로 열었을 때 등은 무시 */ }
+      try { window.scrollTo(0, 0); } catch (e2) {}
+    }
+  }
+
+  function blockedRender() { return isEditing() || settleTyping(); }
+  function settleTyping() {
+    for (var k in sEditing) {
+      if (Object.prototype.hasOwnProperty.call(sEditing, k)) return true;
+    }
+    var ae = document.activeElement;
+    if (!ae || !ae.tagName) return false;
+    var tag = ae.tagName.toLowerCase();
+    if (tag !== "input" && tag !== "textarea" && tag !== "select") return false;
+    return !!(elSettle && elSettle.contains(ae));
+  }
+  function renderAll() {
+    render();
+    renderSettle();
+  }
+
+  /* ---------------------------------------------------------------- 정산 계산 */
+  // 총액을 n명에게 1원 오차 없이 나눕니다. 남는 1~2원은 앞사람부터 1원씩 더 납니다.
+  function splitShares(total, n) {
+    var base = Math.floor(total / n);
+    var rem = total - base * n;
+    var out = [];
+    for (var i = 0; i < n; i++) out.push(base + (i < rem ? 1 : 0));
+    return out;
+  }
+  // 3인 최소 송금 배정: 많이 낸 사람(채권)과 적게 낸 사람(채무)을 금액 큰 순서로 짝지어요.
+  function transfersOf(rows) {
+    var debt = [], cred = [];
+    rows.forEach(function (r) {
+      if (r.diff < 0) debt.push({ who: r.who, amt: -r.diff });
+      else if (r.diff > 0) cred.push({ who: r.who, amt: r.diff });
+    });
+    debt.sort(function (a, b) { return b.amt - a.amt; });
+    cred.sort(function (a, b) { return b.amt - a.amt; });
+    var out = [], i = 0, j = 0;
+    while (i < debt.length && j < cred.length) {
+      var m = Math.min(debt[i].amt, cred[j].amt);
+      if (m > 0) out.push({ from: debt[i].who, to: cred[j].who, amt: m });
+      debt[i].amt -= m;
+      cred[j].amt -= m;
+      if (debt[i].amt <= 0) i++;
+      if (cred[j].amt <= 0) j++;
+    }
+    return out;
+  }
+  function settleStats() {
+    var lists = {}, paid = [], total = 0;
+    SETTLE_PEOPLE.forEach(function (who, i) {
+      var rows = settleItemsOf(who);
+      lists[who] = rows;
+      var sum = 0;
+      rows.forEach(function (it) { sum += amountOf(it); });
+      paid[i] = sum;
+      total += sum;
+    });
+    var shares = splitShares(total, SETTLE_PEOPLE.length);
+    var rows = SETTLE_PEOPLE.map(function (who, i) {
+      return { who: who, paid: paid[i], share: shares[i], diff: paid[i] - shares[i] };
+    });
+    return { lists: lists, paid: paid, total: total, shares: shares, rows: rows, transfers: transfersOf(rows) };
+  }
+  function quickCandidates(who) {
+    var have = {};
+    settleItemsOf(who).forEach(function (it) { have[it.name] = true; });
+    var out = [];
+    shopItems().forEach(function (it) {
+      if (it.assignee !== who) return;
+      if (have[it.name]) return;
+      if (out.indexOf(it.name) >= 0) return;
+      out.push(it.name);
+    });
+    return out;
+  }
+
+  /* ---------------------------------------------------------------- 정산 렌더 */
+  // 추가 직후 서버 응답으로 행 id가 바뀌면(임시 id -> 실제 id) 수정 중인 상태를 새 행으로 옮깁니다.
+  function reconcileSettleEdit() {
+    for (var id in sEditing) {
+      if (!Object.prototype.hasOwnProperty.call(sEditing, id)) continue;
+      if (findItem(id)) continue;
+      var ed = sEditing[id];
+      var cat = EXP_PREFIX + (ed.who || "");
+      var hit = null;
+      for (var i = 0; i < state.items.length; i++) {
+        var it = state.items[i];
+        if (it.category !== cat) continue;
+        if (it.name === ed.name || it.name === ed.orig) { hit = it; break; }
+      }
+      delete sEditing[id];
+      if (hit) sEditing[hit.id] = ed;
+    }
+  }
+  function renderSettle() {
+    if (!elSettle) return;
+    reconcileSettleEdit();
+    var keep = null;
+    var ae = document.activeElement;
+    if (ae && ae.getAttribute) {
+      var sf = ae.getAttribute("data-sf");
+      if (sf && ae.getAttribute("data-pw")) keep = { pw: ae.getAttribute("data-pw"), sf: sf, sid: "" };
+      else if (sf && ae.getAttribute("data-sid")) keep = { pw: "", sf: sf, sid: ae.getAttribute("data-sid") };
+    }
+
+    var st = settleStats();
+    var base = Math.floor(st.total / SETTLE_PEOPLE.length);
+    var remain = st.total - base * SETTLE_PEOPLE.length;
+    if (elSettleBadge) elSettleBadge.textContent = st.total ? fmtWon(st.total) : "";
+
+    var html = "";
+    html += '<section class="sblock">';
+    html += "<h2>📊 정산 결과 (3명 1/N)</h2>";
+    html += '<p class="shint">영준 · 민규 · 병석이 쓴 금액을 똑같이 나눠요</p>';
+    if (!st.total) {
+      html += '<p class="sempty">각자 쓴 품목과 금액을 적으면<br>누가 누구에게 얼마 보내야 하는지 자동으로 계산돼요</p>';
+    } else {
+      html += '<div class="sum-row">' +
+        '<div class="sum-cell"><span class="k">총 지출</span><span class="v">' + fmtWon(st.total) + "</span></div>" +
+        '<div class="sum-cell"><span class="k">1인당 부담</span><span class="v">' + fmtWon(base) + "</span></div>" +
+        "</div>";
+      if (remain) {
+        var extra = SETTLE_PEOPLE.slice(0, remain);
+        html += '<p class="snote">' + fmtWon(st.total) + "을 3으로 나누면 " + remain + "원이 남아 " +
+          esc(extra.join("·")) + josaIga(extra[extra.length - 1]) + " 1원" + (remain > 1 ? "씩" : "") + " 더 부담해요.</p>";
+      }
+      html += '<div class="bal-list">';
+      st.rows.forEach(function (r) {
+        var cls = r.diff > 0 ? "plus" : (r.diff < 0 ? "minus" : "zero");
+        var label = r.diff > 0 ? "+" + fmtWon(r.diff) + " 받기" :
+          (r.diff < 0 ? "-" + fmtWon(-r.diff) + " 보내기" : "정산 완료");
+        html += '<div class="bal"><span class="bn">' + esc(r.who) + "</span>" +
+          '<span class="bp">지출 ' + fmtWon(r.paid) + "</span>" +
+          '<span class="bd ' + cls + '">' + esc(label) + "</span></div>";
+      });
+      html += "</div>";
+      html += '<div class="transfers">';
+      if (st.transfers.length) {
+        st.transfers.forEach(function (t) {
+          html += '<div class="tr"><span class="from">' + esc(t.from) + '</span>' +
+            '<span class="arw">→</span><span class="to">' + esc(t.to) + "</span>" +
+            '<span class="amt">' + fmtWon(t.amt) + "</span></div>";
+        });
+      } else {
+        html += '<div class="tr even"><span class="to">🎉 보낼 돈이 없어요 · 각자 딱 맞게 냈어요</span></div>';
+      }
+      html += "</div>";
+      html += '<button type="button" class="scopy" data-scopy="1">📋 정산 내역 카톡 복사</button>';
+    }
+    html += "</section>";
+
+    SETTLE_PEOPLE.forEach(function (who, idx) {
+      var rows = st.lists[who];
+      var sum = st.paid[idx];
+      html += '<section class="pcard" data-pwho="' + esc(who) + '">';
+      html += '<div class="pcard-head"><span class="pbadge" data-who="' + esc(who) + '">' + esc(who) + "</span>" +
+        '<span class="ptotal">' + (sum ? "총 " + fmtWon(sum) : "아직 0원") + "</span></div>";
+      if (rows.length) {
+        html += '<div class="pexp-list">';
+        rows.forEach(function (it) {
+          var ed = sEditing[it.id];
+          if (ed) {
+            html += '<div class="pexp-edit" data-seid="' + esc(it.id) + '">' +
+              '<div class="r">' +
+                '<input class="n" type="text" maxlength="60" value="' + esc(ed.name) + '" data-sf="name" data-sid="' + esc(it.id) + '" aria-label="품목 이름" />' +
+                '<input class="a" type="text" inputmode="numeric" maxlength="14" value="' + esc(ed.amt) + '" data-sf="amt" data-sid="' + esc(it.id) + '" aria-label="금액(원)" />' +
+              "</div>" +
+              '<div class="r">' +
+                '<button type="button" class="save" data-ssave="' + esc(it.id) + '">저장</button>' +
+                '<button type="button" class="cancel" data-scancel="' + esc(it.id) + '">취소</button>' +
+              "</div>" +
+            "</div>";
+          } else {
+            html += '<div class="pexp" data-id="' + esc(it.id) + '" data-swho="' + esc(who) + '" data-sname="' + esc(it.name) + '">' +
+              '<span class="pname" data-sedit="' + esc(it.id) + '">' + esc(it.name) + "</span>" +
+              '<span class="pamt" data-sedit="' + esc(it.id) + '">' + fmtWon(amountOf(it)) + "</span>" +
+              '<button type="button" class="pdel" data-sdel="' + esc(it.id) + '" aria-label="' + esc(it.name) + ' 삭제">✕</button>' +
+            "</div>";
+          }
+        });
+        html += "</div>";
+      } else {
+        html += '<p class="pexp-empty">아직 적은 품목이 없어요</p>';
+      }
+
+      var quick = quickCandidates(who);
+      if (quick.length) {
+        html += '<div class="quick">' + quick.map(function (nm) {
+          return '<button type="button" class="qchip" data-squick="' + esc(nm) + '" data-swho="' + esc(who) + '" aria-label="' + esc(nm + " " + who + " 품목으로 넣기") + '">' + esc(nm) + "</button>";
+        }).join("") + "</div>";
+      }
+
+      var d = sDraft[who] || { n: "", a: "" };
+      html += '<div class="padd">' +
+        '<input type="text" maxlength="60" data-sf="name" data-pw="' + esc(who) + '" value="' + esc(d.n) + '" placeholder="품목 (예: 삼겹살, 마트 장보기)" autocomplete="off" enterkeyhint="next" aria-label="' + esc(who) + ' 품목" />' +
+        '<div class="padd-row">' +
+          '<input type="text" inputmode="numeric" maxlength="14" data-sf="amt" data-pw="' + esc(who) + '" value="' + esc(d.a) + '" placeholder="금액(원) 예: 45000" autocomplete="off" enterkeyhint="done" aria-label="' + esc(who) + ' 금액" />' +
+          '<button type="button" class="padd-btn" data-sadd="' + esc(who) + '">＋ 추가</button>' +
+        "</div>" +
+      "</div>";
+      html += "</section>";
+    });
+
+    elSettle.innerHTML = html;
+
+    if (keep) {
+      var sel = keep.pw
+        ? '[data-pw="' + keep.pw + '"][data-sf="' + keep.sf + '"]'
+        : '[data-sid="' + keep.sid + '"][data-sf="' + keep.sf + '"]';
+      var tgt = elSettle.querySelector(sel);
+      if (tgt) {
+        tgt.focus();
+        try { tgt.setSelectionRange(tgt.value.length, tgt.value.length); } catch (e) {}
+      }
+    }
+  }
+
+  /* ---------------------------------------------------------------- 정산 동작 */
+  function focusSettleField(who, field) {
+    var t = elSettle.querySelector('[data-pw="' + who + '"][data-sf="' + field + '"]');
+    if (t) {
+      t.focus();
+      try { t.setSelectionRange(t.value.length, t.value.length); } catch (e) {}
+    }
+  }
+  function itemOnCat(cat, name) {
+    for (var i = 0; i < state.items.length; i++) {
+      if (state.items[i].category === cat && state.items[i].name === name) return true;
+    }
+    return false;
+  }
+  function addSettleExpense(who) {
+    if (!sDraft[who]) sDraft[who] = { n: "", a: "" };
+    var name = String(sDraft[who].n || "").trim();
+    var amt = parseAmount(sDraft[who].a);
+    if (!name) { toast(who + " · 품목 이름을 적어 주세요"); focusSettleField(who, "name"); return; }
+    if (!amt) { toast("금액은 1원 이상 숫자로 적어 주세요"); focusSettleField(who, "amt"); return; }
+
+    var cat = EXP_PREFIX + who;
+    var finalName = name.slice(0, 60);
+    var seq = 2;
+    while (itemOnCat(cat, finalName)) {
+      finalName = name.slice(0, 56) + " (" + seq + ")";
+      seq++;
+    }
+    var maxOrder = 0;
+    state.items.forEach(function (it) { if (it.order > maxOrder) maxOrder = it.order; });
+    state.items.push({
+      id: tempId(), category: cat, name: finalName, qty: String(amt),
+      assignee: who, checked: true, order: maxOrder + 1, updatedAt: ""
+    });
+    sDraft[who] = { n: "", a: "" };
+    renderSettle();
+    focusSettleField(who, "name");
+    toast("＋ " + who + " " + finalName + " " + fmtWon(amt));
+    send({ op: "upsert", item: { category: cat, name: finalName, qty: String(amt), assignee: who, checked: true } });
+  }
+  function quickToDraft(who, name) {
+    if (!sDraft[who]) sDraft[who] = { n: "", a: "" };
+    sDraft[who].n = name;
+    renderSettle();
+    focusSettleField(who, "amt");
+  }
+  function startSettleEdit(id, who, name) {
+    var it = settleRowItem(id, who, name);
+    if (!it) return;
+    sEditing[it.id] = { name: it.name, orig: it.name, who: settleWho(it), amt: amountOf(it) ? String(amountOf(it)) : "" };
+    renderSettle();
+    var t = elSettle.querySelector('[data-sid="' + it.id + '"][data-sf="name"]');
+    if (t) {
+      t.focus();
+      try { t.setSelectionRange(t.value.length, t.value.length); } catch (e) {}
+    }
+  }
+  // 화면에 그려질 때의 id가 아직 서버 id로 바뀌지 않았을 수 있어(방금 추가한 행)
+  // 카테고리·품목명으로 실제 행을 다시 찾아 줍니다.
+  function settleRowItem(id, who, name) {
+    var it = findItem(id);
+    if (it) return it;
+    if (!who || !name) return null;
+    var cat = EXP_PREFIX + who;
+    for (var i = 0; i < state.items.length; i++) {
+      if (state.items[i].category === cat && state.items[i].name === name) return state.items[i];
+    }
+    return null;
+  }
+  function cancelSettleEdit(id) {
+    delete sEditing[id];
+    renderSettle();
+  }
+  function commitSettleEdit(id) {
+    var ed = sEditing[id];
+    if (!ed) return;
+    var nEl = elSettle.querySelector('[data-sid="' + id + '"][data-sf="name"]');
+    var aEl = elSettle.querySelector('[data-sid="' + id + '"][data-sf="amt"]');
+    var name = String(nEl ? nEl.value : ed.name).trim();
+    var amt = parseAmount(aEl ? aEl.value : ed.amt);
+    if (!name) { toast("품목 이름을 비울 수는 없어요"); if (nEl) nEl.focus(); return; }
+    if (!amt) { toast("금액은 1원 이상 숫자로 적어 주세요"); if (aEl) aEl.focus(); return; }
+    var it = findItem(id);
+    delete sEditing[id];
+    if (!it) { renderSettle(); return; }
+    var newName = name.slice(0, 60);
+    if (newName === it.name && String(amt) === String(amountOf(it))) { renderSettle(); return; }
+    it.name = newName;
+    it.qty = String(amt);
+    renderSettle();
+    send({ op: "edit", id: id, name: newName, qty: String(amt) });
+  }
+  function deleteSettleItem(id, who, name) {
+    var it = settleRowItem(id, who, name);
+    if (!it) return;
+    if (pendingDelete[it.id]) return;
+    var ok = window.confirm('"' + it.name + '" ' + fmtWon(amountOf(it)) + ' 정산 내역을 지울까요?');
+    if (!ok) return;
+    var realId = it.id;
+    pendingDelete[realId] = true;
+    state.items = state.items.filter(function (x) { return x.id !== realId; });
+    delete sEditing[realId];
+    renderSettle();
+    send({ op: "delete", id: realId }).then(function () { delete pendingDelete[realId]; });
+  }
+
   /* ---------------------------------------------------------------- 동작 */
   function toggleItem(id) {
     var it = findItem(id);
@@ -1186,16 +1828,17 @@
 
   /* ---------------------------------------------------------------- 카톡 요약 */
   function buildSummary() {
+    var shop = shopItems();
     var lines = [];
-    var total = state.items.length;
+    var total = shop.length;
     var done = 0;
-    state.items.forEach(function (it) { if (it.checked) done++; });
+    shop.forEach(function (it) { if (it.checked) done++; });
     lines.push("⛺ 캠핑 장보기 체크리스트");
     lines.push(nowLabel() + " 기준 · " + done + "/" + total + " 완료");
     lines.push("");
 
     ASSIGNEES.forEach(function (who) {
-      var mine = state.items.filter(function (it) { return it.assignee === who; });
+      var mine = shop.filter(function (it) { return it.assignee === who; });
       if (!mine.length) return;
       var left = mine.filter(function (it) { return !it.checked; });
       var bought = mine.filter(function (it) { return it.checked; });
@@ -1215,12 +1858,24 @@
       lines.push("");
     });
 
-    var leftAll = state.items.filter(function (it) { return !it.checked; });
+    var leftAll = shop.filter(function (it) { return !it.checked; });
     if (leftAll.length) {
       lines.push("— 아직 남은 품목 " + leftAll.length + "개 —");
       leftAll.forEach(function (it) { lines.push(" · " + it.name + " (" + it.assignee + ")"); });
     } else if (total) {
       lines.push("🎉 장보기 전부 끝! 캠핑 가자~");
+    }
+
+    // 정산 내역이 있으면 한 줄 덧붙입니다(자세한 송금 안내는 정산 탭 복사).
+    var expTotal = 0;
+    SETTLE_PEOPLE.forEach(function (who) {
+      settleItemsOf(who).forEach(function (it) { expTotal += amountOf(it); });
+    });
+    if (expTotal > 0) {
+      lines.push("");
+      lines.push("💸 정산 " + fmtWon(expTotal) + " · 1인당 " + fmtWon(Math.floor(expTotal / 3)) +
+        (expTotal % 3 ? " (자투리 " + (expTotal % 3) + "원)" : ""));
+      lines.push("   → 송금 안내: " + settleLink());
     }
     lines.push("");
     lines.push("👉 " + location.href);
@@ -1257,6 +1912,54 @@
   function openSummary() {
     if (!state.items.length) { toast("품목이 아직 없어요"); return; }
     var text = buildSummary();
+    elPreview.textContent = text;
+    elModal.classList.add("on");
+    copyText(text, function (ok) {
+      elModalHint.textContent = ok
+        ? "복사됐어요! 카톡 대화창에 붙여넣기 하세요."
+        : "자동 복사가 막혔어요 · 아래 글을 길게 눌러 복사해 주세요.";
+      if (ok) toast("복사 완료 · 카톡에 붙여넣기!");
+    });
+  }
+
+  function buildSettleSummary() {
+    var st = settleStats();
+    var base = Math.floor(st.total / 3);
+    var remain = st.total - base * 3;
+    var lines = [];
+    lines.push("💸 캠핑 정산 (영준 · 민규 · 병석 1/N)");
+    lines.push(nowLabel() + " 기준");
+    lines.push("");
+    SETTLE_PEOPLE.forEach(function (who, i) {
+      var rows = st.lists[who];
+      lines.push("【" + who + "】 " + (rows.length ? fmtWon(st.paid[i]) : "0원"));
+      rows.forEach(function (it) {
+        lines.push("  · " + it.name + " " + fmtWon(amountOf(it)));
+      });
+    });
+    lines.push("");
+    lines.push("총 지출 " + fmtWon(st.total) + " · 1인당 " + fmtWon(base));
+    if (remain) {
+      var extraNames = SETTLE_PEOPLE.slice(0, remain);
+      lines.push("(자투리 " + remain + "원은 " + extraNames.join("·") + josaIga(extraNames[extraNames.length - 1]) +
+        " 1원" + (remain > 1 ? "씩" : "") + " 더 부담)");
+    }
+    lines.push("");
+    lines.push("👉 송금 안내");
+    if (st.transfers.length) {
+      st.transfers.forEach(function (t) {
+        lines.push("  · " + t.from + " → " + t.to + " " + fmtWon(t.amt));
+      });
+    } else {
+      lines.push("  · 보낼 돈 없음 (각자 딱 맞게 냈어요)");
+    }
+    lines.push("");
+    lines.push("🔗 " + settleLink());
+    return lines.join("\n");
+  }
+  function openSettleSummary() {
+    if (!settleStats().total) { toast("아직 적은 정산 내역이 없어요"); return; }
+    var text = buildSettleSummary();
     elPreview.textContent = text;
     elModal.classList.add("on");
     copyText(text, function (ok) {
@@ -1315,6 +2018,78 @@
     }, 140);
   });
 
+  /* ---------------------------------------------------------------- 정산 이벤트 */
+  elViewTabs.addEventListener("click", function (e) {
+    var t = e.target.closest ? e.target.closest("[data-view]") : null;
+    if (!t) return;
+    setView(t.getAttribute("data-view"));
+  });
+
+  elSettle.addEventListener("click", function (e) {
+    var t = e.target.closest ? e.target.closest("[data-sedit],[data-sdel],[data-ssave],[data-scancel],[data-squick],[data-sadd],[data-scopy]") : null;
+    if (!t) return;
+    var rowEl = t.closest ? t.closest(".pexp") : null;
+    var who = rowEl ? (rowEl.getAttribute("data-swho") || "") : "";
+    var nm = rowEl ? (rowEl.getAttribute("data-sname") || "") : "";
+    if (t.hasAttribute("data-sedit")) { startSettleEdit(t.getAttribute("data-sedit"), who, nm); return; }
+    if (t.hasAttribute("data-sdel")) { deleteSettleItem(t.getAttribute("data-sdel"), who, nm); return; }
+    if (t.hasAttribute("data-ssave")) { commitSettleEdit(t.getAttribute("data-ssave")); return; }
+    if (t.hasAttribute("data-scancel")) { cancelSettleEdit(t.getAttribute("data-scancel")); return; }
+    if (t.hasAttribute("data-squick")) { quickToDraft(t.getAttribute("data-swho"), t.getAttribute("data-squick")); return; }
+    if (t.hasAttribute("data-sadd")) { addSettleExpense(t.getAttribute("data-sadd")); return; }
+    if (t.hasAttribute("data-scopy")) { openSettleSummary(); return; }
+  });
+
+  elSettle.addEventListener("input", function (e) {
+    var t = e.target;
+    if (!t || !t.getAttribute) return;
+    var f = t.getAttribute("data-sf");
+    if (!f) return;
+    var pw = t.getAttribute("data-pw");
+    var sid = t.getAttribute("data-sid");
+    if (pw && sDraft[pw]) {
+      if (f === "name") sDraft[pw].n = t.value;
+      else if (f === "amt") sDraft[pw].a = t.value;
+    } else if (sid && sEditing[sid]) {
+      if (f === "name") sEditing[sid].name = t.value;
+      else if (f === "amt") sEditing[sid].amt = t.value;
+    }
+  });
+
+  elSettle.addEventListener("keydown", function (e) {
+    var t = e.target;
+    if (!t || !t.getAttribute) return;
+    var f = t.getAttribute("data-sf");
+    if (!f) return;
+    if (e.key !== "Enter" && e.key !== "Escape") return;
+    e.preventDefault();
+    var pw = t.getAttribute("data-pw");
+    var sid = t.getAttribute("data-sid");
+    if (e.key === "Escape") { if (sid) cancelSettleEdit(sid); return; }
+    if (sid) { commitSettleEdit(sid); return; }
+    if (pw) {
+      if (f === "name") { focusSettleField(pw, "amt"); return; }
+      addSettleExpense(pw);
+    }
+  });
+
+  elSettle.addEventListener("focusout", function (e) {
+    var t = e.target;
+    if (!t || !t.getAttribute) return;
+    var sid = t.getAttribute("data-sid");
+    if (!sid) return;
+    setTimeout(function () {
+      if (!sEditing[sid]) return;
+      var act = document.activeElement;
+      if (act && act.getAttribute && act.getAttribute("data-sid") === sid) return;
+      commitSettleEdit(sid);
+    }, 140);
+  });
+
+  window.addEventListener("hashchange", function () {
+    setView(location.hash === "#settlement" ? "settle" : "shop", true);
+  });
+
   elTabs.addEventListener("click", function (e) {
     var t = e.target.closest ? e.target.closest("[data-filter]") : null;
     if (!t) return;
@@ -1359,7 +2134,9 @@
   function boot() {
     renderCatOptions();
     loadLocal();
+    setView(location.hash === "#settlement" ? "settle" : "shop", true);
     render();
+    renderSettle();
     if (!SYNC_URL || SYNC_URL.indexOf("__") === 0) {
       setStatus("err", "동기화 주소가 아직 연결되지 않았어요 (이 기기에만 저장)");
     } else {

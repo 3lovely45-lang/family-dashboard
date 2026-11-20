@@ -1120,6 +1120,7 @@
   var pendingDelete = {}; // 삭제 요청한 id (중복 요청 방지)
   var lastKey = "";       // 마지막으로 그린 상태의 지문 (바뀐 게 없으면 다시 그리지 않음)
   var receiptCache = {};  // 품목 id -> 영수증 Data URL (한 번 불러온 사진은 다시 안 받음)
+  var idAlias = {};       // 방금 추가한 임시 id -> 서버 id (화면이 임시 id를 들고 있을 때 보정)
   var rcTarget = null;    // 지금 크게 보고 있는 영수증 { id, name, who }
 
   /* ---------------------------------------------------------------- DOM */
@@ -1333,6 +1334,7 @@
   function openReceipt(id, name, who) {
     if (!elRc) return;
     if (!id) { toast("품목 정보를 찾지 못했어요"); return; }
+    if (idAlias[id]) id = idAlias[id];
     rcTarget = { id: id, name: name || "", who: who || "" };
     elRcTitle.textContent = (who ? who + " · " : "") + (name || "영수증");
     elRc.classList.add("on");
@@ -1341,6 +1343,11 @@
     if (cached) { showReceiptImage(cached); return; }
     elRcImg.classList.remove("on");
     elRcMsg.classList.remove("hide");
+    if (String(id).indexOf("tmp") === 0) {
+      // 방금 추가한 행이 아직 서버 id 를 받지 못한 순간
+      elRcMsg.textContent = "영수증 저장 중이에요 · 잠시 뒤 다시 열어 주세요";
+      return;
+    }
     elRcMsg.textContent = "영수증 불러오는 중…";
     if (!SYNC_URL || SYNC_URL.indexOf("__") === 0) {
       elRcMsg.textContent = "동기화 주소가 없어 영수증을 불러올 수 없어요";
@@ -1372,12 +1379,17 @@
 
   // 이미 올린 품목에 영수증 사진만 붙입니다.
   function attachReceipt(id, dataUrl) {
-    var it = findItem(id);
+    var real = idAlias[id] || id;
+    if (String(real).indexOf("tmp") === 0) {
+      toast("품목 저장 중이에요 · 잠시 뒤 다시 붙여 주세요");
+      return;
+    }
+    var it = findItem(real);
     if (!it) { toast("품목을 찾지 못했어요 · 잠시 뒤 다시 시도해 주세요"); return; }
-    receiptCache[id] = dataUrl;
+    receiptCache[real] = dataUrl;
     it.hasReceipt = true;
     renderSettle();
-    send({ op: "receipt", id: id, receipt: dataUrl });
+    send({ op: "receipt", id: real, receipt: dataUrl });
     toast("영수증을 붙였어요 🧾");
   }
 
@@ -1953,17 +1965,19 @@
     var payloadItem = { category: cat, name: finalName, qty: String(amt), assignee: who, checked: true };
     if (receipt) payloadItem.receipt = receipt;
     send({ op: "upsert", item: payloadItem }).then(function () {
-      // 임시 id -> 서버 id 로 바뀌면 영수증 캐시도 이어 줘야 다시 안 받아요.
-      if (!receipt) return;
+      // 임시 id -> 서버 id 로 바뀌면 화면·영수증 캐시도 새 id 로 이어 줍니다.
       var real = null;
       for (var i = 0; i < state.items.length; i++) {
         var it = state.items[i];
         if (it.category === cat && it.name === finalName) { real = it; break; }
       }
-      if (real && real.id !== tmp) {
+      if (!real || real.id === tmp) return;
+      idAlias[tmp] = real.id;
+      if (receipt) {
         if (!receiptCache[real.id]) receiptCache[real.id] = receipt;
         delete receiptCache[tmp];
       }
+      renderSettle();
     });
   }
   function quickToDraft(who, name) {

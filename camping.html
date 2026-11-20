@@ -842,6 +842,85 @@
   }
   .padd-row .padd-btn:active{background:var(--pine-deep);}
 
+  /* ---------- 영수증 사진 첨부/보기 ---------- */
+  .padd-receipt{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:1px;}
+  .prc-pick{
+    display:inline-flex;align-items:center;gap:5px;flex:0 0 auto;
+    border:1.5px dashed #d9c9a8;border-radius:11px;
+    background:#fdf7ea;color:#8a7c62;
+    font-family:inherit;font-size:13px;font-weight:800;letter-spacing:-.3px;
+    padding:7px 11px;cursor:pointer;
+  }
+  .prc-pick:active{background:#f7ecd8;}
+  .prc-thumb{
+    flex:0 0 auto;width:34px;height:34px;object-fit:cover;
+    border-radius:9px;border:1.5px solid #e2d3b6;background:#fff;
+  }
+  .prc-state{flex:0 0 auto;font-size:12px;font-weight:800;color:#3f6b52;letter-spacing:-.2px;}
+  .prc-hint{flex:1 1 auto;min-width:0;font-size:11.5px;font-weight:700;color:#b3a992;letter-spacing:-.2px;}
+  .prc-x{
+    flex:0 0 auto;border:none;background:transparent;color:#c0b5a0;
+    font-family:inherit;font-size:15px;font-weight:800;line-height:1;
+    padding:3px 6px;border-radius:8px;cursor:pointer;
+  }
+  .prc-x:active{background:#f6e9e2;color:#c2603f;}
+  .pexp .prc-btn{
+    flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid #e4d7bd;background:#fdf7ea;color:#8a7c62;
+    font-family:inherit;font-size:13px;font-weight:800;line-height:1;
+    border-radius:9px;padding:5px 6px;cursor:pointer;white-space:nowrap;
+  }
+  .pexp .prc-btn.has{background:#eef6f0;border-color:#cfe4d6;}
+  .pexp .prc-btn:active{background:#f2e7d3;}
+
+  /* 영수증 크게 보기 */
+  .rc-lb{
+    position:fixed;inset:0;z-index:130;display:none;
+    align-items:center;justify-content:center;padding:14px;
+    background:rgba(28,24,18,.8);
+  }
+  .rc-lb.on{display:flex;}
+  .rc-panel{
+    width:100%;max-width:520px;max-height:94vh;
+    display:flex;flex-direction:column;gap:9px;
+    background:#fffdf8;border-radius:18px;padding:12px;
+    box-shadow:0 18px 50px rgba(0,0,0,.35);
+  }
+  .rc-head{display:flex;align-items:center;gap:8px;}
+  .rc-title{
+    flex:1 1 auto;min-width:0;font-size:15px;font-weight:900;letter-spacing:-.4px;color:#2f4a3c;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  }
+  .rc-x{
+    flex:0 0 auto;border:none;background:transparent;color:#8a7c62;
+    font-family:inherit;font-size:20px;font-weight:800;line-height:1;
+    padding:2px 6px;border-radius:9px;cursor:pointer;
+  }
+  .rc-body{
+    position:relative;flex:1 1 auto;min-height:170px;max-height:66vh;
+    display:flex;align-items:center;justify-content:center;
+    background:#f5efe2;border-radius:13px;overflow:auto;
+  }
+  .rc-body img{display:none;max-width:100%;max-height:66vh;width:auto;height:auto;object-fit:contain;}
+  .rc-body img.on{display:block;}
+  .rc-msg{
+    position:absolute;inset:0;margin:0;display:flex;align-items:center;justify-content:center;
+    padding:16px 12px;text-align:center;white-space:pre-line;
+    font-size:14px;font-weight:700;line-height:1.5;letter-spacing:-.3px;color:#9a8f7c;
+  }
+  .rc-msg.hide{display:none;}
+  .rc-actions{display:flex;gap:7px;}
+  .rc-act{
+    flex:1 1 0;min-width:0;
+    display:inline-flex;align-items:center;justify-content:center;gap:4px;
+    border:none;border-radius:12px;padding:11px 5px;
+    font-family:inherit;font-size:13.5px;font-weight:800;letter-spacing:-.4px;
+    cursor:pointer;white-space:nowrap;
+  }
+  .rc-act.pick{background:#f1e8d6;color:#6d6659;}
+  .rc-act.del{background:#fbe9e2;color:#b8562a;}
+  .rc-act.close{background:var(--pine);color:#fff8ea;}
+
   @media (max-width:380px){
     .viewtab{font-size:14px;padding:9px 4px;letter-spacing:-.6px;}
     .viewtab .vbadge{max-width:62px;font-size:10.5px;}
@@ -961,6 +1040,24 @@
   </div>
 </div>
 
+<div class="rc-lb" id="receiptLightbox" role="dialog" aria-modal="true" aria-label="영수증 크게 보기">
+  <div class="rc-panel">
+    <div class="rc-head">
+      <span class="rc-title" id="receiptTitle">영수증</span>
+      <button type="button" class="rc-x" id="receiptClose" aria-label="영수증 닫기">✕</button>
+    </div>
+    <div class="rc-body">
+      <img id="receiptImg" alt="영수증 사진" />
+      <p class="rc-msg" id="receiptMsg">영수증 불러오는 중…</p>
+    </div>
+    <div class="rc-actions">
+      <label class="rc-act pick">📷 교체<input type="file" accept="image/*" id="receiptReplace" hidden /></label>
+      <button type="button" class="rc-act del" id="receiptDel">🗑️ 삭제</button>
+      <button type="button" class="rc-act close" id="receiptClose2">닫기</button>
+    </div>
+  </div>
+</div>
+
 <script>
 (function () {
   "use strict";
@@ -1022,6 +1119,8 @@
   var lastSync = null;    // Date
   var pendingDelete = {}; // 삭제 요청한 id (중복 요청 방지)
   var lastKey = "";       // 마지막으로 그린 상태의 지문 (바뀐 게 없으면 다시 그리지 않음)
+  var receiptCache = {};  // 품목 id -> 영수증 Data URL (한 번 불러온 사진은 다시 안 받음)
+  var rcTarget = null;    // 지금 크게 보고 있는 영수증 { id, name, who }
 
   /* ---------------------------------------------------------------- DOM */
   var $ = function (id) { return document.getElementById(id); };
@@ -1047,6 +1146,14 @@
   var elSettle = $("settlementView");
   var elViewTabs = $("viewTabs");
   var elSettleBadge = $("settleBadge");
+  var elRc = $("receiptLightbox");
+  var elRcTitle = $("receiptTitle");
+  var elRcImg = $("receiptImg");
+  var elRcMsg = $("receiptMsg");
+  var elRcClose = $("receiptClose");
+  var elRcClose2 = $("receiptClose2");
+  var elRcDel = $("receiptDel");
+  var elRcReplace = $("receiptReplace");
 
   /* ---------------------------------------------------------------- 유틸 */
   function esc(s) {
@@ -1124,6 +1231,161 @@
   }
   function settleLink() {
     return String(location.href).split("#")[0] + "#settlement";
+  }
+
+  /* ---------------------------------------------------------------- 영수증 사진 */
+  // 영수증 사진은 긴 변 1200px·JPEG 품질 0.78로 줄이고, 400,000자를 넘으면
+  // 품질을 낮춰 가며 압축해요. Data URL은 같은 스프레드시트의 receipts 탭에 저장됩니다.
+  var RC_MAX_SIDE = 1200;
+  var RC_MAX_CHARS = 400000;
+
+  function makeReceipt(file, cb) {
+    var done = false;
+    var finish = function (pic) { if (!done) { done = true; cb(pic); } };
+    if (!file) { finish(null); return; }
+    if (!/^image\//.test(String(file.type || ""))) { finish(null); return; }
+    if (file.size > 25 * 1024 * 1024) { finish(null); return; }
+    var reader = new FileReader();
+    reader.onerror = function () { finish(null); };
+    reader.onload = function () {
+      var img = new Image();
+      img.onerror = function () { finish(null); };
+      img.onload = function () {
+        try {
+          var sw = img.naturalWidth || img.width;
+          var sh = img.naturalHeight || img.height;
+          if (!sw || !sh) { finish(null); return; }
+          var scale = Math.min(1, RC_MAX_SIDE / Math.max(sw, sh));
+          var w = Math.max(1, Math.round(sw * scale));
+          var h = Math.max(1, Math.round(sh * scale));
+          var cv = document.createElement("canvas");
+          cv.width = w;
+          cv.height = h;
+          var ctx = cv.getContext("2d");
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
+          var q = 0.78;
+          var url = cv.toDataURL("image/jpeg", q);
+          while (url.length > RC_MAX_CHARS && q > 0.36) {
+            q = Math.round((q - 0.08) * 100) / 100;
+            url = cv.toDataURL("image/jpeg", q);
+          }
+          var guard = 0;
+          while (url.length > RC_MAX_CHARS && w > 420 && guard < 5) {
+            w = Math.max(1, Math.round(w * 0.78));
+            h = Math.max(1, Math.round(h * 0.78));
+            cv.width = w;
+            cv.height = h;
+            ctx = cv.getContext("2d");
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(img, 0, 0, w, h);
+            url = cv.toDataURL("image/jpeg", 0.7);
+            guard++;
+          }
+          // 목록·입력칸 미리보기용 작은 썸네일 (본사진은 전송할 때만 씀)
+          var longSide = Math.max(w, h);
+          var tw = Math.max(1, Math.round(w * (96 / longSide)));
+          var th = Math.max(1, Math.round(h * (96 / longSide)));
+          var tc = document.createElement("canvas");
+          tc.width = tw;
+          tc.height = th;
+          var tctx = tc.getContext("2d");
+          tctx.fillStyle = "#ffffff";
+          tctx.fillRect(0, 0, tw, th);
+          tctx.drawImage(cv, 0, 0, tw, th);
+          finish({ full: url, thumb: tc.toDataURL("image/jpeg", 0.62) });
+        } catch (err) {
+          finish(null);
+        }
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function showReceiptImage(url) {
+    elRcMsg.classList.remove("hide");
+    elRcMsg.textContent = "사진 여는 중…";
+    elRcImg.classList.remove("on");
+    elRcImg.onload = function () {
+      elRcImg.classList.add("on");
+      elRcMsg.classList.add("hide");
+    };
+    elRcImg.onerror = function () {
+      elRcImg.classList.remove("on");
+      elRcMsg.classList.remove("hide");
+      elRcMsg.textContent = "사진을 열지 못했어요 · 다시 열어 주세요";
+    };
+    elRcImg.src = url;
+  }
+
+  function closeReceipt() {
+    if (!elRc) return;
+    elRc.classList.remove("on");
+    rcTarget = null;
+    elRcImg.classList.remove("on");
+    elRcImg.removeAttribute("src");
+    try { document.body.style.overflow = ""; } catch (e) {}
+  }
+
+  function openReceipt(id, name, who) {
+    if (!elRc) return;
+    if (!id) { toast("품목 정보를 찾지 못했어요"); return; }
+    rcTarget = { id: id, name: name || "", who: who || "" };
+    elRcTitle.textContent = (who ? who + " · " : "") + (name || "영수증");
+    elRc.classList.add("on");
+    try { document.body.style.overflow = "hidden"; } catch (e) {}
+    var cached = receiptCache[id];
+    if (cached) { showReceiptImage(cached); return; }
+    elRcImg.classList.remove("on");
+    elRcMsg.classList.remove("hide");
+    elRcMsg.textContent = "영수증 불러오는 중…";
+    if (!SYNC_URL || SYNC_URL.indexOf("__") === 0) {
+      elRcMsg.textContent = "동기화 주소가 없어 영수증을 불러올 수 없어요";
+      return;
+    }
+    fetch(SYNC_URL + "?op=receipt&id=" + encodeURIComponent(id) + "&t=" + Date.now(), { method: "GET", cache: "no-store" })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (rcTarget && rcTarget.id !== id) return;
+        if (data && data.ok === true && data.dataUrl) {
+          receiptCache[id] = data.dataUrl;
+          showReceiptImage(data.dataUrl);
+          return;
+        }
+        elRcMsg.classList.remove("hide");
+        elRcMsg.textContent = "영수증 사진을 찾지 못했어요\n다시 찍어 붙일 수 있어요";
+        var it = findItem(id);
+        if (it && data && data.error === "no receipt") {
+          it.hasReceipt = false;
+          renderSettle();
+        }
+      })
+      .catch(function () {
+        if (rcTarget && rcTarget.id !== id) return;
+        elRcMsg.classList.remove("hide");
+        elRcMsg.textContent = "연결이 잠깐 끊겼어요 · 다시 열어 주세요";
+      });
+  }
+
+  // 이미 올린 품목에 영수증 사진만 붙입니다.
+  function attachReceipt(id, dataUrl) {
+    var it = findItem(id);
+    if (!it) { toast("품목을 찾지 못했어요 · 잠시 뒤 다시 시도해 주세요"); return; }
+    receiptCache[id] = dataUrl;
+    it.hasReceipt = true;
+    renderSettle();
+    send({ op: "receipt", id: id, receipt: dataUrl });
+    toast("영수증을 붙였어요 🧾");
+  }
+
+  function clearDraftReceipt(who) {
+    if (!sDraft[who]) return;
+    sDraft[who].r = "";
+    sDraft[who].t = "";
+    renderSettle();
   }
 
   /* ---------------------------------------------------------------- 저장(오프라인 캐시) */
@@ -1588,9 +1850,13 @@
               "</div>" +
             "</div>";
           } else {
+            var rcBtn = it.hasReceipt
+              ? '<button type="button" class="prc-btn has" data-sreceipt="' + esc(it.id) + '" data-swho="' + esc(who) + '" data-sname="' + esc(it.name) + '" aria-label="' + esc(it.name) + ' 영수증 보기">🧾</button>'
+              : '<label class="prc-btn" aria-label="' + esc(it.name) + ' 영수증 사진 붙이기">📷<input type="file" accept="image/*" hidden data-sfile-row="' + esc(it.id) + '" data-swho="' + esc(who) + '" data-sname="' + esc(it.name) + '" /></label>';
             html += '<div class="pexp" data-id="' + esc(it.id) + '" data-swho="' + esc(who) + '" data-sname="' + esc(it.name) + '">' +
               '<span class="pname" data-sedit="' + esc(it.id) + '">' + esc(it.name) + "</span>" +
               '<span class="pamt" data-sedit="' + esc(it.id) + '">' + fmtWon(amountOf(it)) + "</span>" +
+              rcBtn +
               '<button type="button" class="pdel" data-sdel="' + esc(it.id) + '" aria-label="' + esc(it.name) + ' 삭제">✕</button>' +
             "</div>";
           }
@@ -1608,11 +1874,20 @@
       }
 
       var d = sDraft[who] || { n: "", a: "" };
+      var rcState = d.r
+        ? ('<img class="prc-thumb" src="' + esc(d.t || d.r) + '" alt="첨부한 영수증 미리보기" />' +
+           '<span class="prc-state">영수증 첨부됨</span>' +
+           '<button type="button" class="prc-x" data-sclear="' + esc(who) + '" aria-label="첨부한 영수증 빼기">✕</button>')
+        : '<span class="prc-hint">사진 없이도 추가할 수 있어요</span>';
       html += '<div class="padd">' +
         '<input type="text" maxlength="60" data-sf="name" data-pw="' + esc(who) + '" value="' + esc(d.n) + '" placeholder="품목 (예: 삼겹살, 마트 장보기)" autocomplete="off" enterkeyhint="next" aria-label="' + esc(who) + ' 품목" />' +
         '<div class="padd-row">' +
           '<input type="text" inputmode="numeric" maxlength="14" data-sf="amt" data-pw="' + esc(who) + '" value="' + esc(d.a) + '" placeholder="금액(원) 예: 45000" autocomplete="off" enterkeyhint="done" aria-label="' + esc(who) + ' 금액" />' +
           '<button type="button" class="padd-btn" data-sadd="' + esc(who) + '">＋ 추가</button>' +
+        "</div>" +
+        '<div class="padd-receipt">' +
+          '<label class="prc-pick">📷 영수증<input type="file" accept="image/*" hidden data-sfile-draft="' + esc(who) + '" data-swho="' + esc(who) + '" /></label>' +
+          rcState +
         "</div>" +
       "</div>";
       html += "</section>";
@@ -1662,15 +1937,34 @@
     }
     var maxOrder = 0;
     state.items.forEach(function (it) { if (it.order > maxOrder) maxOrder = it.order; });
+    // 입력칸에 붙여둔 영수증 사진 (없으면 그냥 빈 문자열)
+    var receipt = (sDraft[who] && sDraft[who].r) ? sDraft[who].r : "";
+    var tmp = tempId();
     state.items.push({
-      id: tempId(), category: cat, name: finalName, qty: String(amt),
-      assignee: who, checked: true, order: maxOrder + 1, updatedAt: ""
+      id: tmp, category: cat, name: finalName, qty: String(amt),
+      assignee: who, checked: true, order: maxOrder + 1, updatedAt: "",
+      hasReceipt: !!receipt
     });
-    sDraft[who] = { n: "", a: "" };
+    if (receipt) receiptCache[tmp] = receipt;
+    sDraft[who] = { n: "", a: "", r: "", t: "" };
     renderSettle();
     focusSettleField(who, "name");
-    toast("＋ " + who + " " + finalName + " " + fmtWon(amt));
-    send({ op: "upsert", item: { category: cat, name: finalName, qty: String(amt), assignee: who, checked: true } });
+    toast("＋ " + who + " " + finalName + " " + fmtWon(amt) + (receipt ? " · 영수증 포함" : ""));
+    var payloadItem = { category: cat, name: finalName, qty: String(amt), assignee: who, checked: true };
+    if (receipt) payloadItem.receipt = receipt;
+    send({ op: "upsert", item: payloadItem }).then(function () {
+      // 임시 id -> 서버 id 로 바뀌면 영수증 캐시도 이어 줘야 다시 안 받아요.
+      if (!receipt) return;
+      var real = null;
+      for (var i = 0; i < state.items.length; i++) {
+        var it = state.items[i];
+        if (it.category === cat && it.name === finalName) { real = it; break; }
+      }
+      if (real && real.id !== tmp) {
+        if (!receiptCache[real.id]) receiptCache[real.id] = receipt;
+        delete receiptCache[tmp];
+      }
+    });
   }
   function quickToDraft(who, name) {
     if (!sDraft[who]) sDraft[who] = { n: "", a: "" };
@@ -1734,6 +2028,7 @@
     pendingDelete[realId] = true;
     state.items = state.items.filter(function (x) { return x.id !== realId; });
     delete sEditing[realId];
+    delete receiptCache[realId];
     renderSettle();
     send({ op: "delete", id: realId }).then(function () { delete pendingDelete[realId]; });
   }
@@ -2026,7 +2321,7 @@
   });
 
   elSettle.addEventListener("click", function (e) {
-    var t = e.target.closest ? e.target.closest("[data-sedit],[data-sdel],[data-ssave],[data-scancel],[data-squick],[data-sadd],[data-scopy]") : null;
+    var t = e.target.closest ? e.target.closest("[data-sedit],[data-sdel],[data-ssave],[data-scancel],[data-squick],[data-sadd],[data-scopy],[data-sreceipt],[data-sclear]") : null;
     if (!t) return;
     var rowEl = t.closest ? t.closest(".pexp") : null;
     var who = rowEl ? (rowEl.getAttribute("data-swho") || "") : "";
@@ -2038,6 +2333,36 @@
     if (t.hasAttribute("data-squick")) { quickToDraft(t.getAttribute("data-swho"), t.getAttribute("data-squick")); return; }
     if (t.hasAttribute("data-sadd")) { addSettleExpense(t.getAttribute("data-sadd")); return; }
     if (t.hasAttribute("data-scopy")) { openSettleSummary(); return; }
+    if (t.hasAttribute("data-sreceipt")) {
+      openReceipt(t.getAttribute("data-sreceipt"), t.getAttribute("data-sname") || nm, t.getAttribute("data-swho") || who);
+      return;
+    }
+    if (t.hasAttribute("data-sclear")) { clearDraftReceipt(t.getAttribute("data-sclear")); return; }
+  });
+
+  // 영수증 사진 고르기(입력칸·이미 올린 품목) → canvas 로 줄여서 올립니다.
+  elSettle.addEventListener("change", function (e) {
+    var t = e.target;
+    if (!t || !t.getAttribute) return;
+    var draftWho = t.getAttribute("data-sfile-draft");
+    var rowId = t.getAttribute("data-sfile-row");
+    if (!draftWho && !rowId) return;
+    var file = t.files && t.files[0];
+    if (!file) return;
+    toast("영수증 사진 준비 중…", 1400);
+    makeReceipt(file, function (pic) {
+      t.value = "";
+      if (!pic) { toast("사진을 읽지 못했어요 · 다른 사진으로 해보세요"); return; }
+      if (draftWho) {
+        if (!sDraft[draftWho]) sDraft[draftWho] = { n: "", a: "", r: "", t: "" };
+        sDraft[draftWho].r = pic.full;
+        sDraft[draftWho].t = pic.thumb;
+        renderSettle();
+        toast("영수증 첨부됨 · ＋ 추가를 누르면 같이 올라가요");
+      } else if (rowId) {
+        attachReceipt(rowId, pic.full);
+      }
+    });
   });
 
   elSettle.addEventListener("input", function (e) {
@@ -2124,6 +2449,51 @@
   });
   elModal.addEventListener("click", function (e) {
     if (e.target === elModal) elModal.classList.remove("on");
+  });
+
+  /* ---------- 영수증 크게 보기 창 ---------- */
+  if (elRcClose) elRcClose.addEventListener("click", function () { closeReceipt(); });
+  if (elRcClose2) elRcClose2.addEventListener("click", function () { closeReceipt(); });
+  if (elRc) {
+    elRc.addEventListener("click", function (e) { if (e.target === elRc) closeReceipt(); });
+  }
+  if (elRcDel) {
+    elRcDel.addEventListener("click", function () {
+      if (!rcTarget) return;
+      var id = rcTarget.id;
+      if (!window.confirm("이 영수증 사진을 지울까요? (품목·금액은 그대로 남아요)")) return;
+      delete receiptCache[id];
+      var it = findItem(id);
+      if (it) it.hasReceipt = false;
+      closeReceipt();
+      renderSettle();
+      send({ op: "receipt", id: id, receipt: "" });
+      toast("영수증 사진을 지웠어요");
+    });
+  }
+  if (elRcReplace) {
+    elRcReplace.addEventListener("change", function () {
+      var inp = this;
+      var f = inp.files && inp.files[0];
+      var target = rcTarget ? rcTarget.id : "";
+      if (!f || !target) { inp.value = ""; return; }
+      toast("영수증 사진 바꾸는 중…", 1600);
+      makeReceipt(f, function (pic) {
+        inp.value = "";
+        if (!pic) { toast("사진을 읽지 못했어요"); return; }
+        receiptCache[target] = pic.full;
+        showReceiptImage(pic.full);
+        var it = findItem(target);
+        if (it) it.hasReceipt = true;
+        renderSettle();
+        send({ op: "receipt", id: target, receipt: pic.full });
+        toast("영수증을 새 사진으로 바꿨어요");
+      });
+    });
+  }
+  document.addEventListener("keydown", function (e) {
+    if (!elRc || !elRc.classList.contains("on")) return;
+    if (e.key === "Escape") { e.preventDefault(); closeReceipt(); }
   });
 
   document.addEventListener("visibilitychange", function () {

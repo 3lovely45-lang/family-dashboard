@@ -1772,7 +1772,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
   var SYNC_URL = 'https://script.google.com/macros/s/AKfycbx9_QM6IyqMzTOVRohBbXSlvB4NQy-O4wTzImnSKe1vkBFaBIcCFMoH8a_aEeOOI34/exec';
   var STORAGE_KEY = 'family_world_mario_v1';
   /* 🔖 자동 업데이트 감지용 빌드 번호 (version.json 과 같으면 최신) */
-  var APP_BUILD_ID = '2026-11-18-v7';
+  var APP_BUILD_ID = '2026-11-21-v8';
   var THEME_KEY = 'family_world_mario_theme';
   var WEATHER_KEY = 'family_world_mario_weather';
   var MEAL_CACHE_KEY = 'family_world_mario_meal';
@@ -1854,8 +1854,6 @@ html[data-skin="meonjak"] .craft-only{display:none}
     ],
     logs: [],
     todos: [
-      { id: 't-d1', memberId: 'dohyun', text: '알림장 물병정리', done: false },
-      { id: 't-i1', memberId: 'ihyun', text: '알림장 물병정리', done: false },
       { id: 't-d3', memberId: 'dohyun', text: '씻고 양치하기', done: false },
       { id: 't-i3', memberId: 'ihyun', text: '씻고 양치하기', done: false }
     ],
@@ -1890,12 +1888,44 @@ html[data-skin="meonjak"] .craft-only{display:none}
     }
   };
   var HW_KIDS = ['dohyun', 'ihyun'];
-  var HW_DROP_IDS = ['t-d2', 't-i2'];
+  var HW_DROP_IDS = ['t-d1', 't-i1', 't-d2', 't-i2'];
   var HW_DROP_TEXT = '오늘 할일 공부하기';
   var DOW_KANA = { sun: '일', mon: '월', tue: '화', wed: '수', thu: '목', fri: '금', sat: '토' };
+  var WEEKDAY_DOWS = ['mon', 'tue', 'wed', 'thu', 'fri'];
+  var APPA_EX_KEY = 'appa-exercise';
+  var APPA_EX_CHECK_MARKER_ID = 'sys-appa-ex-check';
+  var WEEKDAY_TODOS = [
+    { key: 'dohyun-notice', memberId: 'dohyun', text: '알림장 물병정리' },
+    { key: 'ihyun-notice', memberId: 'ihyun', text: '알림장 물병정리' },
+    { key: APPA_EX_KEY, memberId: 'appa', text: '운동하기' }
+  ];
 
   function hwTodayDow() {
     return ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][kstNow().getDay()];
+  }
+  function wdIdOf(dateKey, key) {
+    return 'wd-' + dateKey + '-' + key;
+  }
+  function weekdayTodosFor(dateKey, dowKey) {
+    if (WEEKDAY_DOWS.indexOf(dowKey) < 0) return [];
+    return WEEKDAY_TODOS.map(function (item) {
+      return { id: wdIdOf(dateKey, item.key), memberId: item.memberId, text: item.text, done: false };
+    });
+  }
+  function appaExCheckedDayOf(todos) {
+    var list = Array.isArray(todos) ? todos : [];
+    var m = list.filter(function (t) { return t && String(t.id) === APPA_EX_CHECK_MARKER_ID; })[0];
+    if (!m) return '';
+    var txt = String(m.text == null ? '' : m.text).replace(/[\u200B\uFEFF]/g, '').trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(txt) ? txt : '';
+  }
+  function isVisibleMemberTodo(t, memberId) {
+    if (!t || t.memberId !== memberId) return false;
+    var id = String(t.id == null ? '' : t.id);
+    if (id.indexOf('wd-') === 0) {
+      return WEEKDAY_DOWS.indexOf(hwTodayDow()) >= 0 && id.indexOf('wd-' + todayKey() + '-') === 0;
+    }
+    return true;
   }
   function hwIdOf(dateKey, kidId, idx) {
     return 'hw-' + dateKey + '-' + kidId + '-' + idx;
@@ -1941,7 +1971,10 @@ html[data-skin="meonjak"] .craft-only{display:none}
   function syncHomeworkTodos(todos) {
     var today = todayKey();
     var dow = hwTodayDow();
+    var isWeekday = WEEKDAY_DOWS.indexOf(dow) >= 0;
     var prefix = 'hw-' + today + '-';
+    var wdPrefix = 'wd-' + today + '-';
+    var checkedExDay = appaExCheckedDayOf(todos);
     var changed = false;
     var kept = [];
     (Array.isArray(todos) ? todos : []).forEach(function (t) {
@@ -1952,10 +1985,37 @@ html[data-skin="meonjak"] .craft-only{display:none}
       var text = String(t.text == null ? '' : t.text).trim();
       if (HW_DROP_IDS.indexOf(id) >= 0 || text === HW_DROP_TEXT) { changed = true; return; }
       if (id.indexOf('hw-') === 0 && id.indexOf(prefix) !== 0) { changed = true; return; }
+      if (id.indexOf('wd-') === 0) {
+        if (isWeekday && id.indexOf(wdPrefix) === 0) {
+          kept.push(t);
+          return;
+        }
+        var exMatch = id.match(/^wd-(\d{4}-\d{2}-\d{2})-appa-exercise$/);
+        if (exMatch && exMatch[1] < today && (!checkedExDay || exMatch[1] > checkedExDay)) {
+          kept.push(t);
+          return;
+        }
+        changed = true;
+        return;
+      }
       kept.push(t);
     });
     var have = {};
     kept.forEach(function (t) { if (t && t.id != null) have[String(t.id)] = true; });
+    var missingWd = weekdayTodosFor(today, dow).filter(function (item) { return !have[item.id]; });
+    if (missingWd.length) {
+      var firstHwIdx = -1;
+      for (var hi = 0; hi < kept.length; hi++) {
+        if (kept[hi] && String(kept[hi].id || '').indexOf('hw-') === 0) { firstHwIdx = hi; break; }
+      }
+      if (firstHwIdx >= 0) {
+        Array.prototype.splice.apply(kept, [firstHwIdx, 0].concat(missingWd));
+      } else {
+        missingWd.forEach(function (item) { kept.push(item); });
+      }
+      missingWd.forEach(function (item) { have[item.id] = true; });
+      changed = true;
+    }
     homeworkTodosFor(today, dow).forEach(function (item) {
       if (!have[item.id]) { kept.push(item); changed = true; }
     });
@@ -2273,6 +2333,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
         case 'todo-tog':
           i = idxOf(op.id);
           if (i >= 0) next.todos[i].done = !!op.done;
+          else if (op.todo) upsertTodo(Object.assign({}, op.todo, { done: !!op.done }));
           break;
         case 'todo-del':
           next.todos = next.todos.filter(function (x) { return !(x && String(x.id) === String(op.id)); });
@@ -2306,6 +2367,31 @@ html[data-skin="meonjak"] .craft-only{display:none}
           if (srvDay && opDay && srvDay >= opDay) break;
           next.todos.forEach(function (x) { if (isDailyResetTodo(x)) x.done = false; });
           upsertTodo({ id: DAILY_RESET_MARKER_ID, memberId: SYS_MEMBER_ID, text: op.markerText || dailyResetText(opDay), done: false });
+          break;
+        }
+        case 'appa-ex-check': {
+          var opDay = dailyResetKeyOf(op.date) || String(op.date || '');
+          var srvMarker = null;
+          for (var am = 0; am < next.todos.length; am++) {
+            if (next.todos[am] && String(next.todos[am].id) === APPA_EX_CHECK_MARKER_ID) { srvMarker = next.todos[am]; break; }
+          }
+          var srvDay = srvMarker ? dailyResetKeyOf(srvMarker.text) : '';
+          if (srvDay && opDay && srvDay >= opDay) break;
+          var exId = wdIdOf(opDay, APPA_EX_KEY);
+          var exRow = null;
+          for (var ei = 0; ei < next.todos.length; ei++) {
+            if (next.todos[ei] && String(next.todos[ei].id) === exId) { exRow = next.todos[ei]; break; }
+          }
+          if (!(exRow && exRow.done)) {
+            for (var ki = 0; ki < next.members.length; ki++) {
+              var km = next.members[ki];
+              if (km && (km.id === 'dohyun' || km.id === 'ihyun')) {
+                km.stars = clamp(Math.floor(Number(km.stars) || 0) + 1, 0, STICKER_MAX);
+              }
+            }
+          }
+          next.todos = next.todos.filter(function (x) { return !(x && String(x.id) === exId); });
+          upsertTodo({ id: APPA_EX_CHECK_MARKER_ID, memberId: SYS_MEMBER_ID, text: op.markerText || dailyResetText(opDay), done: false });
           break;
         }
         case 'log-add':
@@ -2473,8 +2559,9 @@ html[data-skin="meonjak"] .craft-only{display:none}
         saveLocal();
         // ⏳ 새 일요일이 지났으면 이번 주 사용시간을 0으로 (기준점만 없으면 조용히 시드)
         checkScreenWeekReset();
-        // 🌅 날이 바뀌었으면 알림장 물병정리 · 씻고 양치하기를 새로 체크 해제
+        // 🌅 날이 바뀌었으면 씻고 양치하기를 새로 체크 해제 + 어제 아빠 운동 미체크 백업 확인
         checkDailyTodoReset();
+        checkAppaExercisePenalty();
         // 시트에 오늘 숙제가 아직 없어 이 기기에서 더해진 경우에도 시트를 건드리지 않습니다.
         // (예전에는 pendingOps 없이 schedulePush 만 걸었지만, 올릴 변경이 없으면
         //  pushNow 가 바로 빠져나가 아무 일도 하지 않았고 lastMutationAt 만 밀렸습니다)
@@ -2508,11 +2595,25 @@ html[data-skin="meonjak"] .craft-only{display:none}
     dailyTickTimer = setInterval(function () {
       checkScreenWeekReset();
       checkDailyTodoReset();
+      checkAppaExercisePenalty();
+      var hwTick = syncHomeworkTodos(state.todos);
+      if (hwTick.changed) {
+        state.todos = hwTick.todos;
+        saveLocal();
+        refreshTodoArea();
+      }
     }, 60000);
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'visible') {
         checkScreenWeekReset();
         checkDailyTodoReset();
+        checkAppaExercisePenalty();
+        var hwTick = syncHomeworkTodos(state.todos);
+        if (hwTick.changed) {
+          state.todos = hwTick.todos;
+          saveLocal();
+          refreshTodoArea();
+        }
         pullNow(false);
       }
     });
@@ -3807,10 +3908,10 @@ html[data-skin="meonjak"] .craft-only{display:none}
     return text || '소원권';
   }
   function kidTodos(kidId) {
-    return (state.todos || []).filter(function (t) { return t && t.memberId === kidId; });
+    return (state.todos || []).filter(function (t) { return isVisibleMemberTodo(t, kidId); });
   }
   function doneCount(id) {
-    return (state.todos || []).filter(function (t) { return t && t.memberId === id && t.done; }).length;
+    return (state.todos || []).filter(function (t) { return isVisibleMemberTodo(t, id) && t.done; }).length;
   }
   /* ================================================================
      🍄 파워업 진화 · 🪙(💚) 오늘의 코인
@@ -4583,7 +4684,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
       var name = memberName(memberId);
       var emoji = MEMBER_EMOJI[memberId] || '🙂';
       var isKid = EVO_KIDS.indexOf(memberId) >= 0;
-      var items = (state.todos || []).filter(function (t) { return t && t.memberId === memberId; });
+      var items = (state.todos || []).filter(function (t) { return isVisibleMemberTodo(t, memberId); });
       var open = items.filter(function (t) { return !t.done; });
       var done = items.filter(function (t) { return t.done; });
       var sorted = open.concat(done);
@@ -4629,8 +4730,8 @@ html[data-skin="meonjak"] .craft-only{display:none}
     var appaEl = $('#appaPill');
     var eommaEl = $('#eommaPill');
     var shopEl = $('#shopPill');
-    if (appaEl) appaEl.textContent = doneCount('appa') + '/' + ((state.todos || []).filter(function (t) { return t.memberId === 'appa'; }).length);
-    if (eommaEl) eommaEl.textContent = doneCount('eomma') + '/' + ((state.todos || []).filter(function (t) { return t.memberId === 'eomma'; }).length);
+    if (appaEl) appaEl.textContent = doneCount('appa') + '/' + ((state.todos || []).filter(function (t) { return isVisibleMemberTodo(t, 'appa'); }).length);
+    if (eommaEl) eommaEl.textContent = doneCount('eomma') + '/' + ((state.todos || []).filter(function (t) { return isVisibleMemberTodo(t, 'eomma'); }).length);
     if (shopEl) shopEl.textContent = shopItems().filter(function (t) { return !t.done; }).length + '개';
     var libEl = $('#libPill');
     if (libEl) libEl.textContent = libItems().filter(function (t) { return !t.done; }).length + '권';
@@ -5068,7 +5169,7 @@ html[data-skin="meonjak"] .craft-only{display:none}
     if (FAMILY_CHECK_IDS.indexOf(memberId) < 0) return;
     var layer = celebrationLayer();
     layer.innerHTML = '';
-    var items = (state.todos || []).filter(function (t) { return t && t.memberId === memberId; });
+    var items = (state.todos || []).filter(function (t) { return isVisibleMemberTodo(t, memberId); });
     var allClear = items.length > 0 && items.every(function (t) { return t.done; });
     if (allClear) {
       fireConfetti(layer);
@@ -5145,9 +5246,9 @@ html[data-skin="meonjak"] .craft-only{display:none}
      · 아빠·엄마·아이 태블릿이 같은 시트를 보면서도 하루에 한 번만 리셋됩니다
      ================================================================ */
   var DAILY_RESET_MARKER_ID = 'sys-daily-todo-reset';
-  var DAILY_RESET_IDS = ['t-d1', 't-i1', 't-d3', 't-i3'];
-  /* 띄어쓰기가 달라도 같은 할 일로 봅니다 ('알림장 물병 정리', '씻고 양치 하기' 등) */
-  var DAILY_RESET_TEXT_KEYS = ['알림장물병정리', '씻고양치하기'];
+  var DAILY_RESET_IDS = ['t-d3', 't-i3'];
+  /* 띄어쓰기가 달라도 같은 할 일로 봅니다 ('씻고 양치 하기' 등) */
+  var DAILY_RESET_TEXT_KEYS = ['씻고양치하기'];
   var DAILY_ZERO = '\u200B';
   var DAILY_KEY_RE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -5206,7 +5307,46 @@ html[data-skin="meonjak"] .craft-only{display:none}
     marker.text = dailyResetText(today);
     commit({ t: 'daily-todo-reset', date: today, markerText: marker.text });
     renderTodos();
-    if (cleared) toast('🌅 날이 바뀌어서 알림장·양치 할 일을 새로 시작해요');
+    if (cleared) toast('🌅 날이 바뀌어서 양치 할 일을 새로 시작해요');
+    return true;
+  }
+
+  /* 🏋️ 평일 자정까지 아빠 '운동하기'가 체크 안 됐으면 도현·이현 스티커 +1 백업 확인 */
+  function checkAppaExercisePenalty() {
+    if (!Array.isArray(state.todos) || !cloudReady) return false;
+    var now = kstNow();
+    var yest = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+    var yestKey = dateKeyOf(yest);
+    var yestDow = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][yest.getDay()];
+    var checkedDay = appaExCheckedDayOf(state.todos);
+    if (!checkedDay) {
+      var seeded = { id: APPA_EX_CHECK_MARKER_ID, memberId: SYS_MEMBER_ID, text: dailyResetText(todayKey()), done: false };
+      state.todos.push(seeded);
+      commit({ t: 'todo-add', todo: seeded });
+      return false;
+    }
+    if (WEEKDAY_DOWS.indexOf(yestDow) < 0) return false;
+    if (checkedDay >= yestKey) return false;
+    if (now.getHours() * 60 + now.getMinutes() < 15) return false;
+    var exId = wdIdOf(yestKey, APPA_EX_KEY);
+    var exRow = (state.todos || []).filter(function (t) { return t && String(t.id) === exId; })[0] || null;
+    var done = !!(exRow && exRow.done);
+    if (!done) {
+      ['dohyun', 'ihyun'].forEach(function (kidId) {
+        var m = memberById(kidId);
+        if (m) m.stars = clamp(Math.floor(Number(m.stars) || 0) + 1, 0, STICKER_MAX);
+      });
+    }
+    state.todos = state.todos.filter(function (t) { return !(t && String(t.id) === exId); });
+    var marker = (state.todos || []).filter(function (t) { return t && String(t.id) === APPA_EX_CHECK_MARKER_ID; })[0];
+    var markerText = dailyResetText(yestKey);
+    if (marker) marker.text = markerText;
+    else state.todos.push({ id: APPA_EX_CHECK_MARKER_ID, memberId: SYS_MEMBER_ID, text: markerText, done: false });
+    commit({ t: 'appa-ex-check', date: yestKey, markerText: markerText });
+    renderStickers();
+    renderDexes();
+    renderStickerSummary();
+    if (!done) toast('🏋️ 어제 아빠 운동 미체크로 도현·이현 스티커 1개씩 붙여졌어요!');
     return true;
   }
 
@@ -5912,7 +6052,11 @@ html[data-skin="meonjak"] .craft-only{display:none}
     t.done = !t.done;
     var isKid = EVO_KIDS.indexOf(t.memberId) >= 0;
     var evo = syncEvoFor(t.memberId);
-    commit({ t: 'todo-tog', id: t.id, done: t.done });
+    var togOp = { t: 'todo-tog', id: t.id, done: t.done };
+    if (String(t.id || '').indexOf('wd-') === 0) {
+      togOp.todo = { id: t.id, memberId: t.memberId, text: t.text, done: t.done };
+    }
+    commit(togOp);
     refreshTodoArea();
     if (t.done) celebrateTodoCheck(t.memberId);
     var msg = evoToast(t.memberId, evo);

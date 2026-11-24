@@ -5369,7 +5369,7 @@
 
     const STORAGE_KEY = 'family_dashboard_mangpo_v1';
     // 🔖 자동 업데이트 감지용 빌드 번호 (version.json 과 같으면 최신)
-    const APP_BUILD_ID = '2026-11-22-v9';
+    const APP_BUILD_ID = '2026-11-25-v10';
     // 가족 실시간 동기화 (Google Apps Script 웹 앱 · 시트 '우리 가족 기록장 데이터')
     const DEFAULT_SYNC_URL = 'https://script.google.com/macros/s/AKfycbx9_QM6IyqMzTOVRohBbXSlvB4NQy-O4wTzImnSKe1vkBFaBIcCFMoH8a_aEeOOI34/exec';
 
@@ -9707,8 +9707,8 @@
           { from: '14:00', to: '16:00', cat: 'homework', label: '기적의 계산 · 한자 · 국어 · 수학' },
           { from: '16:00', to: '17:30', cat: 'academy', label: '센클 영어도서관' },
           { from: '17:30', to: '20:00', cat: 'homework', label: '센클 숙제' },
-          { from: '20:00', to: '21:00', cat: 'rest', label: '자유 · 취침 준비', phrase: '쉬면서 취침 준비하는 시간이에요' },
-          { from: '21:00', to: '24:00', cat: 'sleep', label: '취침', note: '9시 취침' }
+          { from: '20:00', to: '21:30', cat: 'rest', label: '자유 · 취침 준비', phrase: '쉬면서 취침 준비하는 시간이에요' },
+          { from: '21:30', to: '24:00', cat: 'sleep', label: '취침', note: '9시 30분 취침' }
         ],
         tue: [
           { from: '08:00', to: '09:00', cat: 'morning', label: '리틀팍스 영상' },
@@ -9718,8 +9718,8 @@
           { from: '15:50', to: '16:00', cat: 'rest', label: '이동 · 준비', phrase: '이동하고 준비하는 시간이에요' },
           { from: '16:00', to: '17:30', cat: 'academy', label: '센클 영어도서관' },
           { from: '17:30', to: '20:00', cat: 'homework', label: '수학' },
-          { from: '20:00', to: '21:00', cat: 'rest', label: '자유 · 취침 준비', phrase: '쉬면서 취침 준비하는 시간이에요' },
-          { from: '21:00', to: '24:00', cat: 'sleep', label: '취침', note: '9시 취침' }
+          { from: '20:00', to: '21:30', cat: 'rest', label: '자유 · 취침 준비', phrase: '쉬면서 취침 준비하는 시간이에요' },
+          { from: '21:30', to: '24:00', cat: 'sleep', label: '취침', note: '9시 30분 취침' }
         ],
         wed: [
           { from: '08:00', to: '09:00', cat: 'morning', label: '리틀팍스 영상' },
@@ -9731,8 +9731,8 @@
           { from: '17:00', to: '17:50', cat: 'academy', label: '댄스' },
           { from: '17:50', to: '18:00', cat: 'rest', label: '이동 · 준비', phrase: '이동하고 준비하는 시간이에요' },
           { from: '18:00', to: '20:00', cat: 'homework', label: '영어책' },
-          { from: '20:00', to: '21:00', cat: 'rest', label: '자유 · 취침 준비', phrase: '쉬면서 취침 준비하는 시간이에요' },
-          { from: '21:00', to: '24:00', cat: 'sleep', label: '취침', note: '9시 취침' }
+          { from: '20:00', to: '21:30', cat: 'rest', label: '자유 · 취침 준비', phrase: '쉬면서 취침 준비하는 시간이에요' },
+          { from: '21:30', to: '24:00', cat: 'sleep', label: '취침', note: '9시 30분 취침' }
         ],
         thu: [
           { from: '08:00', to: '09:00', cat: 'morning', label: '리틀팍스 영상' },
@@ -9742,8 +9742,8 @@
           { from: '16:20', to: '17:00', cat: 'rest', label: '쉬는 시간 · 이동' },
           { from: '17:00', to: '18:30', cat: 'academy', label: '센클 영어도서관' },
           { from: '18:30', to: '20:00', cat: 'homework', label: '영어책' },
-          { from: '20:00', to: '21:00', cat: 'rest', label: '자유 · 취침 준비', phrase: '쉬면서 취침 준비하는 시간이에요' },
-          { from: '21:00', to: '24:00', cat: 'sleep', label: '취침', note: '9시 취침' }
+          { from: '20:00', to: '21:30', cat: 'rest', label: '자유 · 취침 준비', phrase: '쉬면서 취침 준비하는 시간이에요' },
+          { from: '21:30', to: '24:00', cat: 'sleep', label: '취침', note: '9시 30분 취침' }
         ],
         fri: [
           { from: '08:00', to: '09:00', cat: 'morning', label: '리틀팍스 영상' },
@@ -9764,8 +9764,8 @@
           { from: '22:00', to: '24:00', cat: 'sleep', label: '취침', note: '10시 취침' }
         ],
         sun: [
-          { from: '09:00', to: '21:00', cat: 'homework', label: '센클 숙제 · 수학 · 국어 · 주산 · 일기' },
-          { from: '21:00', to: '24:00', cat: 'sleep', label: '취침', note: '9시 취침' }
+          { from: '09:00', to: '21:30', cat: 'homework', label: '센클 숙제 · 수학 · 국어 · 주산 · 일기' },
+          { from: '21:30', to: '24:00', cat: 'sleep', label: '취침', note: '9시 30분 취침' }
         ]
       }
     };

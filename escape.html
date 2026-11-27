@@ -882,6 +882,7 @@ let curLoc = null;         // 현재 문제 위치
 let solvedState = false;   // 현재 문제 정답 여부
 let dashSort = "rank";
 let dashTimer = null;
+let teacherFrom = "start";
 let editDraft = null;
 let confirmAction = null;
 
@@ -1287,16 +1288,19 @@ function paintAvatar(){
 }
 
 function fitMap(){
-  const stage = $("#stage"), wrap = $("#mapwrap");
-  if(!stage || !wrap || screenName !== "game") return;
-  const r = stage.getBoundingClientRect();
-  const availW = Math.max(260, r.width - 8);
-  const availH = Math.max(200, r.height - 8);
+  if(screenName !== "game") return;
+  const screenEl = $("#screen-game"), stage = $("#stage"), wrap = $("#mapwrap");
+  const top = $(".topbar"), bar = $("#missionBar");
+  if(!screenEl || !stage || !wrap) return;
+  const availW = Math.max(240, stage.clientWidth - 8);
+  const availH = Math.max(170, screenEl.clientHeight - (top ? top.offsetHeight : 0) - (bar ? bar.offsetHeight : 0) - 30);
   const ratio = ROOM_W / ROOM_H;
   let w = availW, h = w / ratio;
   if(h > availH){ h = availH; w = h * ratio; }
-  wrap.style.width = Math.floor(w) + "px";
-  wrap.style.height = Math.floor(h) + "px";
+  w = Math.floor(w); h = Math.floor(h);
+  wrap.style.width = w + "px";
+  wrap.style.height = h + "px";
+  stage.style.height = (h + 8) + "px";
 }
 
 /* ------------------------------ 충돌/이동 ------------------------------ */
@@ -1691,8 +1695,8 @@ function finishGame(){
 
 /* ------------------------------ 교사 대시보드 ------------------------------ */
 function openTeacher(){
-  const wasGame = screenName === "game";
-  if(wasGame){ stopClock(); game.active = false; }
+  teacherFrom = screenName === "game" ? "game" : "start";
+  if(teacherFrom === "game"){ stopClock(); game.active = false; }
   closeAllModals();
   showScreen("teacher");
   setTeacherTab("status");
@@ -1704,8 +1708,19 @@ function openTeacher(){
 }
 function closeTeacher(){
   if(dashTimer){ clearInterval(dashTimer); dashTimer = null; }
-  showScreen("start");
-  renderStart();
+  const backToGame = teacherFrom === "game" && curNo && rec && !rec.finishedAt;
+  teacherFrom = "start";
+  if(backToGame){
+    showScreen("game");
+    game.active = true;
+    startClock();
+    updateHUD();
+    refreshPins();
+    requestAnimationFrame(() => { fitMap(); paintAvatar(); });
+  } else {
+    showScreen("start");
+    renderStart();
+  }
 }
 function setTeacherTab(tab){
   $$("#teacherTabs button").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
@@ -2198,6 +2213,8 @@ function initApp(){
     delete r.name;                       // 이름은 저장하지 않음(익명 번호만 보관)
     if(!r.answers) r.answers = {};
     if(!r.wrong) r.wrong = {};
+    // 페이지가 비정상 종료되어 runSince가 남아 있으면 여기서 정리(시간 부풀림 방지)
+    if(r.runSince){ r.activeMs = (r.activeMs || 0) + Math.max(0, Date.now() - r.runSince); r.runSince = null; }
     r.no = Number(k);
   });
   muted = !!Store.get("muted", false);
